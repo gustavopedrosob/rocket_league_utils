@@ -1,0 +1,18 @@
+CONTAINS_BLACK_MARKET = r"black[_\- ]?markets?|bms?"
+CONTAINS_EXOTIC = r"exotics?"
+CONTAINS_IMPORT = r"importeds?|imports?"
+CONTAINS_LIMITED = r"limiteds?"
+CONTAINS_PREMIUM = r"premiums?"
+CONTAINS_RARE = r"rares?"
+CONTAINS_UNCOMMON = r"uncommons?"
+CONTAINS_VERY_RARE = r"very[_\- ]?rares?|vrs?"
+CONTAINS_REGEXS = [CONTAINS_BLACK_MARKET, CONTAINS_EXOTIC, CONTAINS_IMPORT, CONTAINS_LIMITED, CONTAINS_PREMIUM,
+                   CONTAINS_RARE, CONTAINS_UNCOMMON, CONTAINS_VERY_RARE]
+IS_BLACK_MARKET = r"^(black[_\- ]?markets?|bms?)$"
+IS_EXOTIC = r"^exotics?$"
+IS_IMPORT = r"^(importeds?|imports?)$"
+IS_LIMITED = r"^limiteds?$"
+IS_PREMIUM = r"^premiums?$"
+IS_RARE = r"^rares?$"
+IS_UNCOMMON = r"^uncommons?$"
+IS_VERY_RARE = r"^(very[_\- ]?rares?|vrs?)$"

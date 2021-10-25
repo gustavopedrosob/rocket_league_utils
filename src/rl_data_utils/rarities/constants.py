@@ -1,0 +1,9 @@
+BLACK_MARKET = "Black market"
+EXOTIC = "Exotic"
+IMPORT = "Import"
+LIMITED = "Limited"
+PREMIUM = "Premium"
+RARE = "Rare"
+UNCOMMON = "Uncommon"
+VERY_RARE = "Very rare"
+RARITIES = [BLACK_MARKET, EXOTIC, IMPORT, LIMITED, PREMIUM, RARE, UNCOMMON, VERY_RARE]
