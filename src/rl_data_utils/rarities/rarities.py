@@ -38,21 +38,21 @@ def get_respective_rarity(rarity, rarities=RARITIES):
     return RaritiesFunctions.get_respective(rarity, rarities)
 
 
-def get_rgba_rarity(rarity: str):
+def get_rgb_rarity(rarity: str):
     if is_rare(rarity):
-        return 116, 151, 235, .3
+        return 116, 151, 235
     elif is_very_rare(rarity):
-        return 158, 124, 252, .3
+        return 158, 124, 252
     elif is_import(rarity):
-        return 227, 90, 82, .3
+        return 227, 90, 82
     elif is_exotic(rarity):
-        return 236, 219, 108, .3
+        return 236, 219, 108
     elif is_black_market(rarity):
-        return 255, 0, 255, .3
+        return 255, 0, 255
     elif is_premium(rarity):
-        return 107, 241, 174, .3
+        return 107, 241, 174
     elif is_limited(rarity):
-        return 247, 121, 57, .3
+        return 247, 121, 57
 
 
 def is_rarity(string: str) -> bool:
