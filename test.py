@@ -2,6 +2,7 @@ from rl_data_utils.item import Item
 from datetime import datetime
 from rl_data_utils.names.names import get_decal_and_car_name
 from rl_data_utils.names import compare_names
+import pyperclip
 
 init = datetime.now()
 item_1 = Item.from_string('tw dingo imported')

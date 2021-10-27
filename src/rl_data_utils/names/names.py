@@ -9,7 +9,7 @@ def compare_names(name_1: str, name_2: str, type_1: str = None, type_2: str = No
         name_1 = get_string_decal_and_car_name(name_1)
     if is_car_decal_name(name_2, type_2):
         name_2 = get_string_decal_and_car_name(name_2)
-    name_1 = name_1.replace(' ', r'[_\- ]?')
+    name_1 = f'^{name_1}$'.replace(' ', r'[_\- ]?')
     return _regex_found(name_1, name_2)
 
 
