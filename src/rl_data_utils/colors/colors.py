@@ -26,6 +26,10 @@ def contains_colors(string: str) -> bool:
     return ColorsFunctions.contains(string)
 
 
+def contains_colors_in_list(string: str, container: list) -> bool:
+    return ColorsFunctions.contains_in_list(string, container)
+
+
 def get_color_in_string(string: str) -> str:
     return ColorsFunctions.get_in_string(string)
 

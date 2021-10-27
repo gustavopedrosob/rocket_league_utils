@@ -47,6 +47,10 @@ class AttributesFunctions:
         return any(map(lambda f: f(string), cls.contains_functions))
 
     @classmethod
+    def contains_in_list(cls, string, container):
+        return any(map(lambda e: cls.compare(string, e), container))
+
+    @classmethod
     def get_in_string(cls, string, null=None):
         result = search('|'.join(cls.contains_regex), string, IGNORECASE)
         if result:

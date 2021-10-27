@@ -26,6 +26,10 @@ def contains_rarities(string: str):
     return RaritiesFunctions.contains(string)
 
 
+def contains_rarities_in_list(string: str, container: list) -> bool:
+    return RaritiesFunctions.contains_in_list(string, container)
+
+
 def get_rarity_in_string(string: str) -> str:
     return RaritiesFunctions.get_in_string(string)
 

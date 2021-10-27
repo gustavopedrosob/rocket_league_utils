@@ -26,6 +26,10 @@ def contains_types(string: str) -> bool:
     return TypesFunctions.contains(string)
 
 
+def contains_types_in_list(string: str, container: list) -> bool:
+    return TypesFunctions.contains_in_list(string, container)
+
+
 def get_respective_type(type_, types=TYPES):
     return TypesFunctions.get_respective(type_, types)
 
