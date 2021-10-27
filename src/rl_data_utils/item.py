@@ -51,6 +51,21 @@ def get_respective_attributes_in_string(string: str) -> dict:
     return response
 
 
+def validate_attributes(color: str = None, type_: str = None, rarity: str = None, certified: str = None):
+    from rl_data_utils.certificates.certificates import validate_certified
+    from rl_data_utils.colors.colors import validate_color
+    from rl_data_utils.rarities.rarities import validate_rarity
+    from rl_data_utils.types.types import validate_type
+    if color:
+        validate_color(color)
+    if type_:
+        validate_type(type_)
+    if rarity:
+        validate_rarity(rarity)
+    if certified:
+        validate_certified(certified)
+
+
 class Item(Name, Color, Type, Rarity, Certified):
     def __init__(self, name: str, color: str = "", type_: str = "", rarity: str = "", certified: str = ""):
         self.name = name
@@ -60,14 +75,7 @@ class Item(Name, Color, Type, Rarity, Certified):
         self.certified = certified
 
     def validate(self):
-        if self.color:
-            self.validate_color()
-        if self.type:
-            self.validate_type()
-        if self.rarity:
-            self.validate_rarity()
-        if self.certified:
-            self.validate_certified()
+        validate_attributes(self.color, self.type, self.rarity, self.certified)
 
     def __eq__(self, other):
         if isinstance(other, Item):
