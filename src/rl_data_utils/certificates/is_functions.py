@@ -62,5 +62,9 @@ def is_victor(certified: str) -> bool:
     return _regex_found(IS_VICTOR, certified)
 
 
+def is_none(certified: str) -> bool:
+    return _regex_found(IS_NONE, certified)
+
+
 IS_FUNCTIONS = [is_acrobat, is_aviator, is_goalkeeper, is_guardian, is_juggler, is_paragon, is_playmaker, is_scorer,
-                is_show_off, is_sniper, is_striker, is_sweeper, is_tactician, is_turtle, is_victor]
+                is_show_off, is_sniper, is_striker, is_sweeper, is_tactician, is_turtle, is_victor, is_none]
