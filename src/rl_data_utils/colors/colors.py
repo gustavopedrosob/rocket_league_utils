@@ -1,6 +1,6 @@
 from rl_data_utils.item.abc_item import get_items_by_condition
 from rl_data_utils.items.abc_items import ABCItems
-from rl_data_utils.color.color import ABCColor
+from rl_data_utils.color.color import ABCColor, validate_color
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 

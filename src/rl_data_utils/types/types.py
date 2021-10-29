@@ -1,6 +1,6 @@
 from rl_data_utils.item.abc_item import get_items_by_condition
 from rl_data_utils.items.abc_items import ABCItems
-from rl_data_utils.type.type import ABCType
+from rl_data_utils.type.type import ABCType, validate_type
 from rl_data_utils.__others import _regex_found
 from re import IGNORECASE
 
@@ -73,6 +73,7 @@ def get_types(items: list[ABCType]):
 
 
 def get_items_by_type(type_: str, items: list[ABCType]):
+    validate_type(type_)
     return get_items_by_condition(lambda item: item.compare_types(type_), items)
 
 

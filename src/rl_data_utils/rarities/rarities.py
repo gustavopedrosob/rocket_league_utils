@@ -1,6 +1,6 @@
 from rl_data_utils.item.abc_item import get_items_by_condition
 from rl_data_utils.items.abc_items import ABCItems
-from rl_data_utils.rarity.rarity import ABCRarity
+from rl_data_utils.rarity.rarity import ABCRarity, validate_rarity
 from rl_data_utils.__others import _regex_found
 from re import IGNORECASE
 
@@ -52,6 +52,7 @@ def get_items_by_rarity_regex(rarity_pattern: str, items: list[ABCRarity], flags
 
 
 def get_items_by_rarity(rarity: str, items: list[ABCRarity]):
+    validate_rarity(rarity)
     return get_items_by_condition(lambda item: item.compare_rarities(rarity), items)
 
 

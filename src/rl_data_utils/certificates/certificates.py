@@ -1,6 +1,6 @@
-from rl_data_utils.item.abc_item import ABCItem, get_items_by_condition
+from rl_data_utils.item.abc_item import get_items_by_condition
 from rl_data_utils.items.abc_items import ABCItems
-from rl_data_utils.certified.certified import ABCCertified
+from rl_data_utils.certified.certified import ABCCertified, validate_certified
 from rl_data_utils.__others import _regex_found
 from re import IGNORECASE
 
@@ -72,6 +72,7 @@ def get_certificates(items: list[ABCCertified]):
 
 
 def get_items_by_certified(certified: str, items: list[ABCCertified]):
+    validate_certified(certified)
     return get_items_by_condition(lambda item: item.compare_certificates(certified), items)
 
 
