@@ -1,4 +1,5 @@
 from re import search, IGNORECASE
+from functools import lru_cache
 
 
 def _regex_found(pattern, string) -> bool:

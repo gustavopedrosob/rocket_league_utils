@@ -4,6 +4,7 @@ from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
 from rl_data_utils.rarities.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.rarities.regexs import CONTAINS_REGEXS
+from abc import ABC, abstractmethod
 
 
 class RaritiesFunctions(AttributesFunctions):
@@ -71,39 +72,58 @@ def validate_rarity(string):
     return RaritiesFunctions.validate(string)
 
 
-class Rarity:
+class ABCRarity(ABC):
+    def get_respective_rarity(self):
+        return get_respective_rarity(self.get_rarity())
+
+    def get_rgba_rarity(self):
+        return get_rgba_rarity(self.get_rarity())
+
+    def is_black_market(self) -> bool:
+        return is_black_market(self.get_rarity())
+
+    def is_exotic(self) -> bool:
+        return is_exotic(self.get_rarity())
+
+    def is_import(self) -> bool:
+        return is_import(self.get_rarity())
+
+    def is_limited(self) -> bool:
+        return is_limited(self.get_rarity())
+
+    def is_premium(self) -> bool:
+        return is_premium(self.get_rarity())
+
+    def is_rare(self) -> bool:
+        return is_rare(self.get_rarity())
+
+    def is_uncommon(self) -> bool:
+        return is_uncommon(self.get_rarity())
+
+    def is_very_rare(self) -> bool:
+        return is_very_rare(self.get_rarity())
+
+    def validate_rarity(self):
+        validate_rarity(self.get_rarity())
+
+    def compare_rarities(self, rarity: str):
+        return compare_rarities(self.get_rarity(), rarity)
+
+    @abstractmethod
+    def get_rarity(self):
+        pass
+
+    @abstractmethod
+    def set_rarity(self, rarity: str):
+        pass
+
+
+class Rarity(ABCRarity):
     def __init__(self, rarity: str):
         self.rarity = rarity
 
-    def get_respective_rarity(self):
-        return get_respective_rarity(self.rarity)
+    def get_rarity(self):
+        return self.rarity
 
-    def get_rgba_rarity(self):
-        return get_rgba_rarity(self.rarity)
-
-    def is_black_market(self) -> bool:
-        return is_black_market(self.rarity)
-
-    def is_exotic(self) -> bool:
-        return is_exotic(self.rarity)
-
-    def is_import(self) -> bool:
-        return is_import(self.rarity)
-
-    def is_limited(self) -> bool:
-        return is_limited(self.rarity)
-
-    def is_premium(self) -> bool:
-        return is_premium(self.rarity)
-
-    def is_rare(self) -> bool:
-        return is_rare(self.rarity)
-
-    def is_uncommon(self) -> bool:
-        return is_uncommon(self.rarity)
-
-    def is_very_rare(self) -> bool:
-        return is_very_rare(self.rarity)
-
-    def validate_rarity(self):
-        validate_rarity(self.rarity)
+    def set_rarity(self, rarity: str):
+        self.rarity = rarity

@@ -2,6 +2,7 @@ from rl_data_utils.names.is_functions import is_credits
 from rl_data_utils.types.is_functions import is_decal
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.names.constants import CARS_NAMES_WITH_DECAL
+from abc import ABC, abstractmethod
 
 
 def compare_names(name_1: str, name_2: str, type_1: str = None, type_2: str = None) -> str:
@@ -53,10 +54,7 @@ def is_car_decal_name_by_name_and_type(name: str, type_: str) -> bool:
     return is_car_decal_name_by_name(name) and is_decal(type_)
 
 
-class Name:
-    def __init__(self, name: str):
-        self.name = name
-
+class ABCName(ABC):
     def have_car_in_name(self) -> bool:
         return have_car_in_name(self.name)
 
@@ -65,3 +63,22 @@ class Name:
 
     def compare_name(self, name: str) -> bool:
         return compare_names(self.name, name)
+
+    @abstractmethod
+    def get_name(self):
+        pass
+
+    @abstractmethod
+    def set_name(self, name: str):
+        pass
+
+
+class Name(ABCName):
+    def __init__(self, name: str):
+        self.name = name
+
+    def get_name(self):
+        return self.name
+
+    def set_name(self, name: str):
+        self.name = name

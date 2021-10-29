@@ -4,6 +4,7 @@ from rl_data_utils.certificates.constants import CERTIFICATES
 from rl_data_utils.certificates.regexs import CONTAINS_REGEXS
 from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
+from abc import ABC, abstractmethod
 
 
 class CertificatesFunctions(AttributesFunctions):
@@ -54,60 +55,76 @@ def validate_certified(string):
     return CertificatesFunctions.validate(string)
 
 
-class Certified:
+class ABCCertified(ABC):
+    def compare_certificates(self, certified: str) -> bool:
+        return compare_certificates(self.get_certified(), certified)
+
+    def get_respective_certified(self) -> str:
+        return get_respective_certified(self.get_certified())
+
+    def is_acrobat(self) -> bool:
+        return is_acrobat(self.get_certified())
+
+    def is_aviator(self) -> bool:
+        return is_aviator(self.get_certified())
+
+    def is_goalkeeper(self) -> bool:
+        return is_goalkeeper(self.get_certified())
+
+    def is_guardian(self) -> bool:
+        return is_guardian(self.get_certified())
+
+    def is_juggler(self) -> bool:
+        return is_juggler(self.get_certified())
+
+    def is_paragon(self) -> bool:
+        return is_paragon(self.get_certified())
+
+    def is_playmaker(self) -> bool:
+        return is_playmaker(self.get_certified())
+
+    def is_scorer(self) -> bool:
+        return is_scorer(self.get_certified())
+
+    def is_show_off(self) -> bool:
+        return is_show_off(self.get_certified())
+
+    def is_sniper(self) -> bool:
+        return is_sniper(self.get_certified())
+
+    def is_striker(self) -> bool:
+        return is_striker(self.get_certified())
+
+    def is_sweeper(self) -> bool:
+        return is_sweeper(self.get_certified())
+
+    def is_tactician(self) -> bool:
+        return is_tactician(self.get_certified())
+
+    def is_turtle(self) -> bool:
+        return is_turtle(self.get_certified())
+
+    def is_victor(self) -> bool:
+        return is_victor(self.get_certified())
+
+    def validate_certified(self):
+        validate_certified(self.get_certified())
+
+    @abstractmethod
+    def get_certified(self):
+        pass
+
+    @abstractmethod
+    def set_certified(self, certified: str):
+        pass
+
+
+class Certified(ABCCertified):
     def __init__(self, certified: str):
         self.certified = certified
 
-    def compare_certificates(self, certified: str) -> bool:
-        return compare_certificates(self.certified, certified)
+    def get_certified(self):
+        return self.certified
 
-    def get_respective_certified(self) -> str:
-        return get_respective_certified(self.certified)
-
-    def is_acrobat(self) -> bool:
-        return is_acrobat(self.certified)
-
-    def is_aviator(self) -> bool:
-        return is_aviator(self.certified)
-
-    def is_goalkeeper(self) -> bool:
-        return is_goalkeeper(self.certified)
-
-    def is_guardian(self) -> bool:
-        return is_guardian(self.certified)
-
-    def is_juggler(self) -> bool:
-        return is_juggler(self.certified)
-
-    def is_paragon(self) -> bool:
-        return is_paragon(self.certified)
-
-    def is_playmaker(self) -> bool:
-        return is_playmaker(self.certified)
-
-    def is_scorer(self) -> bool:
-        return is_scorer(self.certified)
-
-    def is_show_off(self) -> bool:
-        return is_show_off(self.certified)
-
-    def is_sniper(self) -> bool:
-        return is_sniper(self.certified)
-
-    def is_striker(self) -> bool:
-        return is_striker(self.certified)
-
-    def is_sweeper(self) -> bool:
-        return is_sweeper(self.certified)
-
-    def is_tactician(self) -> bool:
-        return is_tactician(self.certified)
-
-    def is_turtle(self) -> bool:
-        return is_turtle(self.certified)
-
-    def is_victor(self) -> bool:
-        return is_victor(self.certified)
-
-    def validate_certified(self):
-        validate_certified(self.certified)
+    def set_certified(self, certified: str):
+        self.certified = certified

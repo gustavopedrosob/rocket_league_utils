@@ -4,6 +4,7 @@ from rl_data_utils.colors.is_functions import *
 from rl_data_utils.exceptions import InvalidColorsList, ColorNotExists
 from rl_data_utils.colors.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.colors.regexs import CONTAINS_REGEXS
+from abc import ABC, abstractmethod
 
 
 class ColorsFunctions(AttributesFunctions):
@@ -83,60 +84,76 @@ def validate_colors_list(container):
     return ColorsFunctions.validate_list(container)
 
 
-class Color:
+class ABCColor(ABC):
+    def compare_colors(self, color) -> bool:
+        return compare_colors(self.get_color(), color)
+
+    def get_hex_colors(self):
+        return get_hex_colors(self.get_color())
+
+    def get_respective_color(self):
+        return get_respective_color(self.get_color())
+
+    def is_black(self) -> bool:
+        return is_black(self.get_color())
+
+    def is_burnt_sienna(self) -> bool:
+        return is_burnt_sienna(self.get_color())
+
+    def is_cobalt(self) -> bool:
+        return is_cobalt(self.get_color())
+
+    def is_crimson(self) -> bool:
+        return is_crimson(self.get_color())
+
+    def is_default(self):
+        return is_default(self.get_color())
+
+    def is_forest_green(self) -> bool:
+        return is_forest_green(self.get_color())
+
+    def is_grey(self) -> bool:
+        return is_grey(self.get_color())
+
+    def is_lime(self) -> bool:
+        return is_lime(self.get_color())
+
+    def is_orange(self) -> bool:
+        return is_orange(self.get_color())
+
+    def is_pink(self) -> bool:
+        return is_pink(self.get_color())
+
+    def is_purple(self) -> bool:
+        return is_purple(self.get_color())
+
+    def is_saffron(self) -> bool:
+        return is_saffron(self.get_color())
+
+    def is_sky_blue(self) -> bool:
+        return is_sky_blue(self.get_color())
+
+    def is_titanium_white(self) -> bool:
+        return is_titanium_white(self.get_color())
+
+    def validate_color(self):
+        validate_color(self.get_color())
+
+    @abstractmethod
+    def get_color(self):
+        pass
+
+    @abstractmethod
+    def set_color(self, color: str):
+        pass
+
+
+class Color(ABCColor):
     def __init__(self, color: str):
         self.color = color
 
-    def compare_color(self, color) -> bool:
-        return compare_colors(self.color, color)
+    def get_color(self):
+        return self.color
 
-    def get_hex_colors(self):
-        return get_hex_colors(self.color)
-
-    def get_respective_color(self):
-        return get_respective_color(self.color)
-
-    def is_black(self) -> bool:
-        return is_black(self.color)
-
-    def is_burnt_sienna(self) -> bool:
-        return is_burnt_sienna(self.color)
-
-    def is_cobalt(self) -> bool:
-        return is_cobalt(self.color)
-
-    def is_crimson(self) -> bool:
-        return is_crimson(self.color)
-
-    def is_default(self):
-        return is_default(self.color)
-
-    def is_forest_green(self) -> bool:
-        return is_forest_green(self.color)
-
-    def is_grey(self) -> bool:
-        return is_grey(self.color)
-
-    def is_lime(self) -> bool:
-        return is_lime(self.color)
-
-    def is_orange(self) -> bool:
-        return is_orange(self.color)
-
-    def is_pink(self) -> bool:
-        return is_pink(self.color)
-
-    def is_purple(self) -> bool:
-        return is_purple(self.color)
-
-    def is_saffron(self) -> bool:
-        return is_saffron(self.color)
-
-    def is_sky_blue(self) -> bool:
-        return is_sky_blue(self.color)
-
-    def is_titanium_white(self) -> bool:
-        return is_titanium_white(self.color)
-
-    def validate_color(self):
-        validate_color(self.color)
+    def set_color(self, color: str):
+        self.color = color
