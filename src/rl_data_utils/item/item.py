@@ -3,12 +3,14 @@ from rl_data_utils.item.utils import get_attributes_in_string
 
 
 class Item(ABCItem):
-    def __init__(self, name: str, color: str = "", type_: str = "", rarity: str = "", certified: str = ""):
+    def __init__(self, name: str, color: str = "", type_: str = "", rarity: str = "", certified: str = "",
+                 quantity: int = 1):
         self.name = name
         self.color = color
         self.type = type_
         self.rarity = rarity
         self.certified = certified
+        self.quantity = quantity
 
     def get_certified(self):
         return self.certified
@@ -39,6 +41,12 @@ class Item(ABCItem):
 
     def set_type(self, type_: str):
         self.type = type_
+
+    def get_quantity(self) -> int:
+        return self.quantity
+
+    def set_quantity(self, quantity: int):
+        self.quantity = quantity
 
     @staticmethod
     def from_string(string: str):
