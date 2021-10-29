@@ -14,7 +14,7 @@ from rl_data_utils.item.abc_item import get_items_by_condition, get_items_by, ge
     get_items_uncommon, get_items_rare, get_items_very_rare, get_items_import, get_items_exotic, get_items_limited, \
     get_items_antenna, get_items_avatar_border, get_items_banner, get_items_boost, get_items_car, get_items_decal, \
     get_items_engine_audio, get_items_gift_pack, get_items_goal_explosion, get_items_paint_finish, \
-    get_items_player_anthem, get_items_topper, get_items_trail, get_items_wheel
+    get_items_player_anthem, get_items_topper, get_items_trail, get_items_wheel, ABCItem
 
 
 class ABCItems(ABC):
