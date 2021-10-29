@@ -1,127 +1,140 @@
-from rl_data_utils.types.is_functions import *
-from rl_data_utils.types.constants import *
-from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
-from rl_data_utils.types.contains import CONTAINS_FUNCTIONS
-from rl_data_utils.types.regexs import CONTAINS_REGEXS
-from abc import ABC, abstractmethod
+from rl_data_utils.item.abc_item import get_items_by_condition
+from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.type.type import ABCType
+from rl_data_utils.__others import _regex_found
+from re import IGNORECASE
 
 
-class TypesFunctions(AttributesFunctions):
-    is_functions = IS_FUNCTIONS
-    contains_functions = CONTAINS_FUNCTIONS
-    contains_regex = CONTAINS_REGEXS
-    attribute_not_exists_exception = TypeNotExists
-    invalid_attribute_list_exception = InvalidTypesList
+class ABCTypes(ABCItems):
+    def get_items_by_type_regex(self, type_pattern: str, flags=IGNORECASE):
+        return get_items_by_type_regex(type_pattern, self.get_items(), flags)
+
+    def get_items_by_type(self, type_: str):
+        return get_items_by_type(type_, self.get_items())
+
+    def get_items_by_type_equal_to(self, type_: str):
+        return get_items_by_type_equal_to(type_, self.get_items())
+
+    def get_items_by_type_contains(self, type_: str):
+        return get_items_by_type_contains(type_, self.get_items())
+
+    def get_types(self):
+        return get_types(self.get_items())
+
+    def get_items_antenna(self) -> bool:
+        return get_items_antenna(self.get_items())
+
+    def get_items_avatar_border(self) -> bool:
+        return get_items_avatar_border(self.get_items())
+
+    def get_items_banner(self) -> bool:
+        return get_items_banner(self.get_items())
+
+    def get_items_boost(self) -> bool:
+        return get_items_boost(self.get_items())
+
+    def get_items_car(self) -> bool:
+        return get_items_car(self.get_items())
+
+    def get_items_decal(self) -> bool:
+        return get_items_decal(self.get_items())
+
+    def get_items_engine_audio(self) -> bool:
+        return get_items_engine_audio(self.get_items())
+
+    def get_items_gift_pack(self) -> bool:
+        return get_items_gift_pack(self.get_items())
+
+    def get_items_goal_explosion(self) -> bool:
+        return get_items_goal_explosion(self.get_items())
+
+    def get_items_paint_finish(self) -> bool:
+        return get_items_paint_finish(self.get_items())
+
+    def get_items_player_anthem(self):
+        return get_items_player_anthem(self.get_items())
+
+    def get_items_topper(self) -> bool:
+        return get_items_topper(self.get_items())
+
+    def get_items_trail(self) -> bool:
+        return get_items_trail(self.get_items())
+
+    def get_items_wheel(self) -> bool:
+        return get_items_wheel(self.get_items())
 
 
-def all_are_types(container):
-    return TypesFunctions.all_are(container)
+def get_items_by_type_regex(type_pattern: str, items: list[ABCType], flags=IGNORECASE):
+    return get_items_by_condition(lambda item: _regex_found(type_pattern, item.get_type(), flags), items)
 
 
-def compare_types(type_1: str, type_2: str) -> bool:
-    return TypesFunctions.compare(type_1, type_2)
+def get_types(items: list[ABCType]):
+    return {item.get_type() for item in items}
 
 
-def contains_types(string: str) -> bool:
-    return TypesFunctions.contains(string)
+def get_items_by_type(type_: str, items: list[ABCType]):
+    return get_items_by_condition(lambda item: item.compare_types(type_), items)
 
 
-def contains_types_in_list(string: str, container: list) -> bool:
-    return TypesFunctions.contains_in_list(string, container)
+def get_items_by_type_equal_to(type_: str, items: list[ABCType]):
+    return get_items_by_condition(lambda item: item.get_type() == type_, items)
 
 
-def get_respective_type(type_, types=TYPES):
-    return TypesFunctions.get_respective(type_, types)
+def get_items_by_type_contains(type_: str, items: list[ABCType]):
+    return get_items_by_condition(lambda item: type_ in item.get_type(), items)
 
 
-def get_type_in_string(string: str) -> str:
-    return TypesFunctions.get_in_string(string)
+def get_items_antenna(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_antenna(), items)
 
 
-def is_type(string: str) -> bool:
-    return TypesFunctions.is_(string)
+def get_items_avatar_border(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_avatar_border(), items)
 
 
-def is_type_list(container) -> bool:
-    return TypesFunctions.validate_list(container)
+def get_items_banner(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_banner(), items)
 
 
-def validate_type(string):
-    return TypesFunctions.validate(string)
+def get_items_boost(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_boost(), items)
 
 
-def validate_types_list(container):
-    return TypesFunctions.validate_list(container)
+def get_items_car(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_car(), items)
 
 
-class ABCType(ABC):
-    def compare_types(self, type_: str) -> bool:
-        return compare_types(self.get_type(), type_)
-
-    def get_respective_type(self) -> str:
-        return get_respective_type(self.get_type())
-
-    def is_antenna(self) -> bool:
-        return is_antenna(self.get_type())
-
-    def is_avatar_border(self) -> bool:
-        return is_avatar_border(self.get_type())
-
-    def is_banner(self) -> bool:
-        return is_banner(self.get_type())
-
-    def is_boost(self) -> bool:
-        return is_boost(self.get_type())
-
-    def is_car(self) -> bool:
-        return is_car(self.get_type())
-
-    def is_decal(self) -> bool:
-        return is_decal(self.get_type())
-
-    def is_engine_audio(self) -> bool:
-        return is_engine_audio(self.get_type())
-
-    def is_gift_pack(self) -> bool:
-        return is_gift_pack(self.get_type())
-
-    def is_goal_explosion(self) -> bool:
-        return is_goal_explosion(self.get_type())
-
-    def is_paint_finish(self) -> bool:
-        return is_paint_finish(self.get_type())
-
-    def is_player_anthem(self):
-        return is_player_anthem(self.get_type())
-
-    def is_topper(self) -> bool:
-        return is_topper(self.get_type())
-
-    def is_trail(self) -> bool:
-        return is_trail(self.get_type())
-
-    def is_wheel(self) -> bool:
-        return is_wheel(self.get_type())
-
-    def validate_type(self):
-        validate_type(self.get_type())
-
-    @abstractmethod
-    def get_type(self):
-        pass
-
-    @abstractmethod
-    def set_type(self, type_: str):
-        pass
+def get_items_decal(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_decal(), items)
 
 
-class Type(ABCType):
-    def __init__(self, type_: str):
-        self.type = type_
+def get_items_engine_audio(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_engine_audio(), items)
 
-    def get_type(self):
-        return self.type
 
-    def set_type(self, type_: str):
-        self.type = type_
+def get_items_gift_pack(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_gift_pack(), items)
+
+
+def get_items_goal_explosion(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_goal_explosion(), items)
+
+
+def get_items_paint_finish(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_paint_finish(), items)
+
+
+def get_items_player_anthem(items: list[ABCType]):
+    return get_items_by_condition(lambda item: item.is_player_anthem(), items)
+
+
+def get_items_topper(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_topper(), items)
+
+
+def get_items_trail(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_trail(), items)
+
+
+def get_items_wheel(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_wheel(), items)

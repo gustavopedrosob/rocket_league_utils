@@ -1,84 +1,41 @@
-from rl_data_utils.names.is_functions import is_credits
-from rl_data_utils.types.is_functions import is_decal
+from rl_data_utils.items.abc_items import ABCItems, get_items_by_condition
+from rl_data_utils.name.name import ABCName
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.names.constants import CARS_NAMES_WITH_DECAL
-from abc import ABC, abstractmethod
+from re import IGNORECASE
 
 
-def compare_names(name_1: str, name_2: str, type_1: str = None, type_2: str = None) -> str:
-    if is_car_decal_name(name_1, type_1):
-        name_1 = get_string_decal_and_car_name(name_1)
-    if is_car_decal_name(name_2, type_2):
-        name_2 = get_string_decal_and_car_name(name_2)
-    name_1 = f'^{name_1}$'.replace(' ', r'[_\- ]?')
-    return _regex_found(name_1, name_2)
+class ABCNames(ABCItems):
+    def get_items_by_name_regex(self, name_pattern: str, flags=IGNORECASE):
+        return get_items_by_name_regex(name_pattern, self.get_items(), flags)
+
+    def get_names(self):
+        return get_names(self.get_items())
+
+    def get_items_by_name_equal_to(self, name: str):
+        return get_items_by_name_equal_to(name, self.get_items())
+
+    def get_items_by_name(self, name: str):
+        return get_items_by_name(name, self.get_items())
+
+    def get_items_by_name_contains(self, name: str):
+        return get_items_by_name_contains(name, self.get_items())
 
 
-def get_decal_and_car_name(name: str):
-    from re import search, sub, IGNORECASE
-    result = search('|'.join(CARS_NAMES_WITH_DECAL), name, IGNORECASE)
-    car_name = result.group(0)
-    # remove car_name from string
-    name = name.replace(car_name, '')
-    # remove separators from name
-    name = sub(r'[(\)\[\]:]', r'', name)
-    decal_name = name.strip()
-    return decal_name, car_name
+def get_items_by_name_regex(name_pattern: str, items: list[ABCName], flags=IGNORECASE):
+    return get_items_by_condition(lambda item: _regex_found(name_pattern, item.get_name(), flags), items)
 
 
-def get_string_decal_and_car_name(name: str) -> str:
-    car_name, decal_name = get_decal_and_car_name(name)
-    return f'{car_name} {decal_name}'
+def get_names(items: list[ABCName]):
+    return {item.get_name() for item in items}
 
 
-def has_car_decal_name_separator(name: str) -> bool:
-    return _regex_found(r'[(\)\[\]:]', name)
+def get_items_by_name(name: str, items: list[ABCName]):
+    return get_items_by_condition(lambda item: item.compare_name(name), items)
 
 
-def have_car_in_name(name: str):
-    return _regex_found('|'.join(CARS_NAMES_WITH_DECAL), name)
+def get_items_by_name_equal_to(name: str, items: list[ABCName]):
+    return get_items_by_condition(lambda item: item.get_name() == name, items)
 
 
-def is_car_decal_name(name: str, type_: str = None) -> bool:
-    if name and type_:
-        return is_car_decal_name_by_name_and_type(name, type_)
-    else:
-        return is_car_decal_name_by_name(name)
-
-
-def is_car_decal_name_by_name(name: str) -> bool:
-    return have_car_in_name(name) and has_car_decal_name_separator(name)
-
-
-def is_car_decal_name_by_name_and_type(name: str, type_: str) -> bool:
-    return is_car_decal_name_by_name(name) and is_decal(type_)
-
-
-class ABCName(ABC):
-    def have_car_in_name(self) -> bool:
-        return have_car_in_name(self.name)
-
-    def is_credits(self) -> bool:
-        return is_credits(self.name)
-
-    def compare_name(self, name: str) -> bool:
-        return compare_names(self.name, name)
-
-    @abstractmethod
-    def get_name(self):
-        pass
-
-    @abstractmethod
-    def set_name(self, name: str):
-        pass
-
-
-class Name(ABCName):
-    def __init__(self, name: str):
-        self.name = name
-
-    def get_name(self):
-        return self.name
-
-    def set_name(self, name: str):
-        self.name = name
+def get_items_by_name_contains(name: str, items: list[ABCName]):
+    return get_items_by_condition(lambda item: name in item.get_name(), items)

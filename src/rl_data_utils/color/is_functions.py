@@ -1,5 +1,5 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.colors.regexs import *
+from rl_data_utils.color.regexs import *
 
 
 def is_black(color: str) -> bool:

@@ -1,5 +1,5 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.certificates.regexs import *
+from rl_data_utils.certified.regexs import *
 
 
 def contains_acrobat(certified: str) -> bool:

@@ -1,5 +1,5 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.names.regexs import *
+from rl_data_utils.name.regexs import *
 
 
 def is_credits(name: str) -> bool:

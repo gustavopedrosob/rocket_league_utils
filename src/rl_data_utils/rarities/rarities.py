@@ -1,129 +1,91 @@
-from rl_data_utils.rarities.is_functions import *
-from rl_data_utils.rarities.constants import *
-from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
-from rl_data_utils.rarities.contains import CONTAINS_FUNCTIONS
-from rl_data_utils.rarities.regexs import CONTAINS_REGEXS
-from abc import ABC, abstractmethod
+from rl_data_utils.item.abc_item import get_items_by_condition
+from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.rarity.rarity import ABCRarity
+from rl_data_utils.__others import _regex_found
+from re import IGNORECASE
 
 
-class RaritiesFunctions(AttributesFunctions):
-    is_functions = IS_FUNCTIONS
-    contains_functions = CONTAINS_FUNCTIONS
-    contains_regex = CONTAINS_REGEXS
-    attribute_not_exists_exception = RarityNotExists
-    invalid_attribute_list_exception = InvalidRaritiesList
+class ABCRarities(ABCItems):
+    def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
+        return get_items_by_rarity_regex(rarity_pattern, self.get_items(), flags)
+
+    def get_items_by_rarity(self, rarity: str):
+        return get_items_by_rarity(rarity, self.get_items())
+
+    def get_items_by_rarity_equal_to(self, rarity: str):
+        return get_items_by_rarity_equal_to(rarity, self.get_items())
+
+    def get_items_by_rarity_contains(self, rarity: str):
+        return get_items_by_rarity_contains(rarity, self.get_items())
+
+    def get_rarities(self):
+        return get_rarities(self.get_items())
+
+    def get_items_uncommon(self):
+        return get_items_uncommon(self.get_items())
+
+    def get_items_rare(self):
+        return get_items_rare(self.get_items())
+
+    def get_items_very_rare(self):
+        return get_items_very_rare(self.get_items())
+
+    def get_items_import(self):
+        return get_items_import(self.get_items())
+
+    def get_items_exotic(self):
+        return get_items_exotic(self.get_items())
+
+    def get_items_black_market(self):
+        return get_items_black_market(self.get_items())
+
+    def get_items_limited(self):
+        return get_items_limited(self.get_items())
 
 
-def all_are_rarities(container):
-    return RaritiesFunctions.all_are(container)
+def get_rarities(items: list[ABCRarity]):
+    return {item.get_rarity() for item in items}
 
 
-def compare_rarities(rarity_1: str, rarity_2: str) -> bool:
-    return RaritiesFunctions.compare(rarity_1, rarity_2)
+def get_items_by_rarity_regex(rarity_pattern: str, items: list[ABCRarity], flags=IGNORECASE):
+    return get_items_by_condition(lambda item: _regex_found(rarity_pattern, item.get_rarity(), flags), items)
 
 
-def contains_rarities(string: str):
-    return RaritiesFunctions.contains(string)
+def get_items_by_rarity(rarity: str, items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.compare_rarities(rarity), items)
 
 
-def contains_rarities_in_list(string: str, container: list) -> bool:
-    return RaritiesFunctions.contains_in_list(string, container)
+def get_items_by_rarity_equal_to(rarity: str, items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.get_rarity() == rarity, items)
 
 
-def get_rarity_in_string(string: str) -> str:
-    return RaritiesFunctions.get_in_string(string)
+def get_items_by_rarity_contains(rarity: str, items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: rarity in item.get_rarity(), items)
 
 
-def get_respective_rarity(rarity, rarities=RARITIES):
-    return RaritiesFunctions.get_respective(rarity, rarities)
+def get_items_uncommon(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_uncommon(), items)
 
 
-def get_rgba_rarity(rarity: str, transparency=70):
-    if is_rare(rarity):
-        return 116, 151, 235, transparency
-    elif is_very_rare(rarity):
-        return 158, 124, 252, transparency
-    elif is_import(rarity):
-        return 227, 90, 82, transparency
-    elif is_exotic(rarity):
-        return 236, 219, 108, transparency
-    elif is_black_market(rarity):
-        return 255, 0, 255, transparency
-    elif is_premium(rarity):
-        return 107, 241, 174, transparency
-    elif is_limited(rarity):
-        return 247, 121, 57, transparency
+def get_items_rare(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_rare(), items)
 
 
-def is_rarity(string: str) -> bool:
-    return RaritiesFunctions.is_(string)
+def get_items_very_rare(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_very_rare(), items)
 
 
-def is_rarity_list(container) -> bool:
-    return RaritiesFunctions.validate_list(container)
+def get_items_import(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_import(), items)
 
 
-def validate_rarities_list(container):
-    return RaritiesFunctions.validate_list(container)
+def get_items_exotic(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_exotic(), items)
 
 
-def validate_rarity(string):
-    return RaritiesFunctions.validate(string)
+def get_items_black_market(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_black_market(), items)
 
 
-class ABCRarity(ABC):
-    def get_respective_rarity(self):
-        return get_respective_rarity(self.get_rarity())
-
-    def get_rgba_rarity(self):
-        return get_rgba_rarity(self.get_rarity())
-
-    def is_black_market(self) -> bool:
-        return is_black_market(self.get_rarity())
-
-    def is_exotic(self) -> bool:
-        return is_exotic(self.get_rarity())
-
-    def is_import(self) -> bool:
-        return is_import(self.get_rarity())
-
-    def is_limited(self) -> bool:
-        return is_limited(self.get_rarity())
-
-    def is_premium(self) -> bool:
-        return is_premium(self.get_rarity())
-
-    def is_rare(self) -> bool:
-        return is_rare(self.get_rarity())
-
-    def is_uncommon(self) -> bool:
-        return is_uncommon(self.get_rarity())
-
-    def is_very_rare(self) -> bool:
-        return is_very_rare(self.get_rarity())
-
-    def validate_rarity(self):
-        validate_rarity(self.get_rarity())
-
-    def compare_rarities(self, rarity: str):
-        return compare_rarities(self.get_rarity(), rarity)
-
-    @abstractmethod
-    def get_rarity(self):
-        pass
-
-    @abstractmethod
-    def set_rarity(self, rarity: str):
-        pass
-
-
-class Rarity(ABCRarity):
-    def __init__(self, rarity: str):
-        self.rarity = rarity
-
-    def get_rarity(self):
-        return self.rarity
-
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
+def get_items_limited(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_limited(), items)

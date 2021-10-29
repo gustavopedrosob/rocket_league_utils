@@ -2,8 +2,12 @@ from re import search, IGNORECASE
 from functools import lru_cache
 
 
-def _regex_found(pattern, string) -> bool:
-    return bool(search(pattern, string, IGNORECASE))
+def _regex_found(pattern, string, flags=IGNORECASE) -> bool:
+    return bool(search(pattern, string, flags))
+
+
+def filter_container_by_condition(lamb, container) -> list:
+    return list(filter(lamb, container))
 
 
 class AttributesFunctions:

@@ -1,5 +1,5 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.types.regexs import *
+from rl_data_utils.type.regexs import *
 
 
 def is_antenna(type_: str) -> bool:

@@ -5,7 +5,7 @@ Por exemplo, imagine que voce tem duas strings que se referem a cor Titanium Whi
 o nosso pacote voce consegue facilmente compara-las:
 
 ```py
-from rl_data_utils.colors import compare_colors
+from rl_data_utils.color import compare_colors
 
 print(compare_colors("tw", "white"))
 ```

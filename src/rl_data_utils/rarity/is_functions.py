@@ -1,5 +1,5 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.rarities.regexs import *
+from rl_data_utils.rarity.regexs import *
 
 
 def is_black_market(rarity: str) -> bool:

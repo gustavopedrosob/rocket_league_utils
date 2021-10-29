@@ -1,130 +1,147 @@
-from rl_data_utils.certificates.is_functions import *
-from rl_data_utils.certificates.contains import CONTAINS_FUNCTIONS
-from rl_data_utils.certificates.constants import CERTIFICATES
-from rl_data_utils.certificates.regexs import CONTAINS_REGEXS
-from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
-from abc import ABC, abstractmethod
+from rl_data_utils.item.abc_item import ABCItem, get_items_by_condition
+from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.certified.certified import ABCCertified
+from rl_data_utils.__others import _regex_found
+from re import IGNORECASE
 
 
-class CertificatesFunctions(AttributesFunctions):
-    is_functions = IS_FUNCTIONS
-    contains_functions = CONTAINS_FUNCTIONS
-    contains_regex = CONTAINS_REGEXS
-    attribute_not_exists_exception = CertifiedNotExists
-    invalid_attribute_list_exception = InvalidCertificatesList
+class ABCCertificates(ABCItems):
+    def get_items_by_certified_regex(self, certified_pattern, flags=IGNORECASE):
+        return get_items_by_certified_regex(certified_pattern, self.get_items(), flags)
+
+    def get_items_by_certified(self, certified: str):
+        return get_items_by_certified(certified, self.get_items())
+
+    def get_items_by_certified_equal_to(self, certified: str):
+        return get_items_by_certified_equal_to(certified, self.get_items())
+
+    def get_items_by_certified_contains(self, certified: str):
+        return get_items_by_certified_contains(certified, self.get_items())
+
+    def get_certificates(self):
+        return get_certificates(self.get_items())
+
+    def get_items_aviator(self):
+        return get_items_aviator(self.get_items())
+
+    def get_items_acrobat(self):
+        return get_items_acrobat(self.get_items())
+
+    def get_items_victor(self):
+        return get_items_victor(self.get_items())
+
+    def get_items_striker(self):
+        return get_items_striker(self.get_items())
+
+    def get_items_sniper(self):
+        return get_items_sniper(self.get_items())
+
+    def get_items_scorer(self):
+        return get_items_scorer(self.get_items())
+
+    def get_items_playmaker(self):
+        return get_items_playmaker(self.get_items())
+
+    def get_items_guardian(self):
+        return get_items_guardian(self.get_items())
+
+    def get_items_paragon(self):
+        return get_items_paragon(self.get_items())
+
+    def get_items_sweeper(self):
+        return get_items_sweeper(self.get_items())
+
+    def get_items_turtle(self):
+        return get_items_turtle(self.get_items())
+
+    def get_items_tactician(self):
+        return get_items_tactician(self.get_items())
+
+    def get_items_showoff(self):
+        return get_items_showoff(self.get_items())
+
+    def get_items_juggler(self):
+        return get_items_juggler(self.get_items())
+
+    def get_items_goalkeeper(self):
+        return get_items_goalkeeper(self.get_items())
 
 
-def all_are_certificates(container):
-    return CertificatesFunctions.all_are(container)
+def get_certificates(items: list[ABCCertified]):
+    return {item.get_certified() for item in items}
 
 
-def compare_certificates(certify_1: str, certify_2: str) -> bool:
-    return CertificatesFunctions.compare(certify_1, certify_2)
+def get_items_by_certified(certified: str, items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.compare_certificates(certified), items)
 
 
-def contains_certificates(string: str) -> bool:
-    return CertificatesFunctions.contains(string)
+def get_items_by_certified_equal_to(certified: str, items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.get_certified() == certified, items)
 
 
-def contains_certificates_in_list(string: str, container: list) -> bool:
-    return CertificatesFunctions.contains_in_list(string, container)
+def get_items_by_certified_contains(certified: str, items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: certified in item.get_certified(), items)
 
 
-def get_certified_in_string(string: str) -> str:
-    return CertificatesFunctions.get_in_string(string)
+def get_items_by_certified_regex(certified_pattern: str, items: list[ABCCertified], flags=IGNORECASE):
+    return get_items_by_condition(lambda item: _regex_found(certified_pattern, item.get_certified(), flags), items)
 
 
-def get_respective_certified(certified, certificates=CERTIFICATES):
-    return CertificatesFunctions.get_respective(certified, certificates)
+def get_items_aviator(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_aviator(), items)
 
 
-def is_certified(string: str) -> bool:
-    return CertificatesFunctions.is_(string)
+def get_items_acrobat(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_acrobat(), items)
 
 
-def is_certificates_list(container) -> bool:
-    return CertificatesFunctions.validate_list(container)
+def get_items_victor(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_victor(), items)
 
 
-def validate_certificates_list(container):
-    return CertificatesFunctions.validate_list(container)
+def get_items_striker(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_striker(), items)
 
 
-def validate_certified(string):
-    return CertificatesFunctions.validate(string)
+def get_items_sniper(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_sniper(), items)
 
 
-class ABCCertified(ABC):
-    def compare_certificates(self, certified: str) -> bool:
-        return compare_certificates(self.get_certified(), certified)
-
-    def get_respective_certified(self) -> str:
-        return get_respective_certified(self.get_certified())
-
-    def is_acrobat(self) -> bool:
-        return is_acrobat(self.get_certified())
-
-    def is_aviator(self) -> bool:
-        return is_aviator(self.get_certified())
-
-    def is_goalkeeper(self) -> bool:
-        return is_goalkeeper(self.get_certified())
-
-    def is_guardian(self) -> bool:
-        return is_guardian(self.get_certified())
-
-    def is_juggler(self) -> bool:
-        return is_juggler(self.get_certified())
-
-    def is_paragon(self) -> bool:
-        return is_paragon(self.get_certified())
-
-    def is_playmaker(self) -> bool:
-        return is_playmaker(self.get_certified())
-
-    def is_scorer(self) -> bool:
-        return is_scorer(self.get_certified())
-
-    def is_show_off(self) -> bool:
-        return is_show_off(self.get_certified())
-
-    def is_sniper(self) -> bool:
-        return is_sniper(self.get_certified())
-
-    def is_striker(self) -> bool:
-        return is_striker(self.get_certified())
-
-    def is_sweeper(self) -> bool:
-        return is_sweeper(self.get_certified())
-
-    def is_tactician(self) -> bool:
-        return is_tactician(self.get_certified())
-
-    def is_turtle(self) -> bool:
-        return is_turtle(self.get_certified())
-
-    def is_victor(self) -> bool:
-        return is_victor(self.get_certified())
-
-    def validate_certified(self):
-        validate_certified(self.get_certified())
-
-    @abstractmethod
-    def get_certified(self):
-        pass
-
-    @abstractmethod
-    def set_certified(self, certified: str):
-        pass
+def get_items_scorer(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_scorer(), items)
 
 
-class Certified(ABCCertified):
-    def __init__(self, certified: str):
-        self.certified = certified
+def get_items_playmaker(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_playmaker(), items)
 
-    def get_certified(self):
-        return self.certified
 
-    def set_certified(self, certified: str):
-        self.certified = certified
+def get_items_guardian(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_guardian(), items)
+
+
+def get_items_paragon(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_paragon(), items)
+
+
+def get_items_sweeper(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_sweeper(), items)
+
+
+def get_items_turtle(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_turtle(), items)
+
+
+def get_items_tactician(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_tactician(), items)
+
+
+def get_items_showoff(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_show_off(), items)
+
+
+def get_items_juggler(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_juggler(), items)
+
+
+def get_items_goalkeeper(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_goalkeeper(), items)

@@ -1,4 +1,5 @@
 from rl_data_utils.item.abc_item import ABCItem
+from rl_data_utils.item.utils import get_attributes_in_string
 
 
 class Item(ABCItem):
@@ -38,3 +39,7 @@ class Item(ABCItem):
 
     def set_type(self, type_: str):
         self.type = type_
+
+    @staticmethod
+    def from_string(string: str):
+        return Item(**get_attributes_in_string(string))
