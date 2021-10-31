@@ -10,6 +10,10 @@ def filter_container_by_condition(lamb, container) -> list:
     return list(filter(lamb, container))
 
 
+def _regex_found_any_in_list(pattern: str, container: list[str], flags=IGNORECASE):
+    return any([_regex_found(pattern, string, flags) for string in container])
+
+
 class AttributesFunctions:
     is_functions = []
     contains_functions = []

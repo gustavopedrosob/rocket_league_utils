@@ -27,7 +27,7 @@ def contains_colors(string: str) -> bool:
     return ColorsFunctions.contains(string)
 
 
-def contains_colors_in_list(string: str, container: list) -> bool:
+def contains_color_in_list(string: str, container: list) -> bool:
     return ColorsFunctions.contains_in_list(string, container)
 
 

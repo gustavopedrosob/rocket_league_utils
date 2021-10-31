@@ -27,7 +27,7 @@ def contains_rarities(string: str):
     return RaritiesFunctions.contains(string)
 
 
-def contains_rarities_in_list(string: str, container: list) -> bool:
+def contains_rarity_in_list(string: str, container: list) -> bool:
     return RaritiesFunctions.contains_in_list(string, container)
 
 
