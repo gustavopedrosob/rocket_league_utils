@@ -5,7 +5,8 @@ from rl_data_utils.certificates.certificates import ABCCertificates, get_items_b
 from rl_data_utils.rarities.rarities import ABCRarities, get_items_by_rarity
 from rl_data_utils.quantities.quantities import ABCQuantities
 from rl_data_utils.item.item import ABCItem
-from rl_data_utils.item.utils import get_attributes_in_strin
+from rl_data_utils.item.utils import get_attributes_in_string
+from rl_data_utils.item.abc_item import get_item_by_index
 
 
 class ABCInventory(ABCNames, ABCTypes, ABCColors, ABCCertificates, ABCRarities, ABCQuantities):
