@@ -6,6 +6,7 @@ from rl_data_utils.quantity.quantity import ABCQuantity
 from rl_data_utils.name.name import ABCName
 from rl_data_utils.item.utils import validate_attributes
 from rl_data_utils.__others import filter_container_by_condition
+from rl_data_utils.exceptions import ItemNotFound
 
 
 class ABCItem(ABCName, ABCColor, ABCType, ABCRarity, ABCCertified, ABCQuantity):
@@ -40,4 +41,9 @@ def compare_items(item_1, item_2):
     return True
 
 
+def get_item_by_index(items: list[ABCItem], index=0):
+    try:
+        return items[index]
+    except IndexError:
+        raise ItemNotFound("Probably your search results in nothing.")
 

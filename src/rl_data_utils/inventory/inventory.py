@@ -5,8 +5,7 @@ from rl_data_utils.certificates.certificates import ABCCertificates, get_items_b
 from rl_data_utils.rarities.rarities import ABCRarities, get_items_by_rarity
 from rl_data_utils.quantities.quantities import ABCQuantities
 from rl_data_utils.item.item import ABCItem
-from rl_data_utils.item.utils import get_attributes_in_string
-from rl_data_utils.exceptions import ItemNotFound
+from rl_data_utils.item.utils import get_attributes_in_strin
 
 
 class ABCInventory(ABCNames, ABCTypes, ABCColors, ABCCertificates, ABCRarities, ABCQuantities):
@@ -45,13 +44,6 @@ def get_items_by(items: list[ABCItem], name: str, color: str = None, rarity: str
     if color:
         items = get_items_by_color(color, items)
     return get_items_by_name(name, items)
-
-
-def get_item_by_index(items: list[ABCItem], index=0):
-    try:
-        return items[0]
-    except IndexError:
-        raise ItemNotFound("Probably your search results in nothing.")
 
 
 def get_item_by(items: list[ABCItem], name: str, color: str = None, rarity: str = None, type_: str = None,
