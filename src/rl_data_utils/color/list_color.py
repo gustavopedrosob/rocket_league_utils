@@ -4,6 +4,7 @@ from rl_data_utils.items.abc_items import get_items_by_condition
 from rl_data_utils.__others import _regex_found_any_in_list
 from re import IGNORECASE
 from rl_data_utils.color.has_functions import *
+from rl_data_utils.exceptions import ItemHaveNotColor
 
 
 class ABCListColor:
@@ -13,6 +14,10 @@ class ABCListColor:
 
     def contains_color(self, color: str):
         return contains_color_in_list(color, self.get_list_color())
+
+    def validate_contains_color(self, color: str):
+        if not self.contains_color(color):
+            raise ItemHaveNotColor(color)
 
     def get_respective_color(self, color: str):
         return get_respective_color(color, self.get_list_color())

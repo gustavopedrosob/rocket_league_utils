@@ -4,6 +4,7 @@ from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.items.abc_items import get_items_by_condition
 from rl_data_utils.rarity.has_functions import has_black_market, has_exotic, has_import, has_limited, has_premium,\
     has_rare, has_uncommon, has_very_rare
+from rl_data_utils.exceptions import ItemHaveNotRarity
 from re import IGNORECASE
 
 
@@ -14,6 +15,10 @@ class ABCListRarity(ABC):
 
     def contains_rarity(self, rarity: str):
         return contains_rarity_in_list(rarity, self.get_list_rarity())
+
+    def validate_contains_rarity(self, rarity: str):
+        if not self.contains_rarity(rarity):
+            raise ItemHaveNotRarity(rarity)
 
     def get_respective_rarity(self, rarity: str):
         return get_respective_rarity(rarity, self.get_list_rarity())

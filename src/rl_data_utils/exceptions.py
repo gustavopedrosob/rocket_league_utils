@@ -2,50 +2,56 @@ class ItemNotFound(Exception):
     pass
 
 
-class AttributeNotExists(Exception):
-    def __init__(self, name: str):
-        super().__init__(f'{self.get_attribute_name()} {name} not exists.')
-
-    def get_attribute_name(self):
-        return self.__class__.__name__.replace('NotExists', '')
+class TypeNotExists(Exception):
+    def __init__(self, type_: str):
+        super().__init__(f'Type \"{type_}\" not exists.')
 
 
-class TypeNotExists(AttributeNotExists):
-    pass
+class RarityNotExists(Exception):
+    def __init__(self, rarity: str):
+        super().__init__(f'Rarity \"{rarity}\" not exists.')
 
 
-class RarityNotExists(AttributeNotExists):
-    pass
+class ColorNotExists(Exception):
+    def __init__(self, color: str):
+        super().__init__(f'Color \"{color}\" not exists.')
 
 
-class ColorNotExists(AttributeNotExists):
-    pass
+class CertifiedNotExists(Exception):
+    def __init__(self, certified: str):
+        super().__init__(f'Certified \"{certified}\" not exists.')
 
 
-class CertifiedNotExists(AttributeNotExists):
-    pass
-
-
-class InvalidAttributeList(Exception):
+class InvalidTypesList(Exception):
     def __init__(self):
-        super().__init__(f'To create a {self.plural} list, all items must be a {self.singular}.')
+        super().__init__(f'To create a types list, all items must be a type.')
 
 
-class InvalidTypesList(InvalidAttributeList):
-    plural = 'Types'
-    singular = 'Type'
+class InvalidRaritiesList(Exception):
+    def __init__(self):
+        super().__init__(f'To create a rarities list, all items must be a rarity.')
 
 
-class InvalidRaritiesList(InvalidAttributeList):
-    plural = 'Rarities'
-    singular = 'Rarity'
+class InvalidColorsList(Exception):
+    def __init__(self):
+        super().__init__(f'To create a colors list, all items must be a color.')
 
 
-class InvalidColorsList(InvalidAttributeList):
-    plural = 'Colors'
-    singular = 'Color'
+class InvalidCertificatesList(Exception):
+    def __init__(self):
+        super().__init__(f'To create a certificates list, all items must be a certified.')
 
 
-class InvalidCertificatesList(InvalidAttributeList):
-    plural = 'Certificates'
-    singular = 'Certified'
+class ItemHaveNotColor(Exception):
+    def __init__(self, color: str):
+        super().__init__(f"Item haven't color \"{color}\".")
+
+
+class ItemHaveNotRarity(Exception):
+    def __init__(self, rarity: str):
+        super().__init__(f"Item haven't color \"{rarity}\".")
+
+
+class ItemHaveNotType(Exception):
+    def __init__(self, type_: str):
+        super().__init__(f"Item haven't type \"{type_}\".")

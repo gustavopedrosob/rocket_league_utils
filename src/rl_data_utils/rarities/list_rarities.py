@@ -18,9 +18,6 @@ class ABCListRarities(ABCItems):
     def get_items_by_rarity_contains(self, rarity: str):
         return get_items_by_rarity_contains(rarity, self.get_items())
 
-    def get_rarities(self):
-        return get_rarities(self.get_items())
-
     def get_items_uncommon(self):
         return get_items_uncommon(self.get_items())
 
