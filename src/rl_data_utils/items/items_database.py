@@ -26,4 +26,4 @@ class ABCItemsDatabase(ABCItemsSearch):
         return self.get_item_data_by(**kwargs)
 
     def get_items_by(self, name: str, **kwargs):
-        return [item.to_item() for item in self.get_items()]
+        return [item.to_item() for item in self.get_items_data_by(name, **kwargs)]
