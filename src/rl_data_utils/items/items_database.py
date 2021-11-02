@@ -1,11 +1,11 @@
-from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.items.items_search import ABCItemsSearch
 from abc import abstractmethod
 from rl_data_utils.item.utils import get_attributes_in_string
 from rl_data_utils.item.abc_item import get_item_by_index
 from rl_data_utils.item.item_data import ABCItemData
 
 
-class ABCItemsDatabase(ABCItems):
+class ABCItemsDatabase(ABCItemsSearch):
     @abstractmethod
     def get_items(self) -> list[ABCItemData]:
         pass
