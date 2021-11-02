@@ -5,12 +5,20 @@ def has_black_market(rarities: list[str]) -> bool:
     return any([is_black_market(rarity) for rarity in rarities])
 
 
+def has_common(rarities: list[str]) -> bool:
+    return any([is_common(rarity) for rarity in rarities])
+
+
 def has_exotic(rarities: list[str]) -> bool:
     return any([is_exotic(rarity) for rarity in rarities])
 
 
 def has_import(rarities: list[str]) -> bool:
     return any([is_import(rarity) for rarity in rarities])
+
+
+def has_legacy(rarities: list[str]) -> bool:
+    return any([is_legacy(rarity) for rarity in rarities])
 
 
 def has_limited(rarities: list[str]) -> bool:

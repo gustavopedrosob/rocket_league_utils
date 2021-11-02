@@ -82,11 +82,17 @@ class ABCRarity(ABC):
     def is_black_market(self) -> bool:
         return is_black_market(self.get_rarity())
 
+    def is_common(self) -> bool:
+        return is_common(self.get_rarity())
+
     def is_exotic(self) -> bool:
         return is_exotic(self.get_rarity())
 
     def is_import(self) -> bool:
         return is_import(self.get_rarity())
+
+    def is_legacy(self) -> bool:
+        return is_legacy(self.get_rarity())
 
     def is_limited(self) -> bool:
         return is_limited(self.get_rarity())

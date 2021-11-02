@@ -2,8 +2,8 @@ from rl_data_utils.rarity.rarity import get_respective_rarity, contains_rarity_i
 from abc import ABC, abstractmethod
 from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.items.abc_items import get_items_by_condition
-from rl_data_utils.rarity.has_functions import has_black_market, has_exotic, has_import, has_limited, has_premium,\
-    has_rare, has_uncommon, has_very_rare
+from rl_data_utils.rarity.has_functions import has_black_market, has_common, has_exotic, has_import, has_legacy,\
+    has_limited, has_premium, has_rare, has_uncommon, has_very_rare
 from rl_data_utils.exceptions import ItemHaveNotRarity
 from re import IGNORECASE
 
@@ -26,11 +26,17 @@ class ABCListRarity(ABC):
     def has_black_market(self) -> bool:
         return has_black_market(self.get_list_rarity())
 
+    def has_common(self) -> bool:
+        return has_common(self.get_list_rarity())
+
     def has_exotic(self) -> bool:
         return has_exotic(self.get_list_rarity())
 
     def has_import(self) -> bool:
         return has_import(self.get_list_rarity())
+
+    def has_legacy(self) -> bool:
+        return has_legacy(self.get_list_rarity())
 
     def has_limited(self) -> bool:
         return has_limited(self.get_list_rarity())
@@ -92,3 +98,11 @@ def get_items_limited(items: list[ABCListRarity]):
 
 def get_items_uncommon(items: list[ABCListRarity]):
     return get_items_by_condition(lambda item: item.has_uncommon(), items)
+
+
+def get_items_common(items: list[ABCListRarity]):
+    return get_items_by_condition(lambda item: item.has_common(), items)
+
+
+def get_items_legacy(items: list[ABCListRarity]):
+    return get_items_by_condition(lambda item: item.has_legacy(), items)

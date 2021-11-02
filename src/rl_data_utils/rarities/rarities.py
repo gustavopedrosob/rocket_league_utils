@@ -21,6 +21,12 @@ class ABCRarities(ABCItems):
     def get_rarities(self):
         return get_rarities(self.get_items())
 
+    def get_items_common(self):
+        return get_items_common(self.get_items())
+
+    def get_items_legacy(self):
+        return get_items_legacy(self.get_items())
+
     def get_items_uncommon(self):
         return get_items_uncommon(self.get_items())
 
@@ -62,6 +68,14 @@ def get_items_by_rarity_equal_to(rarity: str, items: list[ABCRarity]):
 
 def get_items_by_rarity_contains(rarity: str, items: list[ABCRarity]):
     return get_items_by_condition(lambda item: rarity in item.get_rarity(), items)
+
+
+def get_items_common(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_common(), items)
+
+
+def get_items_legacy(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_legacy(), items)
 
 
 def get_items_uncommon(items: list[ABCRarity]):

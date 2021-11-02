@@ -6,12 +6,20 @@ def is_black_market(rarity: str) -> bool:
     return _regex_found(IS_BLACK_MARKET, rarity)
 
 
+def is_common(rarity: str) -> bool:
+    return _regex_found(IS_COMMON, rarity)
+
+
 def is_exotic(rarity: str) -> bool:
     return _regex_found(IS_EXOTIC, rarity)
 
 
 def is_import(rarity: str) -> bool:
     return _regex_found(IS_IMPORT, rarity)
+
+
+def is_legacy(rarity: str) -> bool:
+    return _regex_found(IS_LEGACY, rarity)
 
 
 def is_limited(rarity: str) -> bool:
@@ -34,5 +42,6 @@ def is_very_rare(rarity: str) -> bool:
     return _regex_found(IS_VERY_RARE, rarity)
 
 
-IS_FUNCTIONS = [is_black_market, is_exotic, is_import, is_limited, is_premium,
-                is_rare, is_uncommon, is_very_rare]
+IS_FUNCTIONS = [is_black_market, is_common, is_exotic, is_import, is_legacy, is_limited, is_premium, is_rare,
+                is_uncommon,
+                is_very_rare]

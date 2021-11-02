@@ -6,12 +6,20 @@ def contains_black_market(rarity: str) -> bool:
     return _regex_found(CONTAINS_BLACK_MARKET, rarity)
 
 
+def contains_common(rarity: str) -> bool:
+    return _regex_found(CONTAINS_COMMON, rarity)
+
+
 def contains_exotic(rarity: str) -> bool:
     return _regex_found(CONTAINS_EXOTIC, rarity)
 
 
 def contains_import(rarity: str) -> bool:
     return _regex_found(CONTAINS_IMPORT, rarity)
+
+
+def contains_legacy(rarity: str) -> bool:
+    return _regex_found(CONTAINS_LEGACY, rarity)
 
 
 def contains_limited(rarity: str) -> bool:
@@ -34,5 +42,5 @@ def contains_very_rare(rarity: str) -> bool:
     return _regex_found(CONTAINS_VERY_RARE, rarity)
 
 
-CONTAINS_FUNCTIONS = [contains_black_market, contains_exotic, contains_import, contains_limited, contains_premium,
-                      contains_rare, contains_uncommon, contains_very_rare]
+CONTAINS_FUNCTIONS = [contains_black_market, contains_common, contains_exotic, contains_import, contains_legacy,
+                      contains_limited, contains_premium, contains_rare, contains_uncommon, contains_very_rare]
