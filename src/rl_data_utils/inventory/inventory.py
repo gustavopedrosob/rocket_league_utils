@@ -5,10 +5,10 @@ from rl_data_utils.certificates.certificates import ABCStrCertificates
 from rl_data_utils.rarities.rarities import ABCStrRarities
 from rl_data_utils.quantities.quantities import ABCQuantities
 from rl_data_utils.item.item import ABCItem
-from rl_data_utils.items.abc_items import get_items_by
+from rl_data_utils.items.items_search import ABCItemsSearch
 
 
-class Inventory(ABCNames, ABCStrTypes, ABCStrColors, ABCStrCertificates, ABCStrRarities, ABCQuantities):
+class Inventory(ABCNames, ABCStrTypes, ABCStrColors, ABCStrCertificates, ABCStrRarities, ABCQuantities, ABCItemsSearch):
     def __init__(self, items: list[ABCItem]):
         self.items = items
 
@@ -17,7 +17,4 @@ class Inventory(ABCNames, ABCStrTypes, ABCStrColors, ABCStrCertificates, ABCStrR
 
     def set_items(self, items: list[ABCItem]):
         self.items = items
-
-    def get_items_by(self, name: str, color=None, rarity=None, type_=None, certified=None):
-        return get_items_by(self.get_items(), name, color, rarity, type_, certified)
 
