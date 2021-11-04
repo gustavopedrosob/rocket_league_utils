@@ -10,12 +10,11 @@ class ABCItemsDatabase(ABCItemsSearch):
     def get_items(self) -> list[ABCItemData]:
         pass
 
-    @abstractmethod
-    def get_items_data_by(self, name: str, **kwargs):
+    def get_items_data_by(self, **kwargs):
         pass
 
-    def get_item_data_by(self, name: str, **kwargs):
-        return get_item_by_index(self.get_items_data_by(name, **kwargs))
+    def get_item_data_by(self, **kwargs):
+        return get_item_by_index(self.get_items_data_by(**kwargs))
 
     def get_items_data_by_string(self, string: str):
         kwargs = get_attributes_in_string(string)
@@ -25,5 +24,5 @@ class ABCItemsDatabase(ABCItemsSearch):
         kwargs = get_attributes_in_string(string)
         return self.get_item_data_by(**kwargs)
 
-    def get_items_by(self, name: str, **kwargs):
-        return [item.to_item() for item in self.get_items_data_by(name, **kwargs)]
+    def get_items_by(self, **kwargs):
+        return [item.to_item() for item in self.get_items_data_by(**kwargs)]
