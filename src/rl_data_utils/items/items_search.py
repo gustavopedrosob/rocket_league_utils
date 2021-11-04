@@ -10,6 +10,9 @@ from rl_data_utils.rarities.rarities import get_items_by_rarity
 from rl_data_utils.item.item import ABCItem
 
 
+# Tem um jeito da gente implementar o get_items_by se a gente usar set() para mesclar as listas.
+
+
 class ABCItemsSearch(ABCItems):
     @abstractmethod
     def get_items_by(self, name: str, **kwargs):
