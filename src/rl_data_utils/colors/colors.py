@@ -12,7 +12,7 @@ class ABCColors(ABCItems):
         pass
 
     @abstractmethod
-    def get_items_by_color(self, color: str):
+    def get_items_by_color(self, color: str, items=None):
         pass
 
     @abstractmethod
@@ -84,8 +84,10 @@ class ABCStrColors(ABCColors):
     def get_items_by_color_regex(self, color_pattern: str, flags=IGNORECASE):
         return get_items_by_color_regex(color_pattern, self.get_items(), flags)
 
-    def get_items_by_color(self, color: str):
-        return get_items_by_color(color, self.get_items())
+    def get_items_by_color(self, color: str, items=None):
+        if items is None:
+            items = self.get_items()
+        return get_items_by_color(color, items)
 
     def get_items_by_color_equal_to(self, color: str):
         return get_items_by_color_equal_to(color, self.get_items())

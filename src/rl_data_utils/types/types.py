@@ -12,7 +12,7 @@ class ABCTypes(ABCItems):
         pass
 
     @abstractmethod
-    def get_items_by_type(self, type_: str):
+    def get_items_by_type(self, type_: str, items=None):
         pass
 
     @abstractmethod
@@ -88,8 +88,10 @@ class ABCStrTypes(ABCTypes):
     def get_items_by_type_regex(self, type_pattern: str, flags=IGNORECASE):
         return get_items_by_type_regex(type_pattern, self.get_items(), flags)
 
-    def get_items_by_type(self, type_: str):
-        return get_items_by_type(type_, self.get_items())
+    def get_items_by_type(self, type_: str, items=None):
+        if items is None:
+            items = self.get_items()
+        return get_items_by_type(type_, items)
 
     def get_items_by_type_equal_to(self, type_: str):
         return get_items_by_type_equal_to(type_, self.get_items())

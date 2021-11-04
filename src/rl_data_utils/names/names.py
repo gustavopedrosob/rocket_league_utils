@@ -14,8 +14,10 @@ class ABCNames(ABCItems):
     def get_items_by_name_equal_to(self, name: str):
         return get_items_by_name_equal_to(name, self.get_items())
 
-    def get_items_by_name(self, name: str):
-        return get_items_by_name(name, self.get_items())
+    def get_items_by_name(self, name: str, items=None):
+        if items is None:
+            items = self.get_items()
+        return get_items_by_name(name, items)
 
     def get_items_by_name_contains(self, name: str):
         return get_items_by_name_contains(name, self.get_items())

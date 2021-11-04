@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from rl_data_utils.items.abc_items import ABCItems
 from rl_data_utils.item.utils import get_attributes_in_string
 from rl_data_utils.item.abc_item import get_item_by_index
@@ -8,18 +7,50 @@ from rl_data_utils.colors.colors import get_items_by_color
 from rl_data_utils.certificates.certificates import get_items_by_certified
 from rl_data_utils.rarities.rarities import get_items_by_rarity
 from rl_data_utils.item.item import ABCItem
-
-
-# Tem um jeito da gente implementar o get_items_by se a gente usar set() para mesclar as listas.
+from rl_data_utils.certificates.certificates import ABCCertificates
+from rl_data_utils.colors.colors import ABCColors
+from rl_data_utils.rarities.rarities import ABCRarities
+from rl_data_utils.types.types import ABCTypes
+from rl_data_utils.names.names import ABCNames
 
 
 class ABCItemsSearch(ABCItems):
-    @abstractmethod
-    def get_items_by(self, name: str, **kwargs):
-        pass
+    def get_items_by(self, items=None, **kwargs):
+        if items is None:
+            items = self.get_items()
+        if isinstance(self, ABCCertificates) and 'certified' in kwargs:
+            items = self.get_items_by_certified(kwargs['certified'], items)
+        if isinstance(self, ABCColors) and 'color' in kwargs:
+            items = self.get_items_by_color(kwargs['color'], items)
+        if isinstance(self, ABCRarities) and 'rarity' in kwargs:
+            items = self.get_items_by_rarity(kwargs['rarity'], items)
+        if isinstance(self, ABCTypes) and 'type_' in kwargs:
+            items = self.get_items_by_type(kwargs['type_'], items)
+        if isinstance(self, ABCNames) and 'name' in kwargs:
+            items = self.get_items_by_name(kwargs['name'], items)
+        return items
 
-    def get_item_by(self, name: str, **kwargs):
-        return get_item_by_index(self.get_items_by(name, **kwargs))
+    def _get_items_by(self, **kwargs):
+        items = set(self.get_items())
+        if isinstance(self, ABCCertificates) and 'certified' in kwargs:
+            certified_items = self.get_items_by_certified(kwargs['certified'])
+            items.intersection(certified_items)
+        if isinstance(self, ABCColors) and 'color' in kwargs:
+            colors_items = self.get_items_by_color(kwargs['color'])
+            items.intersection(colors_items)
+        if isinstance(self, ABCRarities) and 'rarity' in kwargs:
+            rarities_items = self.get_items_by_rarity(kwargs['rarity'])
+            items.intersection(rarities_items)
+        if isinstance(self, ABCTypes) and 'type_' in kwargs:
+            types_items = self.get_items_by_type(kwargs['type_'])
+            items.intersection(types_items)
+        if isinstance(self, ABCNames) and 'name' in kwargs:
+            names_items = self.get_items_by_name(kwargs['name'])
+            items.intersection(names_items)
+        return list(items)
+
+    def get_item_by(self, **kwargs):
+        return get_item_by_index(self.get_items_by(**kwargs))
 
     def get_items_by_string(self, string: str):
         kwargs = get_attributes_in_string(string)

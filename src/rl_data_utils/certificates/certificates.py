@@ -12,7 +12,7 @@ class ABCCertificates(ABCItems):
         pass
 
     @abstractmethod
-    def get_items_by_certified(self, certified: str):
+    def get_items_by_certified(self, certified: str, items=None):
         pass
 
     @abstractmethod
@@ -92,8 +92,10 @@ class ABCStrCertificates(ABCCertificates):
     def get_items_by_certified_regex(self, certified_pattern, flags=IGNORECASE):
         return get_items_by_certified_regex(certified_pattern, self.get_items(), flags)
 
-    def get_items_by_certified(self, certified: str):
-        return get_items_by_certified(certified, self.get_items())
+    def get_items_by_certified(self, certified: str, items=None):
+        if items is None:
+            items = self.get_items()
+        return get_items_by_certified(certified, items)
 
     def get_items_by_certified_equal_to(self, certified: str):
         return get_items_by_certified_equal_to(certified, self.get_items())

@@ -12,7 +12,7 @@ class ABCRarities(ABCItems):
         pass
 
     @abstractmethod
-    def get_items_by_rarity(self, rarity: str):
+    def get_items_by_rarity(self, rarity: str, items=None):
         pass
 
     @abstractmethod
@@ -68,8 +68,10 @@ class ABCStrRarities(ABCRarities):
     def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
         return get_items_by_rarity_regex(rarity_pattern, self.get_items(), flags)
 
-    def get_items_by_rarity(self, rarity: str):
-        return get_items_by_rarity(rarity, self.get_items())
+    def get_items_by_rarity(self, rarity: str, items=None):
+        if items is None:
+            items = self.get_items()
+        return get_items_by_rarity(rarity, items)
 
     def get_items_by_rarity_equal_to(self, rarity: str):
         return get_items_by_rarity_equal_to(rarity, self.get_items())
