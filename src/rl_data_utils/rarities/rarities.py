@@ -3,9 +3,68 @@ from rl_data_utils.items.abc_items import ABCItems
 from rl_data_utils.rarity.rarity import ABCRarity, validate_rarity
 from rl_data_utils.__others import _regex_found
 from re import IGNORECASE
+from abc import abstractmethod
 
 
 class ABCRarities(ABCItems):
+    @abstractmethod
+    def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
+        pass
+
+    @abstractmethod
+    def get_items_by_rarity(self, rarity: str):
+        pass
+
+    @abstractmethod
+    def get_items_by_rarity_equal_to(self, rarity: str):
+        pass
+
+    @abstractmethod
+    def get_items_by_rarity_contains(self, rarity: str):
+        pass
+
+    @abstractmethod
+    def get_rarities(self):
+        pass
+
+    @abstractmethod
+    def get_items_common(self):
+        pass
+
+    @abstractmethod
+    def get_items_legacy(self):
+        pass
+
+    @abstractmethod
+    def get_items_uncommon(self):
+        pass
+
+    @abstractmethod
+    def get_items_rare(self):
+        pass
+
+    @abstractmethod
+    def get_items_very_rare(self):
+        pass
+
+    @abstractmethod
+    def get_items_import(self):
+        pass
+
+    @abstractmethod
+    def get_items_exotic(self):
+        pass
+
+    @abstractmethod
+    def get_items_black_market(self):
+        pass
+
+    @abstractmethod
+    def get_items_limited(self):
+        pass
+
+
+class ABCStrRarities(ABCRarities):
     def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
         return get_items_by_rarity_regex(rarity_pattern, self.get_items(), flags)
 

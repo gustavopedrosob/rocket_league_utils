@@ -1,4 +1,4 @@
-from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.colors.colors import ABCColors
 from rl_data_utils.color.list_color import get_items_by_color, get_items_by_color_regex, get_items_by_color_equal_to,\
     get_items_by_color_contains
 from rl_data_utils.color.list_color import get_items_crimson, get_items_sky_blue, get_items_pink, get_items_orange,\
@@ -7,7 +7,7 @@ from rl_data_utils.color.list_color import get_items_crimson, get_items_sky_blue
 from re import IGNORECASE
 
 
-class ABCListColors(ABCItems):
+class ABCListColors(ABCColors):
     def get_items_by_color(self, color: str):
         return get_items_by_color(color, self.get_items())
 
