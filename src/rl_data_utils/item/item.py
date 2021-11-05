@@ -1,8 +1,13 @@
-from rl_data_utils.item.item_attribute import ABCItem
 from rl_data_utils.item.utils import get_attributes_in_string
+from rl_data_utils.name.name import ABCName
+from rl_data_utils.color.color import ABCColor
+from rl_data_utils.type.type import ABCType
+from rl_data_utils.rarity.rarity import ABCRarity
+from rl_data_utils.certified.certified import ABCCertified
+from rl_data_utils.quantity.quantity import ABCQuantity
 
 
-class Item(ABCItem):
+class Item(ABCName, ABCColor, ABCType, ABCRarity, ABCCertified, ABCQuantity):
     def __init__(self, name: str, color: str = "", type_: str = "", rarity: str = "", certified: str = "",
                  quantity: int = 1):
         self.name = name
