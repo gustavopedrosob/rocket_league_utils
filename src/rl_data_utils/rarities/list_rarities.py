@@ -4,9 +4,11 @@ from rl_data_utils.rarity.list_rarity import get_items_by_rarity_regex, get_item
     get_items_very_rare, get_items_import, get_items_exotic, get_items_black_market, get_items_limited,\
     get_items_legacy, get_items_common
 from re import IGNORECASE
+from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.rarities.abc_base_rarities import ABCBaseRarities
 
 
-class ABCListRarities(ABCRarities):
+class ABCListRarities(ABCBaseRarities, ABCItems):
     def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
         return get_items_by_rarity_regex(rarity_pattern, self.get_items(), flags)
 

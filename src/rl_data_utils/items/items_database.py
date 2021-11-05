@@ -1,17 +1,19 @@
-from rl_data_utils.items.items_search import ABCItemsSearch
 from abc import abstractmethod
 from rl_data_utils.item.utils import get_attributes_in_string
-from rl_data_utils.item.abc_item import get_item_by_index
+from rl_data_utils.item.item_attribute import get_item_by_index
 from rl_data_utils.item.item_data import ABCItemData
+from rl_data_utils.items.abc_items import ABCItems
 
 
-class ABCItemsDatabase(ABCItemsSearch):
+class ABCItemsDatabase(ABCItems):
     @abstractmethod
     def get_items(self) -> list[ABCItemData]:
         pass
 
-    def get_items_data_by(self, **kwargs):
-        pass
+    def get_items_data_by(self, items=None, **kwargs):
+        if items is None:
+            items = self.get_items()
+        return ABCItems.get_items_by(self, items, **kwargs)
 
     def get_item_data_by(self, **kwargs):
         return get_item_by_index(self.get_items_data_by(**kwargs))

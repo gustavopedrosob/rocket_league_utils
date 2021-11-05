@@ -4,7 +4,8 @@ from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
 from rl_data_utils.type.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.type.regexs import CONTAINS_REGEXS
-from abc import ABC, abstractmethod
+from rl_data_utils.type.abc_base_type import ABCBaseType
+from rl_data_utils.item.item_attribute import ItemAttribute
 
 
 class TypesFunctions(AttributesFunctions):
@@ -55,7 +56,7 @@ def validate_types_list(container):
     return TypesFunctions.validate_list(container)
 
 
-class ABCType(ABC):
+class ABCType(ABCBaseType, ItemAttribute):
     def compare_types(self, type_: str) -> bool:
         return compare_types(self.get_type(), type_)
 
@@ -106,14 +107,6 @@ class ABCType(ABC):
 
     def validate_type(self):
         validate_type(self.get_type())
-
-    @abstractmethod
-    def get_type(self):
-        pass
-
-    @abstractmethod
-    def set_type(self, type_: str):
-        pass
 
 
 class Type(ABCType):

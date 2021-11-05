@@ -1,13 +1,14 @@
-from rl_data_utils.colors.colors import ABCColors
 from rl_data_utils.color.list_color import get_items_by_color, get_items_by_color_regex, get_items_by_color_equal_to,\
     get_items_by_color_contains
 from rl_data_utils.color.list_color import get_items_crimson, get_items_sky_blue, get_items_pink, get_items_orange,\
     get_items_cobalt, get_items_burnt_sienna, get_items_titanium_white, get_items_grey, get_items_saffron,\
     get_items_lime, get_items_forest_green, get_items_black, get_items_purple
 from re import IGNORECASE
+from rl_data_utils.colors.abc_base_colors import ABCBaseColors
+from rl_data_utils.items.abc_items import ABCItems
 
 
-class ABCListColors(ABCColors):
+class ABCListColors(ABCBaseColors, ABCItems):
     def get_items_by_color(self, color: str, items=None):
         if items is None:
             items = self.get_items()

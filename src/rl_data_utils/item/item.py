@@ -1,4 +1,4 @@
-from rl_data_utils.item.abc_item import ABCItem
+from rl_data_utils.item.item_attribute import ABCItem
 from rl_data_utils.item.utils import get_attributes_in_string
 
 

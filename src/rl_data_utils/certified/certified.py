@@ -4,7 +4,8 @@ from rl_data_utils.certified.constants import CERTIFICATES
 from rl_data_utils.certified.regexs import CONTAINS_REGEXS
 from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
-from abc import ABC, abstractmethod
+from rl_data_utils.certified.abc_base_certified import ABCBaseCertified
+from rl_data_utils.item.item_attribute import ItemAttribute
 
 
 class CertificatesFunctions(AttributesFunctions):
@@ -55,7 +56,7 @@ def validate_certified(string):
     return CertificatesFunctions.validate(string)
 
 
-class ABCCertified(ABC):
+class ABCCertified(ABCBaseCertified, ItemAttribute):
     def compare_certificates(self, certified: str) -> bool:
         return compare_certificates(self.get_certified(), certified)
 
@@ -109,14 +110,6 @@ class ABCCertified(ABC):
 
     def validate_certified(self):
         validate_certified(self.get_certified())
-
-    @abstractmethod
-    def get_certified(self):
-        pass
-
-    @abstractmethod
-    def set_certified(self, certified: str):
-        pass
 
 
 class Certified(ABCCertified):

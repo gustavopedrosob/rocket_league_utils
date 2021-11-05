@@ -4,7 +4,8 @@ from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
 from rl_data_utils.rarity.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.rarity.regexs import CONTAINS_REGEXS
-from abc import ABC, abstractmethod
+from rl_data_utils.rarity.abc_base_rarity import ABCBaseRarity
+from rl_data_utils.item.item_attribute import ItemAttribute
 
 
 class RaritiesFunctions(AttributesFunctions):
@@ -72,7 +73,7 @@ def validate_rarity(string):
     return RaritiesFunctions.validate(string)
 
 
-class ABCRarity(ABC):
+class ABCRarity(ABCBaseRarity, ItemAttribute):
     def get_respective_rarity(self):
         return get_respective_rarity(self.get_rarity())
 
@@ -115,13 +116,6 @@ class ABCRarity(ABC):
     def compare_rarities(self, rarity: str):
         return compare_rarities(self.get_rarity(), rarity)
 
-    @abstractmethod
-    def get_rarity(self):
-        pass
-
-    @abstractmethod
-    def set_rarity(self, rarity: str):
-        pass
 
 
 class Rarity(ABCRarity):

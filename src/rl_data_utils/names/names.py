@@ -2,9 +2,10 @@ from rl_data_utils.items.abc_items import ABCItems, get_items_by_condition
 from rl_data_utils.name.name import ABCName
 from rl_data_utils.__others import _regex_found
 from re import IGNORECASE
+from rl_data_utils.names.abc_base_names import ABCBaseNames
 
 
-class ABCNames(ABCItems):
+class ABCNames(ABCBaseNames, ABCItems):
     def get_items_by_name_regex(self, name_pattern: str, flags=IGNORECASE):
         return get_items_by_name_regex(name_pattern, self.get_items(), flags)
 

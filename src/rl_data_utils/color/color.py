@@ -4,7 +4,8 @@ from rl_data_utils.color.is_functions import *
 from rl_data_utils.exceptions import InvalidColorsList, ColorNotExists
 from rl_data_utils.color.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.color.regexs import CONTAINS_REGEXS
-from abc import ABC, abstractmethod
+from rl_data_utils.color.abc_base_color import ABCBaseColor
+from rl_data_utils.item.item_attribute import ItemAttribute
 
 
 class ColorsFunctions(AttributesFunctions):
@@ -84,7 +85,7 @@ def validate_colors_list(container):
     return ColorsFunctions.validate_list(container)
 
 
-class ABCColor(ABC):
+class ABCColor(ABCBaseColor, ItemAttribute):
     def compare_colors(self, color) -> bool:
         return compare_colors(self.get_color(), color)
 
@@ -138,14 +139,6 @@ class ABCColor(ABC):
 
     def validate_color(self):
         validate_color(self.get_color())
-
-    @abstractmethod
-    def get_color(self):
-        pass
-
-    @abstractmethod
-    def set_color(self, color: str):
-        pass
 
 
 class Color(ABCColor):
