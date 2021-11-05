@@ -6,7 +6,6 @@ from rl_data_utils.quantity.abc_base_quantity import ABCBaseQuantity
 from rl_data_utils.name.abc_base_name import ABCBaseName
 from rl_data_utils.__others import filter_container_by_condition
 from rl_data_utils.exceptions import ItemNotFound
-from typing import Any
 
 
 class ItemAttribute:
@@ -23,7 +22,7 @@ class ItemAttribute:
     def __eq__(self, other):
         return self.compare_items(other)
 
-    def compare_items(self, item: Any[ABCBaseColor, ABCBaseRarity, ABCBaseType, ABCBaseCertified, ABCBaseName]):
+    def compare_items(self, item):
         comparisons_results = []
         if isinstance(self, ABCBaseColor) and isinstance(item, ABCBaseColor):
             cc = self.compare_colors(item.get_color())
