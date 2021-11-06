@@ -15,7 +15,7 @@ def get_sale_trades(trades: list[ABCTrade]):
     return get_trades_by_condition(lambda trade: trade.is_sale(), trades)
 
 
-class ABCTrades:
+class ABCTrades(ABC):
     @abstractmethod
     def get_trades(self) -> list[ABCTrade]:
         pass

@@ -1,9 +1,9 @@
-from rl_data_utils.names.names import ABCNames
-from rl_data_utils.types.types import ABCTypes
-from rl_data_utils.colors.colors import ABCColors
-from rl_data_utils.certificates.certificates import ABCCertificates
-from rl_data_utils.rarities.rarities import ABCRarities
-from rl_data_utils.quantities.quantities import ABCQuantities
+from rl_data_utils.items.names.names import ABCNames
+from rl_data_utils.items.types.types import ABCTypes
+from rl_data_utils.items.colors.colors import ABCColors
+from rl_data_utils.items.certificates.certificates import ABCCertificates
+from rl_data_utils.items.rarities.rarities import ABCRarities
+from rl_data_utils.items.quantities.quantities import ABCQuantities
 
 
 class Inventory(ABCNames, ABCTypes, ABCColors, ABCCertificates, ABCRarities, ABCQuantities):

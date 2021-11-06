@@ -1,4 +1,4 @@
-from rl_data_utils.items.abc_items import ABCItems
+from rl_data_utils.items.items.items import ABCItems
 from abc import ABC, abstractmethod
 
 

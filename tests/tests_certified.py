@@ -1,5 +1,5 @@
-from rl_data_utils.certified import all_are_certificates
-from rl_data_utils.certified.constants import CERTIFICATES
+from rl_data_utils.item.certified import all_are_certificates
+from rl_data_utils.utils.item.certified.constants import CERTIFICATES
 
 inventory_certificates = ['Aviator', 'Acrobat', 'Victor', 'Striker', 'Sniper', 'Scorer', 'Playmaker', 'Guardian',
                           'Paragon', 'Sweeper', 'Turtle', 'Tactician', 'Show-off', 'Juggler', 'Goalkeeper']

@@ -1,5 +1,5 @@
-from rl_data_utils.rarity import all_are_rarities
-from rl_data_utils.rarity.constants import RARITIES
+from rl_data_utils.item.rarity import all_are_rarities
+from rl_data_utils.utils.item.rarity import RARITIES
 
 rl_insider_api_rarities = ['Limited', 'Uncommon', 'Rare', 'Very Rare', 'Import', 'Exotic', 'Black Market']
 

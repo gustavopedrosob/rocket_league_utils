@@ -1,5 +1,5 @@
-from rl_data_utils.type import all_are_types
-from rl_data_utils.type.constants import TYPES
+from rl_data_utils.item.type import all_are_types
+from rl_data_utils.item.type import TYPES
 
 rl_inventory_api_types = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',
                           'Player Anthem', 'Animated Decal', 'Paint Finish', 'Blueprint', 'Decal', 'Avatar Border',

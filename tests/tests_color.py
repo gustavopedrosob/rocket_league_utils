@@ -1,5 +1,5 @@
-from rl_data_utils.color import all_are_colors
-from rl_data_utils.color.constants import COLORS
+from rl_data_utils.item.color import all_are_colors
+from rl_data_utils.utils.item.color.constants import COLORS
 
 rl_inventory_api_colors = ['Crimson', 'Sky Blue', 'Pink', 'Orange', 'Cobalt', 'Burnt Sienna', 'Titanium White', 'Grey',
                            'Saffron', 'Lime', 'Forest Green', 'Black', 'Purple']
