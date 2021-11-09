@@ -3,7 +3,6 @@ from tests_items_data import sample_items
 import pytest
 
 
-@pytest.mark.skip(reason='We need make it raise Color not exists.')
 def test_get_items_by_color_color_not_exists():
     with pytest.raises(ColorNotExists):
         sample_items.get_items_by_color("anbsinaisnain")

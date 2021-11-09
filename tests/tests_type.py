@@ -25,19 +25,16 @@ pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], [
                ['trails', 'Trails'], ['wheels', 'Wheels']]
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_all_are_types():
     for container in samples:
         assert all_are_types(container)
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_compare_types():
     for pair in pair_equals:
         assert compare_types(*pair)
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_contains_types():
     for container in samples:
         for type_ in container:
@@ -57,20 +54,17 @@ def test_get_respective_type():
         assert get_respective_type(c1) == c2
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_is_type():
     for container in samples:
         for type_ in container:
             assert is_type(type_)
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_validate_types_list():
     for container in samples:
         validate_types_list(container)
 
 
-@mark.skip(reason="We need to add a function to recognize Blueprint as a type.")
 def test_validate_type():
     for container in samples:
         for type_ in container:
@@ -95,7 +89,6 @@ def test_is_boost():
     assert is_boost('boosts')
 
 
-@mark.skip(reason="We need to add cars to car regex")
 def test_is_car():
     assert is_car('car')
     assert is_car('cars')
@@ -161,7 +154,6 @@ def test_contains_boost():
     assert contains_boost('boosts')
 
 
-@mark.skip(reason="We need to add cars to car regex")
 def test_contains_car():
     assert contains_car('car')
     assert contains_car('cars')

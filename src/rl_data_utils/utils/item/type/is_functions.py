@@ -14,6 +14,10 @@ def is_banner(type_: str) -> bool:
     return _regex_found(IS_BANNER, type_)
 
 
+def is_blueprint(type_: str) -> bool:
+    return _regex_found(IS_BLUEPRINT, type_)
+
+
 def is_boost(type_: str) -> bool:
     return _regex_found(IS_BOOST, type_)
 
@@ -46,6 +50,10 @@ def is_player_anthem(type_: str) -> bool:
     return _regex_found(IS_PLAYER_ANTHEM, type_)
 
 
+def is_player_title(type_: str) -> bool:
+    return _regex_found(IS_PLAYER_TITLE, type_)
+
+
 def is_topper(type_: str) -> bool:
     return _regex_found(IS_TOPPER, type_)
 
@@ -58,5 +66,6 @@ def is_wheel(type_: str) -> bool:
     return _regex_found(IS_WHEEL, type_)
 
 
-IS_FUNCTIONS = [is_antenna, is_avatar_border, is_banner, is_boost, is_car, is_decal, is_engine_audio, is_gift_pack,
-                is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, is_wheel]
+IS_FUNCTIONS = [is_antenna, is_avatar_border, is_banner, is_blueprint, is_boost, is_car, is_decal, is_engine_audio,
+                is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_player_title, is_topper,
+                is_trail, is_wheel]

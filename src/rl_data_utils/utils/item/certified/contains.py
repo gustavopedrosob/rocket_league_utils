@@ -1,7 +1,8 @@
 from rl_data_utils.__others import _regex_found
-from rl_data_utils.utils.item.certified.regexs import CONTAINS_ACROBAT, CONTAINS_AVIATOR, CONTAINS_GOALKEEPER,\
-    CONTAINS_GUARDIAN, CONTAINS_JUGGLER, CONTAINS_PARAGON, CONTAINS_PLAYMAKER, CONTAINS_SCORER, CONTAINS_SHOW_OFF, \
-    CONTAINS_SNIPER, CONTAINS_STRIKER, CONTAINS_SWEEPER, CONTAINS_TACTICIAN, CONTAINS_TURTLE, CONTAINS_VICTOR
+from rl_data_utils.utils.item.certified.regexs import CONTAINS_ACROBAT, CONTAINS_AVIATOR, CONTAINS_GOALKEEPER, \
+    CONTAINS_GUARDIAN, CONTAINS_JUGGLER, CONTAINS_NONE, CONTAINS_PARAGON, CONTAINS_PLAYMAKER, CONTAINS_SCORER, \
+    CONTAINS_SHOW_OFF, CONTAINS_SNIPER, CONTAINS_STRIKER, CONTAINS_SWEEPER, CONTAINS_TACTICIAN, CONTAINS_TURTLE, \
+    CONTAINS_VICTOR
 
 
 def contains_acrobat(certified: str) -> bool:
@@ -22,6 +23,10 @@ def contains_guardian(certified: str) -> bool:
 
 def contains_juggler(certified: str) -> bool:
     return _regex_found(CONTAINS_JUGGLER, certified)
+
+
+def contains_none(certified: str) -> bool:
+    return _regex_found(CONTAINS_NONE, certified)
 
 
 def contains_paragon(certified: str) -> bool:
@@ -65,6 +70,6 @@ def contains_victor(certified: str) -> bool:
 
 
 CONTAINS_FUNCTIONS = [contains_acrobat, contains_aviator, contains_goalkeeper, contains_guardian, contains_juggler,
-                      contains_paragon, contains_playmaker, contains_scorer,
+                      contains_none, contains_paragon, contains_playmaker, contains_scorer,
                       contains_show_off, contains_sniper, contains_striker, contains_sweeper, contains_tactician,
                       contains_turtle, contains_victor]

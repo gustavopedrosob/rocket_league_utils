@@ -1,11 +1,12 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.item.color.list_color import ABCListColor
-from rl_data_utils.utils.item.color.color import contains_color_in_list
+from rl_data_utils.utils.item.color.color import contains_color_in_list, validate_color
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 
 
 def get_items_by_color(color: str, items: list[ABCListColor]):
+    validate_color(color)
     return get_items_by_condition(lambda item: contains_color_in_list(color, item.get_list_color()),
                                   items)
 

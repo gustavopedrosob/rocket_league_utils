@@ -1,7 +1,7 @@
 CONTAINS_BLACK = r"black"
-CONTAINS_BURNT_SIENNA = r"burnt[_\- ]?sienna|bs"
-CONTAINS_COBALT = r"cobalt"
-CONTAINS_CRIMSON = r"crimson|carmesim"
+CONTAINS_BURNT_SIENNA = r"burnt[_\- ]?sienna|bs|sienna"
+CONTAINS_COBALT = r"cobalt|blue"
+CONTAINS_CRIMSON = r"crimson|carmesim|red"
 CONTAINS_DEFAULT = r"default|regular|none"
 CONTAINS_FOREST_GREEN = r"fg|green"
 CONTAINS_GREY = r"grey"
@@ -16,9 +16,9 @@ CONTAINS_REGEXS = [CONTAINS_BLACK, CONTAINS_BURNT_SIENNA, CONTAINS_COBALT, CONTA
                    CONTAINS_FOREST_GREEN, CONTAINS_GREY, CONTAINS_LIME, CONTAINS_ORANGE, CONTAINS_PINK,
                    CONTAINS_PURPLE, CONTAINS_SAFFRON, CONTAINS_SKY_BLUE, CONTAINS_TITANIUM_WHITE]
 IS_BLACK = r"^black$"
-IS_BURNT_SIENNA = r"^(burnt[_\- ]?sienna|bs)$"
-IS_COBALT = r"^cobalt$"
-IS_CRIMSON = r"^(crimson|carmesim)$"
+IS_BURNT_SIENNA = r"^(burnt[_\- ]?sienna|bs|sienna)$"
+IS_COBALT = r"^(cobalt|blue)$"
+IS_CRIMSON = r"^(crimson|carmesim|red)$"
 IS_DEFAULT = r"^(default|regular|none)$"
 IS_FOREST_GREEN = r"^fg|green$"
 IS_GREY = r"^grey$"

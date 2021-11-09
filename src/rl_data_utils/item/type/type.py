@@ -1,8 +1,8 @@
 from rl_data_utils.item.type.abc_base_type import ABCBaseType
 from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car,\
-    is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail,\
-    is_wheel
+from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car, \
+    is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, \
+    is_wheel, is_blueprint, is_player_title
 from rl_data_utils.utils.item.type.type import compare_types, get_respective_type, validate_type
 
 
@@ -21,6 +21,9 @@ class ABCType(ABCBaseType, ItemAttribute):
 
     def is_banner(self) -> bool:
         return is_banner(self.get_type())
+
+    def is_blueprint(self) -> bool:
+        return is_blueprint(self.get_type())
 
     def is_boost(self) -> bool:
         return is_boost(self.get_type())
@@ -45,6 +48,9 @@ class ABCType(ABCBaseType, ItemAttribute):
 
     def is_player_anthem(self):
         return is_player_anthem(self.get_type())
+
+    def is_player_title(self):
+        return is_player_title(self.get_type())
 
     def is_topper(self) -> bool:
         return is_topper(self.get_type())

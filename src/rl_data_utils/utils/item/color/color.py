@@ -72,10 +72,6 @@ def is_color(string: str) -> bool:
     return ColorsFunctions.is_(string)
 
 
-def is_certify_list(container) -> bool:
-    return ColorsFunctions.validate_list(container)
-
-
 def validate_color(string):
     return ColorsFunctions.validate(string)
 

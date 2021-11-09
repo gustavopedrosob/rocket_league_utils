@@ -70,22 +70,20 @@ def test_is_black():
     assert is_black('black')
 
 
-@mark.skip(reason="We need to add sienna to burnt sienna regex")
 def test_is_burnt_sienna():
     assert is_burnt_sienna('bs')
     assert is_burnt_sienna('burnt sienna')
     assert is_burnt_sienna('sienna')
 
 
-@mark.skip(reason="We need to add blue to cobalt regex")
 def test_is_cobalt():
     assert is_cobalt('cobalt')
     assert is_cobalt('blue')
 
 
-@mark.skip(reason="We need to add red to crimson regex")
 def test_is_crimson():
     assert is_crimson('crimson')
+    assert is_crimson('carmesim')
     assert is_crimson('red')
 
 
@@ -142,20 +140,17 @@ def test_contains_black():
     assert contains_black('black')
 
 
-@mark.skip(reason="We need to add sienna to burnt sienna regex")
 def test_contains_burnt_sienna():
     assert contains_burnt_sienna('bs')
     assert contains_burnt_sienna('burnt sienna')
     assert contains_burnt_sienna('sienna')
 
 
-@mark.skip(reason="We need to add blue to cobalt regex")
 def test_contains_cobalt():
     assert contains_cobalt('cobalt')
     assert contains_cobalt('blue')
 
 
-@mark.skip(reason="We need to add red to crimson regex")
 def test_contains_crimson():
     assert contains_crimson('crimson')
     assert contains_crimson('red')

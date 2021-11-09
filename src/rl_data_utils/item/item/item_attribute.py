@@ -46,15 +46,25 @@ class ItemAttribute:
     def item_attributes_to_dict(self) -> dict:
         attrs = {}
         if isinstance(self, ABCBaseColor):
-            attrs['color'] = self.get_color()
+            color = self.get_color()
+            if color:
+                attrs['color'] = color
         if isinstance(self, ABCBaseRarity):
-            attrs['rarity'] = self.get_rarity()
+            rarity = self.get_rarity()
+            if rarity:
+                attrs['rarity'] = rarity
         if isinstance(self, ABCBaseType):
-            attrs['type_'] = self.get_type()
+            type_ = self.get_type()
+            if type_:
+                attrs['type_'] = type_
         if isinstance(self, ABCBaseCertified):
-            attrs['certified'] = self.get_certified()
+            certified = self.get_certified()
+            if certified:
+                attrs['certified'] = certified
         if isinstance(self, ABCBaseName):
-            attrs['name'] = self.get_name()
+            name = self.get_name()
+            if name:
+                attrs['name'] = name
         if isinstance(self, ABCBaseQuantity):
             attrs['quantity'] = self.get_quantity()
         return attrs

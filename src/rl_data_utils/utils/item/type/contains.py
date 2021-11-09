@@ -14,6 +14,10 @@ def contains_banner(type_: str) -> bool:
     return _regex_found(CONTAINS_BANNER, type_)
 
 
+def contains_blueprint(type_: str) -> bool:
+    return _regex_found(CONTAINS_BLUEPRINT, type_)
+
+
 def contains_boost(type_: str) -> bool:
     return _regex_found(CONTAINS_BOOST, type_)
 
@@ -46,6 +50,10 @@ def contains_player_anthem(type_: str) -> bool:
     return _regex_found(CONTAINS_PLAYER_ANTHEM, type_)
 
 
+def contains_player_title(type_: str) -> bool:
+    return _regex_found(CONTAINS_PLAYER_TITLE, type_)
+
+
 def contains_topper(type_: str) -> bool:
     return _regex_found(CONTAINS_TOPPER, type_)
 
@@ -58,7 +66,7 @@ def contains_wheel(type_: str) -> bool:
     return _regex_found(CONTAINS_WHEEL, type_)
 
 
-CONTAINS_FUNCTIONS = [contains_antenna, contains_avatar_border, contains_banner, contains_boost, contains_car,
-                      contains_decal, contains_engine_audio, contains_gift_pack,
-                      contains_goal_explosion, contains_paint_finish, contains_player_anthem, contains_topper,
+CONTAINS_FUNCTIONS = [contains_antenna, contains_avatar_border, contains_banner, contains_blueprint, contains_boost,
+                      contains_car, contains_decal, contains_engine_audio, contains_gift_pack, contains_goal_explosion,
+                      contains_paint_finish, contains_player_anthem, contains_player_title, contains_topper,
                       contains_trail, contains_wheel]

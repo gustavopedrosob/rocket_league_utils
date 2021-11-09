@@ -42,10 +42,6 @@ def is_type(string: str) -> bool:
     return TypesFunctions.is_(string)
 
 
-def is_type_list(container) -> bool:
-    return TypesFunctions.validate_list(container)
-
-
 def validate_type(string):
     return TypesFunctions.validate(string)
 

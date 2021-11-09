@@ -93,13 +93,11 @@ def test_get_item_by_string():
     print(sample_items.get_item_by_string('Crimson'))
 
 
-@mark.skip(reason="We need to fix it, because the function is validating the null arguments.")
 def test_get_items_by_item():
     item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
     print(sample_items.get_items_by_item(item))
 
 
-@mark.skip(reason="We need to fix it, because the function is validating the null arguments.")
 def test_get_item_by_item():
     item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
     print(sample_items.get_item_by_item(item))

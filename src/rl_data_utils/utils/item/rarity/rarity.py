@@ -60,10 +60,6 @@ def is_rarity(string: str) -> bool:
     return RaritiesFunctions.is_(string)
 
 
-def is_rarity_list(container) -> bool:
-    return RaritiesFunctions.validate_list(container)
-
-
 def validate_rarities_list(container):
     return RaritiesFunctions.validate_list(container)
 

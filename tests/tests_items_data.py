@@ -63,7 +63,7 @@ class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
 
 
 class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
-    def __init__(self, id, name, rarity, platform, icon, type, icon_url, color='Default', customizable=False, unit=''):
+    def __init__(self, id, name, rarity, platform, icon, type, icon_url, color='', customizable=False, unit=''):
         self.id = id
         self.name = name
         self.rarity = rarity
@@ -141,13 +141,11 @@ def test_get_item_by_string():
     print(sample_items.get_item_by_string('Crimson'))
 
 
-@mark.skip(reason="We need to fix it, because the function is validating the null arguments.")
 def test_get_items_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
+    item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
     print(sample_items.get_items_by_item(item))
 
 
-@mark.skip(reason="We need to fix it, because the function is validating the null arguments.")
 def test_get_item_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
+    item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
     print(sample_items.get_item_by_item(item))

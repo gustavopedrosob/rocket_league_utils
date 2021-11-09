@@ -42,10 +42,6 @@ def is_certified(string: str) -> bool:
     return CertificatesFunctions.is_(string)
 
 
-def is_certificates_list(container) -> bool:
-    return CertificatesFunctions.validate_list(container)
-
-
 def validate_certificates_list(container):
     return CertificatesFunctions.validate_list(container)
 
