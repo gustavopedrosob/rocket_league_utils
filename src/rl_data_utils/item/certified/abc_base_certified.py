@@ -71,6 +71,10 @@ class ABCBaseCertified(ABC):
         pass
 
     @abstractmethod
+    def is_none(self) -> bool:
+        pass
+
+    @abstractmethod
     def validate_certified(self):
         pass
 

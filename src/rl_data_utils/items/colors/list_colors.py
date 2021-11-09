@@ -22,6 +22,12 @@ class ABCListColors(ABCBaseColors, ABCItems):
     def get_items_by_color_contains(self, color: str):
         return get_items_by_color_contains(color, self.get_items())
 
+    def get_colors(self):
+        result = set()
+        for item in self.get_items():
+            result.update(item.get_list_color())
+        return result
+
     def get_items_crimson(self):
         return get_items_crimson(self.get_items())
 

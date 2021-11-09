@@ -1,4 +1,4 @@
-from rl_data_utils.item.name import is_credits
+from rl_data_utils.utils.item.name.is_functions import is_credits
 
 
 def test_is_credit():

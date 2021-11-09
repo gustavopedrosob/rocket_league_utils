@@ -4,6 +4,7 @@ from rl_data_utils.item.rarity.abc_base_rarity import ABCBaseRarity
 from rl_data_utils.item.certified.abc_base_certified import ABCBaseCertified
 from rl_data_utils.item.quantity.abc_base_quantity import ABCBaseQuantity
 from rl_data_utils.item.name.abc_base_name import ABCBaseName
+from rl_data_utils.utils.item_attributes.item_attributes import get_repr
 
 
 class ItemAttribute:
@@ -19,6 +20,9 @@ class ItemAttribute:
 
     def __eq__(self, other):
         return self.compare_items(other)
+
+    def __repr__(self):
+        return get_repr(**self.item_attributes_to_dict())
 
     def compare_items(self, item):
         comparisons_results = []

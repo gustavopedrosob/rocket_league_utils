@@ -4,7 +4,7 @@ from rl_data_utils.utils.item.certified.certified import compare_certificates, g
     validate_certified
 from rl_data_utils.utils.item.certified.is_functions import is_acrobat, is_aviator, is_goalkeeper, is_guardian,\
     is_juggler, is_paragon, is_playmaker, is_scorer, is_show_off, is_sniper, is_striker, is_sweeper, is_tactician,\
-    is_turtle, is_victor
+    is_turtle, is_victor, is_none
 
 
 class ABCCertified(ABCBaseCertified, ItemAttribute):
@@ -58,6 +58,9 @@ class ABCCertified(ABCBaseCertified, ItemAttribute):
 
     def is_victor(self) -> bool:
         return is_victor(self.get_certified())
+
+    def is_none(self) -> bool:
+        return is_none(self.get_certified())
 
     def validate_certified(self):
         validate_certified(self.get_certified())

@@ -66,3 +66,10 @@ class AttributesFunctions:
             return result.group(0)
         else:
             return null
+
+
+def gen_pair(container):
+    result = []
+    for v in container:
+        result.append([v.lower(), v.title()])
+    return result
