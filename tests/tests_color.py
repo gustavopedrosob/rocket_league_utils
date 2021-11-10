@@ -1,5 +1,8 @@
+import pytest
+
+from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList
 from rl_data_utils.utils.item.color.color import all_are_colors, compare_colors, contains_colors, get_color_in_string, \
-    get_respective_color, is_color, validate_colors_list, validate_color
+    get_respective_color, is_color, validate_colors_list, validate_color, contains_color_in_list
 from rl_data_utils.utils.item.color.constants import COLORS
 from rl_data_utils.utils.item.color.contains import contains_black, contains_burnt_sienna, contains_cobalt, \
     contains_crimson, contains_default, contains_forest_green, contains_grey, contains_lime, contains_orange, \
@@ -25,9 +28,13 @@ def test_all_are_colors():
         assert all_are_colors(container)
 
 
+@pytest.mark.skip(reason="compare_colors() need to raises ColorNotExits if any param is not a color.")
 def test_compare_colors():
     for pair in pair_equals:
         assert compare_colors(*pair)
+    with pytest.raises(ColorNotExists):
+        compare_colors('', 'red')
+        compare_colors('red', '')
 
 
 def test_contains_colors():
@@ -36,17 +43,25 @@ def test_contains_colors():
             assert contains_colors(color)
 
 
-# def test_contains_colors_in_list():
-#     assert contains_colors_in_list('striker', inventory_colors)
+@pytest.mark.skip(reason="contains_color_in_list() need to raises ColorNotExits if param is not a certified.")
+def test_contains_color_in_list():
+    assert contains_color_in_list('red', inventory_colors)
+    with pytest.raises(ColorNotExists):
+        contains_color_in_list('', inventory_colors)
+    with pytest.raises(InvalidColorsList):
+        contains_color_in_list('red', [''])
 
 
 def test_get_color_in_string():
     assert get_color_in_string('Dingo Titanium White Striker') == 'Titanium White'
+    assert get_color_in_string('Dingo Striker') is None
 
 
 def test_get_respective_color():
     for c1, c2 in pair_equals:
         assert get_respective_color(c1) == c2
+    with pytest.raises(ColorNotExists):
+        get_respective_color('')
 
 
 def test_is_color():
@@ -58,12 +73,16 @@ def test_is_color():
 def test_validate_colors_list():
     for container in [inventory_colors, insider_colors, COLORS]:
         validate_colors_list(container)
+    with pytest.raises(InvalidColorsList):
+        validate_colors_list(['', 'red'])
 
 
 def test_validate_color():
     for container in [inventory_colors, insider_colors, COLORS]:
         for color in container:
             validate_color(color)
+    with pytest.raises(ColorNotExists):
+        validate_color('')
 
 
 def test_is_black():

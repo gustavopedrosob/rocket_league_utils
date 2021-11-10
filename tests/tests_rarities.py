@@ -5,7 +5,7 @@ from rl_data_utils.exceptions import RarityNotExists
 
 def test_get_items_by_rarity_rarity_not_exists():
     with pytest.raises(RarityNotExists):
-        sample_items.get_items_by_rarity("anbsinaisnain")
+        sample_items.get_items_by_rarity('')
 
 
 def test_get_items_by_rarity():

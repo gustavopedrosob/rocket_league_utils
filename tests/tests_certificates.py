@@ -5,7 +5,7 @@ from tests_items import sample_items
 
 def test_get_items_by_certified_certified_not_exists():
     with pytest.raises(CertifiedNotExists):
-        sample_items.get_items_by_certified("anbsinaisnain")
+        sample_items.get_items_by_certified("")
 
 
 def test_get_items_by_certified():

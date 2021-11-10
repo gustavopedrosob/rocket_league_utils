@@ -1,10 +1,13 @@
+import pytest
+from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
 from rl_data_utils.utils.item.rarity.contains import contains_black_market, contains_common, contains_exotic, \
     contains_import, contains_legacy, contains_limited, contains_premium, contains_rare, contains_uncommon, \
     contains_very_rare
 from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_common, is_exotic, is_import, is_legacy, \
     is_limited, is_premium, is_rare, is_uncommon, is_very_rare
 from rl_data_utils.utils.item.rarity.rarity import all_are_rarities, compare_rarities, contains_rarities, \
-    get_rarity_in_string, get_respective_rarity, is_rarity, validate_rarities_list, validate_rarity
+    get_rarity_in_string, get_respective_rarity, is_rarity, validate_rarities_list, validate_rarity, \
+    contains_rarity_in_list
 from rl_data_utils.utils.item.rarity.constants import RARITIES
 
 insider_rarities = ['Limited', 'Uncommon', 'Rare', 'Very Rare', 'Import', 'Exotic', 'Black Market']
@@ -23,9 +26,13 @@ def test_all_are_rarities():
         assert all_are_rarities(container)
 
 
+@pytest.mark.skip(reason="compare_rarities() need to raises RarityNotExits if any param is not a rarity.")
 def test_compare_rarities():
     for pair in pair_equals:
         assert compare_rarities(*pair)
+    with pytest.raises(RarityNotExists):
+        compare_rarities('', 'vr')
+        compare_rarities('vr', '')
 
 
 def test_contains_rarities():
@@ -34,17 +41,25 @@ def test_contains_rarities():
             assert contains_rarities(rarity)
 
 
-# def test_contains_rarities_in_list():
-#     assert contains_rarities_in_list('striker', inventory_rarities)
+@pytest.mark.skip(reason="contains_rarity_in_list() need to raises RarityNotExits if param is not a rarity.")
+def test_contains_rarity_in_list():
+    assert contains_rarity_in_list('vr', inventory_rarities)
+    with pytest.raises(RarityNotExists):
+        contains_rarity_in_list('', inventory_rarities)
+    with pytest.raises(InvalidRaritiesList):
+        contains_rarity_in_list('vr', [''])
 
 
 def test_get_rarity_in_string():
     assert get_rarity_in_string('Dingo Titanium White Striker Imported') == 'Imported'
+    assert get_rarity_in_string('Dingo Titanium White Striker') is None
 
 
 def test_get_respective_rarity():
     for c1, c2 in pair_equals:
         assert get_respective_rarity(c1) == c2
+    with pytest.raises(RarityNotExists):
+        get_respective_rarity('')
 
 
 def test_is_rarity():
@@ -56,6 +71,8 @@ def test_is_rarity():
 def test_validate_rarities_list():
     for container in samples:
         validate_rarities_list(container)
+    with pytest.raises(InvalidRaritiesList):
+        validate_rarities_list([''])
 
 
 def test_validate_rarity():

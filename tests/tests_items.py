@@ -1,7 +1,8 @@
+import pytest
+from rl_data_utils.exceptions import ItemNotFound
 from rl_data_utils.item import ABCColor, ABCRarity, ABCType, ABCCertified, ABCName, ABCQuantity
 from rl_data_utils.items import ABCColors, ABCRarities, ABCTypes, ABCCertificates, ABCNames, ABCQuantities
 from json import load
-from pytest import mark
 
 
 class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColor):
@@ -101,3 +102,8 @@ def test_get_items_by_item():
 def test_get_item_by_item():
     item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
     print(sample_items.get_item_by_item(item))
+
+
+def test_get_item_by_item_item_not_found():
+    with pytest.raises(ItemNotFound):
+        sample_items.get_item_by(name='asinaisnianisninaisn')

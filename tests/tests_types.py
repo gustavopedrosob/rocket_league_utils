@@ -5,7 +5,7 @@ import pytest
 
 def test_get_items_by_type_type_not_exists():
     with pytest.raises(TypeNotExists):
-        sample_items.get_items_by_type("anbsinaisnain")
+        sample_items.get_items_by_type('')
 
 
 def test_get_items_by_type():

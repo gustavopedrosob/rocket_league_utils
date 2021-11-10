@@ -1,13 +1,16 @@
+from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
 from rl_data_utils.utils.item.certified.certified import all_are_certificates, compare_certificates, \
     contains_certificates, contains_certificates_in_list, get_certified_in_string, get_respective_certified, \
     is_certified, validate_certificates_list, validate_certified
 from rl_data_utils.utils.item.certified.constants import CERTIFICATES
 from rl_data_utils.utils.item.certified.contains import contains_acrobat, contains_aviator, contains_goalkeeper, \
     contains_guardian, contains_juggler, contains_paragon, contains_playmaker, contains_scorer, contains_show_off, \
-    contains_sniper, contains_striker, contains_sweeper, contains_tactician, contains_victor, contains_turtle
+    contains_sniper, contains_striker, contains_sweeper, contains_tactician, contains_victor, contains_turtle, \
+    contains_none
 from rl_data_utils.utils.item.certified.is_functions import is_acrobat, is_goalkeeper, is_aviator, is_guardian, \
     is_juggler, is_paragon, is_playmaker, is_scorer, is_show_off, is_sniper, is_striker, is_sweeper, is_tactician, \
     is_turtle, is_victor, is_none
+import pytest
 
 inventory_certificates = ['Aviator', 'Acrobat', 'Victor', 'Striker', 'Sniper', 'Scorer', 'Playmaker', 'Guardian',
                           'Paragon', 'Sweeper', 'Turtle', 'Tactician', 'Show-off', 'Juggler', 'Goalkeeper']
@@ -26,9 +29,13 @@ def test_all_are_certificates():
         assert all_are_certificates(container)
 
 
+@pytest.mark.skip(reason="compare_certificates() need to raises CertifiedNotExits if param is not a certified.")
 def test_compare_certificates():
     for pair in pair_equals:
         assert compare_certificates(*pair)
+    with pytest.raises(CertifiedNotExists):
+        compare_certificates('', 'striker')
+        compare_certificates('striker', '')
 
 
 def test_contains_certificates():
@@ -37,17 +44,25 @@ def test_contains_certificates():
             assert contains_certificates(certified)
 
 
+@pytest.mark.skip(reason="certificates_in_list() need to raises CertifiedNotExits if param is not a certified.")
 def test_contains_certificates_in_list():
     assert contains_certificates_in_list('striker', inventory_certificates)
+    with pytest.raises(CertifiedNotExists):
+        contains_certificates_in_list('', inventory_certificates)
+    with pytest.raises(InvalidCertificatesList):
+        contains_certificates_in_list('striker', [''])
 
 
 def test_get_certified_in_string():
     assert get_certified_in_string('Dingo Titanium White Striker') == 'Striker'
+    assert get_certified_in_string('Dingo Titanium White') is None
 
 
 def test_get_respective_certified():
     for c1, c2 in pair_equals:
         assert get_respective_certified(c1) == c2
+    with pytest.raises(CertifiedNotExists):
+        get_respective_certified('')
 
 
 def test_is_certified():
@@ -59,12 +74,16 @@ def test_is_certified():
 def test_validate_certificates_list():
     for container in samples:
         validate_certificates_list(container)
+    with pytest.raises(InvalidCertificatesList):
+        validate_certificates_list(['', ''])
 
 
 def test_validate_certified():
     for container in samples:
         for certified in container:
             validate_certified(certified)
+    with pytest.raises(CertifiedNotExists):
+        validate_certified('')
 
 
 def test_is_acrobat():
@@ -191,5 +210,5 @@ def test_contains_victor():
     assert contains_victor('victor')
 
 
-# def test_contains_none():
-#     assert contains_none('none')
+def test_contains_none():
+    assert contains_none('none')

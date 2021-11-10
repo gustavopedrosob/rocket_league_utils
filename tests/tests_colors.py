@@ -5,7 +5,7 @@ from tests_items import sample_items
 
 def test_get_items_by_color_color_not_exists():
     with pytest.raises(ColorNotExists):
-        sample_items.get_items_by_color("anbsinaisnain")
+        sample_items.get_items_by_color("")
 
 
 def test_get_items_by_color():

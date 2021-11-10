@@ -1,3 +1,6 @@
+import pytest
+
+from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
 from rl_data_utils.utils.item.type.contains import contains_antenna, contains_avatar_border, contains_banner, \
     contains_boost, contains_car, contains_decal, contains_engine_audio, contains_gift_pack, contains_goal_explosion, \
     contains_player_anthem, contains_topper, contains_trail, contains_wheel, contains_paint_finish
@@ -30,9 +33,13 @@ def test_all_are_types():
         assert all_are_types(container)
 
 
+@pytest.mark.skip(reason="compare_types() need to raises TypeNotExits if param is not a type.")
 def test_compare_types():
     for pair in pair_equals:
         assert compare_types(*pair)
+    with pytest.raises(TypeNotExists):
+        compare_types('car', '')
+        compare_types('', 'car')
 
 
 def test_contains_types():
@@ -41,17 +48,25 @@ def test_contains_types():
             assert contains_types(type_)
 
 
+@pytest.mark.skip(reason="contains_types_in_list() need to raises TypeNotExits if param is not a type.")
 def test_contains_types_in_list():
     assert contains_types_in_list('car', inventory_types)
+    with pytest.raises(TypeNotExists):
+        contains_types_in_list('', inventory_types)
+    with pytest.raises(InvalidTypesList):
+        contains_types_in_list('car', [''])
 
 
 def test_get_type_in_string():
     assert get_type_in_string('Car Dingo Titanium White Striker') == 'Car'
+    assert get_type_in_string('Dingo Titanium White Striker') is None
 
 
 def test_get_respective_type():
     for c1, c2 in pair_equals:
         assert get_respective_type(c1) == c2
+    with pytest.raises(TypeNotExists):
+        get_respective_type('')
 
 
 def test_is_type():
@@ -63,12 +78,16 @@ def test_is_type():
 def test_validate_types_list():
     for container in samples:
         validate_types_list(container)
+    with pytest.raises(InvalidTypesList):
+        validate_types_list([''])
 
 
 def test_validate_type():
     for container in samples:
         for type_ in container:
             validate_type(type_)
+    with pytest.raises(TypeNotExists):
+        validate_type('')
 
 
 def test_is_antenna():
