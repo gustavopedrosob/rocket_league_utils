@@ -2,7 +2,7 @@ import pytest
 
 from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList
 from rl_data_utils.utils.item.color.color import all_are_colors, compare_colors, contains_colors, get_color_in_string, \
-    get_respective_color, is_color, validate_colors_list, validate_color, contains_color_in_list
+    get_respective_color, is_color, validate_colors_list, validate_color, has_color
 from rl_data_utils.utils.item.color.constants import COLORS
 from rl_data_utils.utils.item.color.contains import contains_black, contains_burnt_sienna, contains_cobalt, \
     contains_crimson, contains_default, contains_forest_green, contains_grey, contains_lime, contains_orange, \
@@ -44,12 +44,12 @@ def test_contains_colors():
 
 
 @pytest.mark.skip(reason="contains_color_in_list() need to raises ColorNotExits if param is not a certified.")
-def test_contains_color_in_list():
-    assert contains_color_in_list('red', inventory_colors)
+def test_has_color():
+    assert has_color('red', inventory_colors)
     with pytest.raises(ColorNotExists):
-        contains_color_in_list('', inventory_colors)
+        has_color('', inventory_colors)
     with pytest.raises(InvalidColorsList):
-        contains_color_in_list('red', [''])
+        has_color('red', [''])
 
 
 def test_get_color_in_string():

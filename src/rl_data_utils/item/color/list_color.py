@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from rl_data_utils.utils.item.color.color import contains_color_in_list, get_respective_color
+from rl_data_utils.utils.item.color.color import has_color, get_respective_color
 from rl_data_utils.utils.item.color.has_functions import has_black, has_burnt_sienna, has_cobalt, has_crimson, \
     has_default, has_forest_green, has_grey, has_lime, has_orange, has_pink, has_purple, has_saffron, has_sky_blue, \
     has_titanium_white
@@ -12,7 +12,7 @@ class ABCListColor:
         pass
 
     def contains_color(self, color: str):
-        return contains_color_in_list(color, self.get_list_color())
+        return has_color(color, self.get_list_color())
 
     def validate_contains_color(self, color: str):
         if not self.contains_color(color):

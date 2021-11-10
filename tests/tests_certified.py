@@ -1,6 +1,6 @@
 from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
 from rl_data_utils.utils.item.certified.certified import all_are_certificates, compare_certificates, \
-    contains_certificates, contains_certificates_in_list, get_certified_in_string, get_respective_certified, \
+    contains_certificates, has_certified, get_certified_in_string, get_respective_certified, \
     is_certified, validate_certificates_list, validate_certified
 from rl_data_utils.utils.item.certified.constants import CERTIFICATES
 from rl_data_utils.utils.item.certified.contains import contains_acrobat, contains_aviator, contains_goalkeeper, \
@@ -45,12 +45,12 @@ def test_contains_certificates():
 
 
 @pytest.mark.skip(reason="certificates_in_list() need to raises CertifiedNotExits if param is not a certified.")
-def test_contains_certificates_in_list():
-    assert contains_certificates_in_list('striker', inventory_certificates)
+def test_has_certified():
+    assert has_certified('striker', inventory_certificates)
     with pytest.raises(CertifiedNotExists):
-        contains_certificates_in_list('', inventory_certificates)
+        has_certified('', inventory_certificates)
     with pytest.raises(InvalidCertificatesList):
-        contains_certificates_in_list('striker', [''])
+        has_certified('striker', [''])
 
 
 def test_get_certified_in_string():

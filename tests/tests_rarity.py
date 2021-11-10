@@ -7,7 +7,7 @@ from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_com
     is_limited, is_premium, is_rare, is_uncommon, is_very_rare
 from rl_data_utils.utils.item.rarity.rarity import all_are_rarities, compare_rarities, contains_rarities, \
     get_rarity_in_string, get_respective_rarity, is_rarity, validate_rarities_list, validate_rarity, \
-    contains_rarity_in_list
+    has_rarity
 from rl_data_utils.utils.item.rarity.constants import RARITIES
 
 insider_rarities = ['Limited', 'Uncommon', 'Rare', 'Very Rare', 'Import', 'Exotic', 'Black Market']
@@ -42,12 +42,12 @@ def test_contains_rarities():
 
 
 @pytest.mark.skip(reason="contains_rarity_in_list() need to raises RarityNotExits if param is not a rarity.")
-def test_contains_rarity_in_list():
-    assert contains_rarity_in_list('vr', inventory_rarities)
+def test_has_rarity():
+    assert has_rarity('vr', inventory_rarities)
     with pytest.raises(RarityNotExists):
-        contains_rarity_in_list('', inventory_rarities)
+        has_rarity('', inventory_rarities)
     with pytest.raises(InvalidRaritiesList):
-        contains_rarity_in_list('vr', [''])
+        has_rarity('vr', [''])
 
 
 def test_get_rarity_in_string():

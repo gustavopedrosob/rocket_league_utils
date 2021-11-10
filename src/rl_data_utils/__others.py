@@ -56,7 +56,7 @@ class AttributesFunctions:
         return any(map(lambda f: f(string), cls.contains_functions))
 
     @classmethod
-    def contains_in_list(cls, string, container):
+    def has(cls, string, container):
         return any(map(lambda e: cls.compare(string, e), container))
 
     @classmethod

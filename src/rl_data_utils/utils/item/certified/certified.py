@@ -26,8 +26,8 @@ def contains_certificates(string: str) -> bool:
     return CertificatesFunctions.contains(string)
 
 
-def contains_certificates_in_list(string: str, container: list) -> bool:
-    return CertificatesFunctions.contains_in_list(string, container)
+def has_certified(string: str, container: list) -> bool:
+    return CertificatesFunctions.has(string, container)
 
 
 def get_certified_in_string(string: str) -> str:

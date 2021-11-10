@@ -1,4 +1,4 @@
-from rl_data_utils.utils.item.rarity.rarity import contains_rarity_in_list, get_respective_rarity
+from rl_data_utils.utils.item.rarity.rarity import has_rarity, get_respective_rarity
 from abc import ABC, abstractmethod
 from rl_data_utils.utils.item.rarity.has_functions import has_black_market, has_common, has_exotic, has_import,\
     has_legacy, has_limited, has_premium, has_rare, has_uncommon, has_very_rare
@@ -11,7 +11,7 @@ class ABCListRarity(ABC):
         pass
 
     def contains_rarity(self, rarity: str):
-        return contains_rarity_in_list(rarity, self.get_list_rarity())
+        return has_rarity(rarity, self.get_list_rarity())
 
     def validate_contains_rarity(self, rarity: str):
         if not self.contains_rarity(rarity):

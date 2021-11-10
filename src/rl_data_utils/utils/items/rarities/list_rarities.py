@@ -2,12 +2,12 @@ from re import IGNORECASE
 
 from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.item.rarity.list_rarity import ABCListRarity
-from rl_data_utils.utils.item.rarity.rarity import contains_rarity_in_list
+from rl_data_utils.utils.item.rarity.rarity import has_rarity
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 
 
 def get_items_by_rarity(rarity: str, items: list[ABCListRarity]):
-    return get_items_by_condition(lambda item: contains_rarity_in_list(rarity, item.get_list_rarity()),
+    return get_items_by_condition(lambda item: has_rarity(rarity, item.get_list_rarity()),
                                   items)
 
 

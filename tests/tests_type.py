@@ -7,7 +7,7 @@ from rl_data_utils.utils.item.type.contains import contains_antenna, contains_av
 from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car, \
     is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, \
     is_wheel
-from rl_data_utils.utils.item.type.type import all_are_types, compare_types, contains_types, contains_types_in_list, \
+from rl_data_utils.utils.item.type.type import all_are_types, compare_types, contains_types, has_type, \
     get_type_in_string, get_respective_type, is_type, validate_types_list, validate_type
 from rl_data_utils.utils.item.type.constants import TYPES
 from pytest import mark
@@ -49,12 +49,12 @@ def test_contains_types():
 
 
 @pytest.mark.skip(reason="contains_types_in_list() need to raises TypeNotExits if param is not a type.")
-def test_contains_types_in_list():
-    assert contains_types_in_list('car', inventory_types)
+def test_has_type():
+    assert has_type('car', inventory_types)
     with pytest.raises(TypeNotExists):
-        contains_types_in_list('', inventory_types)
+        has_type('', inventory_types)
     with pytest.raises(InvalidTypesList):
-        contains_types_in_list('car', [''])
+        has_type('car', [''])
 
 
 def test_get_type_in_string():
