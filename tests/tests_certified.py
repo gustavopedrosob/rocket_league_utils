@@ -29,7 +29,6 @@ def test_all_are_certificates():
         assert all_are_certificates(container)
 
 
-@pytest.mark.skip(reason="compare_certificates() need to raises CertifiedNotExits if param is not a certified.")
 def test_compare_certificates():
     for pair in pair_equals:
         assert compare_certificates(*pair)
@@ -44,7 +43,6 @@ def test_contains_certificates():
             assert contains_certificates(certified)
 
 
-@pytest.mark.skip(reason="certificates_in_list() need to raises CertifiedNotExits if param is not a certified.")
 def test_has_certified():
     assert has_certified('striker', inventory_certificates)
     with pytest.raises(CertifiedNotExists):

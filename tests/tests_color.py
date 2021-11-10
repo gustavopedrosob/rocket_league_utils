@@ -28,7 +28,6 @@ def test_all_are_colors():
         assert all_are_colors(container)
 
 
-@pytest.mark.skip(reason="compare_colors() need to raises ColorNotExits if any param is not a color.")
 def test_compare_colors():
     for pair in pair_equals:
         assert compare_colors(*pair)
@@ -43,7 +42,6 @@ def test_contains_colors():
             assert contains_colors(color)
 
 
-@pytest.mark.skip(reason="contains_color_in_list() need to raises ColorNotExits if param is not a certified.")
 def test_has_color():
     assert has_color('red', inventory_colors)
     with pytest.raises(ColorNotExists):

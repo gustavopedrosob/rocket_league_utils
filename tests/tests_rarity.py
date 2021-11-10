@@ -26,7 +26,6 @@ def test_all_are_rarities():
         assert all_are_rarities(container)
 
 
-@pytest.mark.skip(reason="compare_rarities() need to raises RarityNotExits if any param is not a rarity.")
 def test_compare_rarities():
     for pair in pair_equals:
         assert compare_rarities(*pair)
@@ -41,7 +40,6 @@ def test_contains_rarities():
             assert contains_rarities(rarity)
 
 
-@pytest.mark.skip(reason="contains_rarity_in_list() need to raises RarityNotExits if param is not a rarity.")
 def test_has_rarity():
     assert has_rarity('vr', inventory_rarities)
     with pytest.raises(RarityNotExists):

@@ -26,7 +26,9 @@ class AttributesFunctions:
         return any(map(lambda f: f(string), cls.is_functions))
 
     @classmethod
-    def compare(cls, string_1: str, string_2) -> bool:
+    def compare(cls, string_1: str, string_2: str) -> bool:
+        cls.validate(string_1)
+        cls.validate(string_2)
         return any(map(lambda f: f(string_1) and f(string_2), cls.is_functions))
 
     @classmethod
@@ -57,6 +59,8 @@ class AttributesFunctions:
 
     @classmethod
     def has(cls, string, container):
+        cls.validate(string)
+        cls.validate_list(container)
         return any(map(lambda e: cls.compare(string, e), container))
 
     @classmethod

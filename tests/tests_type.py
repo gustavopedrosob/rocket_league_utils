@@ -33,7 +33,6 @@ def test_all_are_types():
         assert all_are_types(container)
 
 
-@pytest.mark.skip(reason="compare_types() need to raises TypeNotExits if param is not a type.")
 def test_compare_types():
     for pair in pair_equals:
         assert compare_types(*pair)
@@ -48,7 +47,6 @@ def test_contains_types():
             assert contains_types(type_)
 
 
-@pytest.mark.skip(reason="contains_types_in_list() need to raises TypeNotExits if param is not a type.")
 def test_has_type():
     assert has_type('car', inventory_types)
     with pytest.raises(TypeNotExists):
