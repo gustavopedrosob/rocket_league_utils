@@ -36,6 +36,10 @@ class ABCBaseTypes(ABC):
         pass
 
     @abstractmethod
+    def get_items_blueprint(self) -> bool:
+        pass
+
+    @abstractmethod
     def get_items_boost(self) -> bool:
         pass
 
@@ -64,7 +68,11 @@ class ABCBaseTypes(ABC):
         pass
 
     @abstractmethod
-    def get_items_player_anthem(self):
+    def get_items_player_anthem(self) -> bool:
+        pass
+
+    @abstractmethod
+    def get_items_player_title(self) -> bool:
         pass
 
     @abstractmethod

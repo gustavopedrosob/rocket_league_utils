@@ -38,6 +38,10 @@ def get_items_banner(items: list[ABCType]) -> bool:
     return get_items_by_condition(lambda item: item.is_banner(), items)
 
 
+def get_items_blueprint(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_blueprint(), items)
+
+
 def get_items_boost(items: list[ABCType]) -> bool:
     return get_items_by_condition(lambda item: item.is_boost(), items)
 
@@ -68,6 +72,10 @@ def get_items_paint_finish(items: list[ABCType]) -> bool:
 
 def get_items_player_anthem(items: list[ABCType]):
     return get_items_by_condition(lambda item: item.is_player_anthem(), items)
+
+
+def get_items_player_title(items: list[ABCType]) -> bool:
+    return get_items_by_condition(lambda item: item.is_player_title(), items)
 
 
 def get_items_topper(items: list[ABCType]) -> bool:

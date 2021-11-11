@@ -7,6 +7,11 @@ class TypeNotExists(Exception):
         super().__init__(f'Type \"{type_}\" not exists.')
 
 
+class SerieNotExists(Exception):
+    def __init__(self, serie: str):
+        super().__init__(f'Serie \"{serie}\" not exists.')
+
+
 class RarityNotExists(Exception):
     def __init__(self, rarity: str):
         super().__init__(f'Rarity \"{rarity}\" not exists.')
@@ -25,6 +30,11 @@ class CertifiedNotExists(Exception):
 class InvalidTypesList(Exception):
     def __init__(self):
         super().__init__(f'To create a types list, all items must be a type.')
+
+
+class InvalidSeriesList(Exception):
+    def __init__(self):
+        super().__init__(f'To create a series list, all items must be a serie.')
 
 
 class InvalidRaritiesList(Exception):

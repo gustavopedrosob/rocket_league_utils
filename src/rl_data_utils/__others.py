@@ -1,5 +1,4 @@
 from re import search, IGNORECASE
-from functools import lru_cache
 
 
 def _regex_found(pattern, string, flags=IGNORECASE) -> bool:
@@ -70,10 +69,3 @@ class AttributesFunctions:
             return result.group(0)
         else:
             return null
-
-
-def gen_pair(container):
-    result = []
-    for v in container:
-        result.append([v.lower(), v.title()])
-    return result

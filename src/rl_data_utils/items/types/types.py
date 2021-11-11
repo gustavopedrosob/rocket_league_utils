@@ -5,7 +5,7 @@ from rl_data_utils.utils.items.types.types import get_items_by_type_regex, get_t
     get_items_by_type_equal_to, get_items_by_type_contains, get_items_antenna, get_items_avatar_border, \
     get_items_banner, get_items_boost, get_items_car, get_items_decal, get_items_engine_audio, get_items_gift_pack, \
     get_items_goal_explosion, get_items_paint_finish, get_items_player_anthem, get_items_topper, get_items_trail, \
-    get_items_wheel
+    get_items_wheel, get_items_player_title, get_items_blueprint
 
 
 class Types(ABCBaseTypes, Items):
@@ -33,6 +33,9 @@ class Types(ABCBaseTypes, Items):
     def get_items_banner(self) -> bool:
         return self.__class__(get_items_banner(self.items))
 
+    def get_items_blueprint(self) -> bool:
+        return self.__class__(get_items_blueprint(self.items))
+
     def get_items_boost(self) -> bool:
         return self.__class__(get_items_boost(self.items))
 
@@ -54,8 +57,11 @@ class Types(ABCBaseTypes, Items):
     def get_items_paint_finish(self) -> bool:
         return self.__class__(get_items_paint_finish(self.items))
 
-    def get_items_player_anthem(self):
+    def get_items_player_anthem(self) -> bool:
         return self.__class__(get_items_player_anthem(self.items))
+
+    def get_items_player_title(self) -> bool:
+        return self.__class__(get_items_player_title(self.items))
 
     def get_items_topper(self) -> bool:
         return self.__class__(get_items_topper(self.items))
