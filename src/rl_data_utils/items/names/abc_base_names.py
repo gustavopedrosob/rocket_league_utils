@@ -16,7 +16,7 @@ class ABCBaseNames(ABC):
         pass
 
     @abstractmethod
-    def get_items_by_name(self, name: str, items=None):
+    def get_items_by_name(self, name: str):
         pass
 
     @abstractmethod

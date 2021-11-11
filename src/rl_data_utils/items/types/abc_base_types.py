@@ -8,7 +8,7 @@ class ABCBaseTypes(ABC):
         pass
 
     @abstractmethod
-    def get_items_by_type(self, type_: str, items=None):
+    def get_items_by_type(self, type_: str):
         pass
 
     @abstractmethod

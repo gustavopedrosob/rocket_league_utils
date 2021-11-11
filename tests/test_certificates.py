@@ -1,6 +1,6 @@
 import pytest
 from rl_data_utils.exceptions import CertifiedNotExists
-from tests_items import sample_items
+from test_items import sample_items
 
 
 def test_get_items_by_certified_certified_not_exists():

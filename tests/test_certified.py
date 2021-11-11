@@ -73,7 +73,7 @@ def test_validate_certificates_list():
     for container in samples:
         validate_certificates_list(container)
     with pytest.raises(InvalidCertificatesList):
-        validate_certificates_list(['', ''])
+        validate_certificates_list([''])
 
 
 def test_validate_certified():

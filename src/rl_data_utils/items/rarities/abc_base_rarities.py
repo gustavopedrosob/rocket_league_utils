@@ -8,7 +8,7 @@ class ABCBaseRarities(ABC):
         pass
 
     @abstractmethod
-    def get_items_by_rarity(self, rarity: str, items=None):
+    def get_items_by_rarity(self, rarity: str):
         pass
 
     @abstractmethod

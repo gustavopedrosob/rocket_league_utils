@@ -1,5 +1,5 @@
 from rl_data_utils.exceptions import TypeNotExists
-from tests_items import sample_items
+from test_items import sample_items
 import pytest
 
 

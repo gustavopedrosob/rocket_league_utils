@@ -1,5 +1,5 @@
 from rl_data_utils.exceptions import ColorNotExists
-from tests_items_data import sample_items
+from test_items_data import sample_items
 import pytest
 
 

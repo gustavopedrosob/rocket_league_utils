@@ -1,14 +1,14 @@
-from rl_data_utils.items.items.items import ABCItems
+from rl_data_utils.items.items.items import Items
 from abc import ABC, abstractmethod
 
 
 class ABCTrade(ABC):
     @abstractmethod
-    def get_him_items(self) -> ABCItems:
+    def get_him_items(self) -> Items:
         pass
 
     @abstractmethod
-    def get_my_items(self) -> ABCItems:
+    def get_my_items(self) -> Items:
         pass
 
     @abstractmethod

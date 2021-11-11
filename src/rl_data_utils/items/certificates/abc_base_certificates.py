@@ -8,7 +8,7 @@ class ABCBaseCertificates(ABC):
         pass
 
     @abstractmethod
-    def get_items_by_certified(self, certified: str, items=None):
+    def get_items_by_certified(self, certified: str):
         pass
 
     @abstractmethod

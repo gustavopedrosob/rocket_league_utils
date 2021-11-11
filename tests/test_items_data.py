@@ -1,10 +1,8 @@
 from rl_data_utils.item.item.item_data import ABCItemData
-from rl_data_utils.items import ABCListColors, ABCRarities, ABCTypes, ABCNames
+from rl_data_utils.items import ListColors, Rarities, Types, Names
 from rl_data_utils.item import ABCListColor, ABCRarity, ABCType, ABCName, ABCColor
 from json import load
 from rl_data_utils.utils.item.color.is_functions import is_default
-from pytest import mark
-
 
 class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
     def __init__(self, id, name, rarity, platform, icon, type, icon_url, colors=[], customizable=False, unit=''):
@@ -100,15 +98,8 @@ class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
         self.color = color
 
 
-class SampleItemsData(ABCListColors, ABCRarities, ABCTypes, ABCNames):
-    def get_items(self):
-        return self.items
-
-    def set_items(self, items):
-        self.items = items
-
-    def __init__(self, items: list):
-        self.items = items
+class SampleItemsData(ListColors, Rarities, Types, Names):
+    pass
 
 
 with open('sample-items-data.json', 'r') as file:

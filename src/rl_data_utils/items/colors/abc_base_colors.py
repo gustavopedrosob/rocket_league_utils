@@ -8,7 +8,7 @@ class ABCBaseColors(ABC):
         pass
 
     @abstractmethod
-    def get_items_by_color(self, color: str, items=None):
+    def get_items_by_color(self, color: str):
         pass
 
     @abstractmethod

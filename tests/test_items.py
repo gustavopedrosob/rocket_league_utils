@@ -1,7 +1,7 @@
 import pytest
 from rl_data_utils.exceptions import ItemNotFound
 from rl_data_utils.item import ABCColor, ABCRarity, ABCType, ABCCertified, ABCName, ABCQuantity
-from rl_data_utils.items import ABCColors, ABCRarities, ABCTypes, ABCCertificates, ABCNames, ABCQuantities
+from rl_data_utils.items import Colors, Rarities, Types, Certificates, Names, Quantities
 from json import load
 
 
@@ -51,15 +51,8 @@ class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColo
         return self.name
 
 
-class SampleItems(ABCColors, ABCRarities, ABCTypes, ABCCertificates, ABCNames, ABCQuantities):
-    def get_items(self):
-        return self.items
-
-    def set_items(self, items):
-        self.items = items
-
-    def __init__(self, items: list):
-        self.items = items
+class SampleItems(Colors, Rarities, Types, Certificates, Names, Quantities):
+    pass
 
 
 with open('sample-items.json', 'r') as file:

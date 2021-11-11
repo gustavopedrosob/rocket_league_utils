@@ -1,5 +1,5 @@
 import pytest
-from tests_items import sample_items
+from test_items import sample_items
 from rl_data_utils.exceptions import RarityNotExists
 
 
