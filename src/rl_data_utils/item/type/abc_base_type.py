@@ -73,7 +73,3 @@ class ABCBaseType(ABC):
     @abstractmethod
     def get_type(self):
         pass
-
-    @abstractmethod
-    def set_type(self, type_: str):
-        pass

@@ -81,7 +81,3 @@ class ABCBaseCertified(ABC):
     @abstractmethod
     def get_certified(self):
         pass
-
-    @abstractmethod
-    def set_certified(self, certified: str):
-        pass

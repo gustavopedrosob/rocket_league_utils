@@ -7,10 +7,6 @@ class ABCBaseQuantity(ABC):
         pass
 
     @abstractmethod
-    def set_quantity(self, quantity: int):
-        pass
-
-    @abstractmethod
     def add(self, other):
         pass
 

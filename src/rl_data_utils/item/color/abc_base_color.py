@@ -77,7 +77,3 @@ class ABCBaseColor(ABC):
     @abstractmethod
     def get_color(self):
         pass
-
-    @abstractmethod
-    def set_color(self, color: str):
-        pass

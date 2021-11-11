@@ -14,38 +14,20 @@ class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColo
         self.rarity = rarity
         self.quantity = quantity
 
-    def set_name(self, name: str):
-        self.name = name
-
     def get_rarity(self):
         return self.rarity
-
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
 
     def get_type(self):
         return self.type
 
-    def set_type(self, type_: str):
-        self.type = type_
-
     def get_certified(self):
         return self.certified
-
-    def set_certified(self, certified: str):
-        self.certified = certified
 
     def get_quantity(self) -> int:
         return self.quantity
 
-    def set_quantity(self, quantity: int):
-        self.quantity = quantity
-
     def get_color(self):
         return self.color
-
-    def set_color(self, color: str):
-        self.color = color
 
     def get_name(self):
         return self.name

@@ -20,38 +20,20 @@ class Item(ABCName, ABCColor, ABCType, ABCRarity, ABCCertified, ABCQuantity):
     def get_certified(self):
         return self.certified
 
-    def set_certified(self, certified: str):
-        self.certified = certified
-
     def get_color(self):
         return self.color
-
-    def set_color(self, color: str):
-        self.color = color
 
     def get_name(self):
         return self.name
 
-    def set_name(self, name: str):
-        self.name = name
-
     def get_rarity(self):
         return self.rarity
-
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
 
     def get_type(self):
         return self.type
 
-    def set_type(self, type_: str):
-        self.type = type_
-
     def get_quantity(self) -> int:
         return self.quantity
-
-    def set_quantity(self, quantity: int):
-        self.quantity = quantity
 
     @staticmethod
     def from_string(string: str):

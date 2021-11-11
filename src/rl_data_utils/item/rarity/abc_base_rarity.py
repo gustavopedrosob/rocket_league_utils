@@ -61,7 +61,3 @@ class ABCBaseRarity(ABC):
     @abstractmethod
     def get_rarity(self):
         pass
-
-    @abstractmethod
-    def set_rarity(self, rarity: str):
-        pass

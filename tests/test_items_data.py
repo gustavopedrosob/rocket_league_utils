@@ -4,6 +4,7 @@ from rl_data_utils.item import ABCListColor, ABCRarity, ABCType, ABCName, ABCCol
 from json import load
 from rl_data_utils.utils.item.color.is_functions import is_default
 
+
 class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
     def __init__(self, id, name, rarity, platform, icon, type, icon_url, colors=[], customizable=False, unit=''):
         self.id = id
@@ -26,20 +27,11 @@ class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
     def get_rarity(self):
         return self.rarity
 
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
-
     def get_type(self):
         return self.type
 
-    def set_type(self, type_: str):
-        self.type = type_
-
     def get_name(self):
         return self.name
-
-    def set_name(self, name: str):
-        self.name = name
 
     def get_color_info(self, color: str) -> dict:
         for data in self.colors:
@@ -76,26 +68,14 @@ class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
     def get_rarity(self):
         return self.rarity
 
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
-
     def get_type(self):
         return self.type
-
-    def set_type(self, type_: str):
-        self.type = type_
 
     def get_name(self):
         return self.name
 
-    def set_name(self, name: str):
-        self.name = name
-
     def get_color(self):
         return self.color
-
-    def set_color(self, color):
-        self.color = color
 
 
 class SampleItemsData(ListColors, Rarities, Types, Names):
