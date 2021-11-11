@@ -1,4 +1,7 @@
+from rl_data_utils.item.blueprint.abc_base_blueprint import ABCBaseBlueprint
 from rl_data_utils.item.color.abc_base_color import ABCBaseColor
+from rl_data_utils.item.serie.abc_base_serie import ABCBaseSerie
+from rl_data_utils.item.tradable.abc_base_tradable import ABCBaseTradable
 from rl_data_utils.item.type.abc_base_type import ABCBaseType
 from rl_data_utils.item.rarity.abc_base_rarity import ABCBaseRarity
 from rl_data_utils.item.certified.abc_base_certified import ABCBaseCertified
@@ -67,4 +70,12 @@ class ItemAttribute:
                 attrs['name'] = name
         if isinstance(self, ABCBaseQuantity):
             attrs['quantity'] = self.get_quantity()
+        if isinstance(self, ABCBaseTradable):
+            attrs['tradable'] = self.get_tradable()
+        if isinstance(self, ABCBaseSerie):
+            serie = self.get_serie()
+            if serie:
+                attrs['serie'] = serie
+        if isinstance(self, ABCBaseBlueprint):
+            attrs['blueprint'] = self.get_blueprint()
         return attrs
