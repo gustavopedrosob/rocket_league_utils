@@ -7,3 +7,6 @@ from rl_data_utils.item.quantity.quantity import ABCQuantity, Quantity
 from rl_data_utils.item.rarity.rarity import ABCRarity, Rarity
 from rl_data_utils.item.rarity.list_rarity import ABCListRarity
 from rl_data_utils.item.type.type import ABCType, Type
+from rl_data_utils.item.serie.serie import ABCSerie, Serie
+from rl_data_utils.item.blueprint.blueprint import ABCBlueprint, Blueprint
+from rl_data_utils.item.tradable.tradable import ABCTradable, Tradable

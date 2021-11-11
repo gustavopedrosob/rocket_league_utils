@@ -3,7 +3,7 @@ from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
 from rl_data_utils.utils.items.series.series import *
 
 
-class ABCSeries(ABCBaseSeries, Items):
+class Series(ABCBaseSeries, Items):
     def get_items_accelerator_series(self):
         return self.__class__(get_items_accelerator_series(self.items))
 

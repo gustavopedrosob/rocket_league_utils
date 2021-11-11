@@ -105,3 +105,11 @@ class ABCSerie(ABCBaseSerie, ItemAttribute):
 
     def is_zephyr_series(self) -> bool:
         return is_zephyr_series(self.get_serie())
+
+
+class Serie(ABCSerie):
+    def __init__(self, serie: str):
+        self.serie = serie
+
+    def get_serie(self) -> str:
+        return self.serie
