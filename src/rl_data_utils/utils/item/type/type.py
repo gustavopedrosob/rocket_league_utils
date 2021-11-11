@@ -4,6 +4,7 @@ from rl_data_utils.utils.item.type.constants import TYPES
 from rl_data_utils.utils.item.type.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.type.is_functions import IS_FUNCTIONS
 from rl_data_utils.utils.item.type.regexs import CONTAINS_REGEXS
+from functools import lru_cache
 
 
 class TypesFunctions(AttributesFunctions):
@@ -18,6 +19,7 @@ def all_are_types(container):
     return TypesFunctions.all_are(container)
 
 
+@lru_cache()
 def compare_types(type_1: str, type_2: str) -> bool:
     return TypesFunctions.compare(type_1, type_2)
 

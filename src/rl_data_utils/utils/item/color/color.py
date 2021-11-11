@@ -5,6 +5,7 @@ from rl_data_utils.utils.item.color.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.color.regexs import CONTAINS_REGEXS
 from rl_data_utils.utils.item.color.is_functions import IS_FUNCTIONS, is_crimson, is_sky_blue, is_pink, is_orange, \
     is_cobalt, is_titanium_white, is_burnt_sienna, is_grey, is_saffron, is_lime, is_forest_green, is_black, is_purple
+from functools import lru_cache
 
 
 class ColorsFunctions(AttributesFunctions):
@@ -19,6 +20,7 @@ def all_are_colors(container):
     return ColorsFunctions.all_are(container)
 
 
+@lru_cache()
 def compare_colors(certify_1: str, certify_2: str) -> bool:
     return ColorsFunctions.compare(certify_1, certify_2)
 

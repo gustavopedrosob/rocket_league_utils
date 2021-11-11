@@ -4,6 +4,7 @@ from rl_data_utils.utils.item.certified.constants import CERTIFICATES
 from rl_data_utils.utils.item.certified.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.certified.regexs import CONTAINS_REGEXS
 from rl_data_utils.utils.item.certified.is_functions import IS_FUNCTIONS
+from functools import lru_cache
 
 
 class CertificatesFunctions(AttributesFunctions):
@@ -18,6 +19,7 @@ def all_are_certificates(container):
     return CertificatesFunctions.all_are(container)
 
 
+@lru_cache()
 def compare_certificates(certify_1: str, certify_2: str) -> bool:
     return CertificatesFunctions.compare(certify_1, certify_2)
 

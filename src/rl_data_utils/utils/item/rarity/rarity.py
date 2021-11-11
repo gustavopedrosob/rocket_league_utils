@@ -5,6 +5,7 @@ from rl_data_utils.utils.item.rarity.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.rarity.is_functions import IS_FUNCTIONS, is_rare, is_very_rare, is_import, is_exotic, \
     is_black_market, is_premium, is_limited
 from rl_data_utils.utils.item.rarity.regexs import CONTAINS_REGEXS
+from functools import lru_cache
 
 
 class RaritiesFunctions(AttributesFunctions):
@@ -19,6 +20,7 @@ def all_are_rarities(container):
     return RaritiesFunctions.all_are(container)
 
 
+@lru_cache()
 def compare_rarities(rarity_1: str, rarity_2: str) -> bool:
     return RaritiesFunctions.compare(rarity_1, rarity_2)
 
