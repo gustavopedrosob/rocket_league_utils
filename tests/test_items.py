@@ -1,18 +1,30 @@
 import pytest
 from rl_data_utils.exceptions import ItemNotFound
 from rl_data_utils.item import ABCColor, ABCRarity, ABCType, ABCCertified, ABCName, ABCQuantity
+from rl_data_utils.item.serie.serie import ABCSerie
+from rl_data_utils.item.tradable.tradable import ABCTradable
 from rl_data_utils.items import Colors, Rarities, Types, Certificates, Names, Quantities
+from rl_data_utils.items.series.series import Series
+from rl_data_utils.items.tradables.tradables import Tradables
 from json import load
 
 
-class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColor):
-    def __init__(self, name, color, type_, certified, quantity, rarity):
+class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColor, ABCTradable, ABCSerie):
+    def __init__(self, name, color, type_, certified, quantity, rarity, tradable, serie):
         self.name = name
         self.color = color
         self.type = type_
         self.certified = certified
         self.rarity = rarity
         self.quantity = quantity
+        self.tradable = tradable
+        self.serie = serie
+
+    def get_tradable(self) -> bool:
+        return self.tradable
+
+    def get_serie(self) -> str:
+        return self.serie
 
     def get_rarity(self):
         return self.rarity
@@ -33,7 +45,7 @@ class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColo
         return self.name
 
 
-class SampleItems(Colors, Rarities, Types, Certificates, Names, Quantities):
+class SampleItems(Colors, Rarities, Types, Certificates, Names, Quantities, Tradables, Series):
     pass
 
 
@@ -70,12 +82,12 @@ def test_get_item_by_string():
 
 
 def test_get_items_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
+    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "", True, "")
     print(sample_items.get_items_by_item(item))
 
 
 def test_get_item_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "")
+    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "", True, "")
     print(sample_items.get_item_by_item(item))
 
 
