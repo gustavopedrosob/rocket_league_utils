@@ -1,14 +1,16 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.item.color.list_color import ABCListColor
-from rl_data_utils.utils.item.color.color import has_color, validate_color
+from rl_data_utils.utils.item.color.color import has_color, all_are_colors
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 
 
+def get_items_with_valid_color(items: list[ABCListColor]):
+    return get_items_by_condition(lambda item: all_are_colors(item.get_list_color()), items)
+
+
 def get_items_by_color(color: str, items: list[ABCListColor]):
-    validate_color(color)
-    return get_items_by_condition(lambda item: has_color(color, item.get_list_color()),
-                                  items)
+    return get_items_by_condition(lambda item: has_color(color, item.get_list_color()), items)
 
 
 def get_items_by_color_regex(color_pattern: str, items: list[ABCListColor], flags=IGNORECASE):
