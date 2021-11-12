@@ -1,6 +1,26 @@
 from tests.test_items import sample_items
 
 
+def test_get_items_by_serie_regex():
+    print(sample_items.get_items_by_serie_regex("Reward").items)
+
+
+def test_get_items_by_serie():
+    print(sample_items.get_items_by_serie())
+
+
+def test_get_items_by_serie_equal_to():
+    print(sample_items.get_items_by_serie_equal_to("Season reward").items)
+
+
+def test_get_items_by_serie_contains():
+    print(sample_items.get_items_by_serie_contains("reward"))
+
+
+def test_get_series():
+    print(sample_items.get_series())
+
+
 def test_get_items_accelerator_series():
     print(sample_items.get_items_accelerator_series().items)
 

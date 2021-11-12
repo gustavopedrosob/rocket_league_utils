@@ -29,7 +29,7 @@ def test_get_colors():
 
 
 def test_get_items_crimson():
-    print(sample_items.get_items_crimson())
+    print(sample_items.get_items_crimson().items)
 
 
 def test_get_items_sky_blue():
