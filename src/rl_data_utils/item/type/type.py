@@ -3,10 +3,13 @@ from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car, \
     is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, \
     is_wheel, is_blueprint, is_player_title
-from rl_data_utils.utils.item.type.type import compare_types, get_respective_type, validate_type
+from rl_data_utils.utils.item.type.type import compare_types, get_respective_type, validate_type, is_type
 
 
 class ABCType(ABCBaseType, ItemAttribute):
+    def is_valid_type(self):
+        return is_type(self.get_type())
+
     def compare_types(self, type_: str) -> bool:
         return compare_types(self.get_type(), type_)
 

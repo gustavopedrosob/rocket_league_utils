@@ -4,6 +4,10 @@ from re import IGNORECASE
 
 class ABCBaseRarities(ABC):
     @abstractmethod
+    def get_items_with_valid_rarity(self):
+        pass
+
+    @abstractmethod
     def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
         pass
 

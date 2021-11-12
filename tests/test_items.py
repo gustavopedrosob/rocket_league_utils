@@ -94,3 +94,7 @@ def test_get_item_by_item():
 def test_get_item_by_item_item_not_found():
     with pytest.raises(ItemNotFound):
         sample_items.get_item_by(name='asinaisnianisninaisn')
+
+
+def test_get_items_valid():
+    sample_items.get_items_valid()

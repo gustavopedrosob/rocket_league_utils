@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 class ABCBaseRarity(ABC):
     @abstractmethod
+    def is_valid_rarity(self):
+        pass
+
+    @abstractmethod
     def get_respective_rarity(self):
         pass
 

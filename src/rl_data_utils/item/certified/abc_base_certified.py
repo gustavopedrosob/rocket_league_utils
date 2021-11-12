@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 class ABCBaseCertified(ABC):
     @abstractmethod
+    def is_valid_certified(self):
+        pass
+
+    @abstractmethod
     def compare_certificates(self, certified: str) -> bool:
         pass
 

@@ -2,6 +2,8 @@ import pytest
 from rl_data_utils.exceptions import ColorNotExists
 from test_items import sample_items
 
+sample_items = sample_items.get_items_with_valid_color()
+
 
 def test_get_items_by_color_color_not_exists():
     with pytest.raises(ColorNotExists):

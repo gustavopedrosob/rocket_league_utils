@@ -27,6 +27,29 @@ class ItemAttribute:
     def __repr__(self):
         return get_repr(**self.item_attributes_to_dict())
 
+    def is_valid(self) -> bool:
+        if isinstance(self, ABCBaseColor):
+            is_valid = self.is_valid_color()
+            if not is_valid:
+                return False
+        if isinstance(self, ABCBaseRarity):
+            is_valid = self.is_valid_rarity()
+            if not is_valid:
+                return False
+        if isinstance(self, ABCBaseType):
+            is_valid = self.is_valid_type()
+            if not is_valid:
+                return False
+        if isinstance(self, ABCBaseCertified):
+            is_valid = self.is_valid_certified()
+            if not is_valid:
+                return False
+        if isinstance(self, ABCBaseSerie):
+            is_valid = self.is_valid_serie()
+            if not is_valid:
+                return False
+        return True
+
     def compare_items(self, item):
         comparisons_results = []
         if isinstance(self, ABCBaseColor) and isinstance(item, ABCBaseColor):

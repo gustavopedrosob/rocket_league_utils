@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 class ABCBaseType(ABC):
     @abstractmethod
+    def is_valid_type(self):
+        pass
+
+    @abstractmethod
     def compare_types(self, type_: str) -> bool:
         pass
 

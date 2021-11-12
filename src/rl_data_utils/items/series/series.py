@@ -1,11 +1,12 @@
-from re import IGNORECASE
-
 from rl_data_utils.items.items.items import Items
 from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
 from rl_data_utils.utils.items.series.series import *
 
 
 class Series(ABCBaseSeries, Items):
+    def get_items_with_valid_serie(self):
+        return self.__class__(get_items_with_valid_serie(self.items))
+
     def get_items_by_serie_regex(self, serie_pattern, flags=IGNORECASE):
         return self.__class__(get_items_by_serie_regex(serie_pattern, self.items, flags))
 

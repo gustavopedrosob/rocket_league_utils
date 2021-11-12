@@ -1,3 +1,4 @@
+from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
 from rl_data_utils.utils.items.items.items import get_items_by_condition, get_item_by_index
 from rl_data_utils.items.certificates.abc_base_certificates import ABCBaseCertificates
 from rl_data_utils.items.colors.abc_base_colors import ABCBaseColors
@@ -14,6 +15,20 @@ class Items:
     def __iter__(self):
         for item in self.items:
             yield item
+
+    def get_items_valid(self):
+        items = self
+        if isinstance(items, ABCBaseCertificates):
+            items = items.get_items_with_valid_certified()
+        if isinstance(items, ABCBaseColors):
+            items = items.get_items_with_valid_color()
+        if isinstance(items, ABCBaseRarities):
+            items = items.get_items_with_valid_rarity()
+        if isinstance(items, ABCBaseTypes):
+            items = items.get_items_with_valid_type()
+        if isinstance(items, ABCBaseSeries):
+            items = items.get_items_with_valid_serie()
+        return items
 
     def get_items_by_condition(self, lamb):
         return self.__class__(get_items_by_condition(lamb, self.items))

@@ -4,6 +4,10 @@ from re import IGNORECASE
 
 class ABCBaseTypes(ABC):
     @abstractmethod
+    def get_items_with_valid_type(self):
+        pass
+
+    @abstractmethod
     def get_items_by_type_regex(self, type_pattern: str, flags=IGNORECASE):
         pass
 

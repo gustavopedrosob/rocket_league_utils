@@ -3,6 +3,10 @@ from abc import abstractmethod, ABC
 
 class ABCBaseColor(ABC):
     @abstractmethod
+    def is_valid_color(self):
+        pass
+
+    @abstractmethod
     def compare_colors(self, color) -> bool:
         pass
 

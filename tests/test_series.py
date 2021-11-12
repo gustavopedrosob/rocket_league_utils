@@ -1,12 +1,15 @@
 from tests.test_items import sample_items
 
 
+sample_items = sample_items.get_items_with_valid_serie()
+
+
 def test_get_items_by_serie_regex():
     print(sample_items.get_items_by_serie_regex("Reward").items)
 
 
 def test_get_items_by_serie():
-    print(sample_items.get_items_by_serie())
+    print(sample_items.get_items_by_serie('Accelerator Series'))
 
 
 def test_get_items_by_serie_equal_to():

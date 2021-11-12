@@ -4,6 +4,10 @@ from re import IGNORECASE
 
 class ABCBaseCertificates(ABC):
     @abstractmethod
+    def get_items_with_valid_certified(self):
+        pass
+
+    @abstractmethod
     def get_items_by_certified_regex(self, certified_pattern, flags=IGNORECASE):
         pass
 

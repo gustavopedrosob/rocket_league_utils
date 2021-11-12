@@ -1,8 +1,11 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.item.certified.certified import ABCCertified
-from rl_data_utils.utils.item.certified.certified import validate_certified, compare_certificates
 from rl_data_utils.utils.items.items.items import get_items_by_condition
+
+
+def get_items_with_valid_certified(items: list[ABCCertified]):
+    return get_items_by_condition(lambda item: item.is_valid_certified(), items)
 
 
 def get_certificates(items: list[ABCCertified]):
@@ -10,8 +13,7 @@ def get_certificates(items: list[ABCCertified]):
 
 
 def get_items_by_certified(certified: str, items: list[ABCCertified]):
-    validate_certified(certified)
-    return get_items_by_condition(lambda item: compare_certificates(item.get_certified(), certified), items)
+    return get_items_by_condition(lambda item: item.compare_certificates(certified), items)
 
 
 def get_items_by_certified_equal_to(certified: str, items: list[ABCCertified]):

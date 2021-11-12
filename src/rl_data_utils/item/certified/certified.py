@@ -1,13 +1,16 @@
 from rl_data_utils.item.certified.abc_base_certified import ABCBaseCertified
 from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.utils.item.certified.certified import compare_certificates, get_respective_certified,\
-    validate_certified
+    validate_certified, is_certified
 from rl_data_utils.utils.item.certified.is_functions import is_acrobat, is_aviator, is_goalkeeper, is_guardian,\
     is_juggler, is_paragon, is_playmaker, is_scorer, is_show_off, is_sniper, is_striker, is_sweeper, is_tactician,\
     is_turtle, is_victor, is_none
 
 
 class ABCCertified(ABCBaseCertified, ItemAttribute):
+    def is_valid_certified(self):
+        return is_certified(self.get_certified())
+
     def compare_certificates(self, certified: str) -> bool:
         return compare_certificates(self.get_certified(), certified)
 

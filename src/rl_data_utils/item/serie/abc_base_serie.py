@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 
 class ABCBaseSerie(ABC):
     @abstractmethod
+    def is_valid_serie(self):
+        pass
+
+    @abstractmethod
     def get_serie(self) -> str:
         pass
 

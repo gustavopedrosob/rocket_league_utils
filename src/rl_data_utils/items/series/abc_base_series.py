@@ -4,6 +4,10 @@ from re import IGNORECASE
 
 class ABCBaseSeries(ABC):
     @abstractmethod
+    def get_items_with_valid_serie(self):
+        pass
+
+    @abstractmethod
     def get_items_by_serie_regex(self, serie_pattern, flags=IGNORECASE):
         pass
 

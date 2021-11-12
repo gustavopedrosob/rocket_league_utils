@@ -3,6 +3,9 @@ from rl_data_utils.exceptions import CertifiedNotExists
 from test_items import sample_items
 
 
+sample_items = sample_items.get_items_with_valid_certified()
+
+
 def test_get_items_by_certified_certified_not_exists():
     with pytest.raises(CertifiedNotExists):
         sample_items.get_items_by_certified("")

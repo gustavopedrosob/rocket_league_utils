@@ -3,6 +3,9 @@ from test_items import sample_items
 from rl_data_utils.exceptions import RarityNotExists
 
 
+sample_items = sample_items.get_items_with_valid_rarity()
+
+
 def test_get_items_by_rarity_rarity_not_exists():
     with pytest.raises(RarityNotExists):
         sample_items.get_items_by_rarity('')

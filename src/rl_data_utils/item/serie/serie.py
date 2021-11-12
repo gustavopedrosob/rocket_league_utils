@@ -1,9 +1,13 @@
 from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.item.serie.abc_base_serie import ABCBaseSerie
 from rl_data_utils.utils.item.serie.is_functions import *
+from rl_data_utils.utils.item.serie.series import is_serie
 
 
 class ABCSerie(ABCBaseSerie, ItemAttribute):
+    def is_valid_serie(self):
+        return is_serie(self.get_serie())
+
     def is_accelerator_series(self) -> bool:
         return is_accelerator_series(self.get_serie())
 

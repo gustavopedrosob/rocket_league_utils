@@ -2,7 +2,10 @@ from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 from rl_data_utils.item.type.type import ABCType
-from rl_data_utils.utils.item.type.type import validate_type, compare_types
+
+
+def get_items_with_valid_type(items: list[ABCType]):
+    return get_items_by_condition(lambda item: item.is_valid_type(), items)
 
 
 def get_items_by_type_regex(type_pattern: str, items: list[ABCType], flags=IGNORECASE):
@@ -14,8 +17,7 @@ def get_types(items: list[ABCType]):
 
 
 def get_items_by_type(type_: str, items: list[ABCType]):
-    validate_type(type_)
-    return get_items_by_condition(lambda item: compare_types(item.get_type(), type_), items)
+    return get_items_by_condition(lambda item: item.compare_types(type_), items)
 
 
 def get_items_by_type_equal_to(type_: str, items: list[ABCType]):

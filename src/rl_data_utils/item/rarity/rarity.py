@@ -3,10 +3,13 @@ from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_common, is_exotic, is_import, is_legacy,\
     is_limited, is_premium, is_rare, is_uncommon, is_very_rare
 from rl_data_utils.utils.item.rarity.rarity import compare_rarities, get_respective_rarity, get_rgba_rarity,\
-    validate_rarity
+    validate_rarity, is_rarity
 
 
 class ABCRarity(ABCBaseRarity, ItemAttribute):
+    def is_valid_rarity(self):
+        return is_rarity(self.get_rarity())
+
     def get_respective_rarity(self):
         return get_respective_rarity(self.get_rarity())
 

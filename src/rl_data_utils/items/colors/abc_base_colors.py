@@ -4,6 +4,10 @@ from re import IGNORECASE
 
 class ABCBaseColors(ABC):
     @abstractmethod
+    def get_items_with_valid_color(self):
+        pass
+
+    @abstractmethod
     def get_items_by_color_regex(self, color_pattern: str, flags=IGNORECASE):
         pass
 

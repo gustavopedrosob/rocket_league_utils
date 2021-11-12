@@ -1,8 +1,12 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.item.serie.serie import ABCSerie
-from rl_data_utils.utils.item.serie.series import compare_series
+from rl_data_utils.utils.item.serie.series import compare_series, is_serie
 from rl_data_utils.utils.items.items.items import get_items_by_condition
+
+
+def get_items_with_valid_serie(items: list[ABCSerie]):
+    return get_items_by_condition(lambda item: is_serie(item.get_serie()), items)
 
 
 def get_items_by_serie_regex(serie_pattern, items: list[ABCSerie], flags=IGNORECASE):

@@ -2,7 +2,10 @@ from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.item.rarity.rarity import ABCRarity
 from rl_data_utils.utils.items.items.items import get_items_by_condition
-from rl_data_utils.utils.item.rarity.rarity import validate_rarity, compare_rarities
+
+
+def get_items_with_valid_rarity(items: list[ABCRarity]):
+    return get_items_by_condition(lambda item: item.is_valid_rarity(), items)
 
 
 def get_rarities(items: list[ABCRarity]):
@@ -14,8 +17,7 @@ def get_items_by_rarity_regex(rarity_pattern: str, items: list[ABCRarity], flags
 
 
 def get_items_by_rarity(rarity: str, items: list[ABCRarity]):
-    validate_rarity(rarity)
-    return get_items_by_condition(lambda item: compare_rarities(item.get_rarity(), rarity), items)
+    return get_items_by_condition(lambda item: item.compare_rarities(rarity), items)
 
 
 def get_items_by_rarity_equal_to(rarity: str, items: list[ABCRarity]):

@@ -1,5 +1,4 @@
 import pytest
-
 from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
 from rl_data_utils.utils.item.type.contains import contains_antenna, contains_avatar_border, contains_banner, \
     contains_boost, contains_car, contains_decal, contains_engine_audio, contains_gift_pack, contains_goal_explosion, \
@@ -10,7 +9,6 @@ from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_bor
 from rl_data_utils.utils.item.type.type import all_are_types, compare_types, contains_types, has_type, \
     get_type_in_string, get_respective_type, is_type, validate_types_list, validate_type
 from rl_data_utils.utils.item.type.constants import TYPES
-from pytest import mark
 
 inventory_types = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',
                    'Player Anthem', 'Animated Decal', 'Paint Finish', 'Blueprint', 'Decal', 'Avatar Border',

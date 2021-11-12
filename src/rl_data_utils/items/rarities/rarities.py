@@ -1,12 +1,16 @@
 from rl_data_utils.items.items.items import Items
 from rl_data_utils.utils.items.rarities.rarities import get_rarities, get_items_by_rarity_regex, get_items_by_rarity, \
-    get_items_by_rarity_equal_to, get_items_by_rarity_contains, get_items_common, get_items_legacy, get_items_uncommon,\
-    get_items_rare, get_items_very_rare, get_items_import, get_items_exotic, get_items_black_market, get_items_limited
+    get_items_by_rarity_equal_to, get_items_by_rarity_contains, get_items_common, get_items_legacy, get_items_uncommon, \
+    get_items_rare, get_items_very_rare, get_items_import, get_items_exotic, get_items_black_market, get_items_limited, \
+    get_items_with_valid_rarity
 from re import IGNORECASE
 from rl_data_utils.items.rarities.abc_base_rarities import ABCBaseRarities
 
 
 class Rarities(ABCBaseRarities, Items):
+    def get_items_with_valid_rarity(self):
+        return self.__class__(get_items_with_valid_rarity(self.items))
+
     def get_items_by_rarity_regex(self, rarity_pattern: str, flags=IGNORECASE):
         return self.__class__(get_items_by_rarity_regex(rarity_pattern, self.items, flags))
 
