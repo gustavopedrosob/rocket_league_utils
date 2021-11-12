@@ -2,6 +2,10 @@ from rl_data_utils.item.tradable.tradable import ABCTradable
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 
 
+def get_items_by_tradable(tradable: bool, items: list[ABCTradable]):
+    return get_items_by_condition(lambda item: item.get_tradable() == tradable, items)
+
+
 def get_items_tradable(items: list[ABCTradable]):
     return get_items_by_condition(lambda item: item.get_tradable(), items)
 

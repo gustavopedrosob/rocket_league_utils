@@ -1,9 +1,26 @@
+from re import IGNORECASE
+
 from rl_data_utils.items.items.items import Items
 from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
 from rl_data_utils.utils.items.series.series import *
 
 
 class Series(ABCBaseSeries, Items):
+    def get_items_by_serie_regex(self, serie_pattern, flags=IGNORECASE):
+        pass
+
+    def get_items_by_serie(self, serie: str):
+        pass
+
+    def get_items_by_serie_equal_to(self, serie: str):
+        pass
+
+    def get_items_by_serie_contains(self, serie: str):
+        pass
+
+    def get_series(self):
+        pass
+
     def get_items_accelerator_series(self):
         return self.__class__(get_items_accelerator_series(self.items))
 

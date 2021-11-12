@@ -1,5 +1,28 @@
+from re import IGNORECASE
+from rl_data_utils.__others import _regex_found
 from rl_data_utils.item.serie.serie import ABCSerie
+from rl_data_utils.utils.item.serie.series import compare_series
 from rl_data_utils.utils.items.items.items import get_items_by_condition
+
+
+def get_items_by_serie_regex(serie_pattern, items: list[ABCSerie], flags=IGNORECASE):
+    return get_items_by_condition(lambda item: _regex_found(serie_pattern, item.get_serie(), flags), items)
+
+
+def get_items_by_serie(serie: str, items: list[ABCSerie]):
+    return get_items_by_condition(lambda item: compare_series(item.get_serie(), serie), items)
+
+
+def get_items_by_serie_equal_to(serie: str, items: list[ABCSerie]):
+    return get_items_by_condition(lambda item: item.get_serie() == serie, items)
+
+
+def get_items_by_serie_contains(serie: str, items: list[ABCSerie]):
+    return get_items_by_condition(lambda item: serie in item.get_serie(), items)
+
+
+def get_series(items: list[ABCSerie]):
+    return {item.get_serie() for item in items}
 
 
 def get_items_accelerator_series(items: list[ABCSerie]):

@@ -1,7 +1,28 @@
 from abc import ABC, abstractmethod
+from re import IGNORECASE
 
 
 class ABCBaseSeries(ABC):
+    @abstractmethod
+    def get_items_by_serie_regex(self, serie_pattern, flags=IGNORECASE):
+        pass
+
+    @abstractmethod
+    def get_items_by_serie(self, serie: str):
+        pass
+
+    @abstractmethod
+    def get_items_by_serie_equal_to(self, serie: str):
+        pass
+
+    @abstractmethod
+    def get_items_by_serie_contains(self, serie: str):
+        pass
+
+    @abstractmethod
+    def get_series(self):
+        pass
+    
     @abstractmethod
     def get_items_accelerator_series(self):
         pass
