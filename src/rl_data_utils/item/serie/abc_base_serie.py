@@ -3,6 +3,18 @@ from abc import ABC, abstractmethod
 
 class ABCBaseSerie(ABC):
     @abstractmethod
+    def compare_series(self, serie: str) -> bool:
+        pass
+
+    @abstractmethod
+    def get_respective_serie(self) -> str:
+        pass
+
+    @abstractmethod
+    def validate_serie(self):
+        pass
+
+    @abstractmethod
     def is_valid_serie(self):
         pass
 
