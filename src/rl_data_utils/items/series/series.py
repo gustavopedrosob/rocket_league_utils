@@ -7,19 +7,19 @@ from rl_data_utils.utils.items.series.series import *
 
 class Series(ABCBaseSeries, Items):
     def get_items_by_serie_regex(self, serie_pattern, flags=IGNORECASE):
-        pass
+        return self.__class__(get_items_by_serie_regex(serie_pattern, self.items, flags))
 
     def get_items_by_serie(self, serie: str):
-        pass
+        return self.__class__(get_items_by_serie(serie, self.items))
 
     def get_items_by_serie_equal_to(self, serie: str):
-        pass
+        return self.__class__(get_items_by_serie_equal_to(serie, self.items))
 
     def get_items_by_serie_contains(self, serie: str):
-        pass
+        return self.__class__(get_items_by_serie_contains(serie, self.items))
 
     def get_series(self):
-        pass
+        return get_series(self.items)
 
     def get_items_accelerator_series(self):
         return self.__class__(get_items_accelerator_series(self.items))
