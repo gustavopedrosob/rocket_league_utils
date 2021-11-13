@@ -9,7 +9,7 @@ def test_get_items_by_serie_regex():
 
 
 def test_get_items_by_serie():
-    print(sample_items.get_items_by_serie('Accelerator Series'))
+    print(sample_items.get_items_by_serie('Accelerator Series').items)
 
 
 def test_get_items_by_serie_equal_to():
@@ -17,7 +17,7 @@ def test_get_items_by_serie_equal_to():
 
 
 def test_get_items_by_serie_contains():
-    print(sample_items.get_items_by_serie_contains("reward"))
+    print(sample_items.get_items_by_serie_contains("reward").items)
 
 
 def test_get_series():

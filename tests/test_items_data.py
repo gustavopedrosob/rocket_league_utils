@@ -88,6 +88,8 @@ with open('sample-items-data.json', 'r') as file:
 items_json = json['data']
 sample_items = SampleItemsData([SampleItemData(**item) for item in items_json])
 
+sample_items = sample_items.get_items_valid()
+
 
 def test_get_item_by():
     shibuya = sample_items.get_item_by(
@@ -101,11 +103,11 @@ def test_get_items_by():
     octane_items = sample_items.get_items_by(
         name='Octane: Buzz Kill'
     )
-    print(octane_items)
+    print(octane_items.items)
 
 
 def test_get_items_by_string():
-    print(sample_items.get_items_by_string('bs'))
+    print(sample_items.get_items_by_string('bs').items)
 
 
 def test_get_item_by_string():
@@ -114,7 +116,7 @@ def test_get_item_by_string():
 
 def test_get_items_by_item():
     item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
-    print(sample_items.get_items_by_item(item))
+    print(sample_items.get_items_by_item(item).items)
 
 
 def test_get_item_by_item():

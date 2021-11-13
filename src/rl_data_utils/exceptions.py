@@ -65,3 +65,8 @@ class ItemHaveNotRarity(Exception):
 class ItemHaveNotType(Exception):
     def __init__(self, type_: str):
         super().__init__(f"Item haven't type \"{type_}\".")
+
+
+class NameHaveNotCarName(Exception):
+    def __init__(self, name: str):
+        super().__init__(f'Item {name} don\'t have car name.')

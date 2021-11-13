@@ -70,11 +70,11 @@ def test_get_items_by():
     octane_items = sample_items.get_items_by(
         name='Octane: Buzz Kill'
     )
-    print(octane_items)
+    print(octane_items.items)
 
 
 def test_get_items_by_string():
-    print(sample_items.get_items_by_string('bs'))
+    print(sample_items.get_items_by_string('bs').items)
 
 
 def test_get_item_by_string():
@@ -83,7 +83,7 @@ def test_get_item_by_string():
 
 def test_get_items_by_item():
     item = SampleItem('Octane: Buzz Kill', "", "", "", "", "", True, "")
-    print(sample_items.get_items_by_item(item))
+    print(sample_items.get_items_by_item(item).items)
 
 
 def test_get_item_by_item():
@@ -93,8 +93,8 @@ def test_get_item_by_item():
 
 def test_get_item_by_item_item_not_found():
     with pytest.raises(ItemNotFound):
-        sample_items.get_item_by(name='asinaisnianisninaisn')
+        sample_items.get_item_by(name='')
 
 
 def test_get_items_valid():
-    sample_items.get_items_valid()
+    print(sample_items.get_items_valid().items)

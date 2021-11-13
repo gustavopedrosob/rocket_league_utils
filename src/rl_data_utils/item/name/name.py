@@ -13,7 +13,7 @@ class ABCName(ABCBaseName, ItemAttribute):
         return is_credits(self.get_name())
 
     def compare_name(self, name: str) -> bool:
-        return compare_names(self.get_name(), name)
+        return compare_names(name, self.get_name())
     
     def get_decal_and_car_name(self):
         return get_decal_and_car_name(self.get_name())

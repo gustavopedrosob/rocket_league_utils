@@ -1,25 +1,36 @@
 from rl_data_utils.__others import _regex_found
+from rl_data_utils.exceptions import NameHaveNotCarName
 from rl_data_utils.utils.item.name.constants import CARS_NAMES_WITH_DECAL
 from rl_data_utils.utils.item.type.is_functions import is_decal
+from functools import lru_cache
+from contextlib import suppress
 
 
-def compare_names(name_1: str, name_2: str, type_1: str = None, type_2: str = None) -> str:
-    if is_car_decal_name(name_1, type_1):
+@lru_cache()
+def compare_names(name_1: str, name_2: str) -> str:
+    try:
         name_1 = get_string_decal_and_car_name(name_1)
-    if is_car_decal_name(name_2, type_2):
-        name_2 = get_string_decal_and_car_name(name_2)
+    except NameHaveNotCarName:
+        pass
+    else:
+        with suppress(NameHaveNotCarName):
+            name_2 = get_string_decal_and_car_name(name_2)
     name_1 = f'^{name_1}$'.replace(' ', r'[_\- ]?')
     return _regex_found(name_1, name_2)
 
 
+@lru_cache()
 def get_decal_and_car_name(name: str):
     from re import search, sub, IGNORECASE
     result = search('|'.join(CARS_NAMES_WITH_DECAL), name, IGNORECASE)
-    car_name = result.group(0)
+    try:
+        car_name = result.group(0)
+    except AttributeError:
+        raise NameHaveNotCarName(name)
     # remove car_name from string
     name = name.replace(car_name, '')
     # remove separators from name
-    name = sub(r'[(\)\[\]:]', r'', name)
+    name = sub(r'[()[\]:]', r'', name)
     decal_name = name.strip()
     return decal_name, car_name
 
