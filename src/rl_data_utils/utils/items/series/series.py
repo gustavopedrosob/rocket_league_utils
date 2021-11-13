@@ -120,6 +120,10 @@ def get_items_nitro_series(items: list[ABCSerie]):
     return get_items_by_condition(lambda item: item.is_nitro_series(), items)
 
 
+def get_items_non_crate(items: list[ABCSerie]):
+    return get_items_by_condition(lambda item: item.is_non_crate(), items)
+
+
 def get_items_overdrive_series(items: list[ABCSerie]):
     return get_items_by_condition(lambda item: item.is_overdrive_series(), items)
 

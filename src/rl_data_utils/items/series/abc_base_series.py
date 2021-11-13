@@ -120,6 +120,10 @@ class ABCBaseSeries(ABC):
         pass
 
     @abstractmethod
+    def get_items_non_crate(self):
+        pass
+
+    @abstractmethod
     def get_items_overdrive_series(self):
         pass
 

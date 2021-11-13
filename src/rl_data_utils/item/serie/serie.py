@@ -86,6 +86,9 @@ class ABCSerie(ABCBaseSerie, ItemAttribute):
     def is_nitro_series(self) -> bool:
         return is_nitro_series(self.get_serie())
 
+    def is_non_crate(self) -> bool:
+        return is_non_crate(self.get_serie())
+
     def is_overdrive_series(self) -> bool:
         return is_overdrive_series(self.get_serie())
 

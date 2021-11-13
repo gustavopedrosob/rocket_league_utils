@@ -116,6 +116,10 @@ def test_get_items_nitro_series():
     print(sample_items.get_items_nitro_series().items)
 
 
+def test_get_items_non_crate():
+    print(sample_items.get_items_non_crate().items)
+
+
 def test_get_items_overdrive_series():
     print(sample_items.get_items_overdrive_series().items)
 

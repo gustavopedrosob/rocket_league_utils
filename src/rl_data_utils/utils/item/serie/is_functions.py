@@ -119,6 +119,11 @@ def is_nitro_series(serie: str) -> bool:
 
 
 @lru_cache
+def is_non_crate(serie: str) -> bool:
+    return _regex_found(IS_NON_CRATE, serie)
+
+
+@lru_cache
 def is_overdrive_series(serie: str) -> bool:
     return _regex_found(IS_OVERDRIVE_SERIES, serie)
 
@@ -178,7 +183,7 @@ IS_FUNCTIONS = [is_accelerator_series, is_beach_blast_series, is_bonus_gift, is_
                 is_ferocity_series, is_golden_egg_2018, is_golden_egg_2019, is_golden_egg_2020,
                 is_golden_gift_2018, is_golden_gift_2019, is_golden_gift_2020, is_golden_lantern_2020,
                 is_golden_lantern_2021, is_golden_pumpkin_2018, is_golden_pumpkin_2019, is_golden_pumpkin_2020,
-                is_haunted_hallows_series, is_impact_series, is_nitro_series, is_overdrive_series,
+                is_haunted_hallows_series, is_impact_series, is_nitro_series, is_non_crate, is_overdrive_series,
                 is_players_choice_series, is_secret_santa_series, is_spring_fever_series, is_totally_awesome_series,
                 is_triumph_series, is_turbo_series, is_velocity_series, is_victory_series, is_vindicator_series,
                 is_zephyr_series]

@@ -101,6 +101,10 @@ def test_is_nitro_series():
     assert is_nitro_series('Nitro')
 
 
+def test_is_non_crate():
+    assert is_non_crate('Non Crate')
+
+
 def test_is_overdrive_series():
     assert is_overdrive_series('Overdrive')
 

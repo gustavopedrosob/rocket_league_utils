@@ -91,6 +91,9 @@ class Series(ABCBaseSeries, Items):
     def get_items_nitro_series(self):
         return self.__class__(get_items_nitro_series(self.items))
 
+    def get_items_non_crate(self):
+        return self.__class__(get_items_non_crate(self.items))
+
     def get_items_overdrive_series(self):
         return self.__class__(get_items_overdrive_series(self.items))
 

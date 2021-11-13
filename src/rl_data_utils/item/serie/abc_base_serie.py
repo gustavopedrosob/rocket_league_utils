@@ -115,6 +115,10 @@ class ABCBaseSerie(ABC):
         pass
 
     @abstractmethod
+    def is_non_crate(self) -> bool:
+        pass
+
+    @abstractmethod
     def is_overdrive_series(self) -> bool:
         pass
 
