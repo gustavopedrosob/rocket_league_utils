@@ -122,3 +122,8 @@ def test_get_items_by_item():
 def test_get_item_by_item():
     item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
     print(sample_items.get_item_by_item(item))
+
+
+def test_comparing_two_items_data():
+    item = SampleItemData('', 'Octane', '', '', '', '', '', colors=['tw'])
+    print(sample_items.get_item_by_item(item))
