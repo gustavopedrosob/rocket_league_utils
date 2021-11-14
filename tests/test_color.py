@@ -1,5 +1,5 @@
 import pytest
-from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList
+from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList, ColorIsNotInString
 from rl_data_utils.utils.item.color.color import all_are_colors, compare_colors, contains_colors, get_color_in_string, \
     get_respective_color, is_color, validate_colors_list, validate_color, has_color
 from rl_data_utils.utils.item.color.constants import COLORS
@@ -50,7 +50,8 @@ def test_has_color():
 
 def test_get_color_in_string():
     assert get_color_in_string('Dingo Titanium White Striker') == 'Titanium White'
-    assert get_color_in_string('Dingo Striker') is None
+    with pytest.raises(ColorIsNotInString):
+        get_color_in_string('Dingo Striker')
 
 
 def test_get_respective_color():

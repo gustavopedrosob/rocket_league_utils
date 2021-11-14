@@ -1,5 +1,5 @@
 import pytest
-from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
+from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList, RarityIsNotInString
 from rl_data_utils.utils.item.rarity.contains import contains_black_market, contains_common, contains_exotic, \
     contains_import, contains_legacy, contains_limited, contains_premium, contains_rare, contains_uncommon, \
     contains_very_rare
@@ -50,7 +50,8 @@ def test_has_rarity():
 
 def test_get_rarity_in_string():
     assert get_rarity_in_string('Dingo Titanium White Striker Imported') == 'Imported'
-    assert get_rarity_in_string('Dingo Titanium White Striker') is None
+    with pytest.raises(RarityIsNotInString):
+        get_rarity_in_string('Dingo Titanium White Striker')
 
 
 def test_get_respective_rarity():

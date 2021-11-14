@@ -1,5 +1,5 @@
 from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList
+from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList, RarityIsNotInString
 from rl_data_utils.utils.item.rarity.constants import RARITIES
 from rl_data_utils.utils.item.rarity.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.rarity.is_functions import IS_FUNCTIONS, is_rare, is_very_rare, is_import, is_exotic, \
@@ -14,6 +14,7 @@ class RaritiesFunctions(AttributesFunctions):
     contains_regex = CONTAINS_REGEXS
     attribute_not_exists_exception = RarityNotExists
     invalid_attribute_list_exception = InvalidRaritiesList
+    is_not_in_string_exception = RarityIsNotInString
 
 
 def all_are_rarities(container):

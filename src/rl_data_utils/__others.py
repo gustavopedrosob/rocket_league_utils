@@ -19,6 +19,7 @@ class AttributesFunctions:
     contains_regex = []
     attribute_not_exists_exception = None
     invalid_attribute_list_exception = None
+    is_not_in_string_exception = None
 
     @classmethod
     def is_(cls, string: str) -> bool:
@@ -63,9 +64,9 @@ class AttributesFunctions:
         return any(map(lambda e: cls.compare(string, e), container))
 
     @classmethod
-    def get_in_string(cls, string, null=None):
+    def get_in_string(cls, string):
         result = search('|'.join(cls.contains_regex), string, IGNORECASE)
-        if result:
+        try:
             return result.group(0)
-        else:
-            return null
+        except AttributeError:
+            raise cls.is_not_in_string_exception()

@@ -1,5 +1,5 @@
 from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
+from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList, TypeIsNotInString
 from rl_data_utils.utils.item.type.constants import TYPES
 from rl_data_utils.utils.item.type.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.type.is_functions import IS_FUNCTIONS
@@ -13,6 +13,7 @@ class TypesFunctions(AttributesFunctions):
     contains_regex = CONTAINS_REGEXS
     attribute_not_exists_exception = TypeNotExists
     invalid_attribute_list_exception = InvalidTypesList
+    is_not_in_string_exception = TypeIsNotInString
 
 
 def all_are_types(container):

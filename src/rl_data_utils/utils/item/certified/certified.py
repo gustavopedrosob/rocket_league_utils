@@ -1,5 +1,5 @@
 from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
+from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList, CertifiedIsNotInString
 from rl_data_utils.utils.item.certified.constants import CERTIFICATES
 from rl_data_utils.utils.item.certified.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.certified.regexs import CONTAINS_REGEXS
@@ -13,6 +13,7 @@ class CertificatesFunctions(AttributesFunctions):
     contains_regex = CONTAINS_REGEXS
     attribute_not_exists_exception = CertifiedNotExists
     invalid_attribute_list_exception = InvalidCertificatesList
+    is_not_in_string_exception = CertifiedIsNotInString
 
 
 def all_are_certificates(container):

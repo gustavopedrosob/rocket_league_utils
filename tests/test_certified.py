@@ -1,4 +1,4 @@
-from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList
+from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList, CertifiedIsNotInString
 from rl_data_utils.utils.item.certified.certified import all_are_certificates, compare_certificates, \
     contains_certificates, has_certified, get_certified_in_string, get_respective_certified, \
     is_certified, validate_certificates_list, validate_certified
@@ -53,7 +53,8 @@ def test_has_certified():
 
 def test_get_certified_in_string():
     assert get_certified_in_string('Dingo Titanium White Striker') == 'Striker'
-    assert get_certified_in_string('Dingo Titanium White') is None
+    with pytest.raises(CertifiedIsNotInString):
+        get_certified_in_string('Dingo Titanium White')
 
 
 def test_get_respective_certified():

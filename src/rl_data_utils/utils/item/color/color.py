@@ -1,5 +1,5 @@
 from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList
+from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList, ColorIsNotInString
 from rl_data_utils.utils.item.color.constants import COLORS
 from rl_data_utils.utils.item.color.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.color.regexs import CONTAINS_REGEXS
@@ -14,6 +14,7 @@ class ColorsFunctions(AttributesFunctions):
     contains_regex = CONTAINS_REGEXS
     attribute_not_exists_exception = ColorNotExists
     invalid_attribute_list_exception = InvalidColorsList
+    is_not_in_string_exception = ColorIsNotInString
 
 
 def all_are_colors(container):

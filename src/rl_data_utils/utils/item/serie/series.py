@@ -1,5 +1,5 @@
 from rl_data_utils.__others import AttributesFunctions
-from rl_data_utils.exceptions import SerieNotExists, InvalidSeriesList
+from rl_data_utils.exceptions import SerieNotExists, InvalidSeriesList, SerieIsNotInString
 from rl_data_utils.utils.item.serie.constants import SERIES
 from rl_data_utils.utils.item.serie.contains import CONTAINS_FUNCTIONS
 from rl_data_utils.utils.item.serie.regexs import CONTAINS_REGEXS
@@ -13,6 +13,7 @@ class SeriesFunctions(AttributesFunctions):
     contains_regex = CONTAINS_REGEXS
     attribute_not_exists_exception = SerieNotExists
     invalid_attribute_list_exception = InvalidSeriesList
+    is_not_in_string_exception = SerieIsNotInString
 
 
 def all_are_series(container):

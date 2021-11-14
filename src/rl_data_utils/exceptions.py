@@ -27,6 +27,35 @@ class CertifiedNotExists(Exception):
         super().__init__(f'Certified \"{certified}\" not exists.')
 
 
+class IsNotInString(Exception):
+    pass
+
+
+class TypeIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Type is not in string.')
+
+
+class SerieIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Serie is not in string.')
+
+
+class RarityIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Rarity is not in string.')
+
+
+class ColorIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Color is not in string.')
+
+
+class CertifiedIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Certified is not in string.')
+
+
 class InvalidTypesList(Exception):
     def __init__(self):
         super().__init__(f'To create a types list, all items must be a type.')

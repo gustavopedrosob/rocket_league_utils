@@ -1,5 +1,5 @@
 import pytest
-from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList
+from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList, TypeIsNotInString
 from rl_data_utils.utils.item.type.contains import contains_antenna, contains_avatar_border, contains_banner, \
     contains_boost, contains_car, contains_decal, contains_engine_audio, contains_gift_pack, contains_goal_explosion, \
     contains_player_anthem, contains_topper, contains_trail, contains_wheel, contains_paint_finish
@@ -55,7 +55,8 @@ def test_has_type():
 
 def test_get_type_in_string():
     assert get_type_in_string('Car Dingo Titanium White Striker') == 'Car'
-    assert get_type_in_string('Dingo Titanium White Striker') is None
+    with pytest.raises(TypeIsNotInString):
+        get_type_in_string('Dingo Titanium White Striker')
 
 
 def test_get_respective_type():
