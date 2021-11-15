@@ -1,8 +1,13 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found_any_in_list
 from rl_data_utils.item.color.list_color import ABCListColor
+
 from rl_data_utils.utils.item.color.color import has_color, all_are_colors
-from rl_data_utils.utils.items.items.items import get_items_by_condition
+from rl_data_utils.utils.items.items.items import get_items_by_condition, get_list_sample
+
+
+def get_colors(items: list[ABCListColor]):
+    return get_list_sample('get_list_color', items)
 
 
 def get_items_with_valid_color(items: list[ABCListColor]):
