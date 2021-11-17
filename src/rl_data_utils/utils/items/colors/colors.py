@@ -1,7 +1,6 @@
 from re import IGNORECASE
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.item.color.color import ABCColor
-from rl_data_utils.utils.item.color.color import validate_color
 from rl_data_utils.utils.items.items.items import get_items_by_condition
 
 
@@ -14,7 +13,6 @@ def get_colors(items: list[ABCColor]):
 
 
 def get_items_by_color(color: str, items: list[ABCColor]):
-    validate_color(color)
     return get_items_by_condition(lambda item: item.compare_colors(color), items)
 
 
