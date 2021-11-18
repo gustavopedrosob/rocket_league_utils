@@ -98,3 +98,12 @@ def test_get_item_by_item_item_not_found():
 
 def test_get_items_valid():
     print(sample_items.get_items_valid().items)
+
+
+def test_item_attributes_to_dict():
+    print(sample_items.get_item_by_string('Crimson').item_attributes_to_dict())
+
+
+def test_compare_items():
+    item = sample_items.get_item_by_string('Crimson')
+    assert item == item
