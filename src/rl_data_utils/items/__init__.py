@@ -3,6 +3,9 @@ from rl_data_utils.items.colors.colors import Colors
 from rl_data_utils.items.colors.list_colors import ListColors
 from rl_data_utils.items.items.items_database import ItemsDatabase
 from rl_data_utils.items.names.names import Names
+from rl_data_utils.items.paintables.paintables import Paintables
+from rl_data_utils.items.platforms.platforms import Platforms
+from rl_data_utils.items.prices.prices import Prices
 from rl_data_utils.items.quantities.quantities import Quantities
 from rl_data_utils.items.rarities.rarities import Rarities
 from rl_data_utils.items.rarities.list_rarities import ListRarities

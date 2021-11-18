@@ -1,0 +1,9 @@
+IS_PC = r'^(:?pc|computer)$'
+IS_XBOX = r'^xbox$'
+IS_PS4 = r'^(:?ps|play(:?station)?)[_\- ]?4?$'
+IS_SWITCH = r'^switch$'
+CONTAINS_PC = r'(:?pc|computer)'
+CONTAINS_XBOX = r'xbox'
+CONTAINS_PS4 = r'(:?ps|play(:?station)?)[_\- ]?4?'
+CONTAINS_SWITCH = r'switch'
+CONTAINS_REGEXS = [CONTAINS_PC, CONTAINS_XBOX, CONTAINS_PS4, CONTAINS_SWITCH]

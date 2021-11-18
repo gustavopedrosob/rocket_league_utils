@@ -4,6 +4,7 @@ from rl_data_utils.item.color.list_color import ABCListColor
 from rl_data_utils.item.item.item_data import ABCItemData
 from rl_data_utils.item.name.name import ABCName, Name
 from rl_data_utils.item.paintable.paintable import ABCPaintable, Paintable
+from rl_data_utils.item.platform.platform import ABCPlatform, Platform
 from rl_data_utils.item.price.price import Price, ABCPrice
 from rl_data_utils.item.quantity.quantity import ABCQuantity, Quantity
 from rl_data_utils.item.rarity.rarity import ABCRarity, Rarity

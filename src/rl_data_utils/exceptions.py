@@ -27,6 +27,11 @@ class CertifiedNotExists(Exception):
         super().__init__(f'Certified \"{certified}\" not exists.')
 
 
+class PlatformNotExists(Exception):
+    def __init__(self, platform: str):
+        super().__init__(f'Platform \"{platform}\" not exists.')
+
+
 class IsNotInString(Exception):
     pass
 
@@ -56,6 +61,11 @@ class CertifiedIsNotInString(IsNotInString):
         super().__init__(f'Certified is not in string.')
 
 
+class PlatformIsNotInString(IsNotInString):
+    def __init__(self):
+        super().__init__(f'Platform is not in string.')
+
+
 class InvalidTypesList(Exception):
     def __init__(self):
         super().__init__(f'To create a types list, all items must be a type.')
@@ -69,6 +79,11 @@ class InvalidSeriesList(Exception):
 class InvalidRaritiesList(Exception):
     def __init__(self):
         super().__init__(f'To create a rarities list, all items must be a rarity.')
+
+
+class InvalidPlatformsList(Exception):
+    def __init__(self):
+        super().__init__(f'To create a platform list, all items must be a platform.')
 
 
 class InvalidColorsList(Exception):
