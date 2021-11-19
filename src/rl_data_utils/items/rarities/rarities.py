@@ -4,10 +4,9 @@ from rl_data_utils.utils.items.rarities.rarities import get_rarities, get_items_
     get_items_rare, get_items_very_rare, get_items_import, get_items_exotic, get_items_black_market, get_items_limited, \
     get_items_with_valid_rarity
 from re import IGNORECASE
-from rl_data_utils.items.rarities.abc_base_rarities import ABCBaseRarities
 
 
-class Rarities(ABCBaseRarities, Items):
+class Rarities(Items):
     def get_items_with_valid_rarity(self):
         return self.__class__(get_items_with_valid_rarity(self.items))
 

@@ -7,7 +7,7 @@ from contextlib import suppress
 
 
 @lru_cache()
-def compare_names(name_1: str, name_2: str) -> str:
+def compare_name(name_1: str, name_2: str) -> str:
     try:
         name_1 = get_string_decal_and_car_name(name_1)
     except NameHaveNotCarName:

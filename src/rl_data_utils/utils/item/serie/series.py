@@ -21,7 +21,7 @@ def all_are_series(container):
 
 
 @lru_cache()
-def compare_series(certify_1: str, certify_2: str) -> bool:
+def compare_serie(certify_1: str, certify_2: str) -> bool:
     return SeriesFunctions.compare(certify_1, certify_2)
 
 

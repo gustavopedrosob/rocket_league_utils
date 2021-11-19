@@ -17,7 +17,7 @@ def get_types(items: list[ABCType]):
 
 
 def get_items_by_type(type_: str, items: list[ABCType]):
-    return get_items_by_condition(lambda item: item.compare_types(type_), items)
+    return get_items_by_condition(lambda item: item.compare_type(type_), items)
 
 
 def get_items_by_type_equal_to(type_: str, items: list[ABCType]):

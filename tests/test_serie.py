@@ -1,5 +1,5 @@
 from rl_data_utils.utils.item.serie.is_functions import *
-from rl_data_utils.utils.item.serie.series import compare_series, is_serie
+from rl_data_utils.utils.item.serie.series import compare_serie, is_serie
 
 inventory_series = ['Accelerator', 'Accolade', 'Accolade II', 'Auriga', 'Champions 1', 'Champions 2', 'Champions 3',
                     'Champions 4', 'Crate', 'Elevation', 'Ferocity', "Golden Egg '18", "Golden Egg '19",

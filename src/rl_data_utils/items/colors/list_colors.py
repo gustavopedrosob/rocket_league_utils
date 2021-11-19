@@ -4,11 +4,10 @@ from rl_data_utils.utils.items.colors.list_colors import get_items_by_color, get
     get_items_orange, get_items_cobalt, get_items_burnt_sienna, get_items_titanium_white, get_items_grey, \
     get_items_saffron, get_items_lime, get_items_forest_green, get_items_black, get_items_purple, \
     get_items_with_valid_color, get_colors
-from rl_data_utils.items.colors.abc_base_colors import ABCBaseColors
 from rl_data_utils.items.items.items import Items
 
 
-class ListColors(ABCBaseColors, Items):
+class ListColors(Items):
     def get_items_with_valid_color(self):
         return self.__class__(get_items_with_valid_color(self.items))
 

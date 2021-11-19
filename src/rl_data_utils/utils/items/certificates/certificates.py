@@ -13,7 +13,7 @@ def get_certificates(items: list[ABCCertified]):
 
 
 def get_items_by_certified(certified: str, items: list[ABCCertified]):
-    return get_items_by_condition(lambda item: item.compare_certificates(certified), items)
+    return get_items_by_condition(lambda item: item.compare_certified(certified), items)
 
 
 def get_items_by_certified_equal_to(certified: str, items: list[ABCCertified]):

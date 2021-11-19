@@ -21,7 +21,7 @@ def all_are_types(container):
 
 
 @lru_cache()
-def compare_types(type_1: str, type_2: str) -> bool:
+def compare_type(type_1: str, type_2: str) -> bool:
     return TypesFunctions.compare(type_1, type_2)
 
 

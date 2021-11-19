@@ -5,10 +5,9 @@ from rl_data_utils.utils.items.colors.colors import get_colors, get_items_by_col
     get_items_with_valid_color
 from rl_data_utils.items.items.items import Items
 from re import IGNORECASE
-from rl_data_utils.items.colors.abc_base_colors import ABCBaseColors
 
 
-class Colors(ABCBaseColors, Items):
+class Colors(Items):
     def get_items_with_valid_color(self):
         return self.__class__(get_items_with_valid_color(self.items))
 

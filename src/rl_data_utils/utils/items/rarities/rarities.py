@@ -17,7 +17,7 @@ def get_items_by_rarity_regex(rarity_pattern: str, items: list[ABCRarity], flags
 
 
 def get_items_by_rarity(rarity: str, items: list[ABCRarity]):
-    return get_items_by_condition(lambda item: item.compare_rarities(rarity), items)
+    return get_items_by_condition(lambda item: item.compare_rarity(rarity), items)
 
 
 def get_items_by_rarity_equal_to(rarity: str, items: list[ABCRarity]):

@@ -1,5 +1,5 @@
 from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList, ColorIsNotInString
-from rl_data_utils.utils.item.color.color import all_are_colors, compare_colors, contains_colors, get_color_in_string, \
+from rl_data_utils.utils.item.color.color import all_are_colors, compare_color, contains_colors, get_color_in_string, \
     get_respective_color, is_color, validate_colors_list, validate_color, has_color
 from rl_data_utils.utils.item.color.constants import COLORS
 from rl_data_utils.utils.item.color.contains import contains_black, contains_burnt_sienna, contains_cobalt, \
@@ -29,7 +29,7 @@ def test_all_are_colors():
 
 
 def test_compare_colors():
-    compare(compare_colors, pair_equals, ColorNotExists)
+    compare(compare_color, pair_equals, ColorNotExists)
 
 
 def test_contains_colors():

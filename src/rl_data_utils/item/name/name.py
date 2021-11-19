@@ -1,11 +1,12 @@
+from abc import ABC, abstractmethod
+
 from rl_data_utils.utils.item.name.is_functions import is_credits
-from rl_data_utils.item.name.abc_base_name import ABCBaseName
 from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.utils.item.name.name import compare_names, get_decal_and_car_name, get_string_decal_and_car_name, \
+from rl_data_utils.utils.item.name.name import compare_name, get_decal_and_car_name, get_string_decal_and_car_name, \
     have_car_in_name
 
 
-class ABCName(ABCBaseName, ItemAttribute):
+class ABCName(ABC, ItemAttribute):
     def have_car_in_name(self) -> bool:
         return have_car_in_name(self.get_name())
 
@@ -13,13 +14,17 @@ class ABCName(ABCBaseName, ItemAttribute):
         return is_credits(self.get_name())
 
     def compare_name(self, name: str) -> bool:
-        return compare_names(name, self.get_name())
+        return compare_name(name, self.get_name())
     
     def get_decal_and_car_name(self):
         return get_decal_and_car_name(self.get_name())
 
     def get_string_decal_and_car_name(self):
         return get_string_decal_and_car_name(self.get_name())
+
+    @abstractmethod
+    def get_name(self):
+        pass
 
 
 class Name(ABCName):

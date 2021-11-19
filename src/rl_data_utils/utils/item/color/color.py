@@ -22,7 +22,7 @@ def all_are_colors(container):
 
 
 @lru_cache()
-def compare_colors(certify_1: str, certify_2: str) -> bool:
+def compare_color(certify_1: str, certify_2: str) -> bool:
     return ColorsFunctions.compare(certify_1, certify_2)
 
 

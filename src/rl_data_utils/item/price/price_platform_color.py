@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from rl_data_utils.utils.item.color.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY,\
     LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE
+from rl_data_utils.utils.item.platform.constants import PC, XBOX, PS4, SWITCH
 
 
 class ABCPricePlatformColor(ABC):

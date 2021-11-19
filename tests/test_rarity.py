@@ -4,7 +4,7 @@ from rl_data_utils.utils.item.rarity.contains import contains_black_market, cont
     contains_very_rare
 from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_common, is_exotic, is_import, is_legacy, \
     is_limited, is_premium, is_rare, is_uncommon, is_very_rare
-from rl_data_utils.utils.item.rarity.rarity import all_are_rarities, compare_rarities, contains_rarities, \
+from rl_data_utils.utils.item.rarity.rarity import all_are_rarities, compare_rarity, contains_rarities, \
     get_rarity_in_string, get_respective_rarity, is_rarity, validate_rarities_list, validate_rarity, \
     has_rarity
 from rl_data_utils.utils.item.rarity.constants import RARITIES
@@ -27,7 +27,7 @@ def test_all_are_rarities():
 
 
 def test_compare_rarities():
-    compare(compare_rarities, pair_equals, RarityNotExists)
+    compare(compare_rarity, pair_equals, RarityNotExists)
 
 
 def test_contains_rarities():

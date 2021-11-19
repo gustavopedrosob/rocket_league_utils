@@ -1,12 +1,16 @@
-from rl_data_utils.item.rarity.abc_base_rarity import ABCBaseRarity
+from abc import ABC, abstractmethod
 from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_common, is_exotic, is_import, is_legacy,\
     is_limited, is_premium, is_rare, is_uncommon, is_very_rare
-from rl_data_utils.utils.item.rarity.rarity import compare_rarities, get_respective_rarity, get_rgba_rarity,\
+from rl_data_utils.utils.item.rarity.rarity import compare_rarity, get_respective_rarity, get_rgba_rarity,\
     validate_rarity, is_rarity
 
 
-class ABCRarity(ABCBaseRarity, ItemAttribute):
+class ABCRarity(ABC, ItemAttribute):
+    @abstractmethod
+    def get_rarity(self):
+        pass
+
     def is_valid_rarity(self):
         return is_rarity(self.get_rarity())
 
@@ -49,8 +53,8 @@ class ABCRarity(ABCBaseRarity, ItemAttribute):
     def validate_rarity(self):
         validate_rarity(self.get_rarity())
 
-    def compare_rarities(self, rarity: str):
-        return compare_rarities(self.get_rarity(), rarity)
+    def compare_rarity(self, rarity: str):
+        return compare_rarity(self.get_rarity(), rarity)
 
 
 class Rarity(ABCRarity):

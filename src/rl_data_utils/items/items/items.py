@@ -1,14 +1,7 @@
 from contextlib import suppress
-
 from rl_data_utils.exceptions import ItemNotFound
-from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
-from rl_data_utils.utils.items.items.items import get_items_by_condition, get_item_by_index
-from rl_data_utils.items.certificates.abc_base_certificates import ABCBaseCertificates
-from rl_data_utils.items.colors.abc_base_colors import ABCBaseColors
-from rl_data_utils.items.rarities.abc_base_rarities import ABCBaseRarities
-from rl_data_utils.items.types.abc_base_types import ABCBaseTypes
-from rl_data_utils.items.names.abc_base_names import ABCBaseNames
 from rl_data_utils.utils.item_attributes.item_attributes import get_attributes_in_string
+from rl_data_utils.utils.items.items.items import get_items_by_condition, get_item_by_index
 
 
 class Items:
@@ -21,16 +14,9 @@ class Items:
 
     def get_items_valid(self):
         items = self
-        if isinstance(items, ABCBaseCertificates):
-            items = items.get_items_with_valid_certified()
-        if isinstance(items, ABCBaseColors):
-            items = items.get_items_with_valid_color()
-        if isinstance(items, ABCBaseRarities):
-            items = items.get_items_with_valid_rarity()
-        if isinstance(items, ABCBaseTypes):
-            items = items.get_items_with_valid_type()
-        if isinstance(items, ABCBaseSeries):
-            items = items.get_items_with_valid_serie()
+        for name in ['certified', 'color', 'rarity', 'type', 'serie']:
+            with suppress(AttributeError):
+                items = getattr(items, 'get_items_with_valid_' + name)()
         return items
 
     def get_items_by_condition(self, lamb):
@@ -39,26 +25,12 @@ class Items:
     def get_items_by(self, **kwargs):
         items = self
         get_something = False
-        if isinstance(items, ABCBaseCertificates):
-            with suppress(KeyError):
-                items = items.get_items_by_certified(kwargs['certified'])
+        for name in ['certified', 'color', 'rarity', 'type', 'name']:
+            try:
+                items = getattr(items, 'get_items_by_' + name)(kwargs[name])
                 get_something = True
-        if isinstance(items, ABCBaseColors):
-            with suppress(KeyError):
-                items = items.get_items_by_color(kwargs['color'])
-                get_something = True
-        if isinstance(items, ABCBaseRarities):
-            with suppress(KeyError):
-                items = items.get_items_by_rarity(kwargs['rarity'])
-                get_something = True
-        if isinstance(items, ABCBaseTypes):
-            with suppress(KeyError):
-                items = items.get_items_by_type(kwargs['type_'])
-                get_something = True
-        if isinstance(items, ABCBaseNames):
-            with suppress(KeyError):
-                items = items.get_items_by_name(kwargs['name'])
-                get_something = True
+            except (KeyError, AttributeError):
+                pass
         if not get_something:
             raise ItemNotFound()
         return items

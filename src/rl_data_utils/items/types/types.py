@@ -1,6 +1,5 @@
 from rl_data_utils.items.items.items import Items
 from re import IGNORECASE
-from rl_data_utils.items.types.abc_base_types import ABCBaseTypes
 from rl_data_utils.utils.items.types.types import get_items_by_type_regex, get_types, get_items_by_type, \
     get_items_by_type_equal_to, get_items_by_type_contains, get_items_antenna, get_items_avatar_border, \
     get_items_banner, get_items_boost, get_items_car, get_items_decal, get_items_engine_audio, get_items_gift_pack, \
@@ -8,7 +7,7 @@ from rl_data_utils.utils.items.types.types import get_items_by_type_regex, get_t
     get_items_wheel, get_items_player_title, get_items_blueprint, get_items_with_valid_type
 
 
-class Types(ABCBaseTypes, Items):
+class Types(Items):
     def get_items_with_valid_type(self):
         return self.__class__(get_items_with_valid_type(self.items))
 

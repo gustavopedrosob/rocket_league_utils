@@ -1,9 +1,13 @@
+from abc import abstractmethod, ABC
 from operator import sub, add
-from rl_data_utils.item.quantity.abc_base_quantity import ABCBaseQuantity
 from rl_data_utils.item.item.item_attribute import ItemAttribute
 
 
-class ABCQuantity(ABCBaseQuantity, ItemAttribute):
+class ABCQuantity(ABC, ItemAttribute):
+    @abstractmethod
+    def get_quantity(self) -> int:
+        pass
+
     def _operation_math(self, other, operation):
         if isinstance(other, ABCQuantity):
             return operation(self.get_quantity(), other.get_quantity())

@@ -21,7 +21,7 @@ def all_are_certificates(container):
 
 
 @lru_cache()
-def compare_certificates(certify_1: str, certify_2: str) -> bool:
+def compare_certified(certify_1: str, certify_2: str) -> bool:
     return CertificatesFunctions.compare(certify_1, certify_2)
 
 

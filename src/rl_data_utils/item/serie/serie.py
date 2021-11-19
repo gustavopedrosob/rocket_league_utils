@@ -1,12 +1,17 @@
+from abc import ABC, abstractmethod
+
 from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.item.serie.abc_base_serie import ABCBaseSerie
 from rl_data_utils.utils.item.serie.is_functions import *
-from rl_data_utils.utils.item.serie.series import is_serie, compare_series, get_respective_serie, validate_serie
+from rl_data_utils.utils.item.serie.series import is_serie, compare_serie, get_respective_serie, validate_serie
 
 
-class ABCSerie(ABCBaseSerie, ItemAttribute):
-    def compare_series(self, serie: str) -> bool:
-        return compare_series(self.get_serie(), serie)
+class ABCSerie(ABC, ItemAttribute):
+    @abstractmethod
+    def get_serie(self) -> str:
+        pass
+
+    def compare_serie(self, serie: str) -> bool:
+        return compare_serie(self.get_serie(), serie)
 
     def get_respective_serie(self) -> str:
         return get_respective_serie(self.get_serie())

@@ -13,7 +13,7 @@ def get_colors(items: list[ABCColor]):
 
 
 def get_items_by_color(color: str, items: list[ABCColor]):
-    return get_items_by_condition(lambda item: item.compare_colors(color), items)
+    return get_items_by_condition(lambda item: item.compare_color(color), items)
 
 
 def get_items_by_color_regex(color_pattern: str, items: list[ABCColor], flags=IGNORECASE):

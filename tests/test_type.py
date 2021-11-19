@@ -5,7 +5,7 @@ from rl_data_utils.utils.item.type.contains import contains_antenna, contains_av
 from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car, \
     is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, \
     is_wheel
-from rl_data_utils.utils.item.type.type import all_are_types, compare_types, contains_types, has_type, \
+from rl_data_utils.utils.item.type.type import all_are_types, compare_type, contains_types, has_type, \
     get_type_in_string, get_respective_type, is_type, validate_types_list, validate_type
 from rl_data_utils.utils.item.type.constants import TYPES
 from tests.utils.utils_attribute import all_are, compare, contains, has, get_in_string, get_respective, is_, \
@@ -32,7 +32,7 @@ def test_all_are_types():
 
 
 def test_compare_types():
-    compare(compare_types, pair_equals, TypeNotExists)
+    compare(compare_type, pair_equals, TypeNotExists)
 
 
 def test_contains_types():

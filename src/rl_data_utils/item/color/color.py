@@ -1,17 +1,17 @@
-from rl_data_utils.item.color.abc_base_color import ABCBaseColor
+from abc import abstractmethod, ABC
 from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.utils.item.color.color import compare_colors, get_hex_colors, get_respective_color, validate_color,\
+from rl_data_utils.utils.item.color.color import compare_color, get_hex_colors, get_respective_color, validate_color,\
     is_color
 from rl_data_utils.utils.item.color.is_functions import is_black, is_burnt_sienna, is_cobalt, is_crimson, is_default,\
     is_forest_green, is_grey, is_lime, is_orange, is_pink, is_purple, is_saffron, is_sky_blue, is_titanium_white
 
 
-class ABCColor(ABCBaseColor, ItemAttribute):
+class ABCColor(ABC, ItemAttribute):
     def is_valid_color(self):
         return is_color(self.get_color())
 
-    def compare_colors(self, color) -> bool:
-        return compare_colors(self.get_color(), color)
+    def compare_color(self, color) -> bool:
+        return compare_color(self.get_color(), color)
 
     def get_hex_colors(self):
         return get_hex_colors(self.get_color())
@@ -63,6 +63,10 @@ class ABCColor(ABCBaseColor, ItemAttribute):
 
     def validate_color(self):
         validate_color(self.get_color())
+
+    @abstractmethod
+    def get_color(self):
+        pass
 
 
 class Color(ABCColor):

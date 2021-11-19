@@ -22,7 +22,7 @@ def all_are_rarities(container):
 
 
 @lru_cache()
-def compare_rarities(rarity_1: str, rarity_2: str) -> bool:
+def compare_rarity(rarity_1: str, rarity_2: str) -> bool:
     return RaritiesFunctions.compare(rarity_1, rarity_2)
 
 

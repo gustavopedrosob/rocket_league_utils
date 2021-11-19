@@ -5,10 +5,9 @@ from rl_data_utils.utils.items.certificates.certificates import get_certificates
     get_items_juggler, get_items_goalkeeper, get_items_with_valid_certified
 from rl_data_utils.items.items.items import Items
 from re import IGNORECASE
-from rl_data_utils.items.certificates.abc_base_certificates import ABCBaseCertificates
 
 
-class Certificates(ABCBaseCertificates, Items):
+class Certificates(Items):
     def get_items_by_certified_regex(self, certified_pattern, flags=IGNORECASE):
         return self.__class__(get_items_by_certified_regex(certified_pattern, self.items, flags))
 

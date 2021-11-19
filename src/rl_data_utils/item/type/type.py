@@ -1,17 +1,21 @@
-from rl_data_utils.item.type.abc_base_type import ABCBaseType
+from abc import abstractmethod, ABC
 from rl_data_utils.item.item.item_attribute import ItemAttribute
 from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_border, is_banner, is_boost, is_car, \
     is_decal, is_engine_audio, is_gift_pack, is_goal_explosion, is_paint_finish, is_player_anthem, is_topper, is_trail, \
     is_wheel, is_blueprint, is_player_title
-from rl_data_utils.utils.item.type.type import compare_types, get_respective_type, validate_type, is_type
+from rl_data_utils.utils.item.type.type import compare_type, get_respective_type, validate_type, is_type
 
 
-class ABCType(ABCBaseType, ItemAttribute):
+class ABCType(ABC, ItemAttribute):
+    @abstractmethod
+    def get_type(self):
+        pass
+
     def is_valid_type(self):
         return is_type(self.get_type())
 
-    def compare_types(self, type_: str) -> bool:
-        return compare_types(self.get_type(), type_)
+    def compare_type(self, type_: str) -> bool:
+        return compare_type(self.get_type(), type_)
 
     def get_respective_type(self) -> str:
         return get_respective_type(self.get_type())

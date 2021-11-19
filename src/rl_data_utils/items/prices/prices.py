@@ -1,10 +1,9 @@
 from rl_data_utils.items.items.items import Items
-from rl_data_utils.items.prices.abc_base_prices import ABCBasePrices
 from rl_data_utils.utils.items.prices.prices import get_items_by_price_equal_to, get_items_by_price_lower_than, \
     get_items_by_price_higher_than, get_total_price
 
 
-class Prices(ABCBasePrices, Items):
+class Prices(Items):
     def get_items_by_price_equal_to(self, price: int):
         return self.__class__(get_items_by_price_equal_to(self.items, price))
 

@@ -1,5 +1,5 @@
 from rl_data_utils.exceptions import CertifiedNotExists, InvalidCertificatesList, CertifiedIsNotInString
-from rl_data_utils.utils.item.certified.certified import all_are_certificates, compare_certificates, \
+from rl_data_utils.utils.item.certified.certified import all_are_certificates, compare_certified, \
     contains_certificates, has_certified, get_certified_in_string, get_respective_certified, \
     is_certified, validate_certificates_list, validate_certified
 from rl_data_utils.utils.item.certified.constants import CERTIFICATES
@@ -30,7 +30,7 @@ def test_all_are_certificates():
 
 
 def test_compare_certificates():
-    compare(compare_certificates, pair_equals, CertifiedNotExists)
+    compare(compare_certified, pair_equals, CertifiedNotExists)
 
 
 def test_contains_certificates():

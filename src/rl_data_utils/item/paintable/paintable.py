@@ -1,9 +1,11 @@
+from abc import ABC, abstractmethod
 from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.item.paintable.abc_base_paintable import ABCBasePaintable
 
 
-class ABCPaintable(ABCBasePaintable, ItemAttribute):
-    pass
+class ABCPaintable(ABC, ItemAttribute):
+    @abstractmethod
+    def get_paintable(self) -> bool:
+        pass
 
 
 class Paintable:

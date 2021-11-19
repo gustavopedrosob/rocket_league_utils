@@ -13,7 +13,7 @@ def get_items_by_serie_regex(serie_pattern, items: list[ABCSerie], flags=IGNOREC
 
 
 def get_items_by_serie(serie: str, items: list[ABCSerie]):
-    return get_items_by_condition(lambda item: item.compare_series(serie), items)
+    return get_items_by_condition(lambda item: item.compare_serie(serie), items)
 
 
 def get_items_by_serie_equal_to(serie: str, items: list[ABCSerie]):

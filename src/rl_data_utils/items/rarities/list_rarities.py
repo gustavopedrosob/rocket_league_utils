@@ -4,10 +4,9 @@ from rl_data_utils.utils.items.rarities.list_rarities import get_items_by_rarity
     get_items_with_valid_rarity, get_rarities
 from re import IGNORECASE
 from rl_data_utils.items.items.items import Items
-from rl_data_utils.items.rarities.abc_base_rarities import ABCBaseRarities
 
 
-class ListRarities(ABCBaseRarities, Items):
+class ListRarities(Items):
     def get_rarities(self):
         return get_rarities(self.items)
 
