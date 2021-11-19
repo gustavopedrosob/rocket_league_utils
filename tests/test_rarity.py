@@ -1,4 +1,3 @@
-import pytest
 from rl_data_utils.exceptions import RarityNotExists, InvalidRaritiesList, RarityIsNotInString
 from rl_data_utils.utils.item.rarity.contains import contains_black_market, contains_common, contains_exotic, \
     contains_import, contains_legacy, contains_limited, contains_premium, contains_rare, contains_uncommon, \
@@ -9,6 +8,8 @@ from rl_data_utils.utils.item.rarity.rarity import all_are_rarities, compare_rar
     get_rarity_in_string, get_respective_rarity, is_rarity, validate_rarities_list, validate_rarity, \
     has_rarity
 from rl_data_utils.utils.item.rarity.constants import RARITIES
+from tests.utils.utils_attribute import all_are, compare, contains, has, get_in_string, get_respective, is_, \
+    validate_list, validate
 
 insider_rarities = ['Limited', 'Uncommon', 'Rare', 'Very Rare', 'Import', 'Exotic', 'Black Market']
 
@@ -22,62 +23,39 @@ samples = [inventory_rarities, insider_rarities, RARITIES]
 
 
 def test_all_are_rarities():
-    for container in samples:
-        assert all_are_rarities(container)
+    all_are(all_are_rarities, samples)
 
 
 def test_compare_rarities():
-    for pair in pair_equals:
-        assert compare_rarities(*pair)
-    with pytest.raises(RarityNotExists):
-        compare_rarities('', 'vr')
-        compare_rarities('vr', '')
+    compare(compare_rarities, pair_equals, RarityNotExists)
 
 
 def test_contains_rarities():
-    for container in samples:
-        for rarity in container:
-            assert contains_rarities(rarity)
+    contains(contains_rarities, samples)
 
 
 def test_has_rarity():
-    assert has_rarity('vr', inventory_rarities)
-    with pytest.raises(RarityNotExists):
-        has_rarity('', inventory_rarities)
-    with pytest.raises(InvalidRaritiesList):
-        has_rarity('vr', [''])
+    has(has_rarity, inventory_rarities, RarityNotExists, InvalidRaritiesList)
 
 
 def test_get_rarity_in_string():
-    assert get_rarity_in_string('Dingo Titanium White Striker Imported') == 'Imported'
-    with pytest.raises(RarityIsNotInString):
-        get_rarity_in_string('Dingo Titanium White Striker')
+    get_in_string(get_rarity_in_string, 'Dingo Titanium White Striker Imported', 'Imported', RarityIsNotInString)
 
 
 def test_get_respective_rarity():
-    for c1, c2 in pair_equals:
-        assert get_respective_rarity(c1) == c2
-    with pytest.raises(RarityNotExists):
-        get_respective_rarity('')
+    get_respective(get_respective_rarity, pair_equals, RarityNotExists)
 
 
 def test_is_rarity():
-    for container in samples:
-        for rarity in container:
-            assert is_rarity(rarity)
+    is_(is_rarity, samples)
 
 
 def test_validate_rarities_list():
-    for container in samples:
-        validate_rarities_list(container)
-    with pytest.raises(InvalidRaritiesList):
-        validate_rarities_list([''])
+    validate_list(validate_rarities_list, samples, InvalidRaritiesList)
 
 
 def test_validate_rarity():
-    for container in samples:
-        for rarity in container:
-            validate_rarity(rarity)
+    validate(validate_rarity, samples, RarityNotExists)
 
 
 # quando estamos falando do inglês é interessante que adjetivos não usam plural quando estão acompanhados do

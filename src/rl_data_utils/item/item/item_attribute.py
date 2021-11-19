@@ -78,27 +78,37 @@ class ItemAttribute:
 
     def item_attributes_to_dict(self) -> dict:
         attrs = {}
-        with suppress(KeyError):
-            if isinstance(self, ABCBaseColor):
-                attrs['color'] = self.get_color()
-            if isinstance(self, ABCBaseRarity):
-                attrs['rarity'] = self.get_rarity()
-            if isinstance(self, ABCBaseType):
-                attrs['type_'] = self.get_type()
-            if isinstance(self, ABCBaseCertified):
-                attrs['certified'] = self.get_certified()
-            if isinstance(self, ABCBaseName):
-                attrs['name'] = self.get_name()
-            if isinstance(self, ABCBaseQuantity):
-                attrs['quantity'] = self.get_quantity()
-            if isinstance(self, ABCBaseTradable):
-                attrs['tradable'] = self.get_tradable()
-            if isinstance(self, ABCBaseSerie):
-                attrs['serie'] = self.get_serie()
-            if isinstance(self, ABCBaseBlueprint):
-                attrs['blueprint'] = self.get_blueprint()
-            if isinstance(self, ABCBasePrice):
-                attrs['price'] = self.get_price()
-            if isinstance(self, ABCBasePaintable):
-                attrs['paintable'] = self.get_paintable()
-            return attrs
+        if isinstance(self, ABCBaseColor):
+            color = self.get_color()
+            if color:
+                attrs['color'] = color
+        if isinstance(self, ABCBaseRarity):
+            rarity = self.get_rarity()
+            if rarity:
+                attrs['rarity'] = rarity
+        if isinstance(self, ABCBaseType):
+            type_ = self.get_type()
+            if type_:
+                attrs['type_'] = type_
+        if isinstance(self, ABCBaseCertified):
+            certified = self.get_certified()
+            if certified:
+                attrs['certified'] = certified
+        if isinstance(self, ABCBaseName):
+            name = self.get_name()
+            if name:
+                attrs['name'] = name
+        if isinstance(self, ABCBaseQuantity):
+            attrs['quantity'] = self.get_quantity()
+        if isinstance(self, ABCBaseTradable):
+            attrs['tradable'] = self.get_tradable()
+        if isinstance(self, ABCBasePaintable):
+            attrs['paintable'] = self.get_paintable()
+        if isinstance(self, ABCBaseSerie):
+            serie = self.get_serie()
+            if serie:
+                attrs['serie'] = serie
+        if isinstance(self, ABCBaseBlueprint):
+            attrs['blueprint'] = self.get_blueprint()
+        return attrs
+

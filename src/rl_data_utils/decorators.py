@@ -1,3 +1,4 @@
+from contextlib import suppress
 from rl_data_utils.utils.item.certified.certified import get_respective_certified
 from rl_data_utils.utils.item.color.color import get_respective_color
 from rl_data_utils.utils.item.color.constants import COLORS
@@ -20,24 +21,18 @@ def rl_data_smart_attributes(sub_rarity=True, sub_color=True, sub_type=True, sub
                              colors=COLORS, types=TYPES, certificates=CERTIFICATES):
     def decorator(function):
         def wrapper(*args, **kwargs):
-            new_kwargs = {}
             if sub_rarity:
-                rarity = kwargs.get('item/rarity')
-                if rarity:
-                    new_kwargs['rarity'] = get_respective_rarity(rarity, rarities)
+                with suppress(KeyError):
+                    kwargs['rarity'] = get_respective_rarity(kwargs['rarity'], rarities)
             if sub_color:
-                color = kwargs.get('item/color')
-                if color:
-                    new_kwargs['color'] = get_respective_color(color, colors)
+                with suppress(KeyError):
+                    kwargs['color'] = get_respective_color(kwargs['color'], colors)
             if sub_type:
-                type_ = kwargs.get('type_')
-                if type_:
-                    new_kwargs['type_'] = get_respective_type(type_, types)
+                with suppress(KeyError):
+                    kwargs['type_'] = get_respective_type(kwargs['type_'], types)
             if sub_certified:
-                certified = kwargs.get('item/certified')
-                if certified:
-                    new_kwargs['certified'] = get_respective_certified(certified, certificates)
-            kwargs.update(new_kwargs)
+                with suppress(KeyError):
+                    kwargs['certified'] = get_respective_certified(kwargs['certified'], certificates)
             return function(*args, **kwargs)
         return wrapper
     return decorator

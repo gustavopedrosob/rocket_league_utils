@@ -1,4 +1,3 @@
-import pytest
 from rl_data_utils.exceptions import TypeNotExists, InvalidTypesList, TypeIsNotInString
 from rl_data_utils.utils.item.type.contains import contains_antenna, contains_avatar_border, contains_banner, \
     contains_boost, contains_car, contains_decal, contains_engine_audio, contains_gift_pack, contains_goal_explosion, \
@@ -9,6 +8,8 @@ from rl_data_utils.utils.item.type.is_functions import is_antenna, is_avatar_bor
 from rl_data_utils.utils.item.type.type import all_are_types, compare_types, contains_types, has_type, \
     get_type_in_string, get_respective_type, is_type, validate_types_list, validate_type
 from rl_data_utils.utils.item.type.constants import TYPES
+from tests.utils.utils_attribute import all_are, compare, contains, has, get_in_string, get_respective, is_, \
+    validate_list, validate
 
 inventory_types = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',
                    'Player Anthem', 'Animated Decal', 'Paint Finish', 'Blueprint', 'Decal', 'Avatar Border',
@@ -27,64 +28,39 @@ pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], [
 
 
 def test_all_are_types():
-    for container in samples:
-        assert all_are_types(container)
+    all_are(all_are_types, samples)
 
 
 def test_compare_types():
-    for pair in pair_equals:
-        assert compare_types(*pair)
-    with pytest.raises(TypeNotExists):
-        compare_types('car', '')
-        compare_types('', 'car')
+    compare(compare_types, pair_equals, TypeNotExists)
 
 
 def test_contains_types():
-    for container in samples:
-        for type_ in container:
-            assert contains_types(type_)
+    contains(contains_types, samples)
 
 
 def test_has_type():
-    assert has_type('car', inventory_types)
-    with pytest.raises(TypeNotExists):
-        has_type('', inventory_types)
-    with pytest.raises(InvalidTypesList):
-        has_type('car', [''])
+    has(has_type, inventory_types, TypeNotExists, InvalidTypesList)
 
 
 def test_get_type_in_string():
-    assert get_type_in_string('Car Dingo Titanium White Striker') == 'Car'
-    with pytest.raises(TypeIsNotInString):
-        get_type_in_string('Dingo Titanium White Striker')
+    get_in_string(get_type_in_string, 'Dingo Titanium White Striker Body', 'Body', TypeIsNotInString)
 
 
 def test_get_respective_type():
-    for c1, c2 in pair_equals:
-        assert get_respective_type(c1) == c2
-    with pytest.raises(TypeNotExists):
-        get_respective_type('')
+    get_respective(get_respective_type, pair_equals, TypeNotExists)
 
 
 def test_is_type():
-    for container in samples:
-        for type_ in container:
-            assert is_type(type_)
+    is_(is_type, samples)
 
 
 def test_validate_types_list():
-    for container in samples:
-        validate_types_list(container)
-    with pytest.raises(InvalidTypesList):
-        validate_types_list([''])
+    validate_list(validate_types_list, samples, InvalidTypesList)
 
 
 def test_validate_type():
-    for container in samples:
-        for type_ in container:
-            validate_type(type_)
-    with pytest.raises(TypeNotExists):
-        validate_type('')
+    validate(validate_type, samples, TypeNotExists)
 
 
 def test_is_antenna():

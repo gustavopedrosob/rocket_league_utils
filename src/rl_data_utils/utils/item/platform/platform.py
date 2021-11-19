@@ -2,6 +2,9 @@ from functools import lru_cache
 from rl_data_utils.__others import AttributesFunctions
 from rl_data_utils.exceptions import PlatformNotExists, InvalidPlatformsList, PlatformIsNotInString
 from rl_data_utils.utils.item.platform.constants import PLATFORMS
+from rl_data_utils.utils.item.platform.is_functions import IS_FUNCTIONS
+from rl_data_utils.utils.item.platform.contains import CONTAINS_FUNCTIONS
+from rl_data_utils.utils.item.platform.regexs import CONTAINS_REGEXS
 
 
 class PlatformsFunctions(AttributesFunctions):

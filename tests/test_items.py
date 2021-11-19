@@ -54,6 +54,7 @@ with open('sample-items.json', 'r') as file:
 
 items_json = json['items']
 sample_items = SampleItems([SampleItem(**item) for item in items_json])
+sample_items = sample_items.get_items_valid()
 
 
 def test_get_item_by():

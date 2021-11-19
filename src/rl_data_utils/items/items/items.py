@@ -1,3 +1,6 @@
+from contextlib import suppress
+
+from rl_data_utils.exceptions import ItemNotFound
 from rl_data_utils.items.series.abc_base_series import ABCBaseSeries
 from rl_data_utils.utils.items.items.items import get_items_by_condition, get_item_by_index
 from rl_data_utils.items.certificates.abc_base_certificates import ABCBaseCertificates
@@ -35,16 +38,29 @@ class Items:
 
     def get_items_by(self, **kwargs):
         items = self
-        if isinstance(items, ABCBaseCertificates) and 'certified' in kwargs:
-            items = items.get_items_by_certified(kwargs['certified'])
-        if isinstance(items, ABCBaseColors) and 'color' in kwargs:
-            items = items.get_items_by_color(kwargs['color'])
-        if isinstance(items, ABCBaseRarities) and 'rarity' in kwargs:
-            items = items.get_items_by_rarity(kwargs['rarity'])
-        if isinstance(items, ABCBaseTypes) and 'type_' in kwargs:
-            items = items.get_items_by_type(kwargs['type_'])
-        if isinstance(items, ABCBaseNames) and 'name' in kwargs:
-            items = items.get_items_by_name(kwargs['name'])
+        get_something = False
+        if isinstance(items, ABCBaseCertificates):
+            with suppress(KeyError):
+                items = items.get_items_by_certified(kwargs['certified'])
+                get_something = True
+        if isinstance(items, ABCBaseColors):
+            with suppress(KeyError):
+                items = items.get_items_by_color(kwargs['color'])
+                get_something = True
+        if isinstance(items, ABCBaseRarities):
+            with suppress(KeyError):
+                items = items.get_items_by_rarity(kwargs['rarity'])
+                get_something = True
+        if isinstance(items, ABCBaseTypes):
+            with suppress(KeyError):
+                items = items.get_items_by_type(kwargs['type_'])
+                get_something = True
+        if isinstance(items, ABCBaseNames):
+            with suppress(KeyError):
+                items = items.get_items_by_name(kwargs['name'])
+                get_something = True
+        if not get_something:
+            raise ItemNotFound()
         return items
 
     def get_item_by(self, index=0, **kwargs):

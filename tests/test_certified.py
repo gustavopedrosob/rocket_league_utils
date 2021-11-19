@@ -10,7 +10,8 @@ from rl_data_utils.utils.item.certified.contains import contains_acrobat, contai
 from rl_data_utils.utils.item.certified.is_functions import is_acrobat, is_goalkeeper, is_aviator, is_guardian, \
     is_juggler, is_paragon, is_playmaker, is_scorer, is_show_off, is_sniper, is_striker, is_sweeper, is_tactician, \
     is_turtle, is_victor, is_none
-import pytest
+from tests.utils.utils_attribute import all_are, compare, contains, has, get_in_string, get_respective, is_, \
+    validate_list, validate
 
 inventory_certificates = ['Aviator', 'Acrobat', 'Victor', 'Striker', 'Sniper', 'Scorer', 'Playmaker', 'Guardian',
                           'Paragon', 'Sweeper', 'Turtle', 'Tactician', 'Show-off', 'Juggler', 'Goalkeeper']
@@ -25,64 +26,39 @@ samples = [inventory_certificates, CERTIFICATES]
 
 
 def test_all_are_certificates():
-    for container in samples:
-        assert all_are_certificates(container)
+    all_are(all_are_certificates, samples)
 
 
 def test_compare_certificates():
-    for pair in pair_equals:
-        assert compare_certificates(*pair)
-    with pytest.raises(CertifiedNotExists):
-        compare_certificates('', 'striker')
-        compare_certificates('striker', '')
+    compare(compare_certificates, pair_equals, CertifiedNotExists)
 
 
 def test_contains_certificates():
-    for container in samples:
-        for certified in container:
-            assert contains_certificates(certified)
+    contains(contains_certificates, samples)
 
 
 def test_has_certified():
-    assert has_certified('striker', inventory_certificates)
-    with pytest.raises(CertifiedNotExists):
-        has_certified('', inventory_certificates)
-    with pytest.raises(InvalidCertificatesList):
-        has_certified('striker', [''])
+    has(has_certified, inventory_certificates, CertifiedNotExists, InvalidCertificatesList)
 
 
 def test_get_certified_in_string():
-    assert get_certified_in_string('Dingo Titanium White Striker') == 'Striker'
-    with pytest.raises(CertifiedIsNotInString):
-        get_certified_in_string('Dingo Titanium White')
+    get_in_string(get_certified_in_string, 'Dingo Titanium White Striker', 'Striker', CertifiedIsNotInString)
 
 
 def test_get_respective_certified():
-    for c1, c2 in pair_equals:
-        assert get_respective_certified(c1) == c2
-    with pytest.raises(CertifiedNotExists):
-        get_respective_certified('')
+    get_respective(get_respective_certified, pair_equals, CertifiedNotExists)
 
 
 def test_is_certified():
-    for container in samples:
-        for certified in container:
-            assert is_certified(certified)
+    is_(is_certified, samples)
 
 
 def test_validate_certificates_list():
-    for container in samples:
-        validate_certificates_list(container)
-    with pytest.raises(InvalidCertificatesList):
-        validate_certificates_list([''])
+    validate_list(validate_certificates_list, samples, InvalidCertificatesList)
 
 
 def test_validate_certified():
-    for container in samples:
-        for certified in container:
-            validate_certified(certified)
-    with pytest.raises(CertifiedNotExists):
-        validate_certified('')
+    validate(validate_certified, samples, CertifiedNotExists)
 
 
 def test_is_acrobat():
