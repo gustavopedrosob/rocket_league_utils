@@ -1,22 +1,22 @@
 from json import load
-from rl_data_utils.item import ABCName, ABCPaintable, ABCType, ABCPrice
+from rl_data_utils.item import ABCName, ABCPaintable, ABCSlot, ABCPrice
 from rl_data_utils.item.price.price_platform_color import ABCPricePlatformColor
-from rl_data_utils.items import Names, Paintables, Types
+from rl_data_utils.items import Names, Paintables, Slots
 from rl_data_utils.utils.item.platform.platform import get_respective_platform
 
 
-class ItemData(ABCName, ABCPaintable, ABCPricePlatformColor, ABCType):
+class ItemData(ABCName, ABCPaintable, ABCPricePlatformColor, ABCSlot):
 
-    def __init__(self, name, paintable, prices, type_):
+    def __init__(self, name, paintable, prices, slot):
         self.name = name
         self.paintable = paintable
         self.prices = prices
-        self.type = type_
+        self.slot = slot
 
     def to_item(self, **kwargs):
         color = kwargs.get('color', 'default')
         platform = kwargs.get('platform', 'pc')
-        return Item(self.name, self.type, self.paintable, self.get_price_by_color_and_platform(color, platform))
+        return Item(self.name, self.slot, self.paintable, self.get_price_by_color_and_platform(color, platform))
 
     def get_name(self):
         return self.name
@@ -27,17 +27,17 @@ class ItemData(ABCName, ABCPaintable, ABCPricePlatformColor, ABCType):
     def get_price_by_color_and_platform(self, color: str, platform: str):
         return self.prices[get_respective_platform(platform), color]
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
 
-class Item(ABCName, ABCPaintable, ABCPrice, ABCType):
+class Item(ABCName, ABCPaintable, ABCPrice, ABCSlot):
 
-    def __init__(self, name, type_, paintable, prices):
+    def __init__(self, name, slot, paintable, prices):
         self.name = name
         self.paintable = paintable
         self.prices = prices
-        self.type = type_
+        self.slot = slot
 
     def get_name(self):
         return self.name
@@ -48,11 +48,11 @@ class Item(ABCName, ABCPaintable, ABCPrice, ABCType):
     def get_price(self) -> list[int]:
         return self.prices
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
 
-class InsiderItems(Names, Paintables, Types):
+class InsiderItems(Names, Paintables, Slots):
     pass
 
 

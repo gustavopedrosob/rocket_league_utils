@@ -1,19 +1,19 @@
 import pytest
 from rl_data_utils.exceptions import ItemNotFound
-from rl_data_utils.item import ABCColor, ABCRarity, ABCType, ABCCertified, ABCName, ABCQuantity
+from rl_data_utils.item import ABCColor, ABCRarity, ABCSlot, ABCCertified, ABCName, ABCQuantity
 from rl_data_utils.item.serie.serie import ABCSerie
 from rl_data_utils.item.tradable.tradable import ABCTradable
-from rl_data_utils.items import Colors, Rarities, Types, Certificates, Names, Quantities
+from rl_data_utils.items import Colors, Rarities, Slots, Certificates, Names, Quantities
 from rl_data_utils.items.series.series import Series
 from rl_data_utils.items.tradables.tradables import Tradables
 from json import load
 
 
-class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColor, ABCTradable, ABCSerie):
-    def __init__(self, name, color, type_, certified, quantity, rarity, tradable, serie):
+class SampleItem(ABCName, ABCRarity, ABCSlot, ABCCertified, ABCQuantity, ABCColor, ABCTradable, ABCSerie):
+    def __init__(self, name, color, slot, certified, quantity, rarity, tradable, serie):
         self.name = name
         self.color = color
-        self.type = type_
+        self.slot = slot
         self.certified = certified
         self.rarity = rarity
         self.quantity = quantity
@@ -29,8 +29,8 @@ class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColo
     def get_rarity(self):
         return self.rarity
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
     def get_certified(self):
         return self.certified
@@ -45,7 +45,7 @@ class SampleItem(ABCName, ABCRarity, ABCType, ABCCertified, ABCQuantity, ABCColo
         return self.name
 
 
-class SampleItems(Colors, Rarities, Types, Certificates, Names, Quantities, Tradables, Series):
+class SampleItems(Colors, Rarities, Slots, Certificates, Names, Quantities, Tradables, Series):
     pass
 
 

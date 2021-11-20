@@ -2,9 +2,9 @@ class ItemNotFound(Exception):
     pass
 
 
-class TypeNotExists(Exception):
-    def __init__(self, type_: str):
-        super().__init__(f'Type \"{type_}\" not exists.')
+class SlotNotExists(Exception):
+    def __init__(self, slot: str):
+        super().__init__(f'Slot \"{slot}\" not exists.')
 
 
 class SerieNotExists(Exception):
@@ -36,9 +36,9 @@ class IsNotInString(Exception):
     pass
 
 
-class TypeIsNotInString(IsNotInString):
+class SlotIsNotInString(IsNotInString):
     def __init__(self):
-        super().__init__(f'Type is not in string.')
+        super().__init__(f'Slot is not in string.')
 
 
 class SerieIsNotInString(IsNotInString):
@@ -66,9 +66,9 @@ class PlatformIsNotInString(IsNotInString):
         super().__init__(f'Platform is not in string.')
 
 
-class InvalidTypesList(Exception):
+class InvalidSlotsList(Exception):
     def __init__(self):
-        super().__init__(f'To create a types list, all items must be a type.')
+        super().__init__(f'To create a slots list, all items must be a slot.')
 
 
 class InvalidSeriesList(Exception):
@@ -106,9 +106,9 @@ class ItemHaveNotRarity(Exception):
         super().__init__(f"Item haven't rarity \"{rarity}\".")
 
 
-class ItemHaveNotType(Exception):
-    def __init__(self, type_: str):
-        super().__init__(f"Item haven't type \"{type_}\".")
+class ItemHaveNotSlot(Exception):
+    def __init__(self, slot: str):
+        super().__init__(f"Item haven't slot \"{slot}\".")
 
 
 class ItemHaveNotSerie(Exception):

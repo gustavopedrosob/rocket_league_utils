@@ -9,7 +9,7 @@ from rl_data_utils.items.prices.prices import Prices
 from rl_data_utils.items.quantities.quantities import Quantities
 from rl_data_utils.items.rarities.rarities import Rarities
 from rl_data_utils.items.rarities.list_rarities import ListRarities
-from rl_data_utils.items.types.types import Types
+from rl_data_utils.items.slots.slots import Slots
 from rl_data_utils.items.series.series import Series
 from rl_data_utils.items.blueprints.blueprints import Blueprints
 from rl_data_utils.items.tradables.tradables import Tradables

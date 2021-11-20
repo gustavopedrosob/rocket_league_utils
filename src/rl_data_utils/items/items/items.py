@@ -14,7 +14,7 @@ class Items:
 
     def get_items_valid(self):
         items = self
-        for name in ['certified', 'color', 'rarity', 'type', 'serie']:
+        for name in ['certified', 'color', 'rarity', 'slot', 'serie']:
             with suppress(AttributeError):
                 items = getattr(items, 'get_items_with_valid_' + name)()
         return items
@@ -25,7 +25,7 @@ class Items:
     def get_items_by(self, **kwargs):
         items = self
         get_something = False
-        for name in ['certified', 'color', 'rarity', 'type', 'name']:
+        for name in ['certified', 'color', 'rarity', 'slot', 'name']:
             try:
                 items = getattr(items, 'get_items_by_' + name)(kwargs[name])
                 get_something = True

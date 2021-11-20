@@ -1,7 +1,7 @@
 from rl_data_utils.__others import _regex_found
 from rl_data_utils.exceptions import NameHaveNotCarName
 from rl_data_utils.utils.item.name.constants import CARS_NAMES_WITH_DECAL
-from rl_data_utils.utils.item.type.is_functions import is_decal
+from rl_data_utils.utils.item.slot.is_functions import is_decal
 from functools import lru_cache
 from contextlib import suppress
 

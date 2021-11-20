@@ -1,17 +1,17 @@
-from rl_data_utils.items import ListColors, Rarities, Types, Names
-from rl_data_utils.item import ABCListColor, ABCRarity, ABCType, ABCName, ABCColor
+from rl_data_utils.items import ListColors, Rarities, Slots, Names
+from rl_data_utils.item import ABCListColor, ABCRarity, ABCSlot, ABCName, ABCColor
 from json import load
 from rl_data_utils.utils.item.color.is_functions import is_default
 
 
-class SampleItemData(ABCListColor, ABCRarity, ABCType, ABCName):
-    def __init__(self, id, name, rarity, platform, icon, type, icon_url, colors=None, customizable=False, unit=None):
+class SampleItemData(ABCListColor, ABCRarity, ABCSlot, ABCName):
+    def __init__(self, id, name, rarity, platform, icon, slot, icon_url, colors=None, customizable=False, unit=None):
         self.id = id
         self.name = name
         self.rarity = rarity
         self.platform = platform
         self.icon = icon
-        self.type = type
+        self.slot = slot
         self.icon_url = icon_url
         self.colors = colors
         self.customizable = customizable
@@ -29,8 +29,8 @@ class SampleItemData(ABCListColor, ABCRarity, ABCType, ABCName):
     def get_rarity(self):
         return self.rarity
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
     def get_name(self):
         return self.name
@@ -50,18 +50,18 @@ class SampleItemData(ABCListColor, ABCRarity, ABCType, ABCName):
             color = "Default"
             icon = self.icon
             icon_url = self.icon_url
-        return SampleItem(self.id, self.name, self.rarity, self.platform, icon, self.type, icon_url, color,
+        return SampleItem(self.id, self.name, self.rarity, self.platform, icon, self.slot, icon_url, color,
                           self.customizable, self.unit)
 
 
-class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
-    def __init__(self, id, name, rarity, platform, icon, type, icon_url, color=None, customizable=False, unit=None):
+class SampleItem(ABCRarity, ABCSlot, ABCName, ABCColor):
+    def __init__(self, id, name, rarity, platform, icon, slot, icon_url, color=None, customizable=False, unit=None):
         self.id = id
         self.name = name
         self.rarity = rarity
         self.platform = platform
         self.icon = icon
-        self.type = type
+        self.slot = slot
         self.icon_url = icon_url
         self.color = color
         self.customizable = customizable
@@ -70,8 +70,8 @@ class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
     def get_rarity(self):
         return self.rarity
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
     def get_name(self):
         return self.name
@@ -80,7 +80,7 @@ class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
         return self.color
 
 
-class SampleItemsData(ListColors, Rarities, Types, Names):
+class SampleItemsData(ListColors, Rarities, Slots, Names):
     pass
 
 

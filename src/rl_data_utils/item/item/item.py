@@ -10,17 +10,17 @@ from rl_data_utils.item.quantity.quantity import ABCQuantity
 from rl_data_utils.item.rarity.rarity import ABCRarity
 from rl_data_utils.item.serie.serie import ABCSerie
 from rl_data_utils.item.tradable.tradable import ABCTradable
-from rl_data_utils.item.type.type import ABCType
+from rl_data_utils.item.slot.slot import ABCSlot
 
 
 class Item(ABCBlueprint, ABCCertified, ABCColor, ABCName, ABCPaintable, ABCPlatform, ABCPrice, ABCQuantity, ABCRarity,
-           ABCSerie, ABCTradable, ABCType):
-    def __init__(self, name: str, type: str, color: str = None, rarity: str = None, certified: str = None,
+           ABCSerie, ABCTradable, ABCSlot):
+    def __init__(self, name: str, slot: str, color: str = None, rarity: str = None, certified: str = None,
                  quantity: int = None, blueprint: bool = None, paintable: bool = None, platform: str = None,
                  price: list[int] = None, serie: str = None, tradable: bool = None):
         self.name = name
         self.color = color
-        self.type = type
+        self.slot = slot
         self.rarity = rarity
         self.certified = certified
         self.quantity = quantity
@@ -61,8 +61,8 @@ class Item(ABCBlueprint, ABCCertified, ABCColor, ABCName, ABCPaintable, ABCPlatf
     def get_rarity(self):
         return self.rarity
 
-    def get_type(self):
-        return self.type
+    def get_slot(self):
+        return self.slot
 
     def get_quantity(self) -> int:
         return self.quantity
