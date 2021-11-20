@@ -45,7 +45,7 @@ def is_serie(string: str) -> bool:
     return SeriesFunctions.is_(string)
 
 
-def validate_series_list(container):
+def validate_serie_list(container):
     return SeriesFunctions.validate_list(container)
 
 

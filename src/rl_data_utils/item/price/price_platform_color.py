@@ -1,10 +1,11 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
+from rl_data_utils.item.item.item_data import ItemDataAttribute
 from rl_data_utils.utils.item.color.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY,\
     LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE
 from rl_data_utils.utils.item.platform.constants import PC, XBOX, PS4, SWITCH
 
 
-class ABCPricePlatformColor(ABC):
+class ABCPricePlatformColor(ItemDataAttribute):
     @abstractmethod
     def get_price_by_color_and_platform(self, color: str, platform: str):
         pass

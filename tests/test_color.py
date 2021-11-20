@@ -1,6 +1,6 @@
 from rl_data_utils.exceptions import ColorNotExists, InvalidColorsList, ColorIsNotInString
 from rl_data_utils.utils.item.color.color import all_are_colors, compare_color, contains_colors, get_color_in_string, \
-    get_respective_color, is_color, validate_colors_list, validate_color, has_color
+    get_respective_color, is_color, validate_color_list, validate_color, has_color
 from rl_data_utils.utils.item.color.constants import COLORS
 from rl_data_utils.utils.item.color.contains import contains_black, contains_burnt_sienna, contains_cobalt, \
     contains_crimson, contains_default, contains_forest_green, contains_grey, contains_lime, contains_orange, \
@@ -53,7 +53,7 @@ def test_is_color():
 
 
 def test_validate_colors_list():
-    validate_list(validate_colors_list, samples, InvalidColorsList)
+    validate_list(validate_color_list, samples, InvalidColorsList)
 
 
 def test_validate_color():

@@ -58,8 +58,8 @@ sample_items = sample_items.get_items_valid()
 
 
 def test_get_item_by():
-    shibuya = sample_items.get_item_by(
-        name='Breakout: Shibuya',
+    shibuya: SampleItem = sample_items.get_item_by(
+        name='ShiBuYa [Breakout]',
         certified='striker',
         type_='decals',
         rarity='rare',
@@ -83,12 +83,12 @@ def test_get_item_by_string():
 
 
 def test_get_items_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "", True, "")
+    item = SampleItem('Octane: Buzz Kill', None, None, None, None, None, None, None)
     print(sample_items.get_items_by_item(item).items)
 
 
 def test_get_item_by_item():
-    item = SampleItem('Octane: Buzz Kill', "", "", "", "", "", True, "")
+    item = SampleItem('Octane: Buzz Kill', None, None, None, None, None, None, None)
     print(sample_items.get_item_by_item(item))
 
 

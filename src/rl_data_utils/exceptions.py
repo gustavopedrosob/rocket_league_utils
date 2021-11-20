@@ -103,12 +103,17 @@ class ItemHaveNotColor(Exception):
 
 class ItemHaveNotRarity(Exception):
     def __init__(self, rarity: str):
-        super().__init__(f"Item haven't color \"{rarity}\".")
+        super().__init__(f"Item haven't rarity \"{rarity}\".")
 
 
 class ItemHaveNotType(Exception):
     def __init__(self, type_: str):
         super().__init__(f"Item haven't type \"{type_}\".")
+
+
+class ItemHaveNotSerie(Exception):
+    def __init__(self, serie: str):
+        super().__init__(f"Item haven't serie \"{serie}\".")
 
 
 class NameHaveNotCarName(Exception):

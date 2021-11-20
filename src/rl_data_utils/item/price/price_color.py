@@ -1,9 +1,10 @@
 from abc import abstractmethod, ABC
+from rl_data_utils.item.item.item_data import ItemDataAttribute
 from rl_data_utils.utils.item.color.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY,\
     LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE
 
 
-class ABCPriceColor(ABC):
+class ABCPriceColor(ABC, ItemDataAttribute):
     @abstractmethod
     def get_price_by_color(self, color: str):
         pass

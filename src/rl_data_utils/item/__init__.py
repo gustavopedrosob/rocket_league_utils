@@ -1,7 +1,6 @@
 from rl_data_utils.item.certified.certified import ABCCertified, Certified
 from rl_data_utils.item.color.color import ABCColor, Color
 from rl_data_utils.item.color.list_color import ABCListColor
-from rl_data_utils.item.item.item_data import ABCItemData
 from rl_data_utils.item.name.name import ABCName, Name
 from rl_data_utils.item.paintable.paintable import ABCPaintable, Paintable
 from rl_data_utils.item.platform.platform import ABCPlatform, Platform

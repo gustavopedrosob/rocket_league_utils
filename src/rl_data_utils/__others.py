@@ -1,5 +1,7 @@
 from re import search, IGNORECASE
 
+from rl_data_utils.utils.item.serie.constants import SERIES
+
 
 def _regex_found(pattern, string, flags=IGNORECASE) -> bool:
     return bool(search(pattern, string, flags))

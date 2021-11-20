@@ -1,12 +1,11 @@
-from rl_data_utils.item.item.item_data import ABCItemData
 from rl_data_utils.items import ListColors, Rarities, Types, Names
 from rl_data_utils.item import ABCListColor, ABCRarity, ABCType, ABCName, ABCColor
 from json import load
 from rl_data_utils.utils.item.color.is_functions import is_default
 
 
-class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
-    def __init__(self, id, name, rarity, platform, icon, type, icon_url, colors=[], customizable=False, unit=''):
+class SampleItemData(ABCListColor, ABCRarity, ABCType, ABCName):
+    def __init__(self, id, name, rarity, platform, icon, type, icon_url, colors=None, customizable=False, unit=None):
         self.id = id
         self.name = name
         self.rarity = rarity
@@ -19,10 +18,13 @@ class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
         self.unit = unit
 
     def get_list_color(self) -> list[str]:
-        result = []
-        for color in self.colors:
-            result.append(color['name'])
-        return result
+        if self.colors is None:
+            return []
+        else:
+            result = []
+            for color in self.colors:
+                result.append(color['name'])
+            return result
 
     def get_rarity(self):
         return self.rarity
@@ -53,7 +55,7 @@ class SampleItemData(ABCItemData, ABCListColor, ABCRarity, ABCType, ABCName):
 
 
 class SampleItem(ABCRarity, ABCType, ABCName, ABCColor):
-    def __init__(self, id, name, rarity, platform, icon, type, icon_url, color='', customizable=False, unit=''):
+    def __init__(self, id, name, rarity, platform, icon, type, icon_url, color=None, customizable=False, unit=None):
         self.id = id
         self.name = name
         self.rarity = rarity
@@ -115,15 +117,15 @@ def test_get_item_by_string():
 
 
 def test_get_items_by_item():
-    item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
+    item = SampleItem(None, "Octane: Buzz Kill", None, None, None, None, None)
     print(sample_items.get_items_by_item(item).items)
 
 
 def test_get_item_by_item():
-    item = SampleItem('', "Octane: Buzz Kill", "", "", "", "", "")
+    item = SampleItem(None, "Octane: Buzz Kill", None, None, None, None, None)
     print(sample_items.get_item_by_item(item))
 
 
 def test_comparing_two_items_data():
-    item = SampleItemData('', 'Octane', '', '', '', '', '', colors=['tw'])
+    item = SampleItemData(None, 'Octane', None, None, None, None, None)
     print(sample_items.get_item_by_item(item))

@@ -1,12 +1,13 @@
 from abc import abstractmethod
-from rl_data_utils.utils.item.color.color import has_color, get_respective_color
+from rl_data_utils.item.item.item_data import ItemDataAttribute
+from rl_data_utils.utils.item.color.color import has_color, get_respective_color, all_are_colors, validate_color_list
 from rl_data_utils.utils.item.color.has_functions import has_black, has_burnt_sienna, has_cobalt, has_crimson, \
     has_default, has_forest_green, has_grey, has_lime, has_orange, has_pink, has_purple, has_saffron, has_sky_blue, \
     has_titanium_white
 from rl_data_utils.exceptions import ItemHaveNotColor
 
 
-class ABCListColor:
+class ABCListColor(ItemDataAttribute):
     @abstractmethod
     def get_list_color(self) -> list[str]:
         pass
@@ -17,6 +18,12 @@ class ABCListColor:
     def validate_contains_color(self, color: str):
         if not self.contains_color(color):
             raise ItemHaveNotColor(color)
+
+    def is_valid_color_list(self):
+        return all_are_colors(self.get_list_color())
+
+    def validate_color_list(self):
+        validate_color_list(self.get_list_color())
 
     def get_respective_color(self, color: str):
         return get_respective_color(color, self.get_list_color())

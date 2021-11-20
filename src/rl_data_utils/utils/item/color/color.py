@@ -79,5 +79,5 @@ def validate_color(string):
     return ColorsFunctions.validate(string)
 
 
-def validate_colors_list(container):
+def validate_color_list(container):
     return ColorsFunctions.validate_list(container)
