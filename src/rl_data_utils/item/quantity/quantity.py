@@ -1,43 +1,6 @@
-from abc import abstractmethod, ABC
-from operator import sub, add
-from rl_data_utils.item.item.item_attribute import ItemAttribute
+from rl_data_utils.item.attribute.int_attribute import IntAttribute
+from rl_data_utils.item.quantity.quantity_info import QuantityInfo
 
 
-class ABCQuantity(ABC, ItemAttribute):
-    @abstractmethod
-    def get_quantity(self) -> int:
-        pass
-
-    def _operation_math(self, other, operation):
-        if isinstance(other, ABCQuantity):
-            return operation(self.get_quantity(), other.get_quantity())
-        elif isinstance(other, int):
-            return operation(self.get_quantity(), other)
-        else:
-            raise AttributeError()
-
-    def __add__(self, other):
-        return self.add(other)
-
-    def __radd__(self, other):
-        return self.add(other)
-
-    def __sub__(self, other):
-        return self.sub(other)
-
-    def add(self, other):
-        return self._operation_math(other, add)
-
-    def sub(self, other):
-        return self._operation_math(other, sub)
-
-
-class Quantity(ABCQuantity):
-    def __init__(self, quantity):
-        self.quantity = quantity
-
-    def get_quantity(self) -> int:
-        return self.quantity
-
-    def set_quantity(self, quantity: int):
-        self.quantity = quantity
+class Quantity(IntAttribute, QuantityInfo):
+    pass

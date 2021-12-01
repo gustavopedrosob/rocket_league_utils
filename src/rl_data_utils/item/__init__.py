@@ -1,14 +1,16 @@
-from rl_data_utils.item.certified.certified import ABCCertified, Certified
-from rl_data_utils.item.color.color import ABCColor, Color
-from rl_data_utils.item.color.list_color import ABCListColor
-from rl_data_utils.item.name.name import ABCName, Name
-from rl_data_utils.item.paintable.paintable import ABCPaintable, Paintable
-from rl_data_utils.item.platform.platform import ABCPlatform, Platform
-from rl_data_utils.item.price.price import Price, ABCPrice
-from rl_data_utils.item.quantity.quantity import ABCQuantity, Quantity
-from rl_data_utils.item.rarity.rarity import ABCRarity, Rarity
-from rl_data_utils.item.rarity.list_rarity import ABCListRarity
-from rl_data_utils.item.slot.slot import ABCSlot, Slot
-from rl_data_utils.item.serie.serie import ABCSerie, Serie
-from rl_data_utils.item.blueprint.blueprint import ABCBlueprint, Blueprint
-from rl_data_utils.item.tradable.tradable import ABCTradable, Tradable
+from rl_data_utils.item.certified.certified import Certified
+from rl_data_utils.item.color.color import Color
+from rl_data_utils.item.color.colors import Colors
+from rl_data_utils.item.name.name import Name
+from rl_data_utils.item.paintable.paintable import Paintable
+from rl_data_utils.item.platform.platform import Platform
+from rl_data_utils.item.platform.platforms import Platforms
+from rl_data_utils.item.price.price import Price
+from rl_data_utils.item.quantity.quantity import Quantity
+from rl_data_utils.item.rarity.rarity import Rarity
+from rl_data_utils.item.rarity.rarities import Rarities
+from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.serie.serie import Serie
+from rl_data_utils.item.serie.series import Series
+from rl_data_utils.item.blueprint.blueprint import Blueprint
+from rl_data_utils.item.tradable.tradable import Tradable

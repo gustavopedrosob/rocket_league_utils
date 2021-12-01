@@ -1,13 +1,8 @@
 from contextlib import suppress
-from rl_data_utils.utils.item.certified.certified import get_respective_certified
-from rl_data_utils.utils.item.color.color import get_respective_color
-from rl_data_utils.utils.item.color.constants import COLORS
-from rl_data_utils.utils.item.certified.constants import CERTIFICATES
-from rl_data_utils.utils.item.rarity.constants import RARITIES
-from rl_data_utils.utils.item.rarity.rarity import get_respective_rarity
-from rl_data_utils.utils.item.slot.constants import SLOTS
-from rl_data_utils.utils.item.slot.slot import get_respective_slot
-from rl_data_utils.utils.item_attributes.item_attributes import validate_attributes as _validate_attributes
+from rl_data_utils.item.color.constants import COLORS
+from rl_data_utils.item.certified.constants import CERTIFICATES
+from rl_data_utils.item.rarity.constants import RARITIES
+from rl_data_utils.item.slot.constants import SLOTS
 
 
 def validate_attributes(function):

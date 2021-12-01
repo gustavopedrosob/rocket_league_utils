@@ -2,32 +2,40 @@ class ItemNotFound(Exception):
     pass
 
 
-class SlotNotExists(Exception):
+class RlAttributeError(Exception):
+    pass
+
+
+class AttributeNotExists(RlAttributeError):
+    pass
+
+
+class SlotNotExists(AttributeNotExists):
     def __init__(self, slot: str):
         super().__init__(f'Slot \"{slot}\" not exists.')
 
 
-class SerieNotExists(Exception):
+class SerieNotExists(AttributeNotExists):
     def __init__(self, serie: str):
         super().__init__(f'Serie \"{serie}\" not exists.')
 
 
-class RarityNotExists(Exception):
+class RarityNotExists(AttributeNotExists):
     def __init__(self, rarity: str):
         super().__init__(f'Rarity \"{rarity}\" not exists.')
 
 
-class ColorNotExists(Exception):
+class ColorNotExists(AttributeNotExists):
     def __init__(self, color: str):
         super().__init__(f'Color \"{color}\" not exists.')
 
 
-class CertifiedNotExists(Exception):
+class CertifiedNotExists(AttributeNotExists):
     def __init__(self, certified: str):
         super().__init__(f'Certified \"{certified}\" not exists.')
 
 
-class PlatformNotExists(Exception):
+class PlatformNotExists(AttributeNotExists):
     def __init__(self, platform: str):
         super().__init__(f'Platform \"{platform}\" not exists.')
 
@@ -66,36 +74,6 @@ class PlatformIsNotInString(IsNotInString):
         super().__init__(f'Platform is not in string.')
 
 
-class InvalidSlotsList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a slots list, all items must be a slot.')
-
-
-class InvalidSeriesList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a series list, all items must be a serie.')
-
-
-class InvalidRaritiesList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a rarities list, all items must be a rarity.')
-
-
-class InvalidPlatformsList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a platform list, all items must be a platform.')
-
-
-class InvalidColorsList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a colors list, all items must be a color.')
-
-
-class InvalidCertificatesList(Exception):
-    def __init__(self):
-        super().__init__(f'To create a certificates list, all items must be a certified.')
-
-
 class ItemHaveNotColor(Exception):
     def __init__(self, color: str):
         super().__init__(f"Item haven't color \"{color}\".")
@@ -119,3 +97,17 @@ class ItemHaveNotSerie(Exception):
 class NameHaveNotCarName(Exception):
     def __init__(self, name: str):
         super().__init__(f'Item {name} don\'t have car name.')
+
+
+class TradeSizeError(Exception):
+    def __init__(self):
+        super(TradeSizeError, self).__init__('A trade can\'t has more than 24 items.')
+
+
+class InvalidCreditsQuantity(RlAttributeError):
+    def __init__(self):
+        super().__init__('A credit need to be a quantity divisible for 10.')
+
+
+class InvalidTrade(Exception):
+    pass

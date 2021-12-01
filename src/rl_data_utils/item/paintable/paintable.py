@@ -1,16 +1,6 @@
-from abc import ABC, abstractmethod
-from rl_data_utils.item.item.item_attribute import ItemAttribute
+from rl_data_utils.item.attribute.bool_attribute import BoolAttribute
+from rl_data_utils.item.paintable.paintable_info import PaintableInfo
 
 
-class ABCPaintable(ABC, ItemAttribute):
-    @abstractmethod
-    def get_paintable(self) -> bool:
-        pass
-
-
-class Paintable:
-    def __init__(self, paintable: bool):
-        self.paintable = paintable
-
-    def get_paintable(self):
-        return self.paintable
+class Paintable(BoolAttribute, PaintableInfo):
+    pass

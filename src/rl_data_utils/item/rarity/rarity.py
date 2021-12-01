@@ -1,68 +1,21 @@
-from abc import ABC, abstractmethod
-from rl_data_utils.item.item.item_attribute import ItemAttribute
-from rl_data_utils.utils.item.rarity.is_functions import is_black_market, is_common, is_exotic, is_import, is_legacy,\
-    is_limited, is_premium, is_rare, is_uncommon, is_very_rare
-from rl_data_utils.utils.item.rarity.rarity import compare_rarity, get_respective_rarity, get_rgba_rarity,\
-    validate_rarity, is_rarity
+from rl_data_utils.exceptions import RarityNotExists
+from rl_data_utils.item.attribute.attribute_dict import AttributeDict
+from rl_data_utils.item.attribute.str_attribute import StrAttribute
+from rl_data_utils.item.rarity.constants import RARE, VERY_RARE, IMPORT, EXOTIC, BLACK_MARKET, PREMIUM, LIMITED
+from rl_data_utils.item.rarity.rarity_info import RarityInfo
+from rl_data_utils.item.rarity.regexs import CONTAINS
 
 
-class ABCRarity(ABC, ItemAttribute):
-    @abstractmethod
-    def get_rarity(self):
-        pass
+class Rarity(StrAttribute, RarityInfo):
+    _attribute_not_exists_exception = RarityNotExists
+    _is_reg = CONTAINS
 
-    def is_valid_rarity(self):
-        return is_rarity(self.get_rarity())
-
-    def get_respective_rarity(self):
-        return get_respective_rarity(self.get_rarity())
-
-    def get_rgba_rarity(self):
-        return get_rgba_rarity(self.get_rarity())
-
-    def is_black_market(self) -> bool:
-        return is_black_market(self.get_rarity())
-
-    def is_common(self) -> bool:
-        return is_common(self.get_rarity())
-
-    def is_exotic(self) -> bool:
-        return is_exotic(self.get_rarity())
-
-    def is_import(self) -> bool:
-        return is_import(self.get_rarity())
-
-    def is_legacy(self) -> bool:
-        return is_legacy(self.get_rarity())
-
-    def is_limited(self) -> bool:
-        return is_limited(self.get_rarity())
-
-    def is_premium(self) -> bool:
-        return is_premium(self.get_rarity())
-
-    def is_rare(self) -> bool:
-        return is_rare(self.get_rarity())
-
-    def is_uncommon(self) -> bool:
-        return is_uncommon(self.get_rarity())
-
-    def is_very_rare(self) -> bool:
-        return is_very_rare(self.get_rarity())
-
-    def validate_rarity(self):
-        validate_rarity(self.get_rarity())
-
-    def compare_rarity(self, rarity: str):
-        return compare_rarity(self.get_rarity(), rarity)
+    # def get_rgba(self, transparency=70) -> list[int]:
+    #     result = RGB[self.attribute]
+    #     result.append(transparency)
+    #     return result
 
 
-class Rarity(ABCRarity):
-    def __init__(self, rarity: str):
-        self.rarity = rarity
-
-    def get_rarity(self):
-        return self.rarity
-
-    def set_rarity(self, rarity: str):
-        self.rarity = rarity
+# RGB = AttributeDict(Rarity, {RARE: [116, 151, 235], VERY_RARE: [158, 124, 252], IMPORT: [227, 90, 82],
+#                              EXOTIC: [236, 219, 108], BLACK_MARKET: [255, 0, 255], PREMIUM: [107, 241, 174],
+#                              LIMITED: [247, 121, 57]})

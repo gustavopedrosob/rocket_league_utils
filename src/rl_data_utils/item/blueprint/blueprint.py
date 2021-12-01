@@ -1,16 +1,6 @@
-from abc import abstractmethod, ABC
-from rl_data_utils.item.item.item_attribute import ItemAttribute
+from rl_data_utils.item.attribute.bool_attribute import BoolAttribute
+from rl_data_utils.item.blueprint.blueprint_info import BlueprintInfo
 
 
-class ABCBlueprint(ABC, ItemAttribute):
-    @abstractmethod
-    def get_blueprint(self) -> bool:
-        pass
-
-
-class Blueprint(ABCBlueprint):
-    def __init__(self, blueprint: bool):
-        self.blueprint = blueprint
-
-    def get_blueprint(self) -> bool:
-        return self.blueprint
+class Blueprint(BoolAttribute, BlueprintInfo):
+    pass
