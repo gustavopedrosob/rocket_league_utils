@@ -1,7 +1,7 @@
 import pytest
 
-from rl_data_utils.item import Series
 from rl_data_utils.item.serie.constants import *
+from rl_data_utils.item.serie.serie import Series
 from tests.tests_item.tests_serie.test_serie import inventory_series
 
 

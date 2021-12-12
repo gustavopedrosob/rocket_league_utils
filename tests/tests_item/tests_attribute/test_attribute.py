@@ -1,6 +1,7 @@
 import pytest
 
-from rl_data_utils.item import Color, Certified
+from rl_data_utils.item.certified.certified import Certified
+from rl_data_utils.item.color.color import Color
 
 
 def test_comparing_two_different_attributes():

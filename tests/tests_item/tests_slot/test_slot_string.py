@@ -1,7 +1,7 @@
 import pytest
 
 from rl_data_utils.item.slot.constants import *
-from rl_data_utils.item.slot.slot_string import SlotString
+from rl_data_utils.item.slot.slot import SlotString
 
 
 @pytest.mark.parametrize('slot', ['Antenna'])

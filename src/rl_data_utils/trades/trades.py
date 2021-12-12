@@ -1,12 +1,16 @@
-from rl_data_utils.item.item.item import Item
+from __future__ import annotations
+
+from collections import Callable
+from typing import Optional, List
+
 from rl_data_utils.trade.trade import Trade
 
 
 class Trades:
-    def __init__(self, trades):
-        self.trades = trades
+    def __init__(self, trades: Optional[List[Trade]]):
+        self.trades: List[Trade] = trades
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '\n'.join([repr(trade) for trade in self.trades])
 
     @property
@@ -21,26 +25,15 @@ class Trades:
             self._trades = value
             for trade in value:
                 if not isinstance(trade, Trade):
-                    raise TypeError()
+                    raise TypeError('Invalid type, expected Trade.')
         else:
-            raise TypeError()
+            raise TypeError('Invalid type, expected List[Trade].')
 
-    def filter_by_trade(self, condition):
+    def filter_by_trade_condition(self, condition: Callable[[Trade], bool]) -> Trades:
+        """
+        Filter self trades by a condition function that receives a trade as parameter and returns a boolean
+        :param condition: A function that works as condition, receives a trade as parameter and return a boolean
+        :return: A filtered trades instance
+        """
         return self.__class__(list(filter(condition, self.trades)))
 
-    def filter_trades(self):
-        return self.filter_by_trade(lambda trade: trade.is_item_by_item())
-
-    def filter_sales(self):
-        return self.filter_by_trade(lambda trade: trade.is_sale())
-
-    def filter_buys(self):
-        return self.filter_by_trade(lambda trade: trade.is_buy())
-
-    def filter_by_him_item(self, item):
-        item = Item.initialize(item)
-        return self.filter_by_trade(lambda trade: not trade.him_items.filter_by(item).is_undefined())
-
-    def filter_by_my_item(self, item):
-        item = Item.initialize(item)
-        return self.filter_by_trade(lambda trade: not trade.my_items.filter_by(item).is_undefined())

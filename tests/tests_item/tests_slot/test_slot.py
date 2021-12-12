@@ -1,7 +1,7 @@
 import pytest
 
-from rl_data_utils.item import Slot
 from rl_data_utils.item.slot.constants import *
+from rl_data_utils.item.slot.slot import Slot
 
 inventory_slots = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',
                    'Player Anthem', 'Animated Decal', 'Paint Finish', 'Blueprint', 'Decal', 'Avatar Border',
@@ -17,6 +17,10 @@ pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], [
                ['paint finishes', 'Paint Finishes'], ['player anthems', 'Player Anthems'],
                ['player banners', 'Player Banners'], ['rocket boosts', 'Rocket Boosts'], ['toppers', 'Toppers'],
                ['trails', 'Trails'], ['wheels', 'Wheels']]
+
+
+def test_from_random():
+    print(Slot.create_random())
 
 
 @pytest.mark.parametrize('slot', samples)

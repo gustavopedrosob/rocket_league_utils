@@ -1,26 +1,46 @@
 from __future__ import annotations
-from re import sub, IGNORECASE, compile
+
+from typing import Union, Final
+
+from re import sub, IGNORECASE, compile, search
+
 from contextlib import suppress
+
 from functools import lru_cache
+
 from rl_data_utils.exceptions import NameHaveNotCarName
+from rl_data_utils.item.attribute.attribute_info import AttributeInfo
+from rl_data_utils.item.attribute.str_attribute import StrAttribute
+from rl_data_utils.item.attribute_string.attribute_string import AttributeString
 from rl_data_utils.item.name.constants import CARS_NAMES_WITH_DECAL
-from rl_data_utils.item.name.name_info import NameInfo
+from rl_data_utils.item.name.regexs import CONTAINS_CREDITS
 from rl_data_utils.item.slot.constants import DECAL
 from rl_data_utils.item.slot.slot import Slot
-from rl_data_utils.item.attribute.attribute import Attribute
+from rl_data_utils.item.name.constants import NAMES
 
 
-class Name(Attribute, NameInfo):
-    attribute_type = str
+class NameInfo(AttributeInfo):
+    attribute_name: Final[str] = 'name'
+    order: Final[int] = 7
 
-    @lru_cache
-    def compare(self, name: Name) -> str:
+
+class Name(StrAttribute, NameInfo):
+    constants = NAMES
+
+    @classmethod
+    @lru_cache()
+    def _cls_compare(cls, attribute_1: str, attribute_2: str) -> bool:
+        name_1 = Name(attribute_1)
+        name_2 = Name(attribute_2)
         with suppress(NameHaveNotCarName):
-            name_1 = self._get_string_to_compare()
-            name_2 = name._get_string_to_compare()
+            name_1 = name_1._get_string_to_compare()
+            name_2 = name_2._get_string_to_compare()
         return name_1 == name_2
 
-    def get_decal_and_car(self):
+    def compare(self, name: Name) -> bool:
+        return self._cls_compare(self.attribute, name.attribute)
+
+    def get_decal_and_car(self) -> tuple[str, str]:
         reo = compile(r'[([]?(' + '|'.join(CARS_NAMES_WITH_DECAL) + r')[)\]:]?')
         result = reo.search(self.attribute, IGNORECASE)
         try:
@@ -51,3 +71,14 @@ class Name(Attribute, NameInfo):
             if self.get_decal_and_car():
                 return True
         return False
+
+
+class NameString(AttributeString, NameInfo):
+    def contains_credits(self) -> bool:
+        return bool(search(CONTAINS_CREDITS, self.string))
+
+    def get(self) -> str:
+        return self.string
+
+
+InitializeName = Union[Name, str, None]

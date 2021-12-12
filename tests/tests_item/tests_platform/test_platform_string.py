@@ -1,7 +1,7 @@
 import pytest
 
 from rl_data_utils.item.platform.constants import *
-from rl_data_utils.item.platform.platform_string import PlatformString
+from rl_data_utils.item.platform.platform import PlatformString
 
 
 @pytest.mark.parametrize('platform', ['pc'])

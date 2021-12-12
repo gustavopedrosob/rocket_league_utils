@@ -1,6 +1,6 @@
 import pytest
 
-from rl_data_utils.item import Certified
+from rl_data_utils.item.certified.certified import Certified
 from rl_data_utils.item.certified.constants import *
 
 inventory_certificates = ['Aviator', 'Acrobat', 'Victor', 'Striker', 'Sniper', 'Scorer', 'Playmaker', 'Guardian',
@@ -13,6 +13,10 @@ pair_equals = [['aviator', 'Aviator'], ['acrobat', 'Acrobat'], ['victor', 'Victo
 
 
 samples = [inventory_certificates, CERTIFICATES]
+
+
+def test_from_random():
+    print(Certified.create_random())
 
 
 @pytest.mark.parametrize('certified', [*inventory_certificates])

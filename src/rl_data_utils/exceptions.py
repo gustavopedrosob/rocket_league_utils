@@ -1,7 +1,3 @@
-class ItemNotFound(Exception):
-    pass
-
-
 class RlAttributeError(Exception):
     pass
 
@@ -72,26 +68,6 @@ class CertifiedIsNotInString(IsNotInString):
 class PlatformIsNotInString(IsNotInString):
     def __init__(self):
         super().__init__(f'Platform is not in string.')
-
-
-class ItemHaveNotColor(Exception):
-    def __init__(self, color: str):
-        super().__init__(f"Item haven't color \"{color}\".")
-
-
-class ItemHaveNotRarity(Exception):
-    def __init__(self, rarity: str):
-        super().__init__(f"Item haven't rarity \"{rarity}\".")
-
-
-class ItemHaveNotSlot(Exception):
-    def __init__(self, slot: str):
-        super().__init__(f"Item haven't slot \"{slot}\".")
-
-
-class ItemHaveNotSerie(Exception):
-    def __init__(self, serie: str):
-        super().__init__(f"Item haven't serie \"{serie}\".")
 
 
 class NameHaveNotCarName(Exception):

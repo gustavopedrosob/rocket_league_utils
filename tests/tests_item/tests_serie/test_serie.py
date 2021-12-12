@@ -1,14 +1,18 @@
 import pytest
 
-from rl_data_utils.item import Serie
 from rl_data_utils.item.serie.constants import *
+from rl_data_utils.item.serie.serie import Serie
 
 inventory_series = ['Accelerator', 'Accolade', 'Accolade II', 'Auriga', 'Champions 1', 'Champions 2', 'Champions 3',
-                    'Champions 4', 'Crate', 'Elevation', 'Ferocity', "Golden Egg '18", "Golden Egg '19",
+                    'Champions 4', 'Elevation', 'Ferocity', "Golden Egg '18", "Golden Egg '19",
                     "Golden Lantern '19", "Golden Pumpkin '20", 'Ignition', 'Impact', 'Momentum', 'Nitro', 'Overdrive',
-                    "Player's Choice", 'Postgame', 'Promo code', 'RLCS reward', 'Seasonal event', 'Season 1',
-                    'Season reward', 'Secret Santa', 'Totally Awesome', 'Triumph', 'Turbo', 'Velocity', 'Victory',
+                    "Player's Choice", 'Postgame', 'RLCS reward', 'Season 1', 'Secret Santa', 'Totally Awesome',
+                    'Triumph', 'Turbo', 'Velocity', 'Victory',
                     'Vindicator', 'WWE promo code', 'Zephyr']
+
+
+def test_from_random():
+    print(Serie.create_random())
 
 
 @pytest.mark.parametrize('serie', [*inventory_series])

@@ -1,6 +1,6 @@
 import pytest
 
-from rl_data_utils.item import Colors
+from rl_data_utils.item.color.color import Colors
 from rl_data_utils.item.color.constants import *
 from tests.tests_item.tests_color.test_color import inventory_colors, insider_colors
 

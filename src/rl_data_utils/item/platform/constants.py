@@ -1,5 +1,7 @@
-PC = 'Pc'
-PS4 = 'Ps4'
-SWITCH = 'Switch'
-XBOX = 'Xbox'
-PLATFORMS = [PC,  PS4, SWITCH, XBOX]
+from typing import Final, List
+
+PC: Final[str] = 'Pc'
+PS4: Final[str] = 'Ps4'
+SWITCH: Final[str] = 'Switch'
+XBOX: Final[str] = 'Xbox'
+PLATFORMS: Final[List[str]] = [PC,  PS4, SWITCH, XBOX]

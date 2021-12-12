@@ -1,7 +1,7 @@
 import pytest
 
-from rl_data_utils.item import Platforms
 from rl_data_utils.item.platform.constants import *
+from rl_data_utils.item.platform.platform import Platforms
 
 
 @pytest.mark.parametrize('color', [*PLATFORMS])

@@ -1,8 +1,8 @@
 import pytest
 
-from rl_data_utils.item import Slot
 from rl_data_utils.item.slot.constants import *
-from test_items_data import gameflip_data
+from rl_data_utils.item.slot.slot import Slot
+from tests.test_items_data import gameflip_data
 from tests.test_items import inventory_items
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from rl_data_utils.item.color.color_string import ColorString
+from rl_data_utils.item.color.color import ColorString
 from rl_data_utils.item.color.constants import *
 
 

@@ -1,7 +1,7 @@
 import pytest
 
-from rl_data_utils.item import Rarities
 from rl_data_utils.item.rarity.constants import *
+from rl_data_utils.item.rarity.rarity import Rarities
 from tests.tests_item.tests_rarity.test_rarity import inventory_rarities, insider_rarities
 
 

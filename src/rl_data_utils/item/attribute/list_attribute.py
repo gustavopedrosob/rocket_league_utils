@@ -1,52 +1,44 @@
 from __future__ import annotations
-from rl_data_utils.exceptions import AttributeNotExists
-from rl_data_utils.item.attribute.attribute import Attribute
+
+from typing import Union, Any, Type, List, Final, Optional
+
+from rl_data_utils.item.attribute.attribute import Attribute, InitializeAttribute
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
 
 
+SetListAttribute = Optional[List[InitializeAttribute]]
+
+
 class ListAttribute(Attribute, AttributeInfo):
-    attribute_type = list
-    sub_attribute: Attribute.__class__
-    undefined_value = []
+    attribute_type: Final[Type[list]] = list
+    sub_attribute: Type[Attribute]
+    undefined_value: Final[list] = []
 
-    def is_valid(self) -> bool:
+    def __init__(self, attribute: list) -> None:
+        super().__init__(attribute)
+
+    def _auto_setter(self, value: SetListAttribute) -> Any:
         """
-        It says if all elements in a list are attributes
-        :return: If all elements in a container are attributes, returns False if container is empty or None
-        :raises TypeError: If container is not list
-        :raises NullOrEmptyAttribute: If the any element of container is None or empty
+        It's used to set the self attribute
+        :param value: It needs to be an instance of attribute_type, an undefined_value or None
+        :raise TypeError: If value doesn't match with expected value
+        :return: An instance of attribute_type
         """
-        try:
-            self.validate()
-        except AttributeNotExists:
-            return False
-        else:
-            return True
-
-    @property
-    def attribute(self):
-        return self._attribute
-
-    @attribute.setter
-    def attribute(self, value):
         if value is None or value == self.undefined_value:
-            self._attribute = self.undefined_value
+            return self.undefined_value
         elif isinstance(value, list):
+            value = value.copy()
             for index, each in enumerate(value):
                 value[index] = self.sub_attribute.initialize(each)
-                # if not isinstance(each, self.sub_attribute):
-                #     raise TypeError(f'Invalid item inside the list when creating {self.__class__.__name__},'
-                #                     f'expected {self.sub_attribute.__name__}')
-            self._attribute = value
+            return value
         else:
-            raise TypeError(f'Invalid type to create {self.__class__.__name__},'
-                            f'expected list[{self.sub_attribute.__name__}]')
+            raise TypeError(f'Invalid type, expected List[{self.sub_attribute.__name__}].')
 
     def has(self, attribute: Attribute) -> bool:
         """
-        :raises TypeError: If the string parameter is not a str or container is not a list
-        :raises NullOrEmptyAttribute: If any string is None or empty
-        :return: If has any attribute equal in container
+        Says if it has an attribute
+        :param attribute: An attribute for find
+        :return: If the same attribute was found
         """
         for e in self.attribute:
             if e.compare(attribute):
@@ -54,29 +46,32 @@ class ListAttribute(Attribute, AttributeInfo):
         return False
 
     @classmethod
-    def initialize(cls, value) -> ListAttribute:
+    def initialize(cls, value: InitializeListAttribute) -> ListAttribute:
+        """
+        Tries to transform some value into an instance of class
+        :param value: It's need to be an instance of class, List[Union[sub_attribute, None]] or None
+        :raise TypeError: If value doesn't match with expected value
+        :return: An instance of class
+        """
         if value is None or value == cls.undefined_value:
             return cls(cls.undefined_value)
         elif isinstance(value, cls):
             return value
-        elif isinstance(value, cls.sub_attribute):
-            return cls(value)
         elif isinstance(value, cls.attribute_type):
+            value = value.copy()
+            for index, each in enumerate(value):
+                value[index] = cls.sub_attribute.initialize(each)
             return cls(value)
-        elif isinstance(value, cls.sub_attribute.attribute_type):
-            return cls(cls.sub_attribute(value))
         else:
-            msg = f'Invalid type to property {cls.attribute_name}' \
-                  f', expected {cls.__name__}, {cls.sub_attribute.__name__},' \
-                  f' {cls.attribute_type} or {cls.sub_attribute.attribute_type}.'
-            raise TypeError(msg)
+            raise TypeError(f'Invalid type, expected {cls.__name__}, List[Union[{cls.sub_attribute, None}] or None.')
 
-    def validate(self) -> None:
+    def validate(self):
         """
-        It raises if any elements of container parameter is not a attribute
-        :raises AttributeNotExists: If any string from container is a invalid attribute
-        :raises TypeError: If container parameter is not a list
-        :raises NullOrEmptyAttribute: If the any element of container is None or empty
+        Validates all attributes
+        :raise AttributeNotExists: If any of attribute doesn't exist
         """
         for e in self.attribute:
             e.validate()
+
+
+InitializeListAttribute = Union[ListAttribute, List[InitializeAttribute], None]

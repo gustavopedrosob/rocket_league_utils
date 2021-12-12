@@ -10,7 +10,7 @@ inventory_items = Items([Item(**item) for item in items_json])
 
 
 def test_filter_by():
-    i = inventory_items.filter_by(dict(
+    i = inventory_items.filter_by_item(dict(
         name='Octane: Buzz Kill'
     )
     )
@@ -18,12 +18,12 @@ def test_filter_by():
 
 
 def test_filter_by_string():
-    print(inventory_items.filter_by('Octane: Buzz Kill').items)
+    print(inventory_items.filter_by_item('Octane: Buzz Kill').items)
 
 
 def test_filter_by_item():
     item = Item(name='Octane: Buzz Kill')
-    print(inventory_items.filter_by(item).items)
+    print(inventory_items.filter_by_item(item).items)
 
 
 def test_filter_valid():

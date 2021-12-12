@@ -13,6 +13,10 @@ pair_equals = [['black market', 'Black market'], ['common', 'Common'], ['exotic'
 samples = [*RARITIES, *inventory_rarities, *insider_rarities]
 
 
+def test_from_random():
+    print(Rarity.create_random())
+
+
 @pytest.mark.parametrize('rarity', samples)
 def test_is_rarity(rarity):
     assert Rarity(rarity).is_valid()

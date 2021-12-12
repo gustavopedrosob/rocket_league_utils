@@ -1,8 +1,8 @@
 import pytest
 
-from rl_data_utils.item import Rarity
 from rl_data_utils.item.rarity.constants import *
-from test_items_data import gameflip_data
+from rl_data_utils.item.rarity.rarity import Rarity
+from tests.test_items_data import gameflip_data
 from tests.test_items import inventory_items
 
 

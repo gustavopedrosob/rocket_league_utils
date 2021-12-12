@@ -1,8 +1,12 @@
 import pytest
-from rl_data_utils.item import Platform
 from rl_data_utils.item.platform.constants import *
+from rl_data_utils.item.platform.platform import Platform
 
 pair_equals = [['pc', 'Pc'], ['ps4', 'Ps4'], ['xbox', 'Xbox'], ['switch', 'Switch']]
+
+
+def test_from_random():
+    print(Platform.create_random())
 
 
 @pytest.mark.parametrize('platform', [PC, XBOX, SWITCH, PS4])
@@ -12,7 +16,7 @@ def test_is_platform(platform):
 
 @pytest.mark.parametrize('platform', [PC, XBOX, SWITCH, PS4])
 def test_validate_platform(platform):
-    Platform(p).validate()
+    Platform(platform).validate()
 
 
 @pytest.mark.parametrize('platform_1,platform_2', pair_equals)

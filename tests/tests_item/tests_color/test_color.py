@@ -1,5 +1,5 @@
 import pytest
-from rl_data_utils.item import Color
+from rl_data_utils.item.color.color import Color
 from rl_data_utils.item.color.constants import *
 
 inventory_colors = ['Crimson', 'Sky Blue', 'Pink', 'Orange', 'Cobalt', 'Burnt Sienna', 'Titanium White', 'Grey',
@@ -14,6 +14,28 @@ pair_equals = [['default', 'Default'], ['black', 'Black'], ['titanium white', 'T
                ['forest green', 'Forest Green'], ['orange', 'Orange'], ['purple', 'Purple']]
 
 samples = [inventory_colors, insider_colors, COLORS]
+
+
+pair_hex = [
+    (['crimson', 'red'], "#ff4d4d"), (['sky_blue', 'sb'], "#69ffff"), (['pink'], "#ff8dce"),
+    (['orange'], "#da9a00"), (['blue', 'cobalt'], "#8c9eff"), (['sienna'], "#995e4d"), (['tw'], "#fff"),
+    (['grey'], "#c4c4c4"), (['saffron'], "#ff8"), (['lime'], "#ccff4d"), (['fg', 'green', 'forest_green'], "#329536"),
+    (['black'], "#000"), (['purple'], "#e974fd")]
+
+
+@pytest.mark.parametrize('color,pair', pair_hex)
+def test_get_hex_color(color: List[str], pair: str):
+    for e in color:
+        assert Color(e).get_hex() == pair
+
+
+def test_get_hex_color_key_error():
+    with pytest.raises(KeyError):
+        Color('iansianisnan').get_hex()
+
+
+def test_from_random():
+    print(Color.create_random())
 
 
 @pytest.mark.parametrize('color', [*inventory_colors, *insider_colors, *COLORS])

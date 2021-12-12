@@ -1,7 +1,7 @@
 import pytest
 
 from rl_data_utils.item.rarity.constants import *
-from rl_data_utils.item.rarity.rarity_string import RarityString
+from rl_data_utils.item.rarity.rarity import RarityString
 
 
 @pytest.mark.parametrize('rarity', ['bm', 'black market'])

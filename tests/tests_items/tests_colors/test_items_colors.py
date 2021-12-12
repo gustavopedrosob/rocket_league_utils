@@ -1,8 +1,8 @@
 import pytest
 
-from rl_data_utils.item import Color
+from rl_data_utils.item.color.color import Color
 from rl_data_utils.item.color.constants import *
-from test_items_data import gameflip_data
+from tests.test_items_data import gameflip_data
 from tests.test_items import inventory_items
 
 

@@ -1,6 +1,10 @@
 import pytest
 
-from rl_data_utils.item import Name
+from rl_data_utils.item.name.name import Name
+
+
+def test_from_random():
+    print(Name.create_random(), end='')
 
 
 def test_compare_name():

@@ -1,6 +1,10 @@
 import pytest
 
-from rl_data_utils.item import Paintable
+from rl_data_utils.item.paintable.paintable import Paintable
+
+
+def test_from_random():
+    print(Paintable.create_random())
 
 
 @pytest.mark.parametrize('paintable', [None])
