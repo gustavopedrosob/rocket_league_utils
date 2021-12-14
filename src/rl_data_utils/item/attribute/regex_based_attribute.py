@@ -16,7 +16,7 @@ class RegexBasedAttribute(StrAttribute):
 
     @classmethod
     @lru_cache(maxsize=None)
-    def _cls_compare(cls, attribute_1: str, attribute_2: str) -> bool:
+    def _compare(cls, attribute_1: str, attribute_2: str) -> bool:
         """
         Compares two attributes using all regex in _is_reg
         :param attribute_1: Any attribute to be compared
@@ -24,15 +24,12 @@ class RegexBasedAttribute(StrAttribute):
         :raise TypeError: if any attribute isn't str
         :return: if both attributes are match in the same regex
         """
-        for key in cls._is_reg.keys():
-            if cls._cls_is_exactly(key, attribute_1):
-                if cls._cls_is_exactly(key, attribute_2):
-                    return True
-        return False
+        return any(
+            cls._is_exactly(key, attribute_1) and cls._is_exactly(key, attribute_2) for key in cls._is_reg.keys())
 
     @classmethod
     @lru_cache(maxsize=None)
-    def _cls_is_exactly(cls, pattern_key: str, attribute: str) -> bool:
+    def _is_exactly(cls, pattern_key: str, attribute: str) -> bool:
         """
         Compares the attribute with some regex
         :param pattern_key: It's a key to a pattern regex in _is_reg
@@ -44,7 +41,7 @@ class RegexBasedAttribute(StrAttribute):
 
     @classmethod
     @lru_cache(maxsize=None)
-    def _cls_validate(cls, attribute: str) -> None:
+    def _validate(cls, attribute: str) -> None:
         """
         Validates an attribute using _is_reg
         :param attribute: Any attribute to be validated
@@ -63,7 +60,7 @@ class RegexBasedAttribute(StrAttribute):
         attribute = self.initialize(attribute)
         if super().compare(attribute):
             return True
-        return self._cls_compare(self.attribute, attribute.attribute)
+        return self._compare(self.attribute, attribute.attribute)
 
     def is_exactly(self, pattern_key: str) -> bool:
         """
@@ -72,7 +69,7 @@ class RegexBasedAttribute(StrAttribute):
         :raise KeyError: If the pattern regex key is invalid
         :return: If self attribute match with the regex from pattern regex
         """
-        return self._cls_is_exactly(pattern_key, self.attribute)
+        return self._is_exactly(pattern_key, self.attribute)
 
     def validate(self) -> None:
         """
@@ -80,7 +77,7 @@ class RegexBasedAttribute(StrAttribute):
         :raise AttributeNotExists: If the attribute doesn't match with any regex
         """
         if not self.is_undefined():
-            return self._cls_validate(self.attribute)
+            return self._validate(self.attribute)
 
 
 InitializeRegexBasedAttribute = Union[RegexBasedAttribute, str, None]

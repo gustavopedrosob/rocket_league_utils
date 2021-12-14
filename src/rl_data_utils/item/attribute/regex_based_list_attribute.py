@@ -16,10 +16,7 @@ class RegexBasedListAttribute(ListAttribute):
         :raise KeyError: If the pattern_key is invalid
         :return: If any attribute match with the regex
         """
-        for e in self.attribute:
-            if e.is_exactly(pattern_key):
-                return True
-        return False
+        return any(a.is_exactly(pattern_key) for a in self.attribute)
 
     def get_respective(self, attribute: InitializeRegexBasedAttribute) -> Optional[RegexBasedAttribute]:
         """
