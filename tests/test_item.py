@@ -6,6 +6,12 @@ from rl_data_utils.item.item.item import Item
 from rl_data_utils.item.rarity.constants import *
 
 
+def test_indentifier_compare():
+    item_1 = Item(True, 'Dingo', 'Car', 'Titanium White', 'Imported', 'Striker', 1, False, True, 'pc')
+    item_2 = Item(False, 'Dingo', 'Car', 'Grey', 'Imported', 'Goalkeeper', 5, False, True, 'pc')
+    assert item_1.compare(item_2, 'indentifier')
+
+
 def test_is_ncr():
     ncvr_item = Item(rarity=RARE)
     assert ncvr_item.is_ncr()

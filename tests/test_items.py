@@ -9,6 +9,12 @@ items_json = json['items']
 inventory_items = Items([Item(**item) for item in items_json])
 
 
+def test_filter_by_item_indentifier_mode():
+    item = Item(True, 'Dingo', 'Car', 'Saffron', 'Import', 'GoalKeeper', 6)
+    i = inventory_items.filter_by_item(item, 'indentifier')
+    print(i.items)
+
+
 def test_filter_by():
     i = inventory_items.filter_by_item(dict(
         name='Octane: Buzz Kill'

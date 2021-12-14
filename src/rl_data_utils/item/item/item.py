@@ -1,19 +1,21 @@
 from __future__ import annotations
 
-from typing import Union, Callable, Type, List, Dict, Any
+from typing import Union, Dict, Any
 
 from rl_data_utils.exceptions import RlAttributeError
 from rl_data_utils.item.archived.archived import Archived, InitializeArchived
-from rl_data_utils.item.attribute.attribute import Attribute
+from rl_data_utils.item.attribute.any_attribute import AnyAttribute
 from rl_data_utils.item.attribute.bool_attribute import SetBoolAttribute
 from rl_data_utils.item.attribute.int_attribute import SetIntAttribute
-from rl_data_utils.item.attribute.regex_based_attribute import SetRegexBasedAttribute
-from rl_data_utils.item.attribute_string.attributes_string import AttributesString, InitializeAttributesString
 from rl_data_utils.item.attribute.list_attribute import ListAttribute
+from rl_data_utils.item.attribute.regex_based_attribute import SetRegexBasedAttribute
 from rl_data_utils.item.attribute.str_attribute import StrAttribute, SetStrAttribute
+from rl_data_utils.item.attribute_collections.attribute_collections import AttributeCollection
+from rl_data_utils.item.attribute_string.attributes_string import AttributesString, InitializeAttributesString
 from rl_data_utils.item.blueprint.blueprint import InitializeBlueprint, Blueprint
 from rl_data_utils.item.certified.certified import InitializeCertified, Certified
 from rl_data_utils.item.color.color import InitializeColor, Color
+from rl_data_utils.item.item.constants import FULL, Modes
 from rl_data_utils.item.name.name import InitializeName, Name
 from rl_data_utils.item.paintable.paintable import InitializePaintable, Paintable
 from rl_data_utils.item.platform.platform import InitializePlatform, Platform
@@ -24,9 +26,6 @@ from rl_data_utils.item.rarity.rarity import InitializeRarity, Rarity
 from rl_data_utils.item.serie.serie import InitializeSerie, Serie
 from rl_data_utils.item.slot.slot import InitializeSlot, Slot
 from rl_data_utils.item.tradable.tradable import InitializeTradable, Tradable
-
-AnyAttribute = Union[Archived, Name, Slot, Color, Rarity, Certified, Quantity, Blueprint, Paintable, Platform, Price,
-                     Serie, Tradable]
 
 
 class Item:
@@ -60,11 +59,12 @@ class Item:
         self.tradable: Tradable = tradable
         self.unknown_arguments: dict = kwargs
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: Item) -> bool:
         return self.compare(other)
 
     def __repr__(self) -> str:
-        attributes = self.get_attributes(lambda attribute: not attribute.is_undefined() and attribute.is_valid())
+        attributes = self.get_all_attrs().filter(
+            lambda attribute: not attribute.is_undefined() and attribute.is_valid()).attributes
         attributes.sort(key=lambda attr: attr.order)
         attributes_string = ', '.join([repr(attr) for attr in attributes])
         return f'{self.__class__.__name__}({attributes_string})'
@@ -101,24 +101,39 @@ class Item:
     def color(self, value: SetRegexBasedAttribute):
         self._color = Color.initialize(value)
 
-    def compare(self, item: Item) -> bool:
+    def compare(self, item: InitializeItem, mode: Modes = FULL) -> bool:
         """
-        Compare self item with another item, it compares intersection attributes from both
+        Compares two items depending on the mode
+        :param item: An item to compare
+        :param mode: If mode is indenfitier then it will compare just indentifier attributes or if it's full then it
+        will compare all attributes from both
+        :raise KeyError: If mode is invalid
+        :return: If both items are equals
+        """
+        modes = {"indentifier": self.get_indentifier_attrs, "full": self.get_item_attrs}
+        return self.compare_attrs(item, modes[mode]())
+
+    def get_item_attrs(self) -> AttributeCollection:
+        return self.get_all_attrs().filter(lambda attribute: not isinstance(attribute, ListAttribute))
+
+    @staticmethod
+    def compare_attrs(item: InitializeItem, attributes: AttributeCollection) -> bool:
+        """
+        Compare some attributes with another item
         :param item: Another item to compare
-        :return: If both items are equal
+        :param attributes: Attributes to compare
+        :return: If all both attributes match
         """
-        if isinstance(item, Item):
-            for attribute in self.get_attributes(lambda attr: not isinstance(attr, ListAttribute)):
-                other_attribute = getattr(item, attribute.attribute_name)
-                if isinstance(other_attribute, StrAttribute):
-                    if not attribute.compare(other_attribute):
-                        return False
-                elif isinstance(other_attribute, ListAttribute):
-                    if not other_attribute.has(attribute):
-                        return False
-            return True
-        else:
-            raise TypeError('Invalid type, expected Item.')
+        item = Item.initialize(item)
+        for attribute in attributes:
+            other_attribute = getattr(item, attribute.attribute_name)
+            if isinstance(other_attribute, StrAttribute):
+                if not attribute.compare(other_attribute):
+                    return False
+            elif isinstance(other_attribute, ListAttribute):
+                if not other_attribute.has(attribute):
+                    return False
+        return True
 
     @staticmethod
     def from_attribute_string(attributes_string: InitializeAttributesString) -> Item:
@@ -149,28 +164,24 @@ class Item:
                    price=Price.create_random(),
                    tradable=Tradable.create_random())
 
-    def get_all_attributes(self) -> List[AnyAttribute]:
+    def get_all_attrs(self) -> AttributeCollection:
         """
         Gets all attributes
         :return: All attributes
         """
-        return [self.archived, self.name, self.color, self.slot, self.rarity, self.certified, self.quantity,
-                self.blueprint, self.paintable, self.platform, self.price, self.serie, self.tradable]
+        return AttributeCollection([
+            self.archived, self.name, self.color, self.slot, self.rarity, self.certified, self.quantity, self.blueprint,
+            self.paintable, self.platform, self.price, self.serie, self.tradable])
 
-    def get_all_attributes_dict(self) -> Dict[str, AnyAttribute]:
+    def get_indentifier_attrs(self) -> AttributeCollection:
+        return AttributeCollection([self.name, self.rarity, self.slot, self.blueprint, self.platform])
+
+    def get_all_attrs_dict(self) -> Dict[str, AnyAttribute]:
         """
         Get all attributes with their respective names
         :return: A dict of attributes
         """
-        return {attribute.attribute_name: attribute for attribute in self.get_all_attributes()}
-
-    def get_attributes(self, condition: Callable[[Type[Attribute]], bool]) -> List[AnyAttribute]:
-        """
-        Get attributes filtered by a function that works as condition
-        :param condition: A function that receives an Attribute as argument and returns a boolean
-        :return: A filtered list of Attribute
-        """
-        return list(filter(condition, self.get_all_attributes()))
+        return {attribute.attribute_name: attribute for attribute in self.get_all_attrs()}
 
     @classmethod
     def initialize(cls, value: InitializeItem) -> Item:
@@ -188,7 +199,7 @@ class Item:
         Says if all attributes are undefined
         :return: If all attributes are undefined
         """
-        for attribute in self.get_all_attributes():
+        for attribute in self.get_all_attrs():
             if not attribute.is_undefined():
                 return False
         return True
@@ -294,7 +305,7 @@ class Item:
         Validates all attributes
         :raise AttributeNotExists: If any RegexBasedAttribute attribute is invalid
         """
-        for attribute in self.get_all_attributes():
+        for attribute in self.get_all_attrs():
             attribute.validate()
 
 

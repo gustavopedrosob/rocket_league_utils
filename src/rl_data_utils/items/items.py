@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import Union, Callable, List, Literal
 
 from rl_data_utils.exceptions import AttributeNotExists
-from rl_data_utils.item.attribute.list_attribute import ListAttribute
-from rl_data_utils.item.item.data_item import AnyAllAttribute
+from rl_data_utils.item.attribute.any_attribute import AnyAllAttribute
+from rl_data_utils.item.attribute_collections.attribute_collections import AttributeCollection
+from rl_data_utils.item.item.constants import Modes, FULL
 from rl_data_utils.item.item.item import Item, InitializeItem
 
 SetItems = Union[List[InitializeItem], None]
@@ -40,15 +41,29 @@ class Items:
         else:
             raise TypeError('Invalid type, expected a list.')
 
-    def filter_by_item(self, item: InitializeItem) -> Items:
+    def filter_by_item(self, item: InitializeItem, mode: Modes = FULL):
         """
-        Filters self items by an item
+        Filters self items by an Item, it ignores undefined attributes to filter
         :param item: A item to find in items
-        :return: A self instance with items that match with item
+        :param mode: If mode is indenfitier then it will compare just indentifier attributes or if it's full then it
+        will compare all attributes from both
+        :raise KeyError: If mode is Invalid
+        :return A self instance with items that match with item
         """
         item = Item.initialize(item)
+        modes = {'indentifier': item.get_indentifier_attrs, 'full': item.get_item_attrs}
+        attributes: AttributeCollection = modes[mode]()
+        attributes.filter(lambda attr: not attr.is_undefined())
+        return self.filter_by_attributes(attributes)
+
+    def filter_by_attributes(self, attributes: AttributeCollection) -> Items:
+        """
+        Filters self items by attributes
+        :param attributes: Attributes to compare
+        :return: A self instance with items that match with attributes
+        """
         items = self
-        for attribute in item.get_attributes(lambda a: not isinstance(a, ListAttribute) and not a.is_undefined()):
+        for attribute in attributes:
             items = items.filter_by_attribute(attribute)
         return items
 

@@ -28,7 +28,7 @@ result = Item(color='tw').compare(Item(color='white'))
 # Criando um item apartir de uma string
 item_from_string = Item.from_attribute_string('tw dingo')
 ```
-##Instalação:
+## Instalação:
 ```
 pip install rocket-league-utils
 ```
@@ -38,8 +38,8 @@ pip install git+https://github.com/TheVicio/Rocket-League-Utils
 ```
 ## Implementações futuras:
 
+- Trades com datas.
 - Suporte a Data Prices.
-- Uma função para comparação apenas de atributos indenficadores.
 - Site com documentação para o projeto.
 - Um readme em inglês.
 
