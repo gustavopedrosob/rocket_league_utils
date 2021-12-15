@@ -4,11 +4,11 @@ from rl_data_utils.item.slot.constants import *
 from rl_data_utils.item.slot.slot import Slot
 
 inventory_slots = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',
-                   'Player Anthem', 'Animated Decal', 'Paint Finish', 'Blueprint', 'Decal', 'Avatar Border',
-                   'Antenna', 'Rocket Boost', 'Player Title', 'Trail']
+                   'Player Anthem', 'Animated Decal', 'Paint Finish', 'Decal', 'Avatar Border',
+                   'Antenna', 'Rocket Boost', 'Trail']
 
 insider_slots = ['Wheels', 'Cars', 'Boosts', 'Toppers', 'Decals', 'Antennas', 'Goal Explosions', 'Trails',
-                 'Gift Packs', 'Paint Finishes', 'Banners', 'Engine Audios', 'Avatar Borders']
+                 'Paint Finishes', 'Banners', 'Engine Audios', 'Avatar Borders']
 
 samples = [*insider_slots, *inventory_slots, *SLOTS]
 
@@ -71,11 +71,6 @@ def test_is_decal(slot):
 @pytest.mark.parametrize('slot', ['Engine Audio'])
 def test_is_engine_audio(slot):
     assert Slot(slot).is_exactly(ENGINE_AUDIO)
-
-
-@pytest.mark.parametrize('slot', ['Gift Pack'])
-def test_is_gift_pack(slot):
-    assert Slot(slot).is_exactly(GIFT_PACK)
 
 
 @pytest.mark.parametrize('slot', ['Goal Explosion'])

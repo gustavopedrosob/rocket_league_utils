@@ -6,7 +6,7 @@ from rl_data_utils.item.color.color import Color
 
 def test_comparing_two_different_attributes():
     with pytest.raises(TypeError):
-        _ = Color('tw').compare(Certified('striker'))
+        Color('tw').compare(Certified('striker'))
 
 
 def test_comparing_equal_attributes():
