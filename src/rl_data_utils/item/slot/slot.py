@@ -3,7 +3,7 @@ from typing import Union, Literal, Final, Optional, List
 from rl_data_utils.exceptions import SlotNotExists, SlotIsNotInString
 from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
 from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
 from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
 from rl_data_utils.item.slot.constants import SLOTS
@@ -48,3 +48,16 @@ class SlotString(RegexBasedAttributeString, SlotInfo):
     attributes_class = Slots
     contains_reg = CONTAINS
     is_not_in_string_exception = SlotIsNotInString
+
+
+class HasSlot(SlotInfo):
+    def __init__(self, slot: InitializeSlot = None):
+        self.slot: Slot = slot
+
+    def get_slot(self) -> Slot:
+        return self._slot
+
+    def set_slot(self, value: SetRegexBasedAttribute):
+        self._slot = Slot.initialize(value)
+
+    slot = property(get_slot, set_slot)

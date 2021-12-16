@@ -3,8 +3,7 @@ from __future__ import annotations
 from rl_data_utils.exceptions import AttributeNotExists
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
 
-from typing import Union
-
+from typing import Union, Optional
 
 SetAttribute = Union[str, int, list, bool, None]
 
@@ -18,6 +17,15 @@ class Attribute(AttributeInfo):
 
     def __repr__(self) -> str:
         return f'{self.__class__.__name__}({self._attribute})'
+
+    def get_repr(self, attribute: Union[str, int, None] = None, maxsize: Optional[int] = None) -> str:
+        if attribute is None:
+            attribute = self.attribute
+        value = 'UNDEFINED' if self.is_undefined() else str(attribute)
+        if maxsize is not None:
+            if len(value) > maxsize:
+                value = value[:maxsize - 3] + '...'
+        return value
 
     def _auto_setter(self, value: SetAttribute) -> Union[str, int, list, bool]:
         """

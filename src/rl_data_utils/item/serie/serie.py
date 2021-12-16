@@ -3,7 +3,7 @@ from typing import Union, Final, Optional, List
 from rl_data_utils.exceptions import SerieNotExists, SerieIsNotInString
 from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
 from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
 from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
 from rl_data_utils.item.serie.constants import SERIES
@@ -45,3 +45,16 @@ class SerieString(RegexBasedAttributeString, SerieInfo):
     attributes_class = Series
     contains_reg = CONTAINS
     is_not_in_string_exception = SerieIsNotInString
+
+
+class HasSerie(SerieInfo):
+    def __init__(self, serie: InitializeSerie = None):
+        self.serie: Serie = serie
+
+    def get_serie(self) -> Serie:
+        return self._serie
+
+    def set_serie(self, value: SetRegexBasedAttribute):
+        self._serie = Serie.initialize(value)
+
+    serie = property(get_serie, set_serie)

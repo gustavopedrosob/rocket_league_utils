@@ -39,7 +39,6 @@ pip install git+https://github.com/TheVicio/Rocket-League-Utils
 ## Implementações futuras:
 
 - Trades com datas.
-- Suporte a Data Prices.
 - Site com documentação para o projeto.
 - Um readme em inglês.
 

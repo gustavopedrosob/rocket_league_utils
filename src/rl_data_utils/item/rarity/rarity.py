@@ -3,7 +3,7 @@ from typing import Union, Literal, Optional, Tuple, TypeVar
 from rl_data_utils.exceptions import RarityNotExists, RarityIsNotInString
 from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
 from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
 from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
 from rl_data_utils.item.rarity.constants import *
@@ -64,3 +64,16 @@ class RarityString(RegexBasedAttributeString, RarityInfo):
     attributes_class = Rarities
     contains_reg = CONTAINS
     is_not_in_string_exception = RarityIsNotInString
+
+
+class HasRarity(RarityInfo):
+    def __init__(self, rarity: InitializeRarity = None):
+        self.rarity: Rarity = rarity
+
+    def get_rarity(self) -> Rarity:
+        return self._rarity
+
+    def set_rarity(self, value: SetRegexBasedAttribute):
+        self._rarity = Rarity.initialize(value)
+
+    rarity = property(get_rarity, set_rarity)

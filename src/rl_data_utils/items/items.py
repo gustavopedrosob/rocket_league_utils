@@ -1,17 +1,13 @@
 from __future__ import annotations
 
-from typing import Union, Callable, List, Literal
+from typing import Union, Callable, List
 
 from rl_data_utils.exceptions import AttributeNotExists
-from rl_data_utils.item.attribute.any_attribute import AnyAllAttribute
-from rl_data_utils.item.attribute_collections.attribute_collections import AttributeCollection
-from rl_data_utils.item.item.constants import Modes, FULL
+from rl_data_utils.item.attribute.has_attribute import AnyAllAttribute, AttributeCollection
+from rl_data_utils.item.item.constants import FULL, AttributeName
 from rl_data_utils.item.item.item import Item, InitializeItem
 
 SetItems = Union[List[InitializeItem], None]
-
-AttributesNames = Literal['archived', 'blueprint', 'certified', 'color', 'name', 'paintable', 'platform', 'price',
-                          'quantity', 'rarity', 'serie', 'slot', 'tradable']
 
 
 class Items:
@@ -20,6 +16,15 @@ class Items:
 
     def __repr__(self) -> str:
         return ', '.join([repr(item) for item in self.items])
+
+    def get_table_repr(self) -> str:
+        """
+        Gets an item table representation like an Excel sheet as str.
+        :return: An item table representation
+        """
+        title = '|'.join([f'{name:^15}' for name in FULL])
+        contents = [item.get_row_repr() for item in self.items]
+        return '\n'.join([title, *contents])
 
     def __iter__(self):
         for item in self.items:
@@ -41,19 +46,18 @@ class Items:
         else:
             raise TypeError('Invalid type, expected a list.')
 
-    def filter_by_item(self, item: InitializeItem, mode: Modes = FULL):
+    def filter_by_item(self, item: InitializeItem, attrs: List[AttributeName] = FULL):
         """
         Filters self items by an Item, it ignores undefined attributes to filter
         :param item: A item to find in items
-        :param mode: If mode is indenfitier then it will compare just indentifier attributes or if it's full then it
-        will compare all attributes from both
+        :param attrs: Names of attributes that you want to compare
+        :raise AttributeError: If some name in attrs is invalid or the attribute is not in instance
         :raise KeyError: If mode is Invalid
         :return A self instance with items that match with item
         """
         item = Item.initialize(item)
-        modes = {'indentifier': item.get_indentifier_attrs, 'full': item.get_item_attrs}
-        attributes: AttributeCollection = modes[mode]()
-        attributes.filter(lambda attr: not attr.is_undefined())
+        attributes: AttributeCollection = item.get_attrs(attrs)
+        attributes = filter(lambda attr: not attr.is_undefined(), attributes)
         return self.filter_by_attributes(attributes)
 
     def filter_by_attributes(self, attributes: AttributeCollection) -> Items:
@@ -73,19 +77,7 @@ class Items:
         :param attribute: A attribute to find in items
         :return: A self instance with items that match with attribute
         """
-        return self.filter_by_attribute_condition(attribute.attribute_name, lambda attr: attr.compare(attribute))
-
-    def filter_by_attribute_condition(self,
-                                      attr_name: AttributesNames,
-                                      condition: Callable[[AnyAllAttribute], bool]) -> Items:
-        """
-        Filters self items by a function that receive an attribute as parameter
-        :param attr_name: A attribute name
-        :param condition: A function that works as condition, receives an attribute as parameter and return a boolean
-        :raise AttributeError: If attr_name doesn't exist
-        :return: A self instance with items that match with condition
-        """
-        return self.filter_by_condition(lambda item: condition(getattr(item, attr_name)))
+        return self.filter_by_condition(lambda item: getattr(item, attribute.attribute_name).compare(attribute))
 
     def filter_by_condition(self, condition: Callable[[Item], bool]) -> Items:
         """

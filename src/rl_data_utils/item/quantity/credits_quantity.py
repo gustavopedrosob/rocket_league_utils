@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from random import randrange
+from typing import Union
 
 from rl_data_utils.exceptions import InvalidCreditsQuantity
 from rl_data_utils.item.attribute.positive_int_attribute import PositiveIntAttribute
@@ -24,3 +25,6 @@ class CreditsQuantity(PositiveIntAttribute, QuantityInfo):
     @classmethod
     def create_random(cls) -> CreditsQuantity:
         return cls(randrange(0, 100000, 10))
+
+
+InitializeCreditsQuantity = Union[CreditsQuantity, int, None]

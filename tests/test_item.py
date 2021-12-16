@@ -1,15 +1,21 @@
+from logging import info, basicConfig, INFO
+
 import pytest
 
 from rl_data_utils.item.color.constants import DEFAULT
+from rl_data_utils.item.item.constants import INDENTIFIER
 from rl_data_utils.item.item.credit import Credit
 from rl_data_utils.item.item.item import Item
 from rl_data_utils.item.rarity.constants import *
 
 
+basicConfig(level=INFO)
+
+
 def test_indentifier_compare():
     item_1 = Item(True, 'Dingo', 'Car', 'Titanium White', 'Imported', 'Striker', 1, False, True, 'pc')
     item_2 = Item(False, 'Dingo', 'Car', 'Grey', 'Imported', 'Goalkeeper', 5, False, True, 'pc')
-    assert item_1.compare(item_2, 'indentifier')
+    assert item_1.compare(item_2, INDENTIFIER)
 
 
 def test_is_ncr():
@@ -38,7 +44,7 @@ def test_is_undefined():
 
 
 def test_from_random():
-    print(Item.create_random())
+    info(Item.create_random())
 
 
 def test_credit():

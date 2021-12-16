@@ -1,7 +1,7 @@
 from typing import Union, Final
 
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.bool_attribute import BoolAttribute
+from rl_data_utils.item.attribute.bool_attribute import BoolAttribute, SetBoolAttribute
 
 
 class BlueprintInfo(AttributeInfo):
@@ -14,3 +14,16 @@ class Blueprint(BoolAttribute, BlueprintInfo):
 
 
 InitializeBlueprint = Union[Blueprint, bool, None]
+
+
+class HasBlueprint(BlueprintInfo):
+    def __init__(self, blueprint: InitializeBlueprint = None):
+        self.blueprint: Blueprint = blueprint
+
+    def get_blueprint(self) -> Blueprint:
+        return self._blueprint
+
+    def set_blueprint(self, value: SetBoolAttribute):
+        self._blueprint = Blueprint.initialize(value)
+
+    blueprint = property(get_blueprint, set_blueprint)

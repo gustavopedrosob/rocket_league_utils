@@ -9,7 +9,6 @@ from rl_data_utils.item.attribute_string.regex_based_attribute_string import Reg
 from rl_data_utils.item.platform.constants import PLATFORMS
 from rl_data_utils.item.platform.regexs import CONTAINS
 
-
 PlatformPatternKey = Literal['Pc', 'Ps4', 'Switch', 'Xbox']
 
 
@@ -47,4 +46,14 @@ class PlatformString(RegexBasedAttributeString, PlatformInfo):
     is_not_in_string_exception = PlatformIsNotInString
 
 
+class HasPlatform(PlatformInfo):
+    def __init__(self, platform: InitializePlatform = None):
+        self.platform: Platform = platform
 
+    def get_platform(self) -> Platform:
+        return self._platform
+
+    def set_platform(self, value: SetPlatforms):
+        self._platform = Platform.initialize(value)
+
+    platform = property(get_platform, set_platform)

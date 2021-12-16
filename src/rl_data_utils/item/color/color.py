@@ -3,7 +3,7 @@ from typing import Union, Literal, Optional
 from rl_data_utils.exceptions import ColorNotExists, ColorIsNotInString
 from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
 from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
 from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
 from rl_data_utils.item.color.constants import *
@@ -65,3 +65,16 @@ class ColorString(RegexBasedAttributeString, ColorInfo):
     attributes_class = Colors
     contains_reg = CONTAINS
     is_not_in_string_exception = ColorIsNotInString
+
+
+class HasColor(ColorInfo):
+    def __init__(self, color: InitializeColor = None):
+        self.color: Color = color
+
+    def get_color(self) -> Color:
+        return self._color
+
+    def set_color(self, value: SetRegexBasedAttribute):
+        self._color = Color.initialize(value)
+
+    color = property(get_color, set_color)

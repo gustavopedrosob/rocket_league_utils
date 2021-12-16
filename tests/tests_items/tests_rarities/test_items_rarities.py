@@ -2,50 +2,49 @@ import pytest
 
 from rl_data_utils.item.rarity.constants import *
 from rl_data_utils.item.rarity.rarity import Rarity
-from tests.test_items_data import gameflip_data
-from tests.test_items import inventory_items
+from tests_items.tests_certificates.test_items_certificates import samples_items
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_common(items):
-    print(items.filter_by_attribute(Rarity(COMMON)).items)
+    print(items.filter_by_attribute(Rarity(COMMON)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_legacy(items):
-    print(items.filter_by_attribute(Rarity(LEGACY)).items)
+    print(items.filter_by_attribute(Rarity(LEGACY)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_uncommon(items):
-    print(items.filter_by_attribute(Rarity(UNCOMMON)).items)
+    print(items.filter_by_attribute(Rarity(UNCOMMON)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_rare(items):
-    print(items.filter_by_attribute(Rarity(RARE)).items)
+    print(items.filter_by_attribute(Rarity(RARE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_very_rare(items):
-    print(items.filter_by_attribute(Rarity(VERY_RARE)).items)
+    print(items.filter_by_attribute(Rarity(VERY_RARE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_import(items):
-    print(items.filter_by_attribute(Rarity(IMPORT)).items)
+    print(items.filter_by_attribute(Rarity(IMPORT)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_exotic(items):
-    print(items.filter_by_attribute(Rarity(EXOTIC)).items)
+    print(items.filter_by_attribute(Rarity(EXOTIC)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_black_market(items):
-    print(items.filter_by_attribute(Rarity(BLACK_MARKET)).items)
+    print(items.filter_by_attribute(Rarity(BLACK_MARKET)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_limited(items):
-    print(items.filter_by_attribute(Rarity(LIMITED)).items)
+    print(items.filter_by_attribute(Rarity(LIMITED)))

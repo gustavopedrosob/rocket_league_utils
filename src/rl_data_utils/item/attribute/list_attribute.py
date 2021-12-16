@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import Union, Any, Type, List, Final, Optional
 
-from rl_data_utils.item.attribute.attribute import Attribute, InitializeAttribute
+from rl_data_utils.item.attribute.attribute import Attribute
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
 
 
-SetListAttribute = Optional[List[InitializeAttribute]]
+SetListAttribute = Optional[List[Any]]
 
 
 class ListAttribute(Attribute, AttributeInfo):
@@ -40,10 +40,7 @@ class ListAttribute(Attribute, AttributeInfo):
         :param attribute: An attribute for find
         :return: If the same attribute was found
         """
-        for e in self.attribute:
-            if e.compare(attribute):
-                return True
-        return False
+        return any(e.compare(attribute) for e in self.attribute)
 
     @classmethod
     def initialize(cls, value: InitializeListAttribute) -> ListAttribute:
@@ -74,4 +71,4 @@ class ListAttribute(Attribute, AttributeInfo):
             e.validate()
 
 
-InitializeListAttribute = Union[ListAttribute, List[InitializeAttribute], None]
+InitializeListAttribute = Union[ListAttribute, SetListAttribute]

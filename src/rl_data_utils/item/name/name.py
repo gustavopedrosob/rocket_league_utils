@@ -10,7 +10,7 @@ from functools import lru_cache
 
 from rl_data_utils.exceptions import NameHaveNotCarName
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.str_attribute import StrAttribute
+from rl_data_utils.item.attribute.str_attribute import StrAttribute, SetStrAttribute
 from rl_data_utils.item.attribute_string.attribute_string import AttributeString
 from rl_data_utils.item.name.constants import CARS_NAMES_WITH_DECAL
 from rl_data_utils.item.name.regexs import CONTAINS_CREDITS
@@ -79,6 +79,19 @@ class NameString(AttributeString, NameInfo):
 
     def get(self) -> str:
         return self.string
+
+
+class HasName(NameInfo):
+    def __init__(self, name: InitializeName = None):
+        self.name: Name = name
+
+    def get_name(self) -> Name:
+        return self._name
+
+    def set_name(self, value: SetStrAttribute):
+        self._name = Name.initialize(value)
+
+    name = property(get_name, set_name)
 
 
 InitializeName = Union[Name, str, None]

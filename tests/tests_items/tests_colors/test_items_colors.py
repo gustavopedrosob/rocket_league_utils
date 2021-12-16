@@ -2,81 +2,80 @@ import pytest
 
 from rl_data_utils.item.color.color import Color
 from rl_data_utils.item.color.constants import *
-from tests.test_items_data import gameflip_data
-from tests.test_items import inventory_items
+from tests_items.tests_certificates.test_items_certificates import samples_items
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_crimson(items):
-    print(items.filter_by_attribute(Color(CRIMSON)).items)
+    print(items.filter_by_attribute(Color(CRIMSON)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_sky_blue(items):
-    print(items.filter_by_attribute(Color(SKY_BLUE)).items)
+    print(items.filter_by_attribute(Color(SKY_BLUE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_pink(items):
-    print(items.filter_by_attribute(Color(PINK)).items)
+    print(items.filter_by_attribute(Color(PINK)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_orange(items):
-    print(items.filter_by_attribute(Color(ORANGE)).items)
+    print(items.filter_by_attribute(Color(ORANGE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_cobalt(items):
-    print(items.filter_by_attribute(Color(COBALT)).items)
+    print(items.filter_by_attribute(Color(COBALT)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_burnt_sienna(items):
-    print(items.filter_by_attribute(Color(BURNT_SIENNA)).items)
+    print(items.filter_by_attribute(Color(BURNT_SIENNA)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_titanium_white(items):
-    print(items.filter_by_attribute(Color(TITANIUM_WHITE)).items)
+    print(items.filter_by_attribute(Color(TITANIUM_WHITE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_grey(items):
-    print(items.filter_by_attribute(Color(GREY)).items)
+    print(items.filter_by_attribute(Color(GREY)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_saffron(items):
-    print(items.filter_by_attribute(Color(SAFFRON)).items)
+    print(items.filter_by_attribute(Color(SAFFRON)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_lime(items):
-    print(items.filter_by_attribute(Color(LIME)).items)
+    print(items.filter_by_attribute(Color(LIME)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_forest_green(items):
-    print(items.filter_by_attribute(Color(FOREST_GREEN)).items)
+    print(items.filter_by_attribute(Color(FOREST_GREEN)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_black(items):
-    print(items.filter_by_attribute(Color(BLACK)).items)
+    print(items.filter_by_attribute(Color(BLACK)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_purple(items):
-    print(items.filter_by_attribute(Color(PURPLE)).items)
+    print(items.filter_by_attribute(Color(PURPLE)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_default(items):
-    print(items.filter_by_attribute(Color(DEFAULT)).items)
+    print(items.filter_by_attribute(Color(DEFAULT)))
 
 
-@pytest.mark.parametrize('items', [inventory_items, gameflip_data])
+@pytest.mark.parametrize('items', samples_items)
 def test_get_items_undefined(items):
-    print(items.filter_by_attribute(Color.create_undefined()).items)
+    print(items.filter_by_attribute(Color.create_undefined()))
 

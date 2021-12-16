@@ -6,10 +6,13 @@ from rl_data_utils.item.attribute.int_attribute import IntAttribute
 from rl_data_utils.item.attribute.list_attribute import ListAttribute
 
 
+SetIntListAttribute = Union[List[int], int, None]
+
+
 class IntListAttribute(ListAttribute):
     sub_attribute: Type[IntAttribute] = IntAttribute
 
-    def __init__(self, attribute: InitializeIntListAttribute):
+    def __init__(self, attribute: InitializeIntListAttribute = None):
         super().__init__(attribute)
 
 
