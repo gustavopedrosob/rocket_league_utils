@@ -1,45 +1,43 @@
 import pytest
 
 from rl_data_utils.item.platform.constants import *
-from rl_data_utils.item.platform.platform import Platforms
+from rl_data_utils.item.platform.platform import Platforms, Platform
 
 
-@pytest.mark.parametrize('color', [*PLATFORMS])
-def test_has_color(color):
-    assert Platforms(PLATFORMS).has(color)
+platforms_data = Platforms.from_str_list(PLATFORMS)
 
 
-@pytest.mark.parametrize('color', [*PLATFORMS])
-def test_get_respective_color(color):
-    result = Platforms(PLATFORMS).get_respective(color)
+@pytest.mark.parametrize('platform', [*PLATFORMS])
+def test_has_platform(platform):
+    assert platforms_data.has(Platform(platform))
+
+
+@pytest.mark.parametrize('platform', [*PLATFORMS])
+def test_get_respective_platform(platform):
+    result = platforms_data.get_respective(Platform(platform))
     print(result)
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
-def test_validate_platforms(platforms):
-    Platforms(platforms).validate()
-
-
-@pytest.mark.parametrize('platforms', [PLATFORMS])
-def test_are_valid_platforms(platforms):
-    assert Platforms(platforms).is_valid()
+def test_are_valid_platforms_data(platforms):
+    assert Platforms.from_str_list(platforms).is_valid()
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
 def test_has_pc(platforms):
-    assert Platforms(platforms).has_exactly(PC)
+    assert platforms_data.has(Platform(PC))
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
 def test_has_ps4(platforms):
-    assert Platforms(platforms).has_exactly(PS4)
+    assert platforms_data.has(Platform(PS4))
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
 def test_has_xbox(platforms):
-    assert Platforms(platforms).has_exactly(XBOX)
+    assert platforms_data.has(Platform(XBOX))
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
 def test_has_switch(platforms):
-    assert Platforms(platforms).has_exactly(SWITCH)
+    assert platforms_data.has(Platform(SWITCH))

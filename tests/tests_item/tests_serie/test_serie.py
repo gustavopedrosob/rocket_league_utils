@@ -3,7 +3,7 @@ import pytest
 from rl_data_utils.item.serie.constants import *
 from rl_data_utils.item.serie.serie import Serie
 
-inventory_series = ['Accelerator', 'Accolade', 'Accolade II', 'Auriga', 'Champions 1', 'Champions 2', 'Champions 3',
+inventory_series = ['Accelerator', 'Accolade 1', 'Accolade II', 'Auriga', 'Champions 1', 'Champions 2', 'Champions 3',
                     'Champions 4', 'Elevation', 'Ferocity', "Golden Egg '18", "Golden Egg '19",
                     "Golden Lantern '19", "Golden Pumpkin '20", 'Ignition', 'Impact', 'Momentum', 'Nitro', 'Overdrive',
                     "Player's Choice", 'Postgame', 'RLCS reward', 'Season 1', 'Secret Santa', 'Totally Awesome',
@@ -20,14 +20,9 @@ def test_is_serie(serie):
     assert Serie(serie).is_valid()
 
 
-@pytest.mark.parametrize('serie', [*inventory_series])
-def test_validate_serie(serie):
-    Serie(serie).validate()
-
-
-# @pytest.mark.parametrize('serie_1,serie_2', pair_equals)
+# @pytest.mark.parametrize('serie_1,serie_2', [pair_equals])
 # def test_compare_serie(serie_1, serie_2):
-#     assert Serie(serie_1).compare(serie_2)
+#     assert Serie(serie_1).compare(Serie(serie_2))
 
 
 @pytest.mark.parametrize('serie', ['Accelerator'])
@@ -35,7 +30,7 @@ def test_is_accelerator_series(serie):
     assert Serie(serie).is_exactly(ACCELERATOR_SERIES)
 
 
-@pytest.mark.parametrize('serie', ['Accolade'])
+@pytest.mark.parametrize('serie', ['Accolade 1'])
 def test_is_accolade_1_series(serie):
     assert Serie(serie).is_exactly(ACCOLADE_SERIES_1)
 
@@ -248,8 +243,3 @@ def test_is_zephyr_series(serie):
 @pytest.mark.parametrize('serie', ['WWE Promo Code'])
 def test_is_wwe_promo_code(serie):
     assert Serie(serie).is_exactly(WWE_PROMO_CODE)
-
-
-@pytest.mark.parametrize('serie', [None, ''])
-def test_is_undefined(serie):
-    assert Serie(serie).is_undefined()

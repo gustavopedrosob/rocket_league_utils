@@ -2,17 +2,16 @@ from __future__ import annotations
 
 from random import randint
 
-from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.int_attribute import IntAttribute
+from rl_data_utils.exceptions import NegativeItemAttribute
+from rl_data_utils.item.attribute.int_attribute import IntItemAttribute
 
 
-class PositiveIntAttribute(IntAttribute, AttributeInfo):
-    def _auto_setter(self, value: int) -> int:
-        if isinstance(value, int):
-            if value < 0:
-                raise ValueError('Invalid value, it can\'t be negative.')
-        return super()._auto_setter(value)
-
+class PositiveIntItemAttribute(IntItemAttribute):
     @classmethod
-    def create_random(cls) -> PositiveIntAttribute:
+    def create_random(cls):
         return cls(randint(0, 100000))
+
+    def validate(self):
+        if self.value is not None:
+            if self.value < 0:
+                raise NegativeItemAttribute()

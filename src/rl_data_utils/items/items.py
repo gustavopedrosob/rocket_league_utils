@@ -1,52 +1,21 @@
 from __future__ import annotations
 
-from typing import Union, Callable, List
+from functools import reduce
 
-from rl_data_utils.exceptions import AttributeNotExists
-from rl_data_utils.item.attribute.has_attribute import AnyAllAttribute, AttributeCollection
-from rl_data_utils.item.item.constants import FULL, AttributeName
-from rl_data_utils.item.item.item import Item, InitializeItem
-
-SetItems = Union[List[InitializeItem], None]
+from rl_data_utils.exceptions import InvalidItemAttribute
+from rl_data_utils.item.item.constants import FULL
+from rl_data_utils.item.item.item import Item
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Filterable, Validable, CanBeEmpty
 
 
-class Items:
-    def __init__(self, items: InitializeItems = None):
-        self.items: List[Item] = items
-
-    def __repr__(self) -> str:
-        return ', '.join([repr(item) for item in self.items])
-
-    def get_table_repr(self) -> str:
-        """
-        Gets an item table representation like an Excel sheet as str.
-        :return: An item table representation
-        """
-        title = '|'.join([f'{name:^15}' for name in FULL])
-        contents = [item.get_row_repr() for item in self.items]
-        return '\n'.join([title, *contents])
+class Items(RocketLeagueObject, Filterable, Validable, CanBeEmpty):
+    def __init__(self, items):
+        self.items = items
 
     def __iter__(self):
-        for item in self.items:
-            yield item
+        yield from self.items
 
-    def _auto_setter(self, value: SetItems) -> List[Item]:
-        """
-        It's used to set self items
-        :param value: A list or None
-        :return: a list of Items
-        """
-        if value is None or value == []:
-            return []
-        elif isinstance(value, list):
-            value = value.copy()
-            for index, v in enumerate(value):
-                value[index] = Item.initialize(v)
-            return value
-        else:
-            raise TypeError('Invalid type, expected a list.')
-
-    def filter_by_item(self, item: InitializeItem, attrs: List[AttributeName] = FULL):
+    def filter_by_item(self, item: Item, attrs=None):
         """
         Filters self items by an Item, it ignores undefined attributes to filter
         :param item: A item to find in items
@@ -55,31 +24,29 @@ class Items:
         :raise KeyError: If mode is Invalid
         :return A self instance with items that match with item
         """
-        item = Item.initialize(item)
-        attributes: AttributeCollection = item.get_attrs(attrs)
-        attributes = filter(lambda attr: not attr.is_undefined(), attributes)
+        if not attrs:
+            attrs = FULL
+        attributes = list(filter(lambda attr: attr.identifier in attrs, item.get_attributes()))
         return self.filter_by_attributes(attributes)
 
-    def filter_by_attributes(self, attributes: AttributeCollection) -> Items:
+    def filter_by_attributes(self, attributes):
         """
         Filters self items by attributes
         :param attributes: Attributes to compare
         :return: A self instance with items that match with attributes
         """
-        items = self
-        for attribute in attributes:
-            items = items.filter_by_attribute(attribute)
-        return items
+        return reduce(lambda result, attr: result.filter_by_attribute(attr), (self, *attributes))  # type: ignore
 
-    def filter_by_attribute(self, attribute: AnyAllAttribute) -> Items:
+    def filter_by_attribute(self, attribute):
         """
         Filters self items by an attribute
         :param attribute: A attribute to find in items
         :return: A self instance with items that match with attribute
         """
-        return self.filter_by_condition(lambda item: getattr(item, attribute.attribute_name).compare(attribute))
+        return self.filter_by_condition(
+            lambda item: Item.match_attributes(attribute, getattr(item, attribute.identifier)))
 
-    def filter_by_condition(self, condition: Callable[[Item], bool]) -> Items:
+    def filter_by_condition(self, condition):
         """
         Filters self items by a function that receive an item as parameter
         :param condition: A function that works as condition, receives an item as parameter and return a boolean
@@ -87,60 +54,19 @@ class Items:
         """
         return Items(list(filter(condition, self.items)))
 
-    def filter_valid(self) -> Items:
+    def filter_valid(self):
         """
         Filters valid items
         :return: A self instance with valid items
         """
         return self.filter_by_condition(lambda item: item.is_valid())
 
-    @classmethod
-    def initialize(cls, value: InitializeItems) -> Items:
-        """
-        Creates an instance of class using a value that can be a list or Items
-        :param value: A instance of list or Items
-        :return: An instance of class
-        """
-        if isinstance(value, list):
-            return cls(value)
-        elif isinstance(value, cls):
-            return value
-        else:
-            raise TypeError('Invalid type, expected Items or list[Items].')
-
-    @property
-    def items(self):
-        return self._items
-
-    @items.setter
-    def items(self, value: SetItems):
-        self._items = self._auto_setter(value)
+    def is_valid(self):
+        return self._is_valid_by_validate(InvalidItemAttribute)
 
     def validate(self):
-        """
-        Validates all items
-        """
         for item in self.items:
             item.validate()
 
-    def is_valid(self) -> bool:
-        """
-        Says if it's valid
-        :return: If it's valid
-        """
-        try:
-            self.validate()
-        except AttributeNotExists:
-            return False
-        else:
-            return True
-
-    def is_undefined(self) -> bool:
-        """
-        Says if it's undefined
-        :return: If it's undefined
-        """
-        return self._items == []
-
-
-InitializeItems = Union[Items, SetItems]
+    def is_empty(self):
+        return self.items == []

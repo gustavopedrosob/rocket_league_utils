@@ -1,80 +1,45 @@
-from typing import Union, Literal, Optional
+from __future__ import annotations
 
-from rl_data_utils.exceptions import ColorNotExists, ColorIsNotInString
 from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
-from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
-from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
+from rl_data_utils.item.attribute_data.regex_based_list_attribute import RegexBasedListAttribute
 from rl_data_utils.item.color.constants import *
-from rl_data_utils.item.color.regexs import CONTAINS
-
-ColorPatternKey = Literal["Black", "Burnt Sienna", "Cobalt", "Crimson", "Default", "Forest Green", "Grey",
-                          "Lime", "Orange", "Pink", "Purple", "Saffron", "Sky Blue", "Titanium White"]
+from rl_data_utils.item.color.regexs import REGEX_TABLE
+from rl_data_utils.item.item.constants import COLOR
+from rl_data_utils.rocket_league.rocket_league import Defaultable
 
 
 class ColorInfo(AttributeInfo):
-    attribute_name: Final[str] = 'color'
-    order: Final[int] = 4
+    identifier = COLOR
+    order = 4
 
 
-class Color(RegexBasedAttribute, ColorInfo):
-    _attribute_not_exists_exception = ColorNotExists
-    _is_reg = CONTAINS
-    constants = COLORS
+class Color(RegexBasedItemAttribute, ColorInfo, Defaultable):
+    regex_table = REGEX_TABLE
+    possible_values = COLORS
+    default_args = [DEFAULT], dict()
 
-    def get_hex(self) -> str:
-        _hex = ColorDict({
-            CRIMSON: "#ff4d4d",
-            SKY_BLUE: "#69ffff",
-            PINK: "#ff8dce",
-            ORANGE: "#da9a00",
-            COBALT: "#8c9eff",
-            BURNT_SIENNA: "#995e4d",
-            TITANIUM_WHITE: "#fff",
-            GREY: "#c4c4c4",
-            SAFFRON: "#ff8",
-            LIME: "#ccff4d",
-            FOREST_GREEN: "#329536",
-            BLACK: "#000",
-            PURPLE: "#e974fd"
-        })
-        return _hex[self.attribute]
-
-
-Color.default_value = Color.undefined_value
-
-
-InitializeColor = Union[Color, str, None]
-
-SetColors = Optional[List[InitializeColor]]
+    def get_hex(self):
+        return hex_table[self]
 
 
 class Colors(RegexBasedListAttribute, ColorInfo):
-    sub_attribute = Color
-    default_value = COLORS
-
-
-class ColorDict(AttributeDict):
-    _cls_attribute = Color
-    _cls_list_attribute = Colors
-
-
-class ColorString(RegexBasedAttributeString, ColorInfo):
     attribute_class = Color
-    attributes_class = Colors
-    contains_reg = CONTAINS
-    is_not_in_string_exception = ColorIsNotInString
 
 
-class HasColor(ColorInfo):
-    def __init__(self, color: InitializeColor = None):
-        self.color: Color = color
-
-    def get_color(self) -> Color:
-        return self._color
-
-    def set_color(self, value: SetRegexBasedAttribute):
-        self._color = Color.initialize(value)
-
-    color = property(get_color, set_color)
+hex_table = AttributeDict([
+    (Color(CRIMSON), "#ff4d4d"),
+    (Color(SKY_BLUE), "#69ffff"),
+    (Color(PINK), "#ff8dce"),
+    (Color(ORANGE), "#da9a00"),
+    (Color(COBALT), "#8c9eff"),
+    (Color(BURNT_SIENNA), "#995e4d"),
+    (Color(TITANIUM_WHITE), "#fff"),
+    (Color(GREY), "#c4c4c4"),
+    (Color(SAFFRON), "#ff8"),
+    (Color(LIME), "#ccff4d"),
+    (Color(FOREST_GREEN), "#329536"),
+    (Color(BLACK), "#000"),
+    (Color(PURPLE), "#e974fd")
+])

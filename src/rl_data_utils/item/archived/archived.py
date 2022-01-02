@@ -1,29 +1,17 @@
-from typing import Union, Final
+from __future__ import annotations
+
+from typing import ClassVar
 
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.bool_attribute import BoolAttribute, SetBoolAttribute
+from rl_data_utils.item.attribute.bool_attribute import BoolItemAttribute
+from rl_data_utils.item.item.constants import ARCHIVED
+from rl_data_utils.rocket_league.rocket_league import Defaultable
 
 
 class ArchivedInfo(AttributeInfo):
-    attribute_name: Final[str] = 'archived'
-    order: Final[int] = 12
+    identifier = ARCHIVED
+    order = 12
 
 
-class Archived(BoolAttribute, ArchivedInfo):
-    default_value: Final[bool] = False
-
-
-InitializeArchived = Union[Archived, bool, None]
-
-
-class HasArchived(ArchivedInfo):
-    def __init__(self, archived: InitializeArchived = None):
-        self.archived: Archived = archived
-
-    def get_archived(self) -> Archived:
-        return self._archived
-
-    def set_archived(self, value: SetBoolAttribute):
-        self._archived = Archived.initialize(value)
-
-    archived = property(get_archived, set_archived)
+class Archived(BoolItemAttribute, ArchivedInfo, Defaultable):
+    default_args: ClassVar = [False], dict()

@@ -4,6 +4,9 @@ CARS_NAMES_WITH_DECAL = ['Breakout Type-S', 'Imperator DT5', 'Peregrine TT', 'Ta
                          'Masamune', 'Maverick', 'Road Hog', 'Sentinel', 'Diestro', 'Dominus', 'Hotshot', 'Insidio',
                          'Paladin', 'Twinzer', 'X-Devil', 'Centio', 'Fennec', 'Komodo', 'Mantis', 'Mudcat', 'Octane',
                          'Ripper', 'Takumi', 'Triton', 'Tygris', 'Dingo', 'Esper', 'Gizmo', 'Venom', 'Endo', 'Merc']
+
+KINDS = ['Infinite', 'Inverted', 'Holographic']
+
 CREDITS = 'Credits'
 # noinspection SpellCheckingInspection
 NAMES = [

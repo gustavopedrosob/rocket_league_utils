@@ -26,7 +26,7 @@ random_item = Item.create_random()
 # Comparando dois items
 result = Item(color='tw').compare(Item(color='white'))
 # Criando um item apartir de uma string
-item_from_string = Item.from_attribute_string('tw dingo')
+item_from_string = Item.from_str('tw dingo')
 ```
 ## Instalação:
 ```
@@ -38,7 +38,6 @@ pip install git+https://github.com/TheVicio/Rocket-League-Utils
 ```
 ## Implementações futuras:
 
-- Trades com datas.
 - Site com documentação para o projeto.
 - Um readme em inglês.
 

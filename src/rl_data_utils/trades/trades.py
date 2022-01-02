@@ -1,35 +1,11 @@
 from __future__ import annotations
 
-from collections import Callable
-from typing import Optional, List
-
-from rl_data_utils.trade.trade import Trade
-
 
 class Trades:
-    def __init__(self, trades: Optional[List[Trade]]):
-        self.trades: List[Trade] = trades
+    def __init__(self, trades):
+        self.trades = trades
 
-    def __repr__(self) -> str:
-        return '\n'.join([repr(trade) for trade in self.trades])
-
-    @property
-    def trades(self):
-        return self._trades
-
-    @trades.setter
-    def trades(self, value):
-        if value is None or value == []:
-            self._trades = []
-        elif isinstance(value, list):
-            self._trades = value
-            for trade in value:
-                if not isinstance(trade, Trade):
-                    raise TypeError('Invalid type, expected Trade.')
-        else:
-            raise TypeError('Invalid type, expected List[Trade].')
-
-    def filter_by_trade_condition(self, condition: Callable[[Trade], bool]) -> Trades:
+    def filter_by_trade(self, condition):
         """
         Filter self trades by a condition function that receives a trade as parameter and returns a boolean
         :param condition: A function that works as condition, receives a trade as parameter and return a boolean
@@ -37,3 +13,11 @@ class Trades:
         """
         return self.__class__(list(filter(condition, self.trades)))
 
+    def filter_by_him_offer(self, condition):
+        return self.filter_by_trade(lambda trade: condition(trade.him_offer))
+
+    def filter_by_my_offer(self, condition):
+        return self.filter_by_trade(lambda trade: condition(trade.my_offer))
+
+    def filter_by_date(self, condition):
+        return self.filter_by_trade(lambda trade: condition(trade.date) if trade.date else False)

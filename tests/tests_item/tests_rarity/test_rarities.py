@@ -1,76 +1,76 @@
 import pytest
 
 from rl_data_utils.item.rarity.constants import *
-from rl_data_utils.item.rarity.rarity import Rarities
-from tests.tests_item.tests_rarity.test_rarity import inventory_rarities, insider_rarities
+from rl_data_utils.item.rarity.rarity import Rarities, Rarity
+from tests_item.tests_rarity.test_rarity import inventory_rarities, insider_rarities
 
 
-@pytest.mark.parametrize('color', [*inventory_rarities, *insider_rarities, *RARITIES])
-def test_has_color(color):
-    assert Rarities(RARITIES).has(color)
+@pytest.mark.parametrize('rarity', [*inventory_rarities, *insider_rarities, *RARITIES])
+def test_has_rarity(rarity):
+    assert Rarities.from_str_list(RARITIES).has(Rarity(rarity))
 
 
-@pytest.mark.parametrize('color', [*inventory_rarities, *insider_rarities, *RARITIES])
-def test_get_respective_color(color):
-    result = Rarities(RARITIES).get_respective(color)
+@pytest.mark.parametrize('rarity', [*inventory_rarities, *insider_rarities, *RARITIES])
+def test_get_respective_rarity(rarity):
+    result = Rarities.from_str_list(RARITIES).get_respective(Rarity(rarity))
     print(result)
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_validate_rarities(rarities):
-    Rarities(rarities).validate()
+    Rarities.from_str_list(rarities).validate()
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_are_valid_rarities(rarities):
-    assert Rarities(rarities).is_valid()
+    assert Rarities.from_str_list(rarities).is_valid()
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_black_market(rarities):
-    assert Rarities(rarities).has_exactly(BLACK_MARKET)
+    assert Rarities.from_str_list(rarities).has(Rarity(BLACK_MARKET))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_common(rarities):
-    assert Rarities(rarities).has_exactly(COMMON)
+    assert Rarities.from_str_list(rarities).has(Rarity(COMMON))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_exotic(rarities):
-    assert Rarities(rarities).has_exactly(EXOTIC)
+    assert Rarities.from_str_list(rarities).has(Rarity(EXOTIC))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_import(rarities):
-    assert Rarities(rarities).has_exactly(IMPORT)
+    assert Rarities.from_str_list(rarities).has(Rarity(IMPORT))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_legacy(rarities):
-    assert Rarities(rarities).has_exactly(LEGACY)
+    assert Rarities.from_str_list(rarities).has(Rarity(LEGACY))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_limited(rarities):
-    assert Rarities(rarities).has_exactly(LIMITED)
+    assert Rarities.from_str_list(rarities).has(Rarity(LIMITED))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_premium(rarities):
-    assert Rarities(rarities).has_exactly(PREMIUM)
+    assert Rarities.from_str_list(rarities).has(Rarity(PREMIUM))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_rare(rarities):
-    assert Rarities(rarities).has_exactly(RARE)
+    assert Rarities.from_str_list(rarities).has(Rarity(RARE))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_uncommon(rarities):
-    assert Rarities(rarities).has_exactly(UNCOMMON)
+    assert Rarities.from_str_list(rarities).has(Rarity(UNCOMMON))
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_very_rare(rarities):
-    assert Rarities(rarities).has_exactly(VERY_RARE)
+    assert Rarities.from_str_list(rarities).has(Rarity(VERY_RARE))

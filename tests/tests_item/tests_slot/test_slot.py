@@ -35,7 +35,7 @@ def test_validate_slot(slot):
 
 @pytest.mark.parametrize('slot_1,slot_2', pair_equals)
 def test_compare_slot(slot_1, slot_2):
-    assert Slot(slot_1).compare(slot_2)
+    assert Slot(slot_1).compare(Slot(slot_2))
 
 
 @pytest.mark.parametrize('slot', ['Antenna'])
@@ -101,8 +101,3 @@ def test_is_trail(slot):
 @pytest.mark.parametrize('slot', ['Wheels'])
 def test_is_wheel(slot):
     assert Slot(slot).is_exactly(WHEEL)
-
-
-@pytest.mark.parametrize('slot', [None, ''])
-def test_is_undefined(slot):
-    assert Slot(slot).is_undefined()

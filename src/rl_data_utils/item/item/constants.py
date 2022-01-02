@@ -1,5 +1,3 @@
-from typing import Literal
-
 ARCHIVED = 'archived'
 BLUEPRINT = 'blueprint'
 CERTIFIED = 'certified'
@@ -14,10 +12,8 @@ RARITY = 'rarity'
 SERIE = 'serie'
 SLOT = 'slot'
 TRADABLE = 'tradable'
-
-FULL = [ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, CRAFTING_COST, NAME, PAINTABLE, PLATFORM, PRICE, QUANTITY, RARITY,
-        SERIE, SLOT, TRADABLE]
-INDENTIFIER = [NAME, RARITY, SLOT, BLUEPRINT, PLATFORM]
-
-AttributeName = Literal['archived', 'blueprint', 'certified', 'color', 'crafting_cost', 'name', 'paintable',
-                        'platform', 'price', 'quantity', 'rarity', 'serie', 'slot', 'tradable']
+FULL = [
+    ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, CRAFTING_COST, NAME, PAINTABLE, PLATFORM, PRICE, QUANTITY, RARITY, SERIE,
+    SLOT, TRADABLE]
+INDENTIFIER = [
+    NAME, RARITY, SLOT, BLUEPRINT, PLATFORM]

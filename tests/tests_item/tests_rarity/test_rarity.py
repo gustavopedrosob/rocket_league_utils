@@ -22,14 +22,9 @@ def test_is_rarity(rarity):
     assert Rarity(rarity).is_valid()
 
 
-@pytest.mark.parametrize('rarity', samples)
-def test_validate_rarity(rarity):
-    Rarity(rarity).validate()
-
-
 @pytest.mark.parametrize('rarity_1,rarity_2', pair_equals)
 def test_compare_rarity(rarity_1, rarity_2):
-    assert Rarity(rarity_1).compare(rarity_2)
+    assert Rarity(rarity_1).compare(Rarity(rarity_2))
 
 
 @pytest.mark.parametrize('rarity', ['bm', 'black market'])
@@ -80,10 +75,3 @@ def test_is_uncommon(rarity):
 @pytest.mark.parametrize('rarity', ['very rare', 'vr', 'very rares'])
 def test_is_very_rare(rarity):
     assert Rarity(rarity).is_exactly(VERY_RARE)
-    
-
-@pytest.mark.parametrize('rarity', [None, ''])
-def test_is_undefined(rarity):
-    assert Rarity(rarity).is_undefined()
-
-

@@ -14,14 +14,9 @@ def test_is_platform(platform):
     assert Platform(platform).is_valid()
 
 
-@pytest.mark.parametrize('platform', [PC, XBOX, SWITCH, PS4])
-def test_validate_platform(platform):
-    Platform(platform).validate()
-
-
 @pytest.mark.parametrize('platform_1,platform_2', pair_equals)
 def test_compare_platform(platform_1, platform_2):
-    assert Platform(platform_1).compare(platform_2)
+    assert Platform(platform_1).compare(Platform(platform_2))
 
 
 @pytest.mark.parametrize('platform', ['pc'])
@@ -42,8 +37,3 @@ def test_is_xbox(platform):
 @pytest.mark.parametrize('platform', ['switch'])
 def test_is_switch(platform):
     assert Platform(platform).is_exactly(SWITCH)
-
-
-@pytest.mark.parametrize('platform', [None, ''])
-def test_is_undefined(platform):
-    assert Platform(platform).is_undefined()

@@ -1,63 +1,22 @@
-from typing import Union, Literal, Final, Optional, List
+from __future__ import annotations
 
-from rl_data_utils.exceptions import SlotNotExists, SlotIsNotInString
-from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
-from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
-from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
+from rl_data_utils.item.attribute_data.regex_based_list_attribute import RegexBasedListAttribute
+from rl_data_utils.item.item.constants import SLOT
 from rl_data_utils.item.slot.constants import SLOTS
-from rl_data_utils.item.slot.regexs import CONTAINS
-
-SlotPatternKey = Literal["Antenna", "Avatar Border", "Car", 'Blueprint', "Decal", "Engine Audio", "Goal Explosion",
-                         "Gift Pack", "Paint Finish", "Anthem", "Banner", "Boost", "Topper", "Trail", "Wheel", 'Title']
+from rl_data_utils.item.slot.regexs import REGEX_TABLE
 
 
 class SlotInfo(AttributeInfo):
-    attribute_name: Final[str] = 'slot'
-    order: Final[int] = 2
+    identifier = SLOT
+    order = 2
 
 
-class Slot(RegexBasedAttribute, SlotInfo):
-    _is_reg = CONTAINS
-    _attribute_not_exists_exception = SlotNotExists
-    constants = SLOTS
-
-
-Slot.default_value = Slot.undefined_value
-
-
-InitializeSlot = Union[Slot, str, None]
-
-
-SetSlots = Optional[List[InitializeSlot]]
+class Slot(RegexBasedItemAttribute, SlotInfo):
+    regex_table = REGEX_TABLE
+    possible_values = SLOTS
 
 
 class Slots(RegexBasedListAttribute, SlotInfo):
-    sub_attribute = Slot
-    default_value = SLOTS
-
-
-class SlotDict(AttributeDict):
-    _cls_attribute = Slot
-    _cls_list_attribute = Slots
-
-
-class SlotString(RegexBasedAttributeString, SlotInfo):
     attribute_class = Slot
-    attributes_class = Slots
-    contains_reg = CONTAINS
-    is_not_in_string_exception = SlotIsNotInString
-
-
-class HasSlot(SlotInfo):
-    def __init__(self, slot: InitializeSlot = None):
-        self.slot: Slot = slot
-
-    def get_slot(self) -> Slot:
-        return self._slot
-
-    def set_slot(self, value: SetRegexBasedAttribute):
-        self._slot = Slot.initialize(value)
-
-    slot = property(get_slot, set_slot)

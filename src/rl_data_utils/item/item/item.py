@@ -1,124 +1,63 @@
 from __future__ import annotations
 
-from typing import Union, Dict, Any, List
+from typing import Any
 
-from rl_data_utils.item.archived.archived import Archived, InitializeArchived, HasArchived
-from rl_data_utils.item.attribute.has_attribute import HasAttribute, AttributeCollection
-from rl_data_utils.item.attribute.list_attribute import ListAttribute
-from rl_data_utils.item.attribute.str_attribute import StrAttribute
-from rl_data_utils.item.attribute_string.attributes_string import AttributesString, InitializeAttributesString
-from rl_data_utils.item.blueprint.blueprint import InitializeBlueprint, Blueprint, HasBlueprint
-from rl_data_utils.item.certified.certified import InitializeCertified, Certified, HasCertified
-from rl_data_utils.item.color.color import InitializeColor, Color, HasColor
-from rl_data_utils.item.crafting_cost.crafting_cost import InitializeCraftingCost, CraftingCost, HasCraftingCost
-from rl_data_utils.item.item.constants import FULL, AttributeName
-from rl_data_utils.item.name.name import InitializeName, Name, HasName
-from rl_data_utils.item.paintable.paintable import InitializePaintable, Paintable, HasPaintable
-from rl_data_utils.item.platform.platform import InitializePlatform, Platform, HasPlatform
-from rl_data_utils.item.price.price import InitializePrice, Price, HasPrice
-from rl_data_utils.item.quantity.quantity import InitializeQuantity, Quantity, HasQuantity
-from rl_data_utils.item.rarity.constants import VERY_RARE, IMPORT, EXOTIC, RARE
-from rl_data_utils.item.rarity.rarity import InitializeRarity, Rarity, HasRarity
-from rl_data_utils.item.serie.serie import InitializeSerie, Serie, HasSerie
-from rl_data_utils.item.slot.slot import InitializeSlot, Slot, HasSlot
-from rl_data_utils.item.tradable.tradable import InitializeTradable, Tradable, HasTradable
+from rl_data_utils.item.archived.archived import Archived
+from rl_data_utils.item.attribute.attribute import ItemAttribute
+from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
+from rl_data_utils.item.attribute_string.attributes_string import AttributesString
+from rl_data_utils.item.blueprint.blueprint import Blueprint
+from rl_data_utils.item.certified.certified import Certified
+from rl_data_utils.item.color.color import Color
+from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.item.represents_item import RepresentsItem
+from rl_data_utils.item.name.name import Name
+from rl_data_utils.item.paintable.paintable import Paintable
+from rl_data_utils.item.platform.platform import Platform
+from rl_data_utils.item.price.price import Price
+from rl_data_utils.item.quantity.quantity import Quantity
+from rl_data_utils.item.rarity.rarity import Rarity
+from rl_data_utils.item.serie.serie import Serie
+from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.tradable.tradable import Tradable
+from rl_data_utils.rocket_league.rocket_league import FromStr
 
 
-class Item(HasAttribute, HasArchived, HasName, HasSlot, HasColor, HasRarity, HasCertified, HasQuantity, HasBlueprint,
-           HasPaintable, HasPlatform, HasPrice, HasSerie, HasTradable, HasCraftingCost):
+class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
     def __init__(self,
-                 archived: InitializeArchived = None,
-                 name: InitializeName = None,
-                 slot: InitializeSlot = None,
-                 color: InitializeColor = None,
-                 rarity: InitializeRarity = None,
-                 certified: InitializeCertified = None,
-                 quantity: InitializeQuantity = None,
-                 blueprint: InitializeBlueprint = None,
-                 paintable: InitializePaintable = None,
-                 platform: InitializePlatform = None,
-                 price: InitializePrice = None,
-                 serie: InitializeSerie = None,
-                 tradable: InitializeTradable = None,
-                 crafting_cost: InitializeCraftingCost = None,
-                 **kwargs: dict):
-        super(Item, self).__init__()
-        self.archived: Archived = archived
-        self.blueprint: Blueprint = blueprint
-        self.certified: Certified = certified
-        self.color: Color = color
-        self.name: Name = name
-        self.paintable: Paintable = paintable
-        self.platform: Platform = platform
-        self.price: Price = price
-        self.quantity: Quantity = quantity
-        self.rarity: Rarity = rarity
-        self.serie: Serie = serie
-        self.slot: Slot = slot
-        self.tradable: Tradable = tradable
-        self.crafting_cost: CraftingCost = crafting_cost
-        self.unknown_arguments: dict = kwargs
-
-    def __eq__(self, other: Item) -> bool:
-        return self.compare(other)
-
-    def __repr__(self) -> str:
-        attributes = self.get_sorted_attrs(ignore_undefined=True)
-        attributes_string = ', '.join([repr(attr) for attr in attributes])
-        return f'{self.__class__.__name__}({attributes_string})'
-
-    def get_row_repr(self) -> str:
-        """
-        Gets an item row representation, (It's used for create an item table representation).
-        :return: An item row representation
-        """
-        return '|'.join([f'{attr.get_repr(maxsize=15):^15}' for attr in self.get_attrs()])
-
-    def compare(self, item: InitializeItem, attrs: List[AttributeName] = FULL) -> bool:
-        """
-        Compares two items depending on the mode
-        :param item: An item to compare
-        :param attrs: Names of attributes that you want to compare
-        :raise AttributeError: If some name in attrs is invalid or the attribute is not in instance
-        :raise KeyError: If mode is invalid
-        :return: If both items are equals
-        """
-        return self.compare_attrs(item, self.get_attrs(attrs, True))
-
-    def get_item_attrs(self) -> AttributeCollection:
-        return filter(lambda attribute: not isinstance(attribute, ListAttribute), self.get_attrs())
-
-    @staticmethod
-    def compare_attrs(item: InitializeItem, attributes: AttributeCollection) -> bool:
-        """
-        Compare some attributes with another item
-        :param item: Another item to compare
-        :param attributes: Attributes to compare
-        :return: If all both attributes match
-        """
-        item = Item.initialize(item)
-        for attribute in attributes:
-            other_attribute = getattr(item, attribute.attribute_name)
-            if isinstance(other_attribute, StrAttribute):
-                if not attribute.compare(other_attribute):
-                    return False
-            elif isinstance(other_attribute, ListAttribute):
-                if not other_attribute.has(attribute):
-                    return False
-        return True
-
-    @staticmethod
-    def from_attribute_string(attributes_string: InitializeAttributesString) -> Item:
-        """
-        Creates an Item using AttributesString or a simple string
-        :param attributes_string: str or AttributesString that represents an item
-        :return: An Item from string
-        """
-        attributes_string = AttributesString.initialize_string(attributes_string)
-        return Item(**attributes_string.get_attributes_dict())
+                 archived=None,
+                 name=None,
+                 slot=None,
+                 color=None,
+                 rarity=None,
+                 certified=None,
+                 quantity=None,
+                 blueprint=None,
+                 paintable=None,
+                 platform=None,
+                 price=None,
+                 serie=None,
+                 tradable=None,
+                 crafting_cost=None,
+                 **kwargs: dict[str, Any]) -> None:
+        self.archived = archived
+        self.blueprint = blueprint
+        self.certified = certified
+        self.color = color
+        self.name = name
+        self.paintable = paintable
+        self.platform = platform
+        self.price = price
+        self.quantity = quantity
+        self.rarity = rarity
+        self.serie = serie
+        self.slot = slot
+        self.tradable = tradable
+        self.crafting_cost = crafting_cost
+        self.unknown_arguments = kwargs
 
     @classmethod
-    def create_random(cls) -> Item:
+    def create_random(cls):
         """
         Creates an items with all random attributes
         :return: An item with random attributes
@@ -138,28 +77,37 @@ class Item(HasAttribute, HasArchived, HasName, HasSlot, HasColor, HasRarity, Has
                    crafting_cost=CraftingCost.create_random(),
                    serie=Serie.create_random())
 
+    def is_non_crate(self, rarity):
+        """
+        It says if self is non crate and has some rarity
+        :param rarity: A rarity to compare
+        :return: If self is non crate and has some rarity
+        """
+        return not self.serie and self.rarity.compare(rarity)
+
     @classmethod
-    def initialize(cls, value: InitializeItem) -> Item:
-        if isinstance(value, Item):
-            return value
-        elif isinstance(value, dict):
-            return Item(**value)
-        elif isinstance(value, str) or isinstance(value, AttributesString):
-            return cls.from_attribute_string(value)
+    def from_str(cls, string: str):
+        """
+        Creates a self instance by a string
+        :param string: Any string that represents some item
+        :return: An instance of Item
+        """
+        return cls(**AttributesString(string).get_attributes_dict())
+
+    @staticmethod
+    def match_attributes(attribute_1, attribute_2) -> bool:
+        """
+        It says if some attribute match with another
+        :param attribute_1: Any attribute
+        :param attribute_2: Any attribute
+        :return: If some attribute match with another
+        """
+        if attribute_1 and attribute_2:
+            if isinstance(attribute_1, AttributesData) and isinstance(attribute_2, ItemAttribute):
+                return attribute_1.has(attribute_2)
+            elif isinstance(attribute_2, AttributesData) and isinstance(attribute_1, ItemAttribute):
+                return attribute_2.has(attribute_1)
+            else:
+                return attribute_1.compare(attribute_2)
         else:
-            raise TypeError('Invalid type, expected Item, dict, str or AttributesString.')
-
-    def is_ncr(self) -> bool:
-        return self.serie.is_undefined() and self.rarity.is_exactly(RARE)
-
-    def is_ncvr(self) -> bool:
-        return self.serie.is_undefined() and self.rarity.is_exactly(VERY_RARE)
-
-    def is_nci(self) -> bool:
-        return self.serie.is_undefined() and self.rarity.is_exactly(IMPORT)
-
-    def is_nce(self) -> bool:
-        return self.serie.is_undefined() and self.rarity.is_exactly(EXOTIC)
-
-
-InitializeItem = Union[Item, Dict[str, Any], str, AttributesString]
+            return False

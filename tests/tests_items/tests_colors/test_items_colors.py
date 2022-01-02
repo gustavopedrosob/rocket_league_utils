@@ -73,9 +73,3 @@ def test_get_items_purple(items):
 @pytest.mark.parametrize('items', samples_items)
 def test_get_items_default(items):
     print(items.filter_by_attribute(Color(DEFAULT)))
-
-
-@pytest.mark.parametrize('items', samples_items)
-def test_get_items_undefined(items):
-    print(items.filter_by_attribute(Color.create_undefined()))
-

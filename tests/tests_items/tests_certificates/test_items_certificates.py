@@ -2,9 +2,9 @@ import pytest
 
 from rl_data_utils.item.certified.certified import Certified
 from rl_data_utils.item.certified.constants import *
+from test_items import inventory_items
+from test_items_data import gameflip_data
 from test_items_rl_insider import rl_insider_items
-from tests.test_items import inventory_items
-from tests.test_items_data import gameflip_data
 
 
 samples_items = [inventory_items, gameflip_data, rl_insider_items]
@@ -89,7 +89,3 @@ def test_get_items_goalkeeper(items):
 def test_get_items_none(items):
     print(items.filter_by_attribute(Certified(NONE)))
 
-
-@pytest.mark.parametrize('items', samples_items)
-def test_get_items_undefined(items):
-    items.filter_by_attribute(Certified.create_undefined())

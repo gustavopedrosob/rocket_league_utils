@@ -1,60 +1,22 @@
-from typing import Union, Final, Optional, List
+from __future__ import annotations
 
-from rl_data_utils.exceptions import SerieNotExists, SerieIsNotInString
-from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedAttribute, SetRegexBasedAttribute
-from rl_data_utils.item.attribute.regex_based_list_attribute import RegexBasedListAttribute
-from rl_data_utils.item.attribute_string.regex_based_attribute_string import RegexBasedAttributeString
+from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
+from rl_data_utils.item.attribute_data.regex_based_list_attribute import RegexBasedListAttribute
+from rl_data_utils.item.item.constants import SERIE
 from rl_data_utils.item.serie.constants import SERIES
-from rl_data_utils.item.serie.regexs import CONTAINS
+from rl_data_utils.item.serie.regexs import REGEX_TABLE
 
 
 class SerieInfo(AttributeInfo):
-    attribute_name: Final[str] = 'serie'
-    order: Final[int] = 8
+    identifier = SERIE
+    order = 8
 
 
-class Serie(RegexBasedAttribute, SerieInfo):
-    _attribute_not_exists_exception = SerieNotExists
-    _is_reg = CONTAINS
-    constants = SERIES
-
-
-Serie.default_value = Serie.undefined_value
-
-
-InitializeSerie = Union[Serie, str, None]
-
-
-SetSeries = Optional[List[InitializeSerie]]
+class Serie(RegexBasedItemAttribute, SerieInfo):
+    regex_table = REGEX_TABLE
+    possible_values = SERIES
 
 
 class Series(RegexBasedListAttribute, SerieInfo):
-    sub_attribute = Serie
-    default_value = SERIES
-
-
-class SerieDict(AttributeDict):
-    _cls_attribute = Serie
-    _cls_list_attribute = Series
-
-
-class SerieString(RegexBasedAttributeString, SerieInfo):
     attribute_class = Serie
-    attributes_class = Series
-    contains_reg = CONTAINS
-    is_not_in_string_exception = SerieIsNotInString
-
-
-class HasSerie(SerieInfo):
-    def __init__(self, serie: InitializeSerie = None):
-        self.serie: Serie = serie
-
-    def get_serie(self) -> Serie:
-        return self._serie
-
-    def set_serie(self, value: SetRegexBasedAttribute):
-        self._serie = Serie.initialize(value)
-
-    serie = property(get_serie, set_serie)

@@ -1,42 +1,31 @@
 from __future__ import annotations
 
-from typing import Union
-
-from rl_data_utils.item.attribute.has_attribute import HasAttribute
-from rl_data_utils.item.blueprint.blueprint import InitializeBlueprint, Blueprint, HasBlueprint
-from rl_data_utils.item.color.color import InitializeColor, Color, HasColor
-from rl_data_utils.item.platform.platform import InitializePlatform, Platform, HasPlatform
-from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost, InitializeCraftingCost, HasCraftingCost
-from rl_data_utils.item.price.price import InitializePrice, Price, HasPrice
+from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
+from rl_data_utils.item.blueprint.blueprint import Blueprint
+from rl_data_utils.item.color.color import Color
+from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.platform.platform import Platform
+from rl_data_utils.item.price.price import Price
 
 
-class DataPrice(HasAttribute, HasColor, HasPlatform, HasBlueprint, HasCraftingCost, HasPrice):
+class DataPrice(AttributesCollectionManagement, AttributesData):
     def __init__(self,
-                 color: InitializeColor = None,
-                 platform: InitializePlatform = None,
-                 crafting_cost: InitializeCraftingCost = None,
-                 price: InitializePrice = None,
-                 blueprint: InitializeBlueprint = None):
-        super(DataPrice, self).__init__()
+                 color=None,
+                 platform=None,
+                 crafting_cost=None,
+                 price=None,
+                 blueprint=None):
         self.color: Color = color
         self.platform: Platform = platform
         self.crafting_cost: CraftingCost = crafting_cost
         self.price: Price = price
         self.blueprint: Blueprint = blueprint
-
-    def __repr__(self) -> str:
-        return 'DataPrice({})'.format(self.get_attrs())
-
-    def compare(self, other: DataPrice) -> bool:
-        return all(attr.compare(other.get_attr(attr.attribute)) for attr in self.get_attrs(ignore_undefined=True))
+        super().__init__()
 
     @classmethod
-    def initialize(cls, value: Union[DataPrice, dict, None]) -> DataPrice:
-        if value is None:
-            return cls()
-        if isinstance(value, cls):
-            return value
-        elif isinstance(value, dict):
-            return cls(**value)
-        else:
-            raise TypeError('Invalid type, expected DataPrice, dict or None.')
+    def create_random(cls):
+        return DataPrice(color=Color.create_random(),
+                         platform=Platform.create_random(),
+                         crafting_cost=CraftingCost.create_random(),
+                         price=Price.create_random(),
+                         blueprint=Blueprint.create_random())

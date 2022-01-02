@@ -1,21 +1,11 @@
 from __future__ import annotations
 
 from random import randint
-from typing import Final, Type, Optional
 
-from rl_data_utils.item.attribute.attribute import Attribute
-from rl_data_utils.item.attribute.attribute_info import AttributeInfo
-
-SetIntAttribute = Optional[int]
+from rl_data_utils.item.attribute.static_attribute import StaticItemAttribute
 
 
-class IntAttribute(Attribute, AttributeInfo):
-    attribute_type: Final[Type[int]] = int
-    undefined_value: Final[int] = 0
-
-    def __init__(self, attribute: SetIntAttribute):
-        super().__init__(attribute)
-
+class IntItemAttribute(StaticItemAttribute):
     @classmethod
-    def create_random(cls) -> IntAttribute:
+    def create_random(cls):
         return cls(randint(-100000, 100000))

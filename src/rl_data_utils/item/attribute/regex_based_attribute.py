@@ -1,26 +1,35 @@
 from __future__ import annotations
 
 from functools import lru_cache
-from re import match, IGNORECASE
+from re import match
 
-from typing import Union, Type, Dict, Optional
-
-from rl_data_utils.item.attribute.str_attribute import StrAttribute, SetStrAttribute
-
-SetRegexBasedAttribute = SetStrAttribute
+from rl_data_utils.exceptions import InvalidItemAttribute
+from rl_data_utils.item.attribute.str_attribute import StrItemAttribute
+from rl_data_utils.rocket_league.rocket_league import RegexBased, Validable
 
 
-class RegexBasedAttribute(StrAttribute):
-    _attribute_not_exists_exception: Type[Exception]
-    _is_reg: Dict[str, str]
-
-    def __init__(self, attribute: InitializeRegexBasedAttribute):
-        super(RegexBasedAttribute, self).__init__(attribute)
-        self.int_cache: Optional[int] = self.gen_int_cache()
+class RegexBasedItemAttribute(StrItemAttribute, RegexBased, Validable):
+    def __init__(self, value):
+        self.int_cache = None
+        super().__init__(value)
+        self.update_int_cache()
 
     @classmethod
     @lru_cache(maxsize=None)
-    def _is_exactly(cls, pattern_key: str, attribute: str) -> bool:
+    def _gen_int_cache(cls, attribute):
+        """
+        Generates an int cache if it's valid attribute
+        :param attribute: An attribute to use to generate an int cache
+        :return: An optional int cache
+        """
+        for i, k in enumerate(cls.possible_values):
+            if cls._is_exactly(k, attribute):
+                return i
+        return None
+
+    @classmethod
+    @lru_cache(maxsize=None)
+    def _is_exactly(cls, pattern_key, attribute):
         """
         Compares the attribute with some regex
         :param pattern_key: It's a key to a pattern regex in _is_reg
@@ -28,65 +37,46 @@ class RegexBasedAttribute(StrAttribute):
         :raise KeyError: If the pattern regex key is invalid
         :return: If the attribute is found in regex match
         """
-        return bool(match(cls._is_reg[pattern_key], attribute, IGNORECASE))
+        return bool(match(cls.regex_table[pattern_key], attribute))
 
-    def compare(self, attribute: Union[RegexBasedAttribute, str, None]) -> bool:
+    def compare(self, attribute) -> bool:
         """
         Compares the self attribute with another attribute
         :param attribute: Any attribute to be compared with self attribute
-        :raise TypeError: If attribute doesn't match with his type
         :return: If both attributes match with some regex
         """
-        attribute = self.initialize(attribute)
-        if super().compare(attribute):
-            return True
-        if self.has_int_cache() and attribute.has_int_cache():
-            return self.int_cache == attribute.int_cache
-        else:
-            return False
+        return self.int_cache == attribute.int_cache
 
-    def is_exactly(self, pattern_key: str) -> bool:
+    def get_respective(self):
+        """
+        It will return a self instance with the respective value
+        :return: An optional self instance with the respective value
+        """
+        if self.int_cache is None:
+            return None
+        else:
+            return self.__class__(self.possible_values[self.int_cache])
+
+    def is_exactly(self, pattern_key) -> bool:
         """
         Compares the self attribute with a specific regex given by pattern key
         :param pattern_key: It's a key to a pattern regex in _is_reg
-        :raise KeyError: If the pattern regex key is invalid
         :return: If self attribute match with the regex from pattern regex
         """
-        return self._is_exactly(pattern_key, self.attribute)
+        if self.int_cache is None:
+            return False
+        else:
+            return self.possible_values[self.int_cache] == pattern_key
 
-    def validate(self) -> None:
-        """
-        Validates the self attribute using _is_reg
-        :raise AttributeNotExists: If the attribute doesn't match with any regex
-        """
-        if not self.is_undefined() and not self.has_int_cache():
-            raise self._attribute_not_exists_exception(self.attribute)
+    def is_valid(self):
+        return self._is_valid_by_validate(InvalidItemAttribute)
 
-    @classmethod
-    @lru_cache(maxsize=None)
-    def _gen_int_cache(cls, attribute: str) -> Optional[int]:
+    def update_int_cache(self):
         """
-        Generates an int cache if it's valid attribute
-        :param attribute: An attribute to use to generate an int cache
-        :return: An optional int cache
+        It will update the int cache based on self value
         """
-        for i, k in enumerate(cls.constants):
-            if cls._is_exactly(k, attribute):
-                return i
+        self.int_cache = self._gen_int_cache(self.value)
 
-    def gen_int_cache(self) -> Optional[int]:
-        """
-        Generates an int cache if self instance is a valid attribute
-        :return: An optional int cache
-        """
-        return self._gen_int_cache(self.attribute)
-
-    def has_int_cache(self) -> bool:
-        """
-        Says if this instance has an int cache
-        :return: If it has an int cache
-        """
-        return self.int_cache is not None
-
-
-InitializeRegexBasedAttribute = Union[RegexBasedAttribute, str, None]
+    def validate(self):
+        if self.int_cache is None:
+            raise InvalidItemAttribute(f'Invalid value {self.value} to {self.__class__}.')

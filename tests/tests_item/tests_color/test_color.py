@@ -24,7 +24,7 @@ pair_hex = [
 
 
 @pytest.mark.parametrize('color,pair', pair_hex)
-def test_get_hex_color(color: List[str], pair: str):
+def test_get_hex_color(color, pair):
     for e in color:
         assert Color(e).get_hex() == pair
 
@@ -43,14 +43,9 @@ def test_is_color(color):
     assert Color(color).is_valid()
 
 
-@pytest.mark.parametrize('color', [*inventory_colors, *insider_colors])
-def test_validate_color(color):
-    Color(color).validate()
-
-
 @pytest.mark.parametrize('color_1,color_2', pair_equals)
 def test_compare_color(color_1, color_2):
-    assert Color(color_1).compare(color_2)
+    assert Color(color_1).compare(Color(color_2))
 
 
 @pytest.mark.parametrize('color', ['black'])
@@ -121,8 +116,3 @@ def test_is_sky_blue(color):
 @pytest.mark.parametrize('color', ['titanium white', 'tw'])
 def test_is_titanium_white(color):
     assert Color(color).is_exactly(TITANIUM_WHITE)
-
-
-@pytest.mark.parametrize('color', [None, ''])
-def test_is_undefined(color):
-    assert Color(color).is_undefined()

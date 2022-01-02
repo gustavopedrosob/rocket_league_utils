@@ -24,14 +24,9 @@ def test_is_certified(certified):
     assert Certified(certified).is_valid()
 
 
-@pytest.mark.parametrize('certified', [*inventory_certificates])
-def test_validate_certified(certified):
-    Certified(certified).validate()
-
-
 @pytest.mark.parametrize('certified_1,certified_2', pair_equals)
 def test_compare_certified(certified_1, certified_2):
-    assert Certified(certified_1).compare(certified_2)
+    assert Certified(certified_1).compare(Certified(certified_2))
 
 
 @pytest.mark.parametrize('certified', ['acrobat'])
@@ -82,9 +77,3 @@ def test_is_show_off(certified):
 @pytest.mark.parametrize('certified', ['sniper'])
 def test_is_sniper(certified):
     assert Certified(certified).is_exactly(SNIPER)
-
-
-@pytest.mark.parametrize('certified', [None, ''])
-def test_is_undefined(certified):
-    assert Certified(certified).is_undefined()
-
