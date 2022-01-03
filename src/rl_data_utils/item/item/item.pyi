@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Union, TypedDict, Optional
+from datetime import datetime
+from typing import Union, TypedDict, Optional
 
 from rl_data_utils.item.archived.archived import Archived
 from rl_data_utils.item.attribute.attribute import ItemAttribute
@@ -9,6 +10,7 @@ from rl_data_utils.item.blueprint.blueprint import Blueprint
 from rl_data_utils.item.certified.certified import Certified
 from rl_data_utils.item.color.color import Color
 from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.favorite.favorite import Favorite
 from rl_data_utils.item.item.represents_item import RepresentsItem
 from rl_data_utils.item.name.name import Name
 from rl_data_utils.item.paintable.paintable import Paintable
@@ -37,6 +39,7 @@ class ItemDict(TypedDict):
     serie: Serie
     tradable: Tradable
     crafting_cost: CraftingCost
+    favorite: Favorite
 
 
 class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
@@ -55,7 +58,8 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
                  serie: Optional[Serie] = ...,
                  tradable: Optional[Tradable] = ...,
                  crafting_cost: Optional[CraftingCost] = ...,
-                 **kwargs: dict[str, Any]) -> None:
+                 favorite: Optional[Favorite] = ...,
+                 acquired: Optional[datetime] = ...) -> None:
         self.archived = archived
         self.blueprint = blueprint
         self.certified = certified
@@ -70,7 +74,7 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
         self.slot = slot
         self.tradable = tradable
         self.crafting_cost = crafting_cost
-        self.unknown_arguments = kwargs
+        self.acquired = acquired
 
     def get_attributes_dict(self) -> ItemDict: ...
 

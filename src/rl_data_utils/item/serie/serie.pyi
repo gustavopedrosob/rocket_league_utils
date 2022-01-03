@@ -5,8 +5,6 @@ from typing import Literal
 from rl_data_utils.item.attribute.attribute_info import AttributeInfo
 from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
 from rl_data_utils.item.attribute_data.regex_based_list_attribute import RegexBasedListAttribute
-from rl_data_utils.item.item.constants import SERIE
-from rl_data_utils.item.serie.constants import SERIES
 
 SeriePatternKey = Literal[
     'Accelerator Series', 'Accolade 1 Series', 'Accolade 2 Series', 'Auriga Series', 'Beach Blast Series',

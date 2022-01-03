@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 from rl_data_utils.item.archived.archived import Archived
 from rl_data_utils.item.attribute.attribute import ItemAttribute
 from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
@@ -10,6 +8,7 @@ from rl_data_utils.item.blueprint.blueprint import Blueprint
 from rl_data_utils.item.certified.certified import Certified
 from rl_data_utils.item.color.color import Color
 from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.favorite.favorite import Favorite
 from rl_data_utils.item.item.represents_item import RepresentsItem
 from rl_data_utils.item.name.name import Name
 from rl_data_utils.item.paintable.paintable import Paintable
@@ -39,7 +38,8 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
                  serie=None,
                  tradable=None,
                  crafting_cost=None,
-                 **kwargs: dict[str, Any]) -> None:
+                 favorite=None,
+                 acquired=None) -> None:
         self.archived = archived
         self.blueprint = blueprint
         self.certified = certified
@@ -54,7 +54,8 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
         self.slot = slot
         self.tradable = tradable
         self.crafting_cost = crafting_cost
-        self.unknown_arguments = kwargs
+        self.favorite = favorite
+        self.acquired = acquired
 
     @classmethod
     def create_random(cls):
@@ -75,7 +76,8 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
                    price=Price.create_random(),
                    tradable=Tradable.create_random(),
                    crafting_cost=CraftingCost.create_random(),
-                   serie=Serie.create_random())
+                   serie=Serie.create_random(),
+                   favorite=Favorite.create_random())
 
     def is_non_crate(self, rarity):
         """

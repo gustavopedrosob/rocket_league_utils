@@ -21,7 +21,7 @@ class DataItem(RepresentsItem, AttributesCollectionManagement):
                  serie=None,
                  tradable=None,
                  crafting_cost=None,
-                 **kwargs):
+                 favorite=None):
         self.archived = archived
         self.blueprint = blueprint
         self.certified = certified
@@ -36,7 +36,7 @@ class DataItem(RepresentsItem, AttributesCollectionManagement):
         self.slot = slot
         self.tradable = tradable
         self.crafting_cost = crafting_cost
-        self.unknown_arguments = kwargs
+        self.favorite = favorite
 
     def to_item(self, serie=None, platform=None, color=None, rarity=None):
         """

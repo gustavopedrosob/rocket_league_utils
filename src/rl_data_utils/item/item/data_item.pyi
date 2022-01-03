@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Union, Dict, Any, TypedDict, Optional
+from typing import Union, TypedDict, Optional
 
 from rl_data_utils.item.archived.archived import Archived
 from rl_data_utils.item.attribute_data.attribute_data import AttributesCollectionManagement
@@ -8,6 +8,7 @@ from rl_data_utils.item.blueprint.blueprint import Blueprint
 from rl_data_utils.item.certified.certified import Certified, Certificates
 from rl_data_utils.item.color.color import Color, Colors
 from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.favorite.favorite import Favorite
 from rl_data_utils.item.item.item import Item
 from rl_data_utils.item.item.represents_item import RepresentsItem
 from rl_data_utils.item.name.name import Name
@@ -37,6 +38,7 @@ class DataItemDict(TypedDict):
     serie: Union[Serie, Series]
     tradable: Tradable
     crafting_cost: CraftingCost
+    favorite: Favorite
 
 
 
@@ -56,7 +58,7 @@ class DataItem(RepresentsItem, AttributesCollectionManagement):
                  serie: Optional[Union[Serie, Series]] = ...,
                  tradable: Optional[Tradable] = ...,
                  crafting_cost: Optional[CraftingCost] = ...,
-                 **kwargs: Dict[str, Any]):
+                 favorite: Optional[Favorite] = ...):
         self.archived = archived
         self.blueprint = blueprint
         self.certified = certified
@@ -71,7 +73,6 @@ class DataItem(RepresentsItem, AttributesCollectionManagement):
         self.slot = slot
         self.tradable = tradable
         self.crafting_cost = crafting_cost
-        self.unknown_arguments = kwargs
 
     def to_item(self,
                 serie: Optional[Serie] = ...,

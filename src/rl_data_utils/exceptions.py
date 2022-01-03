@@ -10,10 +10,6 @@ class IsNotInString(RocketLeagueException):
     pass
 
 
-class CantGenerateIntCache(RocketLeagueException):
-    pass
-
-
 class NameHaveNotCarName(Exception):
     def __init__(self, name: str) -> None:
         super().__init__(f'Item {name} don\'t have car name.')
@@ -32,10 +28,6 @@ class InvalidCreditsQuantity(InvalidItemAttribute):
 class NegativeItemAttribute(InvalidItemAttribute):
     def __init__(self) -> None:
         super().__init__('It can\'t be lower than zero.')
-
-
-class NullAttribute(RocketLeagueException):
-    pass
 
 
 class InvalidTrade(RocketLeagueException):

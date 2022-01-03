@@ -6,7 +6,7 @@ from rl_data_utils.trade.offer import Offer
 
 
 class Trade(RocketLeagueObject):
-    def __init__(self, my_offer: Offer, him_offer: Offer, date: Optional[datetime]):
+    def __init__(self, my_offer: Offer, him_offer: Offer, date: Optional[datetime] = ...):
         self.him_offer = him_offer
         self.my_offer = my_offer
         self.date = date
