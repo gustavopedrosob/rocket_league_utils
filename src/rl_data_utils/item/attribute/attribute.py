@@ -8,9 +8,10 @@ from statistics import mean
 from typing import ClassVar
 
 from rl_data_utils.exceptions import InvalidItemAttribute, InvalidCreditsQuantity, NegativeItemAttribute
-from rl_data_utils.item.attribute.constants import NONE, CERTIFICATES, BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, \
-    FOREST_GREEN, GREY, LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, COLORS, CARS_NAMES_WITH_DECAL, \
-    KINDS, NAMES, PLATFORMS, SERIES, SLOTS, RARITIES, RARE, VERY_RARE, IMPORT, EXOTIC, BLACK_MARKET, PREMIUM, LIMITED
+from rl_data_utils.item.attribute.constants import NONE, BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, \
+    FOREST_GREEN, GREY, LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, RARE, VERY_RARE, IMPORT, EXOTIC, BLACK_MARKET, PREMIUM, LIMITED
+from rl_data_utils.item.attribute_data.constants import CERTIFICATES, COLORS, CARS_NAMES_WITH_DECAL, NAMES, PLATFORMS, \
+    RARITIES, SERIES, SLOTS, KINDS
 from rl_data_utils.item.attribute.regexs import CERTIFIED_REGEX_TABLE, RARITY_REGEX_TABLE, SLOT_REGEX_TABLE, \
     SERIE_REGEX_TABLE, PLATFORM_REGEX_TABLE, COLOR_REGEX_TABLE
 from rl_data_utils.item.item.constants import ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, FAVORITE, NAME, PLATFORM, PRICE, \

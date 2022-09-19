@@ -7,7 +7,8 @@ from rl_data_utils.item.attribute.constants import ACCELERATOR_SERIES, ACCOLADE_
     GOLDEN_PUMPKIN_2020, GOLDEN_PUMPKIN_2019, GOLDEN_PUMPKIN_2018, HAUNTED_HALLOWS_SERIES, IGNITION_SERIES, \
     IMPACT_SERIES, MOMENTUM_SERIES, NITRO_SERIES, NON_CRATE, OVERDRIVE_SERIES, PLAYERS_CHOICE_SERIES, RLCS_REWARD, \
     SEASON_1, SECRET_SANTA_SERIES, SPRING_FEVER_SERIES, TOTALLY_AWESOME_SERIES, TRIUMPH_SERIES, TURBO_SERIES, \
-    VELOCITY_SERIES, VICTORY_SERIES, VINDICATOR_SERIES, ZEPHYR_SERIES, WWE_PROMO_CODE, SERIES
+    VELOCITY_SERIES, VICTORY_SERIES, VINDICATOR_SERIES, ZEPHYR_SERIES, WWE_PROMO_CODE
+from rl_data_utils.item.attribute_data.constants import SERIES
 from rl_data_utils.item.attribute_data.attribute_data import Series
 from rl_data_utils.item.attribute.attribute import Serie
 from tests_item.tests_serie.test_serie import inventory_series

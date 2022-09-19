@@ -1,6 +1,7 @@
 import pytest
 
-from rl_data_utils.item.attribute.constants import PC, PS4, SWITCH, XBOX, PLATFORMS
+from rl_data_utils.item.attribute.constants import PC, PS4, SWITCH, XBOX
+from rl_data_utils.item.attribute_data.constants import PLATFORMS
 from rl_data_utils.item.attribute.attribute import Platform
 from rl_data_utils.item.attribute_data.attribute_data import Platforms
 

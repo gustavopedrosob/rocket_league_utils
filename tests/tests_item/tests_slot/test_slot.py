@@ -1,7 +1,8 @@
 import pytest
 
 from rl_data_utils.item.attribute.constants import ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, \
-    PAINT_FINISH, ANTHEM, BANNER, BOOST, TOPPER, TRAIL, WHEEL, SLOTS
+    PAINT_FINISH, ANTHEM, BANNER, BOOST, TOPPER, TRAIL, WHEEL
+from rl_data_utils.item.attribute_data.constants import SLOTS
 from rl_data_utils.item.attribute.attribute import Slot
 
 inventory_slots = ['Engine Audio', 'Player Banner', 'Body', 'Topper', 'Goal Explosion', 'Wheels',

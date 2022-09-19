@@ -3,7 +3,8 @@ import pytest
 from rl_data_utils.item.attribute.attribute import Color
 from rl_data_utils.item.attribute_data.attribute_data import Colors
 from rl_data_utils.item.attribute.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, \
-    LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, COLORS
+    LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE
+from rl_data_utils.item.attribute_data.constants import COLORS
 from tests_item.tests_color.test_color import insider_colors, inventory_colors
 
 colors_data = Colors.from_str_list(COLORS)

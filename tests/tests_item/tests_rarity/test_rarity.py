@@ -1,7 +1,8 @@
 import pytest
 
 from rl_data_utils.item.attribute.constants import BLACK_MARKET, COMMON, EXOTIC, IMPORT, LEGACY, LIMITED, PREMIUM, RARE, \
-    UNCOMMON, VERY_RARE, RARITIES
+    UNCOMMON, VERY_RARE
+from rl_data_utils.item.attribute_data.constants import RARITIES
 from rl_data_utils.item.attribute.attribute import Rarity
 
 insider_rarities = ['Limited', 'Uncommon', 'Rare', 'Very Rare', 'Import', 'Exotic', 'Black Market']
