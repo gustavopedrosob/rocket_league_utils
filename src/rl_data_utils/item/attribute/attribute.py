@@ -8,7 +8,6 @@ from statistics import mean
 from typing import ClassVar
 
 from rl_data_utils.exceptions import InvalidItemAttribute, InvalidCreditsQuantity, NegativeItemAttribute
-from rl_data_utils.item.attribute.attribute_dict import AttributeDict
 from rl_data_utils.item.attribute.constants import NONE, CERTIFICATES, BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, \
     FOREST_GREEN, GREY, LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, COLORS, CARS_NAMES_WITH_DECAL, \
     KINDS, NAMES, PLATFORMS, SERIES, SLOTS, RARITIES, RARE, VERY_RARE, IMPORT, EXOTIC, BLACK_MARKET, PREMIUM, LIMITED
@@ -48,6 +47,12 @@ class StaticItemAttribute(ItemAttribute, metaclass=ABCMeta):
         :return: A self instance from a random value
         """
         return cls(cls.possible_values[randint(0, len(cls.possible_values) - 1)])
+
+    def __eq__(self, other):
+        return self.compare(other)
+
+    def __hash__(self):
+        return hash(self.__class__)
 
 
 class StrItemAttribute(StaticItemAttribute):
@@ -175,21 +180,21 @@ class Color(RegexBasedItemAttribute, ColorInfo, Defaultable):
         return hex_table[self]
 
 
-hex_table = AttributeDict([
-    (Color(CRIMSON), "#ff4d4d"),
-    (Color(SKY_BLUE), "#69ffff"),
-    (Color(PINK), "#ff8dce"),
-    (Color(ORANGE), "#da9a00"),
-    (Color(COBALT), "#8c9eff"),
-    (Color(BURNT_SIENNA), "#995e4d"),
-    (Color(TITANIUM_WHITE), "#fff"),
-    (Color(GREY), "#c4c4c4"),
-    (Color(SAFFRON), "#ff8"),
-    (Color(LIME), "#ccff4d"),
-    (Color(FOREST_GREEN), "#329536"),
-    (Color(BLACK), "#000"),
-    (Color(PURPLE), "#e974fd")
-])
+hex_table = {
+    Color(CRIMSON): "#ff4d4d",
+    Color(SKY_BLUE): "#69ffff",
+    Color(PINK): "#ff8dce",
+    Color(ORANGE): "#da9a00",
+    Color(COBALT): "#8c9eff",
+    Color(BURNT_SIENNA): "#995e4d",
+    Color(TITANIUM_WHITE): "#fff",
+    Color(GREY): "#c4c4c4",
+    Color(SAFFRON): "#ff8",
+    Color(LIME): "#ccff4d",
+    Color(FOREST_GREEN): "#329536",
+    Color(BLACK): "#000",
+    Color(PURPLE): "#e974fd"
+}
 
 
 class FavoriteInfo(AttributeInfo):
@@ -327,14 +332,15 @@ class Rarity(RegexBasedItemAttribute, RarityInfo):
         return rgb_table[self] + (tranparency,)
 
 
-rgb_table = AttributeDict([
-    (Rarity(RARE), (116, 151, 235)),
-    (Rarity(VERY_RARE), (158, 124, 252)),
-    (Rarity(IMPORT), (227, 90, 82)),
-    (Rarity(EXOTIC), (236, 219, 108)),
-    (Rarity(BLACK_MARKET), (255, 0, 255)),
-    (Rarity(PREMIUM), (107, 241, 174)),
-    (Rarity(LIMITED), (247, 121, 57))])
+rgb_table = {
+    Rarity(RARE): (116, 151, 235),
+    Rarity(VERY_RARE): (158, 124, 252),
+    Rarity(IMPORT): (227, 90, 82),
+    Rarity(EXOTIC): (236, 219, 108),
+    Rarity(BLACK_MARKET): (255, 0, 255),
+    Rarity(PREMIUM): (107, 241, 174),
+    Rarity(LIMITED): (247, 121, 57)
+}
 
 
 class SerieInfo(AttributeInfo):
