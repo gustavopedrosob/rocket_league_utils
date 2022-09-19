@@ -1,19 +1,12 @@
 from logging import info
 
-from rl_data_utils.item.archived.archived import Archived
-from rl_data_utils.item.blueprint.blueprint import Blueprint
-from rl_data_utils.item.certified.certified import Certified
-from rl_data_utils.item.color.color import Color
+from rl_data_utils.item.attribute.attribute import Archived, Blueprint, Certified, Color, Name, Platform, Quantity, \
+    Rarity, Slot
+from rl_data_utils.item.attribute.constants import EXOTIC, IMPORT, RARE, VERY_RARE
 from rl_data_utils.item.item.constants import INDENTIFIER
 from rl_data_utils.item.item.credit import Credit
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.paintable.paintable import Paintable
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.quantity.quantity import Quantity
-from rl_data_utils.item.rarity.constants import *
-from rl_data_utils.item.rarity.rarity import Rarity
-from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.attribute_data.attribute_data import Paintable
 
 
 def test_indentifier_compare():

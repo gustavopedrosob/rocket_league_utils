@@ -1,8 +1,9 @@
 import pytest
 
+from rl_data_utils.item.attribute.constants import BLACK_MARKET, COMMON, EXOTIC, IMPORT, LEGACY, LIMITED, PREMIUM, RARE, \
+    UNCOMMON, VERY_RARE
 from rl_data_utils.item.attribute_string.attribute_string import AttributeString
-from rl_data_utils.item.rarity.constants import *
-from rl_data_utils.item.rarity.rarity import Rarity
+from rl_data_utils.item.attribute.attribute import Rarity
 
 
 @pytest.mark.parametrize('rarity', ['bm', 'black market'])

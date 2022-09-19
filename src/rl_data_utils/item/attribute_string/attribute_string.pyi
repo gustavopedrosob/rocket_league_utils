@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic, Type
 
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
+from rl_data_utils.item.attribute.attribute import RegexBasedItemAttribute
 from rl_data_utils.rocket_league.rocket_league import RegexBased
 
 A = TypeVar('A', bound=RegexBasedItemAttribute)

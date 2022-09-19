@@ -3,8 +3,7 @@ from __future__ import annotations
 from typing import Optional
 
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.quantity.credits_quantity import CreditsQuantity
+from rl_data_utils.item.attribute.attribute import Platform, CreditsQuantity
 
 
 class Credit(Item):

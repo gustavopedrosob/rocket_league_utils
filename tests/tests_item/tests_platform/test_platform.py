@@ -1,6 +1,7 @@
 import pytest
-from rl_data_utils.item.platform.constants import *
-from rl_data_utils.item.platform.platform import Platform
+
+from rl_data_utils.item.attribute.constants import PC, PS4, SWITCH, XBOX
+from rl_data_utils.item.attribute.attribute import Platform
 
 pair_equals = [['pc', 'Pc'], ['ps4', 'Ps4'], ['xbox', 'Xbox'], ['switch', 'Switch']]
 

@@ -2,25 +2,12 @@ from __future__ import annotations
 
 from typing import Union, TypedDict, Optional
 
-from rl_data_utils.item.archived.archived import Archived
-from rl_data_utils.item.attribute_data.attribute_data import AttributesCollectionManagement
-from rl_data_utils.item.blueprint.blueprint import Blueprint
-from rl_data_utils.item.certified.certified import Certified, Certificates
-from rl_data_utils.item.color.color import Color, Colors
-from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
-from rl_data_utils.item.favorite.favorite import Favorite
+from rl_data_utils.item.attribute.attribute import Archived, Blueprint, Certified, Color, Favorite, Name, Platform, \
+    Price, Quantity, Rarity, Serie, Slot, Tradable
+from rl_data_utils.item.attribute_data.attribute_data import AttributesCollectionManagement, CraftingCost, Paintable, \
+    PriceData, Series, Slots, Certificates, Colors, Platforms, Rarities
 from rl_data_utils.item.item.item import Item
 from rl_data_utils.item.item.represents_item import RepresentsItem
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.paintable.paintable import Paintable
-from rl_data_utils.item.platform.platform import Platform, Platforms
-from rl_data_utils.item.price.price import Price
-from rl_data_utils.item.price.price_data import PriceData
-from rl_data_utils.item.quantity.quantity import Quantity
-from rl_data_utils.item.rarity.rarity import Rarity, Rarities
-from rl_data_utils.item.serie.serie import Serie, Series
-from rl_data_utils.item.slot.slot import Slot, Slots
-from rl_data_utils.item.tradable.tradable import Tradable
 
 
 class DataItemDict(TypedDict):

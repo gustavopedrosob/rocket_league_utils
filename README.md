@@ -8,7 +8,8 @@ Por exemplo, imagine que voce tem duas strings que se referem a cor Titanium Whi
 o nosso pacote voce consegue facilmente compara-las:
 
 ```py
-from rl_data_utils.item.color.color import Color
+
+from rl_data_utils.item.attribute.attribute import Color
 
 Color("tw").compare("white")
 ```

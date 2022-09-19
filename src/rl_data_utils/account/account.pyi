@@ -1,6 +1,6 @@
 from typing import Optional
 
-from rl_data_utils.item.platform.platform import Platform
+from rl_data_utils.item.attribute.attribute import Platform
 
 
 class Account:

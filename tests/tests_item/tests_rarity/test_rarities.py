@@ -1,7 +1,9 @@
 import pytest
 
-from rl_data_utils.item.rarity.constants import *
-from rl_data_utils.item.rarity.rarity import Rarities, Rarity
+from rl_data_utils.item.attribute.constants import BLACK_MARKET, COMMON, EXOTIC, IMPORT, LEGACY, LIMITED, PREMIUM, RARE, \
+    UNCOMMON, VERY_RARE, RARITIES
+from rl_data_utils.item.attribute.attribute import Rarity
+from rl_data_utils.item.attribute_data.attribute_data import Rarities
 from tests_item.tests_rarity.test_rarity import inventory_rarities, insider_rarities
 
 

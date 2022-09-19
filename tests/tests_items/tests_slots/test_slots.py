@@ -1,7 +1,8 @@
 import pytest
 
-from rl_data_utils.item.slot.constants import *
-from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.attribute.constants import ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, GIFT_PACK, \
+    PAINT_FINISH, ANTHEM, BANNER, BOOST, TOPPER, TRAIL, WHEEL
+from rl_data_utils.item.attribute.attribute import Slot
 from tests_items.tests_certificates.test_items_certificates import samples_items
 
 

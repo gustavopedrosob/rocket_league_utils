@@ -1,7 +1,8 @@
 import pytest
 
-from rl_data_utils.item.certified.certified import Certified
-from rl_data_utils.item.certified.constants import *
+from rl_data_utils.item.attribute.attribute import Certified
+from rl_data_utils.item.attribute.constants import AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, NONE, PARAGON, \
+    PLAYMAKER, SCORER, SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR
 from test_items import inventory_items
 from test_items_data import gameflip_data
 from test_items_rl_insider import rl_insider_items

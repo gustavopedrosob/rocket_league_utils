@@ -3,24 +3,11 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Union, TypedDict, Optional
 
-from rl_data_utils.item.archived.archived import Archived
-from rl_data_utils.item.attribute.attribute import ItemAttribute
-from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
-from rl_data_utils.item.blueprint.blueprint import Blueprint
-from rl_data_utils.item.certified.certified import Certified
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
-from rl_data_utils.item.favorite.favorite import Favorite
+from rl_data_utils.item.attribute.attribute import ItemAttribute, Archived, Blueprint, Certified, Color, Favorite, Name, \
+    Platform, Price, Quantity, Rarity, Serie, Slot, Tradable
+from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement, \
+    CraftingCost, Paintable
 from rl_data_utils.item.item.represents_item import RepresentsItem
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.paintable.paintable import Paintable
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.price.price import Price
-from rl_data_utils.item.quantity.quantity import Quantity
-from rl_data_utils.item.rarity.rarity import Rarity
-from rl_data_utils.item.serie.serie import Serie
-from rl_data_utils.item.slot.slot import Slot
-from rl_data_utils.item.tradable.tradable import Tradable
 from rl_data_utils.rocket_league.rocket_league import FromStr
 
 

@@ -2,8 +2,7 @@ from json import load
 
 from rl_data_utils.item.item.credit import Credit
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.quantity.credits_quantity import CreditsQuantity
+from rl_data_utils.item.attribute.attribute import Name, CreditsQuantity
 from rl_data_utils.items.trade_items import TradeItems
 from rl_data_utils.trade.offer import Offer
 from rl_data_utils.trade.trade import Trade

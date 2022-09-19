@@ -1,7 +1,8 @@
 import pytest
 
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.color.constants import *
+from rl_data_utils.item.attribute.attribute import Color
+from rl_data_utils.item.attribute.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, \
+    LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE
 from tests_items.tests_certificates.test_items_certificates import samples_items
 
 

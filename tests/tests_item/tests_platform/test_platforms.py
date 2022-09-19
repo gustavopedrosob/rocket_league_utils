@@ -1,8 +1,8 @@
 import pytest
 
-from rl_data_utils.item.platform.constants import *
-from rl_data_utils.item.platform.platform import Platforms, Platform
-
+from rl_data_utils.item.attribute.constants import PC, PS4, SWITCH, XBOX, PLATFORMS
+from rl_data_utils.item.attribute.attribute import Platform
+from rl_data_utils.item.attribute_data.attribute_data import Platforms
 
 platforms_data = Platforms.from_str_list(PLATFORMS)
 

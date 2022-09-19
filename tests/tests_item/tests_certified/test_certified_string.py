@@ -1,8 +1,9 @@
 import pytest
 
+from rl_data_utils.item.attribute.constants import AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, PARAGON, PLAYMAKER, \
+    SCORER, SHOW_OFF, SNIPER
 from rl_data_utils.item.attribute_string.attribute_string import AttributeString
-from rl_data_utils.item.certified.certified import Certified
-from rl_data_utils.item.certified.constants import *
+from rl_data_utils.item.attribute.attribute import Certified
 
 
 @pytest.mark.parametrize('certified_string,certified_expected', [['sTRIKEr', 'Striker']])

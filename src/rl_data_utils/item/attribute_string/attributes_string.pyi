@@ -1,12 +1,6 @@
 from typing import TypedDict, List, Optional
 
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.rarity.rarity import Rarity
-from rl_data_utils.item.serie.serie import Serie
-from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.attribute.attribute import Color, Name, Platform, Rarity, Serie, Slot, RegexBasedItemAttribute
 
 
 class T(TypedDict):

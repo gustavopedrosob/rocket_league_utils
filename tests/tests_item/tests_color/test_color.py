@@ -1,6 +1,7 @@
 import pytest
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.color.constants import *
+from rl_data_utils.item.attribute.attribute import Color
+from rl_data_utils.item.attribute.constants import BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, \
+    LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, COLORS
 
 inventory_colors = ['Crimson', 'Sky Blue', 'Pink', 'Orange', 'Cobalt', 'Burnt Sienna', 'Titanium White', 'Grey',
                     'Saffron', 'Lime', 'Forest Green', 'Black', 'Purple']

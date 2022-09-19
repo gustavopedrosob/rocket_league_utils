@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-from rl_data_utils.item.archived.archived import Archived
+from rl_data_utils.item.attribute.attribute import Archived, Name, Rarity, Tradable
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.item.name.constants import CREDITS
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.rarity.constants import PREMIUM
-from rl_data_utils.item.rarity.rarity import Rarity
-from rl_data_utils.item.tradable.tradable import Tradable
+from rl_data_utils.item.attribute.constants import CREDITS, PREMIUM
 
 
 class Credit(Item):

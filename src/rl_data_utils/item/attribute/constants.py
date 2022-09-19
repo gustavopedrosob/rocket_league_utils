@@ -1,14 +1,44 @@
-# noinspection SpellCheckingInspection
+AVIATOR = "Aviator"
+ACROBAT = "Acrobat"
+GOALKEEPER = "Goalkeeper"
+GUARDIAN = "Guardian"
+JUGGLER = "Juggler"
+NONE = "None"
+PARAGON = "Paragon"
+PLAYMAKER = "Playmaker"
+SCORER = "Scorer"
+SHOW_OFF = "Show-off"
+SNIPER = "Sniper"
+STRIKER = "Striker"
+SWEEPER = "Sweeper"
+TACTICIAN = "Tactician"
+TURTLE = "Turtle"
+VICTOR = "Victor"
+CERTIFICATES = [AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, NONE, PARAGON, PLAYMAKER, SCORER, PLAYMAKER, SCORER,
+                SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR]
+BLACK = "Black"
+BURNT_SIENNA = "Burnt Sienna"
+COBALT = "Cobalt"
+CRIMSON = "Crimson"
+DEFAULT = "Default"
+FOREST_GREEN = "Forest Green"
+GREY = "Grey"
+LIME = "Lime"
+ORANGE = "Orange"
+PINK = "Pink"
+PURPLE = "Purple"
+SAFFRON = "Saffron"
+SKY_BLUE = "Sky Blue"
+TITANIUM_WHITE = "Titanium White"
+COLORS = [BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, LIME, ORANGE, PINK,
+          PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE]
 CARS_NAMES_WITH_DECAL = ['Breakout Type-S', 'Imperator DT5', 'Peregrine TT', 'Takumi RX-T', 'X-Devil Mk2', 'Aftershock',
                          'Dominus GT', 'Octane ZSR', 'Animus GP', 'Harbinger', 'Jäger 619', 'Breakout', 'Marauder',
                          'Masamune', 'Maverick', 'Road Hog', 'Sentinel', 'Diestro', 'Dominus', 'Hotshot', 'Insidio',
                          'Paladin', 'Twinzer', 'X-Devil', 'Centio', 'Fennec', 'Komodo', 'Mantis', 'Mudcat', 'Octane',
                          'Ripper', 'Takumi', 'Triton', 'Tygris', 'Dingo', 'Esper', 'Gizmo', 'Venom', 'Endo', 'Merc']
-
 KINDS = ['Infinite', 'Inverted', 'Holographic']
-
 CREDITS = 'Credits'
-# noinspection SpellCheckingInspection
 NAMES = [
     "Bundle",
     "Credit",
@@ -1411,3 +1441,90 @@ NAMES = [
     "Bootlegger",
     "Heinrich"
 ]
+PC = 'Pc'
+PS4 = 'Ps4'
+SWITCH = 'Switch'
+XBOX = 'Xbox'
+PLATFORMS = [PC,  PS4, SWITCH, XBOX]
+BLACK_MARKET = "Black market"
+COMMON = "Common"
+EXOTIC = "Exotic"
+IMPORT = "Import"
+LEGACY = "Legacy"
+LIMITED = "Limited"
+PREMIUM = "Premium"
+RARE = "Rare"
+UNCOMMON = "Uncommon"
+VERY_RARE = "Very rare"
+RARITIES = [BLACK_MARKET, COMMON, EXOTIC, IMPORT, LIMITED, PREMIUM, RARE, UNCOMMON, VERY_RARE, LEGACY]
+ACCELERATOR_SERIES = 'Accelerator Series'
+ACCOLADE_SERIES_1 = 'Accolade 1 Series'
+ACCOLADE_SERIES_2 = 'Accolade 2 Series'
+AURIGA_SERIES = 'Auriga Series'
+BEACH_BLAST_SERIES = 'Beach Blast Series'
+BONUS_GIFT = 'Bonus Gift'
+CHAMPIONS_1_SERIES = 'Champions 1 Series'
+CHAMPIONS_2_SERIES = 'Champions 2 Series'
+CHAMPIONS_3_SERIES = 'Champions 3 Series'
+CHAMPIONS_4_SERIES = 'Champions 4 Series'
+ELEVATION_SERIES = 'Elevation Series'
+FEROCITY_SERIES = 'Ferocity Series'
+GOLDEN_EGG_2020 = 'Golden Egg 2020'
+GOLDEN_EGG_2019 = 'Golden Egg 2019'
+GOLDEN_EGG_2018 = 'Golden Egg 2018'
+GOLDEN_GIFT_2020 = 'Golden Gift 2020'
+GOLDEN_GIFT_2019 = 'Golden Gift 2019'
+GOLDEN_GIFT_2018 = 'Golden Gift 2018'
+GOLDEN_LANTERN_2021 = 'Golden Lantern 2021'
+GOLDEN_LANTERN_2020 = 'Golden Lantern 2020'
+GOLDEN_LANTERN_2019 = 'Golden Lantern 2019'
+GOLDEN_PUMPKIN_2020 = 'Golden Pumpkin 2020'
+GOLDEN_PUMPKIN_2019 = 'Golden Pumpkin 2019'
+GOLDEN_PUMPKIN_2018 = 'Golden Pumpkin 2018'
+HAUNTED_HALLOWS_SERIES = 'Haunted Hallows Series'
+IGNITION_SERIES = 'Ignition Series'
+IMPACT_SERIES = 'Impact Series'
+MOMENTUM_SERIES = 'Momentum Series'
+NITRO_SERIES = 'Nitro Series'
+NON_CRATE = 'Non Crate'
+OVERDRIVE_SERIES = 'Overdrive Series'
+PLAYERS_CHOICE_SERIES = 'Player\'s Choice Series'
+RLCS_REWARD = 'RLCS Reward'
+SEASON_1 = 'Season 1'
+SECRET_SANTA_SERIES = 'Secret Santa Series'
+SPRING_FEVER_SERIES = 'Spring Fever Series'
+TOTALLY_AWESOME_SERIES = 'Totally Awesome Series'
+TRIUMPH_SERIES = 'Triumph Series'
+TURBO_SERIES = 'Turbo Series'
+VELOCITY_SERIES = 'Velocity Series'
+VICTORY_SERIES = 'Victory Series'
+VINDICATOR_SERIES = 'Vindicator Series'
+ZEPHYR_SERIES = 'Zephyr Series'
+WWE_PROMO_CODE = 'WWE Promo Code'
+SERIES = [
+    ACCELERATOR_SERIES, ACCOLADE_SERIES_1, ACCOLADE_SERIES_2, AURIGA_SERIES, BEACH_BLAST_SERIES, BONUS_GIFT,
+    CHAMPIONS_1_SERIES, CHAMPIONS_2_SERIES, CHAMPIONS_3_SERIES, CHAMPIONS_4_SERIES, ELEVATION_SERIES, FEROCITY_SERIES,
+    GOLDEN_EGG_2018, GOLDEN_EGG_2019, GOLDEN_EGG_2020, GOLDEN_GIFT_2018, GOLDEN_GIFT_2019, GOLDEN_GIFT_2020,
+    GOLDEN_LANTERN_2019, GOLDEN_LANTERN_2020, GOLDEN_LANTERN_2021, GOLDEN_PUMPKIN_2018, GOLDEN_PUMPKIN_2019,
+    GOLDEN_PUMPKIN_2020, HAUNTED_HALLOWS_SERIES, IGNITION_SERIES, IMPACT_SERIES, MOMENTUM_SERIES, NITRO_SERIES,
+    NON_CRATE, OVERDRIVE_SERIES, PLAYERS_CHOICE_SERIES, RLCS_REWARD, SEASON_1, SECRET_SANTA_SERIES, SPRING_FEVER_SERIES,
+    TOTALLY_AWESOME_SERIES, TRIUMPH_SERIES, TURBO_SERIES, VELOCITY_SERIES, VICTORY_SERIES, VINDICATOR_SERIES,
+    ZEPHYR_SERIES, WWE_PROMO_CODE]
+ANTENNA = "Antenna"
+BORDER = "Avatar Border"
+CAR = "Car"
+BLUEPRINT = 'Blueprint'
+DECAL = "Decal"
+ENGINE_AUDIO = "Engine Audio"
+GOAL_EXPLOSION = "Goal Explosion"
+GIFT_PACK = "Gift Pack"
+PAINT_FINISH = "Paint Finish"
+ANTHEM = "Anthem"
+BANNER = "Banner"
+BOOST = "Boost"
+TOPPER = "Topper"
+TRAIL = "Trail"
+WHEEL = "Wheel"
+TITLE = 'Title'
+SLOTS = [ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, PAINT_FINISH, ANTHEM, BANNER,
+         BOOST, TOPPER, TRAIL, WHEEL]

@@ -1,4 +1,4 @@
-from rl_data_utils.item.name.name import Name
+from rl_data_utils.item.attribute.attribute import Name
 
 
 def test_from_random():

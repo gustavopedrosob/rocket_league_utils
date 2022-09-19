@@ -1,7 +1,8 @@
 import pytest
 
-from rl_data_utils.item.certified.certified import Certified
-from rl_data_utils.item.certified.constants import *
+from rl_data_utils.item.attribute.attribute import Certified
+from rl_data_utils.item.attribute.constants import AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, PARAGON, PLAYMAKER, \
+    SCORER, SHOW_OFF, SNIPER, CERTIFICATES
 
 inventory_certificates = ['Aviator', 'Acrobat', 'Victor', 'Striker', 'Sniper', 'Scorer', 'Playmaker', 'Guardian',
                           'Paragon', 'Sweeper', 'Turtle', 'Tactician', 'Show-off', 'Juggler', 'Goalkeeper']

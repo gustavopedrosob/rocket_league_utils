@@ -1,16 +1,8 @@
 from json import load
 
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.crafting_cost.crafting_cost import CraftingCost
+from rl_data_utils.item.attribute.attribute import Color, Name, Platform, Price, CreditsQuantity, Slot
+from rl_data_utils.item.attribute_data.attribute_data import CraftingCost, Paintable, DataPrice, PriceData
 from rl_data_utils.item.item.data_item import DataItem
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.paintable.paintable import Paintable
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.price.data_price import DataPrice
-from rl_data_utils.item.price.price import Price
-from rl_data_utils.item.price.price_data import PriceData
-from rl_data_utils.item.quantity.credits_quantity import CreditsQuantity
-from rl_data_utils.item.slot.slot import Slot
 from rl_data_utils.items.items import Items
 
 with open('sample-items-rl-insider.json', 'r') as file:

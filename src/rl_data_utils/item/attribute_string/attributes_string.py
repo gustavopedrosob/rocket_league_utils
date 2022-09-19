@@ -2,12 +2,7 @@ from __future__ import annotations
 
 from rl_data_utils.exceptions import IsNotInString
 from rl_data_utils.item.attribute_string.attribute_string import AttributeString
-from rl_data_utils.item.color.color import Color
-from rl_data_utils.item.name.name import Name
-from rl_data_utils.item.platform.platform import Platform
-from rl_data_utils.item.rarity.rarity import Rarity
-from rl_data_utils.item.serie.serie import Serie
-from rl_data_utils.item.slot.slot import Slot
+from rl_data_utils.item.attribute.attribute import Color, Name, Platform, Rarity, Serie, Slot
 
 
 class AttributesString:

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, TypeVar, Generic, List, Tuple
 
-from rl_data_utils.item.attribute.regex_based_attribute import RegexBasedItemAttribute
+from rl_data_utils.item.attribute.attribute import RegexBasedItemAttribute
 
 K = TypeVar('K', bound=RegexBasedItemAttribute)
 V = TypeVar('V', bound=Any)
