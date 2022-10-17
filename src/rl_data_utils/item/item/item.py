@@ -4,12 +4,10 @@ from rl_data_utils.item.attribute.attribute import ItemAttribute, Archived, Blue
     Platform, Price, Quantity, Rarity, Serie, Slot, Tradable
 from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement, \
     CraftingCost, Paintable
-from rl_data_utils.item.attribute_string.attributes_string import AttributesString
 from rl_data_utils.item.item.represents_item import RepresentsItem
-from rl_data_utils.rocket_league.rocket_league import FromStr
 
 
-class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
+class Item(AttributesCollectionManagement, RepresentsItem):
     def __init__(self,
                  archived=None,
                  name=None,
@@ -73,15 +71,6 @@ class Item(AttributesCollectionManagement, FromStr, RepresentsItem):
         :return: If self is non crate and has some rarity
         """
         return not self.serie and self.rarity.compare(rarity)
-
-    @classmethod
-    def from_str(cls, string: str):
-        """
-        Creates a self instance by a string
-        :param string: Any string that represents some item
-        :return: An instance of Item
-        """
-        return cls(**AttributesString(string).get_attributes_dict())
 
     @staticmethod
     def match_attributes(attribute_1, attribute_2) -> bool:

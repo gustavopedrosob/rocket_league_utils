@@ -3,21 +3,22 @@ from __future__ import annotations
 from abc import ABCMeta
 from functools import lru_cache
 from random import randrange, randint
-from re import search, IGNORECASE, sub, match
+from re import search, IGNORECASE, sub
 from statistics import mean
-from typing import ClassVar
+from typing import ClassVar, Union, Tuple, List, Optional
 
-from rl_data_utils.exceptions import InvalidItemAttribute, InvalidCreditsQuantity, NegativeItemAttribute
-from rl_data_utils.item.attribute.constants import NONE, BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, \
-    FOREST_GREEN, GREY, LIME, ORANGE, PINK, PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, RARE, VERY_RARE, IMPORT, EXOTIC, BLACK_MARKET, PREMIUM, LIMITED
-from rl_data_utils.item.attribute_data.constants import CERTIFICATES, COLORS, CARS_NAMES_WITH_DECAL, NAMES, PLATFORMS, \
-    RARITIES, SERIES, SLOTS, KINDS
-from rl_data_utils.item.attribute.regexs import CERTIFIED_REGEX_TABLE, RARITY_REGEX_TABLE, SLOT_REGEX_TABLE, \
-    SERIE_REGEX_TABLE, PLATFORM_REGEX_TABLE, COLOR_REGEX_TABLE
+from rl_data_utils.item.attribute import identities
+from rl_data_utils.exceptions import InvalidAttribute, InvalidCreditsQuantity, NegativeItemAttribute
+from rl_data_utils.item.attribute.constants import NONE, DEFAULT, CRIMSON, SKY_BLUE, PINK, ORANGE, COBALT,\
+    BURNT_SIENNA, TITANIUM_WHITE, GREY, SAFFRON, LIME, FOREST_GREEN, BLACK, PURPLE, RARE, VERY_RARE, IMPORT, EXOTIC,\
+    BLACK_MARKET, PREMIUM, LIMITED
+from rl_data_utils.item.attribute.identities import Identities
+from rl_data_utils.item.attribute_data.alias import CERTIFICATES, COLORS, PLATFORMS, RARITIES, SERIES, SLOTS
+from rl_data_utils.item.attribute_data.constants import NAMES, CARS_NAMES_WITH_DECAL, KINDS
 from rl_data_utils.item.item.constants import ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, FAVORITE, NAME, PLATFORM, PRICE, \
     QUANTITY, RARITY, SERIE, SLOT, TRADABLE
 from rl_data_utils.rocket_league.rocket_league import Comparable, Randomizable, RocketLeagueObject, Defaultable, \
-    Validable, RegexBased, Identifiable, Orderable
+    Validable, Identifiable, Orderable
 
 
 class AttributeInfo(Identifiable, Orderable):
@@ -52,9 +53,6 @@ class StaticItemAttribute(ItemAttribute, metaclass=ABCMeta):
     def __eq__(self, other):
         return self.compare(other)
 
-    def __hash__(self):
-        return hash(self.__class__)
-
 
 class StrItemAttribute(StaticItemAttribute):
     pass
@@ -87,82 +85,70 @@ class CertifiedInfo(AttributeInfo):
     order = 5
 
 
-class RegexBasedItemAttribute(StrItemAttribute, RegexBased, Validable):
-    def __init__(self, value):
-        self.int_cache = None
-        super().__init__(value)
-        self.update_int_cache()
+class RegexBasedItemAttribute(ItemAttribute):
+    identities: Identities = None
+    possible_values: List[str] = None
 
-    @classmethod
-    @lru_cache(maxsize=None)
-    def _gen_int_cache(cls, attribute):
-        """
-        Generates an int cache if it's valid attribute
-        :param attribute: An attribute to use to generate an int cache
-        :return: An optional int cache
-        """
-        for i, k in enumerate(cls.possible_values):
-            if cls._is_exactly(k, attribute):
-                return i
-        return None
+    def __init__(self, identifier: Union[Tuple[int, int], str]):
+        if isinstance(identifier, tuple):
+            self._id, self._sub_id = identifier
+        else:
+            self.set(identifier)
 
-    @classmethod
-    @lru_cache(maxsize=None)
-    def _is_exactly(cls, pattern_key, attribute):
-        """
-        Compares the attribute with some regex
-        :param pattern_key: It's a key to a pattern regex in _is_reg
-        :param attribute: Any attribute to be used in regex match
-        :raise KeyError: If the pattern regex key is invalid
-        :return: If the attribute is found in regex match
-        """
-        return bool(match(cls.regex_table[pattern_key], attribute))
+    def get(self) -> str:
+        return self.identities.get_identity(self._id).get_string_identity_by_id(self._sub_id).alias
 
-    def compare(self, attribute) -> bool:
+    def set(self, string: str):
+        identity, string_identity = self.identities.identify(string)
+        self._id, self._sub_id = identity.id_, string_identity.id_
+
+    def compare(self, attribute: RegexBasedItemAttribute, exactly: bool = False) -> bool:
         """
         Compares the self attribute with another attribute
         :param attribute: Any attribute to be compared with self attribute
+        :param exactly: Compares if itself is almost exactly the same as the other one
         :return: If both attributes match with some regex
         """
-        return self.int_cache == attribute.int_cache
+        return self._is_exactly(attribute._id, attribute._sub_id if exactly else None)
 
-    def get_respective(self):
+    def __eq__(self, other):
+        return self.compare(other)
+
+    def __hash__(self):
+        return hash(self.__class__)
+
+    def get_representative(self):
         """
         It will return a self instance with the respective value
         :return: An optional self instance with the respective value
         """
-        if self.int_cache is None:
-            return None
+        return self.identities.get_identity(self._id).get_string_identity_by_id(0).alias
+
+    def is_exactly(self, alias: str, ignore_sub_id: bool = True) -> bool:
+        identity, string_identity = self.identities.identify_by_alias(alias)
+        return self._is_exactly(identity.id_, None if ignore_sub_id else string_identity.id_)
+
+    def _is_exactly(self, id_: int, sub_id: Optional[int] = None) -> bool:
+        if sub_id is None:
+            return self._id == id_
         else:
-            return self.__class__(self.possible_values[self.int_cache])
+            return self._id == id_ and self._sub_id == sub_id
 
-    def is_exactly(self, pattern_key) -> bool:
-        """
-        Compares the self attribute with a specific regex given by pattern key
-        :param pattern_key: It's a key to a pattern regex in _is_reg
-        :return: If self attribute match with the regex from pattern regex
-        """
-        if self.int_cache is None:
-            return False
+    @classmethod
+    def create_random(cls):
+        return cls(cls.possible_values[randint(0, len(cls.possible_values) - 1)])
+
+    @classmethod
+    def from_text(cls, text: str, alias_to_find: Optional[str] = None):
+        if alias_to_find is None:
+            identity, string_identity = cls.identities.identify_in_text(text)
         else:
-            return self.possible_values[self.int_cache] == pattern_key
-
-    def is_valid(self):
-        return self._is_valid_by_validate(InvalidItemAttribute)
-
-    def update_int_cache(self):
-        """
-        It will update the int cache based on self value
-        """
-        self.int_cache = self._gen_int_cache(self.value)
-
-    def validate(self):
-        if self.int_cache is None:
-            raise InvalidItemAttribute(f'Invalid value {self.value} to {self.__class__}.')
+            identity, string_identity = cls.identities.identify_exactly_in_text(text, alias_to_find)
+        return cls((identity.id_, string_identity.id_))
 
 
 class Certified(RegexBasedItemAttribute, CertifiedInfo, Defaultable):
-    regex_table = CERTIFIED_REGEX_TABLE
+    identities = identities.CERTIFIEDS
     possible_values = CERTIFICATES
     default_args = [NONE], dict()
 
@@ -173,11 +159,11 @@ class ColorInfo(AttributeInfo):
 
 
 class Color(RegexBasedItemAttribute, ColorInfo, Defaultable):
-    regex_table = COLOR_REGEX_TABLE
+    identities = identities.COLORS
     possible_values = COLORS
     default_args = [DEFAULT], dict()
 
-    def get_hex(self):
+    def get_hex(self) -> str:
         return hex_table[self]
 
 
@@ -252,7 +238,7 @@ class PlatformInfo(AttributeInfo):
 
 
 class Platform(RegexBasedItemAttribute, PlatformInfo):
-    regex_table = PLATFORM_REGEX_TABLE
+    identities = identities.PLATFORMS
     possible_values = PLATFORMS
 
 
@@ -326,7 +312,7 @@ class RarityInfo(AttributeInfo):
 
 
 class Rarity(RegexBasedItemAttribute, RarityInfo):
-    regex_table = RARITY_REGEX_TABLE
+    identities = identities.RARITIES
     possible_values = RARITIES
 
     def get_rgba(self, tranparency):
@@ -350,7 +336,7 @@ class SerieInfo(AttributeInfo):
 
 
 class Serie(RegexBasedItemAttribute, SerieInfo):
-    regex_table = SERIE_REGEX_TABLE
+    identities = identities.SERIES
     possible_values = SERIES
 
 
@@ -360,7 +346,7 @@ class SlotInfo(AttributeInfo):
 
 
 class Slot(RegexBasedItemAttribute, SlotInfo):
-    regex_table = SLOT_REGEX_TABLE
+    identities = identities.SLOTS
     possible_values = SLOTS
 
 

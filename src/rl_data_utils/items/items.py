@@ -1,19 +1,23 @@
 from __future__ import annotations
 
 from functools import reduce
+from typing import List
 
-from rl_data_utils.exceptions import InvalidItemAttribute
 from rl_data_utils.item.item.constants import FULL
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Filterable, Validable, CanBeEmpty
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Filterable, CanBeEmpty
 
 
-class Items(RocketLeagueObject, Filterable, Validable, CanBeEmpty):
-    def __init__(self, items):
+class Items(RocketLeagueObject, Filterable, CanBeEmpty):
+    def __init__(self, items: List[Item] = []):
         self.items = items
 
     def __iter__(self):
         yield from self.items
+
+    def add_items(self, *items: List[Item]):
+        for item in items:
+            self.items.append(item)
 
     def filter_by_item(self, item: Item, attrs=None):
         """
@@ -53,16 +57,6 @@ class Items(RocketLeagueObject, Filterable, Validable, CanBeEmpty):
         :return: A self instance with items that match with condition
         """
         return Items(list(filter(condition, self.items)))
-
-    def filter_valid(self):
-        """
-        Filters valid items
-        :return: A self instance with valid items
-        """
-        return self.filter_by_condition(lambda item: item.is_valid())
-
-    def is_valid(self):
-        return self._is_valid_by_validate(InvalidItemAttribute)
 
     def validate(self):
         for item in self.items:

@@ -21,11 +21,6 @@ def test_from_random():
     print(Certified.create_random())
 
 
-@pytest.mark.parametrize('certified', [*inventory_certificates])
-def test_is_certified(certified):
-    assert Certified(certified).is_valid()
-
-
 @pytest.mark.parametrize('certified_1,certified_2', pair_equals)
 def test_compare_certified(certified_1, certified_2):
     assert Certified(certified_1).compare(Certified(certified_2))

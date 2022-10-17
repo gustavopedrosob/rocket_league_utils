@@ -22,11 +22,6 @@ def test_get_respective_color(color):
 
 
 @pytest.mark.parametrize('colors', [COLORS])
-def test_are_valid_colors(colors):
-    assert colors_data.is_valid()
-
-
-@pytest.mark.parametrize('colors', [COLORS])
 def test_has_black(colors):
     assert colors_data.has(Color(BLACK))
 

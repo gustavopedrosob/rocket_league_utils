@@ -2,11 +2,11 @@ class RocketLeagueException(Exception):
     pass
 
 
-class InvalidItemAttribute(RocketLeagueException):
+class InvalidAttribute(RocketLeagueException):
     pass
 
 
-class IsNotInString(RocketLeagueException):
+class UnrecognizableAttribute(InvalidAttribute):
     pass
 
 
@@ -20,12 +20,12 @@ class TradeSizeError(RocketLeagueException):
         super(TradeSizeError, self).__init__('A trade can\'t has more than 24 items.')
 
 
-class InvalidCreditsQuantity(InvalidItemAttribute):
+class InvalidCreditsQuantity(InvalidAttribute):
     def __init__(self) -> None:
         super().__init__('A credit need to be a quantity divisible for 10.')
 
 
-class NegativeItemAttribute(InvalidItemAttribute):
+class NegativeItemAttribute(InvalidAttribute):
     def __init__(self) -> None:
         super().__init__('It can\'t be lower than zero.')
 

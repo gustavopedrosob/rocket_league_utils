@@ -1,13 +1,13 @@
 import pytest
 
-from rl_data_utils.item.attribute.constants import ACCELERATOR_SERIES, ACCOLADE_SERIES_1, ACCOLADE_SERIES_2, \
-    AURIGA_SERIES, BEACH_BLAST_SERIES, BONUS_GIFT, CHAMPIONS_1_SERIES, CHAMPIONS_2_SERIES, CHAMPIONS_3_SERIES, \
-    CHAMPIONS_4_SERIES, ELEVATION_SERIES, FEROCITY_SERIES, GOLDEN_EGG_2020, GOLDEN_EGG_2019, GOLDEN_EGG_2018, \
+from rl_data_utils.item.attribute.constants import ACCELERATOR, ACCOLADE_1, ACCOLADE_2, \
+    AURIGA, BEACH_BLAST, BONUS_GIFT, CHAMPIONS_1, CHAMPIONS_2, CHAMPIONS_3, \
+    CHAMPIONS_4, ELEVATION, FEROCITY, GOLDEN_EGG_2020, GOLDEN_EGG_2019, GOLDEN_EGG_2018, \
     GOLDEN_GIFT_2020, GOLDEN_GIFT_2019, GOLDEN_GIFT_2018, GOLDEN_LANTERN_2021, GOLDEN_LANTERN_2020, GOLDEN_LANTERN_2019, \
-    GOLDEN_PUMPKIN_2020, GOLDEN_PUMPKIN_2019, GOLDEN_PUMPKIN_2018, HAUNTED_HALLOWS_SERIES, IGNITION_SERIES, \
-    IMPACT_SERIES, MOMENTUM_SERIES, NITRO_SERIES, NON_CRATE, OVERDRIVE_SERIES, PLAYERS_CHOICE_SERIES, RLCS_REWARD, \
-    SEASON_1, SECRET_SANTA_SERIES, SPRING_FEVER_SERIES, TOTALLY_AWESOME_SERIES, TRIUMPH_SERIES, TURBO_SERIES, \
-    VELOCITY_SERIES, VICTORY_SERIES, VINDICATOR_SERIES, ZEPHYR_SERIES, WWE_PROMO_CODE
+    GOLDEN_PUMPKIN_2020, GOLDEN_PUMPKIN_2019, GOLDEN_PUMPKIN_2018, HAUNTED_HALLOWS, IGNITION, \
+    IMPACT, MOMENTUM, NITRO, NON_CRATE, OVERDRIVE, PLAYERS_CHOICE, RLCS_REWARD, \
+    SEASON_1, SECRET_SANTA, SPRING_FEVER, TOTALLY_AWESOME, TRIUMPH, TURBO, \
+    VELOCITY, VICTORY, VINDICATOR, ZEPHYR, WWE_PROMO_CODE
 from rl_data_utils.item.attribute_data.constants import SERIES
 from rl_data_utils.item.attribute_data.attribute_data import Series
 from rl_data_utils.item.attribute.attribute import Serie
@@ -26,33 +26,28 @@ def test_get_respective_serie(serie):
 
 
 @pytest.mark.parametrize('series', [SERIES])
-def test_are_valid_series(series):
-    assert Series.from_str_list(series).is_valid()
-
-
-@pytest.mark.parametrize('series', [SERIES])
 def test_has_accelerator_series(series):
-    assert Series.from_str_list(series).has(Serie(ACCELERATOR_SERIES))
+    assert Series.from_str_list(series).has(Serie(ACCELERATOR))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_accolade_1_series(series):
-    assert Series.from_str_list(series).has(Serie(ACCOLADE_SERIES_1))
+    assert Series.from_str_list(series).has(Serie(ACCOLADE_1))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_accolade_2_series(series):
-    assert Series.from_str_list(series).has(Serie(ACCOLADE_SERIES_2))
+    assert Series.from_str_list(series).has(Serie(ACCOLADE_2))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_auriga_series(series):
-    assert Series.from_str_list(series).has(Serie(AURIGA_SERIES))
+    assert Series.from_str_list(series).has(Serie(AURIGA))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_beach_blast_series(series):
-    assert Series.from_str_list(series).has(Serie(BEACH_BLAST_SERIES))
+    assert Series.from_str_list(series).has(Serie(BEACH_BLAST))
 
 
 @pytest.mark.parametrize('series', [SERIES])
@@ -62,32 +57,32 @@ def test_has_bonus_gift(series):
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_champions_1_series(series):
-    assert Series.from_str_list(series).has(Serie(CHAMPIONS_1_SERIES))
+    assert Series.from_str_list(series).has(Serie(CHAMPIONS_1))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_champions_2_series(series):
-    assert Series.from_str_list(series).has(Serie(CHAMPIONS_2_SERIES))
+    assert Series.from_str_list(series).has(Serie(CHAMPIONS_2))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_champions_3_series(series):
-    assert Series.from_str_list(series).has(Serie(CHAMPIONS_3_SERIES))
+    assert Series.from_str_list(series).has(Serie(CHAMPIONS_3))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_champions_4_series(series):
-    assert Series.from_str_list(series).has(Serie(CHAMPIONS_4_SERIES))
+    assert Series.from_str_list(series).has(Serie(CHAMPIONS_4))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_elevation_series(series):
-    assert Series.from_str_list(series).has(Serie(ELEVATION_SERIES))
+    assert Series.from_str_list(series).has(Serie(ELEVATION))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_ferocity_series(series):
-    assert Series.from_str_list(series).has(Serie(FEROCITY_SERIES))
+    assert Series.from_str_list(series).has(Serie(FEROCITY))
 
 
 @pytest.mark.parametrize('series', [SERIES])
@@ -152,27 +147,27 @@ def test_has_golden_pumpkin_2020(series):
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_haunted_hallows_series(series):
-    assert Series.from_str_list(series).has(Serie(HAUNTED_HALLOWS_SERIES))
+    assert Series.from_str_list(series).has(Serie(HAUNTED_HALLOWS))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_ignition_series(series):
-    assert Series.from_str_list(series).has(Serie(IGNITION_SERIES))
+    assert Series.from_str_list(series).has(Serie(IGNITION))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_impact_series(series):
-    assert Series.from_str_list(series).has(Serie(IMPACT_SERIES))
+    assert Series.from_str_list(series).has(Serie(IMPACT))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_momentum_series(series):
-    assert Series.from_str_list(series).has(Serie(MOMENTUM_SERIES))
+    assert Series.from_str_list(series).has(Serie(MOMENTUM))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_nitro_series(series):
-    assert Series.from_str_list(series).has(Serie(NITRO_SERIES))
+    assert Series.from_str_list(series).has(Serie(NITRO))
 
 
 @pytest.mark.parametrize('series', [SERIES])
@@ -182,12 +177,12 @@ def test_has_non_crate(series):
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_overdrive_series(series):
-    assert Series.from_str_list(series).has(Serie(OVERDRIVE_SERIES))
+    assert Series.from_str_list(series).has(Serie(OVERDRIVE))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_players_choice_series(series):
-    assert Series.from_str_list(series).has(Serie(PLAYERS_CHOICE_SERIES))
+    assert Series.from_str_list(series).has(Serie(PLAYERS_CHOICE))
 
 
 @pytest.mark.parametrize('series', [SERIES])
@@ -202,47 +197,47 @@ def test_has_season_1(series):
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_secret_santa_series(series):
-    assert Series.from_str_list(series).has(Serie(SECRET_SANTA_SERIES))
+    assert Series.from_str_list(series).has(Serie(SECRET_SANTA))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_spring_fever_series(series):
-    assert Series.from_str_list(series).has(Serie(SPRING_FEVER_SERIES))
+    assert Series.from_str_list(series).has(Serie(SPRING_FEVER))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_totally_awesome_series(series):
-    assert Series.from_str_list(series).has(Serie(TOTALLY_AWESOME_SERIES))
+    assert Series.from_str_list(series).has(Serie(TOTALLY_AWESOME))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_triumph_series(series):
-    assert Series.from_str_list(series).has(Serie(TRIUMPH_SERIES))
+    assert Series.from_str_list(series).has(Serie(TRIUMPH))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_turbo_series(series):
-    assert Series.from_str_list(series).has(Serie(TURBO_SERIES))
+    assert Series.from_str_list(series).has(Serie(TURBO))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_velocity_series(series):
-    assert Series.from_str_list(series).has(Serie(VELOCITY_SERIES))
+    assert Series.from_str_list(series).has(Serie(VELOCITY))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_victory_series(series):
-    assert Series.from_str_list(series).has(Serie(VICTORY_SERIES))
+    assert Series.from_str_list(series).has(Serie(VICTORY))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_vindicator_series(series):
-    assert Series.from_str_list(series).has(Serie(VINDICATOR_SERIES))
+    assert Series.from_str_list(series).has(Serie(VINDICATOR))
 
 
 @pytest.mark.parametrize('series', [SERIES])
 def test_has_zephyr_series(series):
-    assert Series.from_str_list(series).has(Serie(ZEPHYR_SERIES))
+    assert Series.from_str_list(series).has(Serie(ZEPHYR))
 
 
 @pytest.mark.parametrize('series', [SERIES])

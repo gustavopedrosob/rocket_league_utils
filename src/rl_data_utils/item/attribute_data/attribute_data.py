@@ -2,30 +2,22 @@ from __future__ import annotations
 
 from abc import abstractmethod, ABCMeta
 
-from rl_data_utils.exceptions import InvalidItemAttribute
+from rl_data_utils.exceptions import InvalidAttribute
 from rl_data_utils.item.attribute.attribute import ItemAttribute, Color, Platform, Price, Blueprint, PriceInfo, \
     CreditsQuantity, SerieInfo, Serie, SlotInfo, Slot, BoolItemAttribute, AttributeInfo, CertifiedInfo, ColorInfo, \
     PlatformInfo, RarityInfo, Rarity, Certified, StaticItemAttribute
 from rl_data_utils.item.item.constants import CRAFTING_COST, PAINTABLE
-from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Validable, Comparable, CanBeEmpty, Contains, \
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Comparable, CanBeEmpty, Contains, \
     Identifiable, FromStrList
 
 
-class HasAttributes(Validable, Comparable, CanBeEmpty, Contains):
+class HasAttributes(Comparable, CanBeEmpty, Contains):
     @abstractmethod
     def get_attributes(self):
         pass
 
     def is_empty(self):
         return len(self.get_attributes()) == 0
-
-    def is_valid(self):
-        return self._is_valid_by_validate(InvalidItemAttribute)
-
-    def validate(self):
-        for attr in self.get_attributes():
-            if isinstance(attr, Validable):
-                attr.validate()
 
 
 class AttributesData(RocketLeagueObject, HasAttributes, Identifiable, metaclass=ABCMeta):

@@ -1,7 +1,7 @@
 import pytest
 
 from rl_data_utils.item.attribute.constants import ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, \
-    PAINT_FINISH, ANTHEM, BANNER, BOOST, TOPPER, TRAIL, WHEEL
+    PAINT_FINISH, ANTHEM, BANNER, BOOST, TOPPER, TRAIL, WHEEL, BODY, ANIMATED_DECAL, PLAYER_ANTHEM, AVATAR_BORDER
 from rl_data_utils.item.attribute_data.constants import SLOTS
 from rl_data_utils.item.attribute.attribute import Slot
 
@@ -14,7 +14,7 @@ insider_slots = ['Wheels', 'Cars', 'Boosts', 'Toppers', 'Decals', 'Antennas', 'G
 
 samples = [*insider_slots, *inventory_slots, *SLOTS]
 
-pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], ['bodies', 'Bodies'],
+pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], ['body', 'Body'],
                ['decals', 'Decals'], ['engine audio', 'Engine Audio'], ['goal explosions', 'Goal Explosions'],
                ['paint finishes', 'Paint Finishes'], ['player anthems', 'Player Anthems'],
                ['player banners', 'Player Banners'], ['rocket boosts', 'Rocket Boosts'], ['toppers', 'Toppers'],
@@ -23,16 +23,6 @@ pair_equals = [['antennas', 'Antennas'], ['avatar borders', 'Avatar Borders'], [
 
 def test_from_random():
     print(Slot.create_random())
-
-
-@pytest.mark.parametrize('slot', samples)
-def test_is_slot(slot):
-    assert Slot(slot).is_valid()
-
-
-@pytest.mark.parametrize('slot', samples)
-def test_validate_slot(slot):
-    Slot(slot).validate()
 
 
 @pytest.mark.parametrize('slot_1,slot_2', pair_equals)
@@ -46,8 +36,8 @@ def test_is_antenna(slot):
 
 
 @pytest.mark.parametrize('slot', ['Avatar Border'])
-def test_is_border(slot):
-    assert Slot(slot).is_exactly(BORDER)
+def test_is_avatar_border(slot):
+    assert Slot(slot).is_exactly(AVATAR_BORDER)
 
 
 @pytest.mark.parametrize('slot', ['Banner'])
@@ -65,9 +55,17 @@ def test_is_car(slot):
     assert Slot(slot).is_exactly(CAR)
 
 
+def test_is_body():
+    assert Slot("Body").is_exactly(BODY, False)
+
+
 @pytest.mark.parametrize('slot', ['Decal'])
 def test_is_decal(slot):
-    assert Slot(slot).is_exactly(DECAL)
+    assert Slot(slot).is_exactly(ANIMATED_DECAL)
+
+
+def test_is_animated_decal():
+    assert Slot("Animated decal").is_exactly(ANIMATED_DECAL, False)
 
 
 @pytest.mark.parametrize('slot', ['Engine Audio'])
@@ -87,7 +85,7 @@ def test_is_paint_finish(slot):
 
 @pytest.mark.parametrize('slot', ['Anthem'])
 def test_is_anthem(slot):
-    assert Slot(slot).is_exactly(ANTHEM)
+    assert Slot(slot).is_exactly(PLAYER_ANTHEM)
 
 
 @pytest.mark.parametrize('slot', ['Topper'])

@@ -67,10 +67,6 @@ class Static:
         self.value = value
 
 
-class RegexBased:
-    pass
-
-
 class Filterable(ABC):
     @abstractmethod
     def filter_by_condition(self, condition):

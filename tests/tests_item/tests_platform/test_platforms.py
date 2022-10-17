@@ -20,11 +20,6 @@ def test_get_respective_platform(platform):
 
 
 @pytest.mark.parametrize('platforms', [PLATFORMS])
-def test_are_valid_platforms_data(platforms):
-    assert Platforms.from_str_list(platforms).is_valid()
-
-
-@pytest.mark.parametrize('platforms', [PLATFORMS])
 def test_has_pc(platforms):
     assert platforms_data.has(Platform(PC))
 

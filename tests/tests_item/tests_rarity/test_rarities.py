@@ -20,16 +20,6 @@ def test_get_respective_rarity(rarity):
 
 
 @pytest.mark.parametrize('rarities', [RARITIES])
-def test_validate_rarities(rarities):
-    Rarities.from_str_list(rarities).validate()
-
-
-@pytest.mark.parametrize('rarities', [RARITIES])
-def test_are_valid_rarities(rarities):
-    assert Rarities.from_str_list(rarities).is_valid()
-
-
-@pytest.mark.parametrize('rarities', [RARITIES])
 def test_has_black_market(rarities):
     assert Rarities.from_str_list(rarities).has(Rarity(BLACK_MARKET))
 
