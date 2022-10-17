@@ -2,14 +2,14 @@ from __future__ import annotations
 
 from abc import ABCMeta
 from functools import lru_cache
-from random import randrange, randint
+from random import randint
 from re import search, IGNORECASE, sub
 from statistics import mean
-from typing import ClassVar, Union, Tuple, List, Optional
+from typing import Union, Tuple, List, Optional
 
 from rl_data_utils.item.attribute import identities
-from rl_data_utils.exceptions import InvalidAttribute, InvalidCreditsQuantity, NegativeItemAttribute
-from rl_data_utils.item.attribute.constants import NONE, DEFAULT, CRIMSON, SKY_BLUE, PINK, ORANGE, COBALT,\
+from rl_data_utils.exceptions import InvalidCreditsQuantity, NegativeItemAttribute
+from rl_data_utils.item.attribute.constants import DEFAULT, CRIMSON, SKY_BLUE, PINK, ORANGE, COBALT,\
     BURNT_SIENNA, TITANIUM_WHITE, GREY, SAFFRON, LIME, FOREST_GREEN, BLACK, PURPLE, RARE, VERY_RARE, IMPORT, EXOTIC,\
     BLACK_MARKET, PREMIUM, LIMITED
 from rl_data_utils.item.attribute.identities import Identities
@@ -17,15 +17,15 @@ from rl_data_utils.item.attribute_data.alias import CERTIFICATES, COLORS, PLATFO
 from rl_data_utils.item.attribute_data.constants import NAMES, CARS_NAMES_WITH_DECAL, KINDS
 from rl_data_utils.item.item.constants import ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, FAVORITE, NAME, PLATFORM, PRICE, \
     QUANTITY, RARITY, SERIE, SLOT, TRADABLE
-from rl_data_utils.rocket_league.rocket_league import Comparable, Randomizable, RocketLeagueObject, Defaultable, \
-    Validable, Identifiable, Orderable
+from rl_data_utils.rocket_league.rocket_league import Comparable, RocketLeagueObject, Identifiable,\
+    Orderable
 
 
 class AttributeInfo(Identifiable, Orderable):
     pass
 
 
-class ItemAttribute(RocketLeagueObject, Comparable, Randomizable, AttributeInfo, metaclass=ABCMeta):
+class ItemAttribute(RocketLeagueObject, Comparable, AttributeInfo, metaclass=ABCMeta):
     pass
 
 
@@ -67,8 +67,9 @@ class BoolItemAttribute(StaticItemAttribute):
     possible_values = True, False
 
 
-class Archived(BoolItemAttribute, ArchivedInfo, Defaultable):
-    default_args: ClassVar = [False], dict()
+class Archived(BoolItemAttribute, ArchivedInfo):
+    def __init__(self, value: bool = False):
+        super().__init__(value)
 
 
 class BlueprintInfo(AttributeInfo):
@@ -147,10 +148,12 @@ class RegexBasedItemAttribute(ItemAttribute):
         return cls((identity.id_, string_identity.id_))
 
 
-class Certified(RegexBasedItemAttribute, CertifiedInfo, Defaultable):
+class Certified(RegexBasedItemAttribute, CertifiedInfo):
     identities = identities.CERTIFIEDS
     possible_values = CERTIFICATES
-    default_args = [NONE], dict()
+
+    def __init__(self, identifier: Union[Tuple[int, int], str] = DEFAULT):
+        super().__init__(identifier)
 
 
 class ColorInfo(AttributeInfo):
@@ -158,10 +161,12 @@ class ColorInfo(AttributeInfo):
     order = 4
 
 
-class Color(RegexBasedItemAttribute, ColorInfo, Defaultable):
+class Color(RegexBasedItemAttribute, ColorInfo):
     identities = identities.COLORS
     possible_values = COLORS
-    default_args = [DEFAULT], dict()
+
+    def __init__(self, identifier: Union[Tuple[int, int], str] = DEFAULT):
+        super().__init__(identifier)
 
     def get_hex(self) -> str:
         return hex_table[self]
@@ -190,7 +195,8 @@ class FavoriteInfo(AttributeInfo):
 
 
 class Favorite(BoolItemAttribute, FavoriteInfo):
-    pass
+    def __init__(self, value: bool = False):
+        super().__init__(value)
 
 
 class NameInfo(AttributeInfo):
@@ -205,10 +211,10 @@ class Name(StrItemAttribute, NameInfo):
         return self._compare_two_string(self.value.lower(), name.value.lower())
 
     def get_car_name_and_decal_name(self):
-        result = search('|'.join(CARS_NAMES_WITH_DECAL), self.value, IGNORECASE)
+        result = search("|".join(CARS_NAMES_WITH_DECAL), self.value, IGNORECASE)
         if result:
             car_name = result.group(0)
-            decal_name = self.value.replace(car_name, '').strip()
+            decal_name = self.value.replace(car_name, "").strip()
             if decal_name:
                 return car_name, decal_name
             else:
@@ -217,7 +223,7 @@ class Name(StrItemAttribute, NameInfo):
             return None
 
     def get_kind(self):
-        result = search('|'.join(KINDS), self.value, IGNORECASE)
+        result = search("|".join(KINDS), self.value, IGNORECASE)
         if result:
             kind = result.group(0)
             return kind
@@ -227,8 +233,8 @@ class Name(StrItemAttribute, NameInfo):
     @staticmethod
     @lru_cache()
     def _compare_two_string(string_1, string_2):
-        string_1 = sub(r'\W', '', string_1)
-        string_2 = sub(r'\W', '', string_2)
+        string_1 = sub(r"\W", "", string_1)
+        string_2 = sub(r"\W", "", string_2)
         return set(string_1) == set(string_2)
 
 
@@ -247,7 +253,7 @@ class PriceInfo(AttributeInfo):
     order = 13
 
 
-class Price(ItemAttribute, PriceInfo, Validable):
+class Price(ItemAttribute, PriceInfo):
     def __init__(self, min_price, max_price):
         self.min_price = min_price
         self.max_price = max_price
@@ -255,19 +261,8 @@ class Price(ItemAttribute, PriceInfo, Validable):
     def get_average(self):
         return mean([self.min_price.value, self.max_price.value])
 
-    @classmethod
-    def create_random(cls):
-        return cls(CreditsQuantity.create_random(), CreditsQuantity.create_random())
-
-    def validate(self):
-        self.min_price.validate()
-        self.max_price.validate()
-
     def compare(self, other: Price):
         return self.max_price.compare(other.max_price) and self.min_price.compare(other.min_price)
-
-    def is_valid(self):
-        return self._is_valid_by_validate(InvalidItemAttribute)
 
 
 class QuantityInfo(AttributeInfo):
@@ -276,34 +271,38 @@ class QuantityInfo(AttributeInfo):
 
 
 class IntItemAttribute(StaticItemAttribute):
-    @classmethod
-    def create_random(cls):
-        return cls(randint(-100000, 100000))
-
-
-class PositiveIntItemAttribute(IntItemAttribute):
-    @classmethod
-    def create_random(cls):
-        return cls(randint(0, 100000))
-
-    def validate(self):
-        if self.value is not None:
-            if self.value < 0:
-                raise NegativeItemAttribute()
-
-
-class Quantity(QuantityInfo, PositiveIntItemAttribute):
     pass
 
 
-class CreditsQuantity(Quantity):
-    def validate(self):
-        if self.value % 10 > 0:
-            raise InvalidCreditsQuantity()
+class PositiveIntItemAttribute(IntItemAttribute):
+    @property
+    def value(self):
+        return self._value
 
-    @classmethod
-    def create_random(cls):
-        return cls(randrange(0, 100000, 10))
+    @value.setter
+    def value(self, value):
+        if value > 0:
+            self._value = value
+        else:
+            raise NegativeItemAttribute()
+
+
+class Quantity(QuantityInfo, PositiveIntItemAttribute):
+    def __init__(self, value: int = 1):
+        super().__init__(value)
+
+
+class CreditsQuantity(Quantity):
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        if value % 10 == 0:
+            self._value = value
+        else:
+            raise InvalidCreditsQuantity()
 
 
 class RarityInfo(AttributeInfo):

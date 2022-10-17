@@ -2,10 +2,9 @@ from __future__ import annotations
 
 from abc import abstractmethod, ABCMeta
 
-from rl_data_utils.exceptions import InvalidAttribute
 from rl_data_utils.item.attribute.attribute import ItemAttribute, Color, Platform, Price, Blueprint, PriceInfo, \
     CreditsQuantity, SerieInfo, Serie, SlotInfo, Slot, BoolItemAttribute, AttributeInfo, CertifiedInfo, ColorInfo, \
-    PlatformInfo, RarityInfo, Rarity, Certified, StaticItemAttribute
+    PlatformInfo, RarityInfo, Rarity, Certified
 from rl_data_utils.item.item.constants import CRAFTING_COST, PAINTABLE
 from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Comparable, CanBeEmpty, Contains, \
     Identifiable, FromStrList

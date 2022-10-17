@@ -1,5 +1,4 @@
-from rl_data_utils.exceptions import InvalidAttribute
-from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Validable
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject
 
 
 class Offer(RocketLeagueObject):

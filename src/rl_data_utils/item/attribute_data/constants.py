@@ -16,11 +16,11 @@ CERTIFICATES = (AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, NONE, PARAGON, 
                 SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR)
 COLORS = (BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, LIME, ORANGE, PINK,
           PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE)
-CARS_NAMES_WITH_DECAL = ('Breakout Type-S', 'Imperator DT5', 'Peregrine TT', 'Takumi RX-T', 'X-Devil Mk2', 'Aftershock',
-                         'Dominus GT', 'Octane ZSR', 'Animus GP', 'Harbinger', 'Jäger 619', 'Breakout', 'Marauder',
-                         'Masamune', 'Maverick', 'Road Hog', 'Sentinel', 'Diestro', 'Dominus', 'Hotshot', 'Insidio',
-                         'Paladin', 'Twinzer', 'X-Devil', 'Centio', 'Fennec', 'Komodo', 'Mantis', 'Mudcat', 'Octane',
-                         'Ripper', 'Takumi', 'Triton', 'Tygris', 'Dingo', 'Esper', 'Gizmo', 'Venom', 'Endo', 'Merc')
+CARS_NAMES_WITH_DECAL = ("Breakout Type-S", "Imperator DT5", "Peregrine TT", "Takumi RX-T", "X-Devil Mk2", "Aftershock",
+                         "Dominus GT", "Octane ZSR", "Animus GP", "Harbinger", "Jäger 619", "Breakout", "Marauder",
+                         "Masamune", "Maverick", "Road Hog", "Sentinel", "Diestro", "Dominus", "Hotshot", "Insidio",
+                         "Paladin", "Twinzer", "X-Devil", "Centio", "Fennec", "Komodo", "Mantis", "Mudcat", "Octane",
+                         "Ripper", "Takumi", "Triton", "Tygris", "Dingo", "Esper", "Gizmo", "Venom", "Endo", "Merc")
 NAMES = (
     "Bundle",
     "Credit",
@@ -1436,4 +1436,4 @@ SERIES = (
     ZEPHYR, WWE_PROMO_CODE)
 SLOTS = (ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, PAINT_FINISH, ANTHEM, BANNER,
          BOOST, TOPPER, TRAIL, WHEEL)
-KINDS = ['Infinite', 'Inverted', 'Holographic']
+KINDS = ["Infinite", "Inverted", "Holographic"]

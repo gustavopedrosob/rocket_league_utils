@@ -9,7 +9,9 @@ from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject, Filter
 
 
 class Items(RocketLeagueObject, Filterable, CanBeEmpty):
-    def __init__(self, items: List[Item] = []):
+    def __init__(self, items: List[Item] = None):
+        if items is None:
+            items = []
         self.items = items
 
     def __iter__(self):
@@ -57,10 +59,6 @@ class Items(RocketLeagueObject, Filterable, CanBeEmpty):
         :return: A self instance with items that match with condition
         """
         return Items(list(filter(condition, self.items)))
-
-    def validate(self):
-        for item in self.items:
-            item.validate()
 
     def is_empty(self):
         return self.items == []

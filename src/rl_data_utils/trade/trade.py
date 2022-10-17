@@ -38,12 +38,13 @@ class Trade(RocketLeagueObject):
             raise InvalidTrade()
 
     def get_type(self):
+        # TODO: substituir por constants e criar exception
         if self.is_buy():
-            return 'buy'
+            return "buy"
         elif self.is_sale():
-            return 'sale'
+            return "sale"
         elif self.is_item_by_item():
-            return 'item-by-item'
+            return "item-by-item"
         else:
             raise Exception()
 

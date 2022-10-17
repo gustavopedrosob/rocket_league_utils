@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-from rl_data_utils.item.attribute.attribute import ItemAttribute, Archived, Blueprint, Certified, Color, Favorite, Name, \
-    Platform, Price, Quantity, Rarity, Serie, Slot, Tradable
-from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement, \
-    CraftingCost, Paintable
+from rl_data_utils.item.attribute.attribute import ItemAttribute
+from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
 from rl_data_utils.item.item.represents_item import RepresentsItem
 
 
@@ -41,28 +39,6 @@ class Item(AttributesCollectionManagement, RepresentsItem):
         self.crafting_cost = crafting_cost
         self.favorite = favorite
         self.acquired = acquired
-
-    @classmethod
-    def create_random(cls):
-        """
-        Creates an items with all random attributes
-        :return: An item with random attributes
-        """
-        return cls(archived=Archived.create_random(),
-                   name=Name.create_random(),
-                   slot=Slot.create_random(),
-                   color=Color.create_random(),
-                   rarity=Rarity.create_random(),
-                   certified=Certified.create_random(),
-                   quantity=Quantity.create_random(),
-                   blueprint=Blueprint.create_random(),
-                   paintable=Paintable.create_random(),
-                   platform=Platform.create_random(),
-                   price=Price.create_random(),
-                   tradable=Tradable.create_random(),
-                   crafting_cost=CraftingCost.create_random(),
-                   serie=Serie.create_random(),
-                   favorite=Favorite.create_random())
 
     def is_non_crate(self, rarity):
         """

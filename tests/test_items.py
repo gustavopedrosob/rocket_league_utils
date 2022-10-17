@@ -7,22 +7,22 @@ from rl_data_utils.item.item.constants import INDENTIFIER
 from rl_data_utils.item.item.item import Item
 from rl_data_utils.items.items import Items
 
-with open('sample-inventory-items.json', 'r') as file:
+with open("sample-inventory-items.json", "r") as file:
     json = load(file)
 
-items_json = json['items']
+items_json = json["items"]
 inventory_items = Items()
 for item in items_json:
     try:
         item_object = Item(
-            color=Color(item['color']),
-            rarity=Rarity(item['rarity']),
-            slot=Slot(item['slot']),
-            certified=Certified(item['certified']),
-            name=Name(item['name']),
-            quantity=Quantity(item['quantity']),
-            tradable=Tradable(item['tradable']),
-            serie=Serie(item['serie'])
+            color=Color(item["color"]),
+            rarity=Rarity(item["rarity"]),
+            slot=Slot(item["slot"]),
+            certified=Certified(item["certified"]),
+            name=Name(item["name"]),
+            quantity=Quantity(item["quantity"]),
+            tradable=Tradable(item["tradable"]),
+            serie=Serie(item["serie"])
         )
     except InvalidAttribute:
         continue
@@ -31,19 +31,17 @@ for item in items_json:
 
 
 def test_filter_by_item_indentifier_mode():
-    item = Item(Archived(True), Name('Dingo'), Slot('Car'), Color('Saffron'), Rarity('Import'), Certified('GoalKeeper'),
-                Quantity(6))
-    i = inventory_items.filter_by_item(item, INDENTIFIER)
+    item_ = Item(Archived(True), Name("Dingo"), Slot("Car"), Color("Saffron"), Rarity("Import"),
+                 Certified("GoalKeeper"), Quantity(6))
+    i = inventory_items.filter_by_item(item_, INDENTIFIER)
     print(i.items)
 
 
 def test_filter_by():
-    i = inventory_items.filter_by_item(Item(
-        name=Name('Octane: Buzz Kill')
-    ))
+    i = inventory_items.filter_by_item(Item(name=Name("Octane: Buzz Kill")))
     print(i.items)
 
 
 def test_filter_by_item():
-    item = Item(name=Name('Octane: Buzz Kill'))
-    print(inventory_items.filter_by_item(item).items)
+    item_ = Item(name=Name("Octane: Buzz Kill"))
+    print(inventory_items.filter_by_item(item_).items)
