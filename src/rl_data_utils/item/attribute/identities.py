@@ -7,7 +7,7 @@ from rl_data_utils.item.attribute.constants import BLACK, BURNT_SIENNA, BS, COBA
     DEFAULT, REGULAR, NONE, NORMAL, FOREST_GREEN, GREEN, FG, GREY, LIME, ORANGE, PINK, PURPLE, SAFFRON, YELLOW, \
     SKY_BLUE, SB, TITANIUM_WHITE, WHITE, TW, ACROBAT, AVIATOR, GOALKEEPER, GUARDIAN, JUGGLER, PARAGON, PLAYMAKER, \
     SCORER, SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR, PC, COMPUTER, STEAM, EPIC_GAMES, XBOX, PS4, \
-    PLAY_4, PLAYSTATION_4, SWITCH, ANTENNA, AVATAR_BORDER, BORDER, PLAYER_BANNER, BANNER, BLUEPRINT, ROCKET_BOOST, \
+    PLAY_4, PLAYSTATION_4, SWITCH, ANTENNA, AVATAR_BORDER, BORDER, PLAYER_BANNER, BANNER, BLUEPRINTS, ROCKET_BOOST, \
     BOOST, BODY, CAR, DECAL, ANIMATED_DECAL, ENGINE_AUDIO, GIFT_PACK, GOAL_EXPLOSION, PAINT_FINISH, PLAYER_ANTHEM, \
     ANTHEM, PLAYER_TITLE, TITLE, TRAIL, WHEEL, BLACK_MARKET, BM, COMMON, EXOTIC, IMPORT, IMPORTED, LEGACY, LIMITED, \
     PREMIUM, RARE, UNCOMMON, VERY_RARE, VR, ACCELERATOR, ACCOLADE_1, ACCOLADE_2, AURIGA, BEACH_BLAST, BONUS_GIFT, \
@@ -31,17 +31,17 @@ class Identity:
         self.id_ = id_
         self.string_identities = string_identities
 
+    def get_string_identity_id(self, id_: int) -> StringIdentity:
+        return self.get_string_identity(lambda si: si.id_ == id_)
+
+    def get_string_identity_by_alias(self, alias: str) -> StringIdentity:
+        return self.get_string_identity(lambda si: si.alias == alias)
+
     def get_string_identity(self, condition: Callable[[StringIdentity], bool]) -> StringIdentity:
         for string_identity in self.string_identities:
             if condition(string_identity):
                 return string_identity
         raise UnrecognizableAttribute("No string identity was found.")
-
-    def get_string_identity_by_id(self, id_: int) -> StringIdentity:
-        return self.get_string_identity(lambda si: si.id_ == id_)
-
-    def get_string_identity_by_alias(self, alias: str) -> StringIdentity:
-        return self.get_string_identity(lambda si: si.alias == alias)
 
 
 class Identities:
@@ -338,7 +338,7 @@ SLOTS = Identities(
         Identity(
             id_=3,
             string_identities=(
-                StringIdentity(0, BLUEPRINT, re.compile(r"blueprints?", re.I)),
+                StringIdentity(0, BLUEPRINTS, re.compile(r"blueprints?", re.I)),
             )
         ),
         Identity(

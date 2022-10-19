@@ -5,14 +5,14 @@ from rl_data_utils.item.attribute.attribute import Name, Platform, Rarity, Slot
 from rl_data_utils.item.attribute_data.attribute_data import Colors, Platforms
 from rl_data_utils.item.item.data_item import DataItem
 from rl_data_utils.item.attribute_data.constants import PLATFORMS
-from rl_data_utils.items.items import Items
+from rl_data_utils.items.inventory import Inventory
 
 with open("sample-gameflip-data.json", "r") as file:
     json = load(file)
 
 items_json = json["data"]
 
-gameflip_data = Items()
+gameflip_data = Inventory()
 
 for data in items_json:
     try:

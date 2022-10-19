@@ -7,7 +7,7 @@ from rl_data_utils.item.attribute.constants import BLACK, BURNT_SIENNA, COBALT, 
 from rl_data_utils.item.attribute_data.constants import COLORS
 from tests_item.tests_color.test_color import insider_colors, inventory_colors
 
-colors_data = Colors.from_str_list(COLORS)
+colors_data = Colors(COLORS)
 
 
 @pytest.mark.parametrize("color", [*inventory_colors, *insider_colors, *COLORS])
@@ -21,71 +21,57 @@ def test_get_respective_color(color):
     print(result)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_black(colors):
-    assert colors_data.has(Color(BLACK))
+def test_has_black():
+    assert colors_data.has(BLACK)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_burnt_sienna(colors):
-    assert colors_data.has(Color(BURNT_SIENNA))
+def test_has_burnt_sienna():
+    assert colors_data.has(BURNT_SIENNA)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_cobalt(colors):
-    assert colors_data.has(Color(COBALT))
+def test_has_cobalt():
+    assert colors_data.has(COBALT)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_crimson(colors):
-    assert colors_data.has(Color(CRIMSON))
+def test_has_crimson():
+    assert colors_data.has(CRIMSON)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_default(colors):
-    assert colors_data.has(Color(DEFAULT))
+def test_has_default():
+    assert colors_data.has(DEFAULT)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_forest_green(colors):
-    assert colors_data.has(Color(FOREST_GREEN))
+def test_has_forest_green():
+    assert colors_data.has(FOREST_GREEN)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_grey(colors):
-    assert colors_data.has(Color(GREY))
+def test_has_grey():
+    assert colors_data.has(GREY)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_lime(colors):
-    assert colors_data.has(Color(LIME))
+def test_has_lime():
+    assert colors_data.has(LIME)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_orange(colors):
-    assert colors_data.has(Color(ORANGE))
+def test_has_orange():
+    assert colors_data.has(ORANGE)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_pink(colors):
-    assert colors_data.has(Color(PINK))
+def test_has_pink():
+    assert colors_data.has(PINK)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_purple(colors):
-    assert colors_data.has(Color(PURPLE))
+def test_has_purple():
+    assert colors_data.has(PURPLE)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_saffron(colors):
-    assert colors_data.has(Color(SAFFRON))
+def test_has_saffron():
+    assert colors_data.has(SAFFRON)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_sky_blue(colors):
-    assert colors_data.has(Color(SKY_BLUE))
+def test_has_sky_blue():
+    assert colors_data.has(SKY_BLUE)
 
 
-@pytest.mark.parametrize("colors", [COLORS])
-def test_has_titanium_white(colors):
-    assert colors_data.has(Color(TITANIUM_WHITE))
+def test_has_titanium_white():
+    assert colors_data.has(TITANIUM_WHITE)

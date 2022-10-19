@@ -2,14 +2,14 @@ from json import load
 
 from rl_data_utils.exceptions import InvalidAttribute
 from rl_data_utils.item.attribute.attribute import Color, Name, Platform, Price, CreditsQuantity, Slot
-from rl_data_utils.item.attribute_data.attribute_data import CraftingCost, Paintable, DataPrice, PriceData
+from rl_data_utils.item.attribute_data.attribute_data import CraftingCost, Paintable
 from rl_data_utils.item.item.data_item import DataItem
-from rl_data_utils.items.items import Items
+from rl_data_utils.items.inventory import Inventory
 
 with open("sample-items-rl-insider.json", "r") as file:
     json = load(file)
 
-rl_insider_items = Items()
+rl_insider_items = Inventory()
 
 for item in json:
     try:

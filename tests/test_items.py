@@ -5,24 +5,25 @@ from rl_data_utils.item.attribute.attribute import Archived, Certified, Color, N
     Tradable
 from rl_data_utils.item.item.constants import INDENTIFIER
 from rl_data_utils.item.item.item import Item
-from rl_data_utils.items.items import Items
+from rl_data_utils.items.inventory import Inventory
 
 with open("sample-inventory-items.json", "r") as file:
     json = load(file)
 
 items_json = json["items"]
-inventory_items = Items()
+inventory_items = Inventory()
 for item in items_json:
     try:
         item_object = Item(
-            color=Color(item["color"]),
-            rarity=Rarity(item["rarity"]),
-            slot=Slot(item["slot"]),
-            certified=Certified(item["certified"]),
-            name=Name(item["name"]),
-            quantity=Quantity(item["quantity"]),
-            tradable=Tradable(item["tradable"]),
-            serie=Serie(item["serie"])
+            color=item["color"],
+            rarity=item["rarity"],
+            slot=item["slot"],
+            certified=item["certified"],
+            name=item["name"],
+            quantity=item["quantity"],
+            tradable=item["tradable"],
+            serie=item["serie"],
+            blueprint=item["slot"] == "Blueprint"
         )
     except InvalidAttribute:
         continue
@@ -37,11 +38,11 @@ def test_filter_by_item_indentifier_mode():
     print(i.items)
 
 
-def test_filter_by():
-    i = inventory_items.filter_by_item(Item(name=Name("Octane: Buzz Kill")))
-    print(i.items)
-
-
-def test_filter_by_item():
-    item_ = Item(name=Name("Octane: Buzz Kill"))
-    print(inventory_items.filter_by_item(item_).items)
+# def test_filter_by():
+#     i = inventory_items.filter_by_item(Item(name=Name("Octane: Buzz Kill")))
+#     print(i.items)
+#
+#
+# def test_filter_by_item():
+#     item_ = Item(name=Name("Octane: Buzz Kill"))
+#     print(inventory_items.filter_by_item(item_).items)

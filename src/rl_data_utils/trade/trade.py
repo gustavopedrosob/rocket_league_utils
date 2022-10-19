@@ -1,14 +1,16 @@
 from rl_data_utils.exceptions import InvalidTrade
+from rl_data_utils.items.trade_items import TradeInventory
 from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject
+from rl_data_utils.trade.constants import ITEM_FOR_ITEM, SELL, BUY
 
 
 class Trade(RocketLeagueObject):
-    def __init__(self, my_offer, him_offer, date=None):
+    def __init__(self, my_offer: TradeInventory, him_offer: TradeInventory, date=None):
         self.him_offer = him_offer
         self.my_offer = my_offer
         self.date = date
 
-    def is_sale(self):
+    def is_sell(self):
         """
         Says if it's a sale trade
         :return:
@@ -22,40 +24,19 @@ class Trade(RocketLeagueObject):
         """
         return self.him_offer.is_only_items() and self.my_offer.is_only_credits()
 
-    def is_item_by_item(self):
+    def is_item_for_item(self):
         """
         Says if it's an item by item trade
         :return:
         """
         return self.him_offer.is_only_items() and self.my_offer.is_only_items()
 
-    def validate(self):
-        """
-        Validates
-        :raise InvalidTrade: if isn't a sale, buy or item by item
-        """
-        if not (self.is_sale() or self.is_buy() or self.is_item_by_item()):
-            raise InvalidTrade()
-
     def get_type(self):
-        # TODO: substituir por constants e criar exception
         if self.is_buy():
-            return "buy"
-        elif self.is_sale():
-            return "sale"
-        elif self.is_item_by_item():
-            return "item-by-item"
+            return BUY
+        elif self.is_sell():
+            return SELL
+        elif self.is_item_for_item():
+            return ITEM_FOR_ITEM
         else:
-            raise Exception()
-
-    def is_valid(self):
-        """
-        Says if it's a valid trade
-        :return: if it's a valid trade
-        """
-        try:
-            self.validate()
-        except InvalidTrade:
-            return False
-        else:
-            return True
+            raise InvalidTrade()

@@ -1,92 +1,62 @@
 from __future__ import annotations
 
-from abc import ABCMeta
 from functools import lru_cache
-from random import randint
+from random import randrange
 from re import search, IGNORECASE, sub
 from statistics import mean
 from typing import Union, Tuple, List, Optional
 
-from rl_data_utils.item.attribute import identities
 from rl_data_utils.exceptions import InvalidCreditsQuantity, NegativeItemAttribute
-from rl_data_utils.item.attribute.constants import DEFAULT, CRIMSON, SKY_BLUE, PINK, ORANGE, COBALT,\
-    BURNT_SIENNA, TITANIUM_WHITE, GREY, SAFFRON, LIME, FOREST_GREEN, BLACK, PURPLE, RARE, VERY_RARE, IMPORT, EXOTIC,\
+from rl_data_utils.item.attribute import identities
+from rl_data_utils.item.attribute.constants import DEFAULT, CRIMSON, SKY_BLUE, PINK, ORANGE, COBALT, \
+    BURNT_SIENNA, TITANIUM_WHITE, GREY, SAFFRON, LIME, FOREST_GREEN, BLACK, PURPLE, RARE, VERY_RARE, IMPORT, EXOTIC, \
     BLACK_MARKET, PREMIUM, LIMITED
 from rl_data_utils.item.attribute.identities import Identities
 from rl_data_utils.item.attribute_data.alias import CERTIFICATES, COLORS, PLATFORMS, RARITIES, SERIES, SLOTS
 from rl_data_utils.item.attribute_data.constants import NAMES, CARS_NAMES_WITH_DECAL, KINDS
-from rl_data_utils.item.item.constants import ARCHIVED, BLUEPRINT, CERTIFIED, COLOR, FAVORITE, NAME, PLATFORM, PRICE, \
-    QUANTITY, RARITY, SERIE, SLOT, TRADABLE
-from rl_data_utils.rocket_league.rocket_league import Comparable, RocketLeagueObject, Identifiable,\
-    Orderable
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject
+from rl_data_utils.rocket_league.utils import initialize
 
 
-class AttributeInfo(Identifiable, Orderable):
+class ItemAttribute(RocketLeagueObject):
     pass
 
 
-class ItemAttribute(RocketLeagueObject, Comparable, AttributeInfo, metaclass=ABCMeta):
-    pass
-
-
-class StaticItemAttribute(ItemAttribute, metaclass=ABCMeta):
+class Static(ItemAttribute):
     possible_values = None
 
     def __init__(self, value):
         self.value = value
 
     def compare(self, other):
-        """
-        Compare itself with another attribute
-        :param other: An instance of Attribute
-        :return: If both are the same attribute
-        """
         return self.value == other.value
 
     @classmethod
     def create_random(cls):
-        """
-        :return: A self instance from a random value
-        """
-        return cls(cls.possible_values[randint(0, len(cls.possible_values) - 1)])
+        return cls(cls.possible_values[randrange(len(cls.possible_values))])
 
     def __eq__(self, other):
         return self.compare(other)
 
 
-class StrItemAttribute(StaticItemAttribute):
-    pass
+class Str(Static):
+    value: str
 
 
-class ArchivedInfo(AttributeInfo):
-    identifier = ARCHIVED
-    order = 12
-
-
-class BoolItemAttribute(StaticItemAttribute):
+class Bool(Static):
     possible_values = True, False
 
 
-class Archived(BoolItemAttribute, ArchivedInfo):
+class Archived(Bool):
     def __init__(self, value: bool = False):
         super().__init__(value)
 
 
-class BlueprintInfo(AttributeInfo):
-    identifier = BLUEPRINT
-    order = 11
-
-
-class Blueprint(BoolItemAttribute, BlueprintInfo):
+class Blueprint(Bool):
     pass
 
 
-class CertifiedInfo(AttributeInfo):
-    identifier = CERTIFIED
-    order = 5
-
-
-class RegexBasedItemAttribute(ItemAttribute):
+class Id(ItemAttribute):
     identities: Identities = None
     possible_values: List[str] = None
 
@@ -97,20 +67,18 @@ class RegexBasedItemAttribute(ItemAttribute):
             self.set(identifier)
 
     def get(self) -> str:
-        return self.identities.get_identity(self._id).get_string_identity_by_id(self._sub_id).alias
+        return self.identities.get_identity(self._id).get_string_identity_id(self._sub_id).alias
 
     def set(self, string: str):
         identity, string_identity = self.identities.identify(string)
         self._id, self._sub_id = identity.id_, string_identity.id_
 
-    def compare(self, attribute: RegexBasedItemAttribute, exactly: bool = False) -> bool:
-        """
-        Compares the self attribute with another attribute
-        :param attribute: Any attribute to be compared with self attribute
-        :param exactly: Compares if itself is almost exactly the same as the other one
-        :return: If both attributes match with some regex
-        """
-        return self._is_exactly(attribute._id, attribute._sub_id if exactly else None)
+    def compare(self, attribute: Union[Id, Tuple[int, int], str], exactly: bool = False) -> bool:
+        attribute: Id = initialize(self.__class__, (tuple, str), attribute)
+        if isinstance(attribute, self.__class__):
+            return self._is_exactly(attribute._id, attribute._sub_id if exactly else None)
+        else:
+            return False
 
     def __eq__(self, other):
         return self.compare(other)
@@ -119,11 +87,7 @@ class RegexBasedItemAttribute(ItemAttribute):
         return hash(self.__class__)
 
     def get_representative(self):
-        """
-        It will return a self instance with the respective value
-        :return: An optional self instance with the respective value
-        """
-        return self.identities.get_identity(self._id).get_string_identity_by_id(0).alias
+        return self.identities.get_identity(self._id).get_string_identity_id(0).alias
 
     def is_exactly(self, alias: str, ignore_sub_id: bool = True) -> bool:
         identity, string_identity = self.identities.identify_by_alias(alias)
@@ -137,7 +101,7 @@ class RegexBasedItemAttribute(ItemAttribute):
 
     @classmethod
     def create_random(cls):
-        return cls(cls.possible_values[randint(0, len(cls.possible_values) - 1)])
+        return cls(cls.possible_values[randrange(len(cls.possible_values))])
 
     @classmethod
     def from_text(cls, text: str, alias_to_find: Optional[str] = None):
@@ -148,7 +112,7 @@ class RegexBasedItemAttribute(ItemAttribute):
         return cls((identity.id_, string_identity.id_))
 
 
-class Certified(RegexBasedItemAttribute, CertifiedInfo):
+class Certified(Id):
     identities = identities.CERTIFIEDS
     possible_values = CERTIFICATES
 
@@ -156,12 +120,7 @@ class Certified(RegexBasedItemAttribute, CertifiedInfo):
         super().__init__(identifier)
 
 
-class ColorInfo(AttributeInfo):
-    identifier = COLOR
-    order = 4
-
-
-class Color(RegexBasedItemAttribute, ColorInfo):
+class Color(Id):
     identities = identities.COLORS
     possible_values = COLORS
 
@@ -189,25 +148,16 @@ hex_table = {
 }
 
 
-class FavoriteInfo(AttributeInfo):
-    identifier = FAVORITE
-    order = 13
-
-
-class Favorite(BoolItemAttribute, FavoriteInfo):
+class Favorite(Bool):
     def __init__(self, value: bool = False):
         super().__init__(value)
 
 
-class NameInfo(AttributeInfo):
-    identifier = NAME
-    order = 7
-
-
-class Name(StrItemAttribute, NameInfo):
+class Name(Str):
     possible_values = NAMES
 
     def compare(self, name):
+        name = initialize(Name, str, name)
         return self._compare_two_string(self.value.lower(), name.value.lower())
 
     def get_car_name_and_decal_name(self):
@@ -231,50 +181,35 @@ class Name(StrItemAttribute, NameInfo):
             return None
 
     @staticmethod
-    @lru_cache()
+    @lru_cache
     def _compare_two_string(string_1, string_2):
         string_1 = sub(r"\W", "", string_1)
         string_2 = sub(r"\W", "", string_2)
         return set(string_1) == set(string_2)
 
 
-class PlatformInfo(AttributeInfo):
-    identifier = PLATFORM
-    order = 6
-
-
-class Platform(RegexBasedItemAttribute, PlatformInfo):
+class Platform(Id):
     identities = identities.PLATFORMS
     possible_values = PLATFORMS
 
 
-class PriceInfo(AttributeInfo):
-    identifier = PRICE
-    order = 13
-
-
-class Price(ItemAttribute, PriceInfo):
+class Price(ItemAttribute):
     def __init__(self, min_price, max_price):
         self.min_price = min_price
         self.max_price = max_price
 
-    def get_average(self):
-        return mean([self.min_price.value, self.max_price.value])
+    def get_average(self) -> int:
+        return mean((self.min_price.value, self.max_price.value))
 
-    def compare(self, other: Price):
+    def compare(self, other: Price) -> bool:
         return self.max_price.compare(other.max_price) and self.min_price.compare(other.min_price)
 
 
-class QuantityInfo(AttributeInfo):
-    identifier = QUANTITY
-    order = -1
-
-
-class IntItemAttribute(StaticItemAttribute):
+class Int(Static):
     pass
 
 
-class PositiveIntItemAttribute(IntItemAttribute):
+class PositiveInt(Int):
     @property
     def value(self):
         return self._value
@@ -287,7 +222,7 @@ class PositiveIntItemAttribute(IntItemAttribute):
             raise NegativeItemAttribute()
 
 
-class Quantity(QuantityInfo, PositiveIntItemAttribute):
+class Quantity(PositiveInt):
     def __init__(self, value: int = 1):
         super().__init__(value)
 
@@ -305,12 +240,7 @@ class CreditsQuantity(Quantity):
             raise InvalidCreditsQuantity()
 
 
-class RarityInfo(AttributeInfo):
-    identifier = RARITY
-    order = 3
-
-
-class Rarity(RegexBasedItemAttribute, RarityInfo):
+class Rarity(Id):
     identities = identities.RARITIES
     possible_values = RARITIES
 
@@ -329,30 +259,15 @@ rgb_table = {
 }
 
 
-class SerieInfo(AttributeInfo):
-    identifier = SERIE
-    order = 8
-
-
-class Serie(RegexBasedItemAttribute, SerieInfo):
+class Serie(Id):
     identities = identities.SERIES
     possible_values = SERIES
 
 
-class SlotInfo(AttributeInfo):
-    identifier = SLOT
-    order = 2
-
-
-class Slot(RegexBasedItemAttribute, SlotInfo):
+class Slot(Id):
     identities = identities.SLOTS
     possible_values = SLOTS
 
 
-class TradableInfo(AttributeInfo):
-    identifier = TRADABLE
-    order = 9
-
-
-class Tradable(BoolItemAttribute, TradableInfo):
+class Tradable(Bool):
     pass

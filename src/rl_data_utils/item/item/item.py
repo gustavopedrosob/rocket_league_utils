@@ -1,67 +1,147 @@
 from __future__ import annotations
 
-from rl_data_utils.item.attribute.attribute import ItemAttribute
-from rl_data_utils.item.attribute_data.attribute_data import AttributesData, AttributesCollectionManagement
-from rl_data_utils.item.item.represents_item import RepresentsItem
+from typing import Union
+
+from rl_data_utils.item.attribute.attribute import Archived, Name, Slot, Color, Rarity, Certified, \
+    Quantity, Blueprint, Platform, Price, Serie, Tradable, Favorite, CreditsQuantity
+from rl_data_utils.item.attribute.constants import NON_CRATE, PREMIUM, CREDITS
+from rl_data_utils.item.attribute_data.attribute_data import CraftingCost
+from rl_data_utils.item.item.constants import NAME, SLOT, RARITY, QUANTITY, BLUEPRINT, SERIE, TRADABLE, FAVORITE, \
+    ARCHIVED, COLOR, CERTIFIED
+from rl_data_utils.item.item.identity_item import IdentityItem, HasName, HasSlot
+from rl_data_utils.rocket_league.rocket_league import RocketLeagueObject
+from rl_data_utils.rocket_league.utils import initialize
 
 
-class Item(AttributesCollectionManagement, RepresentsItem):
-    def __init__(self,
-                 archived=None,
-                 name=None,
-                 slot=None,
-                 color=None,
-                 rarity=None,
-                 certified=None,
-                 quantity=None,
-                 blueprint=None,
-                 paintable=None,
-                 platform=None,
-                 price=None,
-                 serie=None,
-                 tradable=None,
-                 crafting_cost=None,
-                 favorite=None,
-                 acquired=None) -> None:
-        self.archived = archived
+class RepresentsItem(RocketLeagueObject, HasName, HasSlot):
+    def __init__(
+            self,
+            name: Union[Name, str],
+            slot: Union[Slot, str, tuple],
+            blueprint: Union[Blueprint, bool],
+            color: Union[Color, str, tuple, None] = None
+    ) -> None:
+        HasName.__init__(self, name)
+        HasSlot.__init__(self, slot)
         self.blueprint = blueprint
-        self.certified = certified
         self.color = color
-        self.name = name
-        self.paintable = paintable
+
+    @property
+    def blueprint(self) -> Blueprint:
+        return self._blueprint
+
+    @blueprint.setter
+    def blueprint(self, blueprint: Union[Blueprint, bool]):
+        self._blueprint = initialize(Blueprint, bool, blueprint)
+
+    @property
+    def color(self) -> Color:
+        return self._color
+
+    @color.setter
+    def color(self, color: Union[Color, str, tuple, None]):
+        self._color = initialize(Color, (str, tuple), color)
+
+    def compare_representation(self, other) -> bool:
+        return self.blueprint.compare(other.blueprint) and self.name.compare(other.name) and \
+               self.slot.compare(other.slot) and self.color.compare(other.color)
+
+
+class Item(IdentityItem, RepresentsItem):
+    def __init__(
+            self,
+            name: Union[Name, str],
+            slot: Union[Slot, str, tuple],
+            rarity: Union[Rarity, str, tuple],
+            quantity: Union[Quantity, int],
+            blueprint: Union[Blueprint, bool],
+            serie: Union[Serie, str, tuple],
+            tradable: Union[Tradable, bool],
+            favorite: Union[Favorite, bool, None] = None,
+            archived: Union[Archived, bool, None] = None,
+            color: Union[Color, str, tuple, None] = None,
+            certified: Union[Certified, str, tuple, None] = None
+    ) -> None:
+        self.archived = archived
+        self.certified = certified
+        self.quantity = quantity
+        self.serie = serie
+        self.tradable = tradable
+        self.favorite = favorite
+        IdentityItem.__init__(self, name, rarity, slot)
+        RepresentsItem.__init__(self, name, slot, blueprint, color)
+
+    @property
+    def archived(self) -> Archived:
+        return self._archived
+
+    @archived.setter
+    def archived(self, archived: Union[Archived, bool, None]):
+        self._archived = initialize(Archived, bool, archived)
+
+    @property
+    def certified(self) -> Certified:
+        return self._certified
+
+    @certified.setter
+    def certified(self, certified: Union[Certified, str, tuple, None]):
+        self._certified = initialize(Certified, (str, tuple), certified)
+
+    @property
+    def quantity(self) -> Quantity:
+        return self._quantity
+
+    @quantity.setter
+    def quantity(self, quantity: Union[Quantity, int]):
+        self._quantity = initialize(Quantity, int, quantity)
+
+    def is_non_crate(self):
+        return self.serie.is_exactly(NON_CRATE)
+
+
+class ItemWithPrice(Item):
+    def __init__(
+            self,
+            name: Union[Name, str],
+            slot: Union[Slot, str, tuple],
+            rarity: Union[Rarity, str, tuple],
+            quantity: Union[Quantity, int],
+            blueprint: Union[Blueprint, bool],
+            platform: Union[Platform, str, tuple],
+            price: Union[Price, tuple],
+            serie: Union[Serie, str, tuple],
+            tradable: Union[Tradable, bool],
+            crafting_cost: Union[CraftingCost, int],
+            favorite: Union[Favorite, bool, None] = None,
+            archived: Union[Archived, bool, None] = None,
+            color: Union[Color, str, tuple, None] = None,
+            certified: Union[Certified, str, tuple, None] = None
+    ) -> None:
         self.platform = platform
         self.price = price
-        self.quantity = quantity
-        self.rarity = rarity
-        self.serie = serie
-        self.slot = slot
-        self.tradable = tradable
         self.crafting_cost = crafting_cost
-        self.favorite = favorite
-        self.acquired = acquired
+        super().__init__(name, slot, rarity, quantity, blueprint, serie, tradable, favorite, archived, color, certified)
 
-    def is_non_crate(self, rarity):
-        """
-        It says if self is non crate and has some rarity
-        :param rarity: A rarity to compare
-        :return: If self is non crate and has some rarity
-        """
-        return not self.serie and self.rarity.compare(rarity)
+    @property
+    def platform(self) -> Platform:
+        return self._platform
 
-    @staticmethod
-    def match_attributes(attribute_1, attribute_2) -> bool:
-        """
-        It says if some attribute match with another
-        :param attribute_1: Any attribute
-        :param attribute_2: Any attribute
-        :return: If some attribute match with another
-        """
-        if attribute_1 and attribute_2:
-            if isinstance(attribute_1, AttributesData) and isinstance(attribute_2, ItemAttribute):
-                return attribute_1.has(attribute_2)
-            elif isinstance(attribute_2, AttributesData) and isinstance(attribute_1, ItemAttribute):
-                return attribute_2.has(attribute_1)
-            else:
-                return attribute_1.compare(attribute_2)
-        else:
-            return False
+    @platform.setter
+    def platform(self, platform: Union[Platform, str, tuple]):
+        self._platform = initialize(Platform, (str, tuple), platform)
+
+
+class Credits:
+    name = CREDITS
+    slot = PREMIUM
+
+    def __init__(self, quantity: Union[CreditsQuantity, int]):
+        self.quantity = quantity
+
+    @property
+    def quantity(self) -> CreditsQuantity:
+        return self._quantity
+
+    @quantity.setter
+    def quantity(self, quantity: Union[CreditsQuantity, int]):
+        self._quantity = initialize(CreditsQuantity, int, quantity)

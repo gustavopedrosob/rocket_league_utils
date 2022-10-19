@@ -6,4 +6,4 @@ def test_from_random():
 
 
 def test_compare_name():
-    assert Name("Wall Breaker II").compare(Name("Wall Breaker II"))
+    assert Name("Wall Breaker II").compare("Wall Breaker II")

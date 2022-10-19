@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from rl_data_utils.item.attribute import constants
-from rl_data_utils.item.attribute.attribute import Certified, Color, Platform, Slot, Rarity, Serie
+from rl_data_utils.item.attribute.attribute import Certified, Color, Platform, Slot, Rarity, Serie, Favorite, Blueprint, \
+    Archived, Tradable, Name
 
-
+# Names
+CREDITS = Name(constants.CREDITS)
+# Certificates
 AVIATOR = Certified(constants.AVIATOR)
 ACROBAT = Certified(constants.ACROBAT)
 GOALKEEPER = Certified(constants.GOALKEEPER)
@@ -20,6 +23,7 @@ SWEEPER = Certified(constants.SWEEPER)
 TACTICIAN = Certified(constants.TACTICIAN)
 TURTLE = Certified(constants.TURTLE)
 VICTOR = Certified(constants.VICTOR)
+# Colors
 BLACK = Color(constants.BLACK)
 BURNT_SIENNA = Color(constants.BURNT_SIENNA)
 COBALT = Color(constants.COBALT)
@@ -34,10 +38,12 @@ PURPLE = Color(constants.PURPLE)
 SAFFRON = Color(constants.SAFFRON)
 SKY_BLUE = Color(constants.SKY_BLUE)
 TITANIUM_WHITE = Color(constants.TITANIUM_WHITE)
+# Platforms
 PC = Platform(constants.PC)
 PS4 = Platform(constants.PS4)
 SWITCH = Platform(constants.SWITCH)
 XBOX = Platform(constants.XBOX)
+# Rarities
 BLACK_MARKET = Rarity(constants.BLACK_MARKET)
 COMMON = Rarity(constants.COMMON)
 EXOTIC = Rarity(constants.EXOTIC)
@@ -48,6 +54,7 @@ PREMIUM = Rarity(constants.PREMIUM)
 RARE = Rarity(constants.RARE)
 UNCOMMON = Rarity(constants.UNCOMMON)
 VERY_RARE = Rarity(constants.VERY_RARE)
+# Series
 ACCELERATOR_SERIES = Serie(constants.ACCELERATOR)
 ACCOLADE_SERIES_1 = Serie(constants.ACCOLADE_1)
 ACCOLADE_SERIES_2 = Serie(constants.ACCOLADE_2)
@@ -92,10 +99,11 @@ VICTORY_SERIES = Serie(constants.VICTORY)
 VINDICATOR_SERIES = Serie(constants.VINDICATOR)
 ZEPHYR_SERIES = Serie(constants.ZEPHYR)
 WWE_PROMO_CODE = Serie(constants.WWE_PROMO_CODE)
+# Slots
 ANTENNA = Slot(constants.ANTENNA)
 BORDER = Slot(constants.BORDER)
 CAR = Slot(constants.CAR)
-BLUEPRINT = Slot(constants.BLUEPRINT)
+BLUEPRINTS = Slot(constants.BLUEPRINTS)
 DECAL = Slot(constants.DECAL)
 ENGINE_AUDIO = Slot(constants.ENGINE_AUDIO)
 GOAL_EXPLOSION = Slot(constants.GOAL_EXPLOSION)
@@ -108,3 +116,15 @@ TOPPER = Slot(constants.TOPPER)
 TRAIL = Slot(constants.TRAIL)
 WHEEL = Slot(constants.WHEEL)
 TITLE = Slot(constants.TITLE)
+# Favorite
+FAVORITE = Favorite(True)
+NOT_FAVORITE = Favorite(False)
+# Blueprint
+BLUEPRINT = Blueprint(True)
+NOT_BLUEPRINT = Blueprint(True)
+# Archived
+ARCHIVED = Archived(True)
+NOT_ARCHIVED = Archived(False)
+# Tradable
+TRADABLE = Tradable(True)
+NOT_TRADABLE = Tradable(False)
