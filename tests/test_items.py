@@ -1,48 +1,43 @@
+import datetime
 from json import load
+import rocket_league_utils as rl_utils
 
-from rl_data_utils.exceptions import InvalidAttribute
-from rl_data_utils.item.attribute.attribute import Archived, Certified, Color, Name, Quantity, Rarity, Serie, Slot, \
-    Tradable
-from rl_data_utils.item.item.constants import INDENTIFIER
-from rl_data_utils.item.item.item import Item
-from rl_data_utils.items.inventory import Inventory
 
-with open("sample-inventory-items.json", "r") as file:
-    json = load(file)
+def get_inventory_items():
+    with open("sample-inventory-items.json", "r") as file:
+        json = load(file)
 
-items_json = json["items"]
-inventory_items = Inventory()
-for item in items_json:
-    try:
-        item_object = Item(
+    inventory = []
+    items_json = json["items"]
+    for item in items_json:
+        item_object = rl_utils.Item(
             color=item["color"],
             rarity=item["rarity"],
             slot=item["slot"],
             certified=item["certified"],
             name=item["name"],
             quantity=item["quantity"],
-            tradable=item["tradable"],
+            can_trade=item["tradable"],
             serie=item["serie"],
-            blueprint=item["slot"] == "Blueprint"
+            blueprint=item["slot"] == "Blueprint",
+            platform="pc",
+            acquired=datetime.datetime.now()
         )
-    except InvalidAttribute:
-        continue
-    else:
-        inventory_items.add_items(item_object)
+        inventory.append(item_object)
+    return inventory
 
 
-def test_filter_by_item_indentifier_mode():
-    item_ = Item(Archived(True), Name("Dingo"), Slot("Car"), Color("Saffron"), Rarity("Import"),
-                 Certified("GoalKeeper"), Quantity(6))
-    i = inventory_items.filter_by_item(item_, INDENTIFIER)
-    print(i.items)
+inventory_items = get_inventory_items()
 
 
-# def test_filter_by():
-#     i = inventory_items.filter_by_item(Item(name=Name("Octane: Buzz Kill")))
-#     print(i.items)
-#
-#
-# def test_filter_by_item():
-#     item_ = Item(name=Name("Octane: Buzz Kill"))
-#     print(inventory_items.filter_by_item(item_).items)
+def test_filter_by_item_represents():
+    item = rl_utils.Item(name="Dingo", slot="Car", color="Tw", rarity="Import", certified="GoalKeeper", quantity=6,
+                         blueprint=False, can_trade=True, platform="pc", serie="Non crate",
+                         acquired=datetime.datetime.now())
+    print(list(filter(item.compare_repr, inventory_items)))
+
+
+def test_filter_by_item_identity():
+    item = rl_utils.Item(name="Octane: Buzz Kill", slot="Decal", blueprint=False, can_trade=True, platform="Pc",
+                         quantity=1, rarity="rare", serie="Non crate", acquired=datetime.datetime.now())
+    print(list(filter(item.compare_identity, inventory_items)))

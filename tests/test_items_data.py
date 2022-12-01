@@ -1,29 +1,19 @@
 from json import load
-
-from rl_data_utils.exceptions import InvalidAttribute
-from rl_data_utils.item.attribute.attribute import Name, Platform, Rarity, Slot
-from rl_data_utils.item.attribute_data.attribute_data import Colors, Platforms
-from rl_data_utils.item.item.data_item import DataItem
-from rl_data_utils.item.attribute_data.constants import PLATFORMS
-from rl_data_utils.items.inventory import Inventory
+import rocket_league_utils as rl_utils
 
 with open("sample-gameflip-data.json", "r") as file:
     json = load(file)
 
 items_json = json["data"]
 
-gameflip_data = Inventory()
+gameflip_data = []
 
 for data in items_json:
-    try:
-        data_item = DataItem(
-            platform=Platforms.from_str_list(PLATFORMS) if data["platform"] == "all" else Platform(data["platform"]),
-            color=Colors.from_str_list([e["name"] for e in data.get("colors", [])]),
-            name=Name(data["name"]),
-            rarity=Rarity(data["rarity"]),
-            slot=Slot(data["slot"])
-        )
-    except InvalidAttribute:
-        continue
-    else:
-        gameflip_data.add_items(data_item)
+    data_item = rl_utils.DataItem(
+        platforms=rl_utils.PLATFORMS if data["platform"] == "all" else data["platform"],
+        colors=[e["name"] for e in data.get("colors", [])],
+        name=data["name"],
+        rarity=data["rarity"],
+        slot=data["slot"]
+    )
+    gameflip_data.append(data_item)
