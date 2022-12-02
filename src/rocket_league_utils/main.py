@@ -5,6 +5,7 @@ import functools
 import sqlite3
 import typing
 import re
+import unidecode
 
 # Certificates
 AVIATOR = "Aviator"
@@ -298,26 +299,42 @@ def validate_credits(credits_: int):
         raise InvalidCredits()
 
 
-def get_kind(name: str) -> typing.Optional[str]:
-    search = re.search(r": (\w+)", name, re.I)
-    if search:
-        return search.group(1)
+class Name:
+    def __init__(self, name: str):
+        kind_search = re.search(r": (\w+)", name, re.I)
+        if kind_search:
+            self.name = name.replace(kind_search.group(0), "")
+            self.kind = kind_search.group(1)
+            self.car = None
+            return
+        car_search = re.search(r" \(([\w\s]+)\)| \[([\w\s]+)]", name, re.I)
+        if car_search:
+            car = car_search.group(1)
+            if car is None:
+                car = car_search.group(2)
+            self.name = name.replace(car_search.group(0), "")
+            self.car = car
+            self.kind = None
 
+    @staticmethod
+    def compare_names(name_1: str, name_2: str) -> bool:
+        string_1 = re.sub(r"\W", "", unidecode.unidecode(name_1.lower()))
+        string_2 = re.sub(r"\W", "", unidecode.unidecode(name_2.lower()))
+        return set(string_1) == set(string_2)
 
-def get_car(decal_name: str) -> typing.Optional[str]:
-    search = re.search(r"\(([\w\s]+)\)|\[([\w\s]+)]", decal_name, re.I)
-    if search:
-        group_1 = search.group(1)
-        if group_1:
-            return group_1
+    def compare(self, other: Name) -> bool:
+        if self.car is None:
+            return self.compare_names(self.name, other.name) and self.compare_names(self.kind, other.kind)
+        elif self.kind is None:
+            return self.compare_names(self.name, other.name) and self.compare_names(self.car, other.car)
         else:
-            return search.group(2)
+            return self.compare_names(self.name, other.name)
 
 
 def compare_names(name_1: str, name_2: str) -> bool:
-    string_1 = re.sub(r"\W", "", name_1.lower())
-    string_2 = re.sub(r"\W", "", name_2.lower())
-    return set(string_1) == set(string_2)
+    name_1 = Name(name_1)
+    name_2 = Name(name_2)
+    return name_1.compare(name_2)
 
 
 class RegexBasedModule:
