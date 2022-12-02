@@ -4,8 +4,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="rl-data-utils",
-    version="0.0.1",
+    name="rocket-league-utils",
+    version="0.0.2",
     author="TheVicio",
     author_email="thevicio27@gmail.com",
     description="An easy way to interact with Rocket League data.",
