@@ -315,6 +315,10 @@ class Name:
             self.name = name.replace(car_search.group(0), "")
             self.car = car
             self.kind = None
+            return
+        self.name = name
+        self.car = None
+        self.kind = None
 
     @staticmethod
     def compare_names(name_1: str, name_2: str) -> bool:
