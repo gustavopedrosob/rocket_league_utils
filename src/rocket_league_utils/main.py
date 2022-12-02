@@ -327,9 +327,9 @@ class Name:
         return set(string_1) == set(string_2)
 
     def compare(self, other: Name) -> bool:
-        if self.car is None:
+        if self.kind is not None:
             return self.compare_names(self.name, other.name) and self.compare_names(self.kind, other.kind)
-        elif self.kind is None:
+        elif self.car is not None:
             return self.compare_names(self.name, other.name) and self.compare_names(self.car, other.car)
         else:
             return self.compare_names(self.name, other.name)
