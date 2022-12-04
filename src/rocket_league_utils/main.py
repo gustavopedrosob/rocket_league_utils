@@ -301,6 +301,16 @@ def validate_credits(credits_: int):
         raise InvalidCredits()
 
 
+def price_from_text(text: str) -> typing.Tuple[int, int]:
+    if "k" in text:
+        text = text.replace(" k", "")
+        price = text.split(" - ")
+        return int(float(price[0]) * 1000), int(float(price[1]) * 1000)
+    else:
+        price = text.split(" - ")
+        return int(price[0]), int(price[1])
+
+
 class Name:
     def __init__(self, name: str):
         kind_search = re.search(r": (\w+)", name, re.I)
@@ -456,7 +466,9 @@ class HasPrice:
         validate_credits(max_price)
         self._price = price
 
-    def get_price_formatted(self) -> str:
+    def get_price_formatted(self, round_: bool = True) -> str:
+        if round_ and self.price[0] > 1000 and self.price[1] > 1000:
+            return f"{round(self.price[0] / 1000, 2)} - {round(self.price[1] / 1000, 2)} k"
         return f"{self.price[0]} - {self.price[1]}"
 
 
@@ -565,7 +577,8 @@ HEX_TABLE = {
     LIME: "#ccff4d",
     FOREST_GREEN: "#329536",
     BLACK: "#000",
-    PURPLE: "#e974fd"
+    PURPLE: "#e974fd",
+    GOLD: "#F4B900",
 }
 
 RGB_TABLE = {
