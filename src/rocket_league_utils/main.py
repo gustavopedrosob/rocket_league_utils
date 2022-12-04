@@ -52,6 +52,7 @@ SB = "SB"
 TITANIUM_WHITE = "Titanium White"
 WHITE = "White"
 TW = "TW"
+GOLD = "Gold"
 # Platforms
 PC = "Pc"
 COMPUTER = "Computer"
@@ -152,7 +153,7 @@ PLAYER_TITLE = "Player Title"
 CERTIFICATES = (AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, NONE, PARAGON, PLAYMAKER, SCORER,
                 SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR)
 COLORS = (BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, LIME, ORANGE, PINK,
-          PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE)
+          PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, GOLD)
 PLATFORMS = (PC, PS4, SWITCH, XBOX)
 RARITIES = (BLACK_MARKET, COMMON, EXOTIC, IMPORT, LIMITED, PREMIUM, RARE, UNCOMMON, VERY_RARE, LEGACY)
 SERIES = (
@@ -181,7 +182,8 @@ COLOR_REGEX_TABLE = {
     PURPLE: re.compile(r"purple", re.I),
     SAFFRON: re.compile(r"saffron|yellow", re.I),
     SKY_BLUE: re.compile(r"sky[_\- ]?blue|sb", re.I),
-    TITANIUM_WHITE: re.compile(r"titanium[_\- ]white|white|tw", re.I)}
+    TITANIUM_WHITE: re.compile(r"titanium[_\- ]white|white|tw", re.I),
+    GOLD: re.compile(r"gold(:?en)?", re.I)}
 CERTIFIED_REGEX_TABLE = {
     ACROBAT: re.compile(r"acrobat", re.I),
     AVIATOR: re.compile(r"aviator", re.I),
@@ -418,7 +420,8 @@ class IdentityItem:
 class DataItem(IdentityItem):
     __slots__ = "name", "slot", "rarity", "colors", "certificates", "platforms", "series"
 
-    def __init__(self, name: str, slot: str, rarity: str, colors: typing.Optional[typing.Iterable[str]] = None,
+    def __init__(self, name: str, slot: str, rarity: str,
+                 colors: typing.Optional[typing.Iterable[str]] = None,
                  certificates: typing.Optional[typing.Iterable[str]] = None,
                  platforms: typing.Optional[typing.Iterable[str]] = None,
                  series: typing.Optional[typing.Iterable[str]] = None):
@@ -452,6 +455,9 @@ class HasPrice:
         validate_credits(min_price)
         validate_credits(max_price)
         self._price = price
+
+    def get_price_formatted(self) -> str:
+        return f"{self.price[0]} - {self.price[1]}"
 
 
 class HasCraftingCost:
