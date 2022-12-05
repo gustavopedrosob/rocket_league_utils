@@ -1,16 +1,16 @@
 import pytest
 import datetime
 
-from rocket_league_utils import certified_utils, color_utils, platform_utils, rarity_utils, serie_utils, slot_utils
-import rocket_league_utils as rl_utils
+from rocket_league_utils.main import certified_utils, color_utils, platform_utils, rarity_utils, serie_utils, slot_utils
+import rocket_league_utils.main as rl_utils
 
 
 def test_compare_identity():
     item_1 = rl_utils.Item(archived=True, name="Dingo", slot="Car", color="Titanium White", rarity="Import",
-                           certified="Striker", quantity=1, blueprint=False, can_trade=True, serie="non crate",
+                           certified="Striker", quantity=1, blueprint=False, trade_lock=False, serie="non crate",
                            platform="pc", acquired=datetime.datetime.now())
     item_2 = rl_utils.Item(archived=False, name="Dingo", slot="Car", color="Grey", rarity="Import",
-                           certified="Goalkeeper", quantity=5, blueprint=False, can_trade=True, serie="non crate",
+                           certified="Goalkeeper", quantity=5, blueprint=False, trade_lock=False, serie="non crate",
                            platform="pc", acquired=datetime.datetime.now())
     assert item_1.compare_identity(item_2)
 
@@ -24,7 +24,6 @@ insider_colors = ["Default", "Black", "Titanium White", "Grey", "Crimson", "Pink
 insider_rarities = ["Limited", "Uncommon", "Rare", "Very Rare", "Import", "Exotic", "Black Market"]
 
 inventory_rarities = ["Import", "Limited", "Uncommon", "Black market", "Rare", "Very rare", "Exotic"]
-
 
 inventory_series = ["Accelerator", "Accolade 1", "Accolade II", "Auriga", "Champions 1", "Champions 2", "Champions 3",
                     "Champions 4", "Elevation", "Ferocity", "Golden Egg '18", "Golden Egg '19",
@@ -426,11 +425,11 @@ def test_compare_name():
 
 @pytest.mark.parametrize("decal_name, car_name", (("Dragon [Dominus]", "Dominus"), ("Dragon (Octane)", "Octane")))
 def test_get_car(decal_name: str, car_name: str):
-    assert rl_utils.get_car(decal_name) == car_name
+    assert rl_utils.Name(decal_name).car == car_name
 
 
 def test_get_kind():
-    assert rl_utils.get_kind("Bravado: Infinite") == "Infinite"
+    assert rl_utils.Name("Bravado: Infinite").kind == "Infinite"
 
 
 @pytest.mark.parametrize("platform_1,platform_2",
@@ -722,6 +721,11 @@ def test_is_champions_4_series(serie):
     assert serie_utils.is_exactly(rl_utils.CHAMPIONS_4, serie)
 
 
+@pytest.mark.parametrize("serie", ["Dorado", "Dorado Series"])
+def test_is_dorado_series(serie):
+    assert serie_utils.is_exactly(rl_utils.DORADO, serie)
+
+
 @pytest.mark.parametrize("serie", ["Elevation"])
 def test_is_elevation_series(serie):
     assert serie_utils.is_exactly(rl_utils.ELEVATION, serie)
@@ -730,6 +734,11 @@ def test_is_elevation_series(serie):
 @pytest.mark.parametrize("serie", ["Ferocity"])
 def test_is_ferocity_series(serie):
     assert serie_utils.is_exactly(rl_utils.FEROCITY, serie)
+
+
+@pytest.mark.parametrize("serie", ["Fornax", "Fornax Series"])
+def test_is_fornax_series(serie):
+    assert serie_utils.is_exactly(rl_utils.FORNAX, serie)
 
 
 @pytest.mark.parametrize("serie", ["Golden Egg '18"])
@@ -747,19 +756,34 @@ def test_is_golden_egg_2020(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_EGG_2020, serie)
 
 
-@pytest.mark.parametrize("serie", ["Golden Gift 18"])
+@pytest.mark.parametrize("serie", ["Golden Egg '22"])
+def test_is_golden_egg_2022(serie):
+    assert serie_utils.is_exactly(rl_utils.GOLDEN_EGG_2022, serie)
+
+
+@pytest.mark.parametrize("serie", ["Golden Gift '18"])
 def test_is_golden_gift_2018(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_GIFT_2018, serie)
 
 
-@pytest.mark.parametrize("serie", ["Golden Gift 19"])
+@pytest.mark.parametrize("serie", ["Golden Gift '19"])
 def test_is_golden_gift_2019(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_GIFT_2019, serie)
 
 
-@pytest.mark.parametrize("serie", ["Golden Gift 20"])
+@pytest.mark.parametrize("serie", ["Golden Gift '20"])
 def test_is_golden_gift_2020(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_GIFT_2020, serie)
+
+
+@pytest.mark.parametrize("serie", ["Golden Gift '21"])
+def test_is_golden_gift_2021(serie):
+    assert serie_utils.is_exactly(rl_utils.GOLDEN_GIFT_2021, serie)
+
+
+@pytest.mark.parametrize("serie", ["Golden Gift Basket '22"])
+def test_is_golden_gift_basket_2022(serie):
+    assert serie_utils.is_exactly(rl_utils.GOLDEN_GIFT_BASKET_2022, serie)
 
 
 @pytest.mark.parametrize("serie", ["Golden Lantern '19"])
@@ -777,6 +801,11 @@ def test_is_golden_lantern_2021(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_LANTERN_2021, serie)
 
 
+@pytest.mark.parametrize("serie", ["Golden Moon"])
+def test_is_golden_moon(serie):
+    assert serie_utils.is_exactly(rl_utils.GOLDEN_MOON, serie)
+
+
 @pytest.mark.parametrize("serie", ["Golden Pumpkin '18"])
 def test_is_golden_pumpkin_2018(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_PUMPKIN_2018, serie)
@@ -790,6 +819,11 @@ def test_is_golden_pumpkin_2019(serie):
 @pytest.mark.parametrize("serie", ["Golden Pumpkin '20"])
 def test_is_golden_pumpkin_2020(serie):
     assert serie_utils.is_exactly(rl_utils.GOLDEN_PUMPKIN_2020, serie)
+
+
+@pytest.mark.parametrize("serie", ["Golden Pumpkin '22"])
+def test_is_golden_pumpkin_2022(serie):
+    assert serie_utils.is_exactly(rl_utils.GOLDEN_PUMPKIN_2022, serie)
 
 
 @pytest.mark.parametrize("serie", ["Haunted Hallows"])
@@ -837,9 +871,99 @@ def test_is_rlcs_reward_series(serie):
     assert serie_utils.is_exactly(rl_utils.RLCS_REWARD, serie)
 
 
+@pytest.mark.parametrize("serie", ["Revival", "Revival Series"])
+def test_is_revival_series(serie):
+    assert serie_utils.is_exactly(rl_utils.REVIVAL, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 1"])
+def test_is_rocketpass_1(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_1, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 2"])
+def test_is_rocketpass_2(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_2, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 3"])
+def test_is_rocketpass_3(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_3, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 4"])
+def test_is_rocketpass_4(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_4, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 5"])
+def test_is_rocketpass_5(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_5, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 6"])
+def test_is_rocketpass_6(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_6, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 7"])
+def test_is_rocketpass_7(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_7, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 8"])
+def test_is_rocketpass_8(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_8, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 9"])
+def test_is_rocketpass_9(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_9, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 10"])
+def test_is_rocketpass_10(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_10, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 11"])
+def test_is_rocketpass_11(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_11, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 12"])
+def test_is_rocketpass_12(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_12, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 13"])
+def test_is_rocketpass_13(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_13, serie)
+
+
+@pytest.mark.parametrize("serie", ["Rocketpass 14"])
+def test_is_rocketpass_14(serie):
+    assert serie_utils.is_exactly(rl_utils.ROCKETPASS_14, serie)
+
+
+@pytest.mark.parametrize("serie", ["Select Favorites Item", "Select Favorites Item Series"])
+def test_is_select_favorites_item(serie):
+    assert serie_utils.is_exactly(rl_utils.SELECT_FAVORITES_ITEM, serie)
+
+
+@pytest.mark.parametrize("serie", ["Select Favorites 2", "Select Favorites Series 2"])
+def test_is_select_favorites_2(serie):
+    assert serie_utils.is_exactly(rl_utils.SELECT_FAVORITES_2, serie)
+
+
 @pytest.mark.parametrize("serie", ["Season 1"])
 def test_is_season_1(serie):
     assert serie_utils.is_exactly(rl_utils.SEASON_1, serie)
+
+
+@pytest.mark.parametrize("serie", ["Season 2"])
+def test_is_season_2(serie):
+    assert serie_utils.is_exactly(rl_utils.SEASON_2, serie)
 
 
 @pytest.mark.parametrize("serie", ["Secret Santa"])

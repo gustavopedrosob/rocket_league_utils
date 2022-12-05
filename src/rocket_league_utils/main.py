@@ -89,17 +89,24 @@ CHAMPIONS_1 = "Champions 1"
 CHAMPIONS_2 = "Champions 2"
 CHAMPIONS_3 = "Champions 3"
 CHAMPIONS_4 = "Champions 4"
+DORADO = "Dorado"
 ELEVATION = "Elevation"
 FEROCITY = "Ferocity"
+FORNAX = "Fornax"
+GOLDEN_EGG_2022 = "Golden Egg 2022"
 GOLDEN_EGG_2020 = "Golden Egg 2020"
 GOLDEN_EGG_2019 = "Golden Egg 2019"
 GOLDEN_EGG_2018 = "Golden Egg 2018"
+GOLDEN_GIFT_2021 = "Golden Gift 2021"
 GOLDEN_GIFT_2020 = "Golden Gift 2020"
 GOLDEN_GIFT_2019 = "Golden Gift 2019"
 GOLDEN_GIFT_2018 = "Golden Gift 2018"
+GOLDEN_GIFT_BASKET_2022 = "Golden Gift Basket 2022"
 GOLDEN_LANTERN_2021 = "Golden Lantern 2021"
 GOLDEN_LANTERN_2020 = "Golden Lantern 2020"
 GOLDEN_LANTERN_2019 = "Golden Lantern 2019"
+GOLDEN_MOON = "Golden Moon"
+GOLDEN_PUMPKIN_2022 = "Golden Pumpkin 2022"
 GOLDEN_PUMPKIN_2020 = "Golden Pumpkin 2020"
 GOLDEN_PUMPKIN_2019 = "Golden Pumpkin 2019"
 GOLDEN_PUMPKIN_2018 = "Golden Pumpkin 2018"
@@ -113,7 +120,25 @@ OVERDRIVE = "Overdrive"
 POST_GAME = "Post Game"
 PLAYERS_CHOICE = "Player\'s Choice"
 RLCS_REWARD = "RLCS Reward"
+REVIVAL = "Revival"
+ROCKETPASS_1 = "Rocketpass 1"
+ROCKETPASS_2 = "Rocketpass 2"
+ROCKETPASS_3 = "Rocketpass 3"
+ROCKETPASS_4 = "Rocketpass 4"
+ROCKETPASS_5 = "Rocketpass 5"
+ROCKETPASS_6 = "Rocketpass 6"
+ROCKETPASS_7 = "Rocketpass 7"
+ROCKETPASS_8 = "Rocketpass 8"
+ROCKETPASS_9 = "Rocketpass 9"
+ROCKETPASS_10 = "Rocketpass 10"
+ROCKETPASS_11 = "Rocketpass 11"
+ROCKETPASS_12 = "Rocketpass 12"
+ROCKETPASS_13 = "Rocketpass 13"
+ROCKETPASS_14 = "Rocketpass 14"
+SELECT_FAVORITES_ITEM = "Select Favorites Item"
+SELECT_FAVORITES_2 = "Select Favorites 2"
 SEASON_1 = "Season 1"
+SEASON_2 = "Season 2"
 SECRET_SANTA = "Secret Santa"
 SPRING_FEVER = "Spring Fever"
 TOTALLY_AWESOME = "Totally Awesome"
@@ -157,14 +182,15 @@ COLORS = (BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, LIM
 PLATFORMS = (PC, PS4, SWITCH, XBOX)
 RARITIES = (BLACK_MARKET, COMMON, EXOTIC, IMPORT, LIMITED, PREMIUM, RARE, UNCOMMON, VERY_RARE, LEGACY)
 SERIES = (
-    ACCELERATOR, ACCOLADE_1, ACCOLADE_2, AURIGA, BEACH_BLAST, BONUS_GIFT,
-    CHAMPIONS_1, CHAMPIONS_2, CHAMPIONS_3, CHAMPIONS_4, ELEVATION, FEROCITY,
-    GOLDEN_EGG_2018, GOLDEN_EGG_2019, GOLDEN_EGG_2020, GOLDEN_GIFT_2018, GOLDEN_GIFT_2019, GOLDEN_GIFT_2020,
-    GOLDEN_LANTERN_2019, GOLDEN_LANTERN_2020, GOLDEN_LANTERN_2021, GOLDEN_PUMPKIN_2018, GOLDEN_PUMPKIN_2019,
-    GOLDEN_PUMPKIN_2020, HAUNTED_HALLOWS, IGNITION, IMPACT, MOMENTUM, NITRO,
-    NON_CRATE, OVERDRIVE, PLAYERS_CHOICE, RLCS_REWARD, SEASON_1, SECRET_SANTA, SPRING_FEVER,
-    TOTALLY_AWESOME, TRIUMPH, TURBO, VELOCITY, VICTORY, VINDICATOR,
-    ZEPHYR, WWE_PROMO_CODE)
+    ACCELERATOR, ACCOLADE_1, ACCOLADE_2, AURIGA, BEACH_BLAST, BONUS_GIFT, CHAMPIONS_1, CHAMPIONS_2, CHAMPIONS_3,
+    CHAMPIONS_4, DORADO, ELEVATION, FEROCITY, FORNAX, GOLDEN_EGG_2018, GOLDEN_EGG_2019, GOLDEN_EGG_2020,
+    GOLDEN_EGG_2022, GOLDEN_GIFT_2018, GOLDEN_GIFT_2019, GOLDEN_GIFT_2020, GOLDEN_GIFT_2021, GOLDEN_GIFT_BASKET_2022,
+    GOLDEN_LANTERN_2019, GOLDEN_LANTERN_2020, GOLDEN_LANTERN_2021, GOLDEN_MOON, GOLDEN_PUMPKIN_2018,
+    GOLDEN_PUMPKIN_2019, GOLDEN_PUMPKIN_2020, GOLDEN_PUMPKIN_2022, HAUNTED_HALLOWS, IGNITION, IMPACT, MOMENTUM, NITRO,
+    NON_CRATE, OVERDRIVE, PLAYERS_CHOICE, RLCS_REWARD, REVIVAL, ROCKETPASS_1, ROCKETPASS_2, ROCKETPASS_3, ROCKETPASS_4,
+    ROCKETPASS_5, ROCKETPASS_6, ROCKETPASS_7, ROCKETPASS_8, ROCKETPASS_9, ROCKETPASS_10, ROCKETPASS_11, ROCKETPASS_12,
+    ROCKETPASS_13, ROCKETPASS_14, SELECT_FAVORITES_ITEM, SELECT_FAVORITES_2, SEASON_1, SEASON_2, SECRET_SANTA,
+    SPRING_FEVER, TOTALLY_AWESOME, TRIUMPH, TURBO, VELOCITY, VICTORY, VINDICATOR, ZEPHYR, WWE_PROMO_CODE)
 SLOTS = (ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, PAINT_FINISH, ANTHEM, BANNER,
          BOOST, TOPPER, TRAIL, WHEEL)
 
@@ -218,49 +244,74 @@ RARITY_REGEX_TABLE = {
     UNCOMMON: re.compile(r"uncommons?", re.I),
     VERY_RARE: re.compile(r"very[_\- ]?rares?|vrs?", re.I)}
 SERIE_REGEX_TABLE = {
-    ACCELERATOR: re.compile(r"accelerator[_\- ]?(series)?", re.I),
-    ACCOLADE_1: re.compile(r"accolade[_\- ]?[1I][_\- ]?(series)?", re.I),
-    ACCOLADE_2: re.compile(r"accolade[_\- ]?(2|II)[_\- ]?(series)?", re.I),
-    AURIGA: re.compile(r"auriga[_\- ]?(series)?", re.I),
-    BEACH_BLAST: re.compile(r"beach[_\- ]?blast[_\- ]?(series)?", re.I),
+    ACCELERATOR: re.compile(r"accelerator(:?[_\- ]?series)?", re.I),
+    ACCOLADE_1: re.compile(r"accolade[_\- ]?[1I](:?[_\- ]?series)?", re.I),
+    ACCOLADE_2: re.compile(r"accolade[_\- ]?(2|II)(:?[_\- ]?series)?", re.I),
+    AURIGA: re.compile(r"auriga(:?[_\- ]?series)?", re.I),
+    BEACH_BLAST: re.compile(r"beach[_\- ]?blast(:?[_\- ]?series)?", re.I),
     BONUS_GIFT: re.compile(r"bonus[_\- ]?gift", re.I),
-    CHAMPIONS_1: re.compile(r"champions[_\- ]?1[_\- ]?(series)?", re.I),
-    CHAMPIONS_2: re.compile(r"champions[_\- ]?2[_\- ]?(series)?", re.I),
-    CHAMPIONS_3: re.compile(r"champions[_\- ]?3[_\- ]?(series)?", re.I),
-    CHAMPIONS_4: re.compile(r"champions[_\- ]?4[_\- ]?(series)?", re.I),
-    ELEVATION: re.compile(r"elevation[_\- ]?(series)?", re.I),
-    FEROCITY: re.compile(r"ferocity[_\- ]?(series)?", re.I),
-    GOLDEN_EGG_2020: re.compile(r"golden[_\- ]?egg[_\- ]?'?(20)?20", re.I),
-    GOLDEN_EGG_2019: re.compile(r"golden[_\- ]?egg[_\- ]?'?(20)?19", re.I),
-    GOLDEN_EGG_2018: re.compile(r"golden[_\- ]?egg[_\- ]?'?(20)?18", re.I),
-    GOLDEN_GIFT_2020: re.compile(r"golden[_\- ]?gift[_\- ]?'?(20)?20", re.I),
-    GOLDEN_GIFT_2019: re.compile(r"golden[_\- ]?gift[_\- ]?'?(20)?19", re.I),
-    GOLDEN_GIFT_2018: re.compile(r"golden[_\- ]?gift[_\- ]?'?(20)?18", re.I),
-    GOLDEN_LANTERN_2021: re.compile(r"golden[_\- ]?lantern[_\- ]?'?(20)?21", re.I),
-    GOLDEN_LANTERN_2020: re.compile(r"golden[_\- ]?lantern[_\- ]?'?(20)?20", re.I),
-    GOLDEN_LANTERN_2019: re.compile(r"golden[_\- ]?lantern[_\- ]?'?(20)?19", re.I),
-    GOLDEN_PUMPKIN_2020: re.compile(r"golden[_\- ]?pumpkin[_\- ]?'?(20)?20", re.I),
-    GOLDEN_PUMPKIN_2019: re.compile(r"golden[_\- ]?pumpkin[_\- ]?'?(20)?19", re.I),
-    GOLDEN_PUMPKIN_2018: re.compile(r"golden[_\- ]?pumpkin[_\- ]?'?(20)?18", re.I),
-    HAUNTED_HALLOWS: re.compile(r"haunted[_\- ]?hallows[_\- ]?(series)?", re.I),
-    IGNITION: re.compile(r"ignition[_\- ]?(series)?", re.I),
-    IMPACT: re.compile(r"impact[_\- ]?(series)?", re.I),
-    MOMENTUM: re.compile(r"momentum[_\- ]?(series)?", re.I),
-    NITRO: re.compile(r"nitro[_\- ]?(series)?", re.I),
+    CHAMPIONS_1: re.compile(r"champions[_\- ]?1(:?[_\- ]?series)?", re.I),
+    CHAMPIONS_2: re.compile(r"champions[_\- ]?2(:?[_\- ]?series)?", re.I),
+    CHAMPIONS_3: re.compile(r"champions[_\- ]?3(:?[_\- ]?series)?", re.I),
+    CHAMPIONS_4: re.compile(r"champions[_\- ]?4(:?[_\- ]?series)?", re.I),
+    DORADO: re.compile(r"dorado(:?[_\- ]?series)?", re.I),
+    ELEVATION: re.compile(r"elevation(:?[_\- ]?series)?", re.I),
+    FEROCITY: re.compile(r"ferocity(:?[_\- ]?series)?", re.I),
+    FORNAX: re.compile(r"fornax(:?[_\- ]?series)?", re.I),
+    GOLDEN_EGG_2022: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'22|2022)", re.I),
+    GOLDEN_EGG_2020: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'20|2020)", re.I),
+    GOLDEN_EGG_2019: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'19|2019)", re.I),
+    GOLDEN_EGG_2018: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'18|2018)", re.I),
+    GOLDEN_GIFT_2021: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'21|2021)", re.I),
+    GOLDEN_GIFT_2020: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'20|2020)", re.I),
+    GOLDEN_GIFT_2019: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'19|2019)", re.I),
+    GOLDEN_GIFT_2018: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'18|2018)", re.I),
+    GOLDEN_GIFT_BASKET_2022: re.compile(r"golden[_\- ]?gift[_\- ]?basket[_\- ]?(:?'22|2022)", re.I),
+    GOLDEN_LANTERN_2021: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'21|2021)", re.I),
+    GOLDEN_LANTERN_2020: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'20|2020)", re.I),
+    GOLDEN_LANTERN_2019: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'19|2019)", re.I),
+    GOLDEN_MOON: re.compile(r"golden[_\- ]?moon", re.I),
+    GOLDEN_PUMPKIN_2022: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'22|2022)", re.I),
+    GOLDEN_PUMPKIN_2020: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'20|2020)", re.I),
+    GOLDEN_PUMPKIN_2019: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'19|2019)", re.I),
+    GOLDEN_PUMPKIN_2018: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'18|2018)", re.I),
+    HAUNTED_HALLOWS: re.compile(r"haunted[_\- ]?hallows(:?[_\- ]?series)?", re.I),
+    IGNITION: re.compile(r"ignition(:?[_\- ]?series)?", re.I),
+    IMPACT: re.compile(r"impact(:?[_\- ]?series)?", re.I),
+    MOMENTUM: re.compile(r"momentum(:?[_\- ]?series)?", re.I),
+    NITRO: re.compile(r"nitro(:?[_\- ]?series)?", re.I),
     NON_CRATE: re.compile(r"non[_\- ]?crate|post[_\- ]?game", re.I),
-    OVERDRIVE: re.compile(r"overdrive[_\- ]?(series)?", re.I),
-    PLAYERS_CHOICE: re.compile(r"player(s|'s)?[_\- ]?choice[_\- ]?(series)?", re.I),
+    OVERDRIVE: re.compile(r"overdrive(:?[_\- ]?series)?", re.I),
+    PLAYERS_CHOICE: re.compile(r"player'?s?[_\- ]?choice(:?[_\- ]?series)?", re.I),
+    REVIVAL: re.compile(r"revival([_\- ]?series)?", re.I),
+    ROCKETPASS_1: re.compile(r"rocketpass[_\- ]?1", re.I),
+    ROCKETPASS_2: re.compile(r"rocketpass[_\- ]?2", re.I),
+    ROCKETPASS_3: re.compile(r"rocketpass[_\- ]?3", re.I),
+    ROCKETPASS_4: re.compile(r"rocketpass[_\- ]?4", re.I),
+    ROCKETPASS_5: re.compile(r"rocketpass[_\- ]?5", re.I),
+    ROCKETPASS_6: re.compile(r"rocketpass[_\- ]?6", re.I),
+    ROCKETPASS_7: re.compile(r"rocketpass[_\- ]?7", re.I),
+    ROCKETPASS_8: re.compile(r"rocketpass[_\- ]?8", re.I),
+    ROCKETPASS_9: re.compile(r"rocketpass[_\- ]?9", re.I),
+    ROCKETPASS_10: re.compile(r"rocketpass[_\- ]?10", re.I),
+    ROCKETPASS_11: re.compile(r"rocketpass[_\- ]?11", re.I),
+    ROCKETPASS_12: re.compile(r"rocketpass[_\- ]?12", re.I),
+    ROCKETPASS_13: re.compile(r"rocketpass[_\- ]?13", re.I),
+    ROCKETPASS_14: re.compile(r"rocketpass[_\- ]?14", re.I),
     RLCS_REWARD: re.compile(r"rlcs[_\- ]?reward", re.I),
+    SELECT_FAVORITES_ITEM: re.compile(r"select[_\- ]?favorites[_\- ]?item(:?[_\- ]?series)?", re.I),
+    SELECT_FAVORITES_2: re.compile(r"select[_\- ]?favorites(:?[_\- ]?series)?[_\- ]?2", re.I),
     SEASON_1: re.compile(r"season[_\- ]?[1I]", re.I),
-    SECRET_SANTA: re.compile(r"secret[_\- ]?santa[_\- ]?(series)?", re.I),
-    SPRING_FEVER: re.compile(r"spring[_\- ]?fever[_\- ]?(series)?", re.I),
-    TOTALLY_AWESOME: re.compile(r"totally[_\- ]?awesome[_\- ]?(series)?", re.I),
-    TRIUMPH: re.compile(r"triumph[_\- ]?(series)?", re.I),
-    TURBO: re.compile(r"turbo[_\- ]?(series)?", re.I),
-    VELOCITY: re.compile(r"velocity[_\- ]?(series)?", re.I),
-    VICTORY: re.compile(r"victory[_\- ]?(series)?", re.I),
-    VINDICATOR: re.compile(r"vindicator[_\- ]?(series)?", re.I),
-    ZEPHYR: re.compile(r"zephyr[_\- ]?(series)?", re.I),
+    SEASON_2: re.compile(r"season[_\- ]?(:?2|II)", re.I),
+    SECRET_SANTA: re.compile(r"secret[_\- ]?santa(:?[_\- ]?series)?", re.I),
+    SPRING_FEVER: re.compile(r"spring[_\- ]?fever(:?[_\- ]?series)?", re.I),
+    TOTALLY_AWESOME: re.compile(r"totally[_\- ]?awesome(:?[_\- ]?series)?", re.I),
+    TRIUMPH: re.compile(r"triumph(:?[_\- ]?series)?", re.I),
+    TURBO: re.compile(r"turbo(:?[_\- ]?series)?", re.I),
+    VELOCITY: re.compile(r"velocity(:?[_\- ]?series)?", re.I),
+    VICTORY: re.compile(r"victory(:?[_\- ]?series)?", re.I),
+    VINDICATOR: re.compile(r"vindicator(:?[_\- ]?series)?", re.I),
+    ZEPHYR: re.compile(r"zephyr(:?[_\- ]?series)?", re.I),
     WWE_PROMO_CODE: re.compile(r"wwe[_\- ]?promo[_\- ]?code", re.I)}
 SLOT_REGEX_TABLE = {
     ANTENNA: re.compile(r"antennas?", re.I),
@@ -424,7 +475,54 @@ class IdentityItem:
 
     def compare_identity(self, other: IdentityItem) -> bool:
         return compare_names(self.name, other.name) and rarity_utils.compare(self.rarity, other.rarity) and \
-               slot_utils.compare(self.slot, other.slot)
+            slot_utils.compare(self.slot, other.slot)
+
+
+class PriceTable:
+    PLATFORMS = ("pc", "xbox", "switch", "ps4")
+    COLORS = ("black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
+              "yellow", "sb", "tw", "gold")
+
+    def __init__(self,
+                 price_table: typing.Dict[
+                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
+                         typing.Literal[
+                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
+                             "yellow", "sb", "tw", "gold"],
+                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
+                     ]]):
+        self.price_table = price_table
+
+    def get_price(self, platform: str, color: str) -> typing.Mapping[
+            typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]:
+        return self.price_table[self.get_respective_platform(platform)][self.get_respective_color(color)]
+
+    @classmethod
+    def get_respective_platform(cls, platform: str) -> typing.Optional[typing.Literal["pc", "xbox", "switch", "ps4"]]:
+        return platform_utils.get_respective_from_iterable(cls.PLATFORMS, platform)
+
+    @classmethod
+    def get_respective_color(cls, color: str) -> typing.Optional[
+        typing.Literal[
+            "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
+            "yellow", "sb", "tw", "gold"]]:
+        return color_utils.get_respective_from_iterable(cls.COLORS, color)
+
+
+class ItemWithPriceTable(IdentityItem, PriceTable):
+    __slots__ = "name", "rarity", "slot", "price_table"
+
+    def __init__(self, name: str, rarity: str, slot: str,
+                 price_table: typing.Dict[
+                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
+                         typing.Literal[
+                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
+                             "yellow", "sb", "tw", "gold"],
+                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
+                     ]]
+                 ):
+        super().__init__(name, rarity, slot)
+        PriceTable.__init__(self, price_table)
 
 
 class DataItem(IdentityItem):
@@ -442,13 +540,37 @@ class DataItem(IdentityItem):
         super().__init__(name, rarity, slot)
 
     def match(self, item: Item):
-        color_utils.match(self.colors, item.color)
-        platform_utils.match(self.platforms, item.platform)
-        serie_utils.match(self.series, item.serie)
-        certified_utils.match(self.certificates, item.certified)
+        if self.colors is not None:
+            color_utils.match(self.colors, item.color)
+        if self.platforms is not None:
+            platform_utils.match(self.platforms, item.platform)
+        if self.series is not None:
+            serie_utils.match(self.series, item.serie)
+        if self.certificates is not None:
+            certified_utils.match(self.certificates, item.certified)
 
-    def to_item(self, **kwargs):
-        return Item(self.name, self.slot, self.rarity, **kwargs)
+    def to_item(self, *args, **kwargs):
+        return Item(self.name, self.slot, self.rarity, *args, **kwargs)
+
+
+class DataItemWithPriceTable(DataItem, PriceTable):
+    __slots__ = "name", "slot", "rarity", "colors", "certificates", "platforms", "series", "price_table"
+
+    def __init__(self, name: str, slot: str, rarity: str,
+                 price_table: typing.Dict[
+                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
+                         typing.Literal[
+                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
+                             "yellow", "sb", "tw", "gold"],
+                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
+                     ]],
+                 colors: typing.Optional[typing.Iterable[str]] = None,
+                 certificates: typing.Optional[typing.Iterable[str]] = None,
+                 platforms: typing.Optional[typing.Iterable[str]] = None,
+                 series: typing.Optional[typing.Iterable[str]] = None,
+                 ):
+        super().__init__(name, rarity, slot, colors, certificates, platforms, series)
+        PriceTable.__init__(self, price_table)
 
 
 class HasPrice:
@@ -495,7 +617,7 @@ class ReprItem:
 
     def compare_repr(self, other: ReprItem) -> bool:
         return self.blueprint == other.blueprint and compare_names(self.name, other.name) and \
-               slot_utils.compare(self.slot, other.slot) and color_utils.compare(self.color, other.color)
+            slot_utils.compare(self.slot, other.slot) and color_utils.compare(self.color, other.color)
 
 
 class BaseItem(IdentityItem, ReprItem):
@@ -511,10 +633,10 @@ class BaseItem(IdentityItem, ReprItem):
 
     def compare_base_item(self, other: BaseItem) -> bool:
         return compare_names(self.name, other.name) and slot_utils.compare(self.slot, other.slot) and \
-               rarity_utils.compare(self.rarity, other.rarity) and self.blueprint == other.blueprint and \
-               color_utils.compare(self.color, other.color) and serie_utils.compare(self.serie, other.serie) and \
-               certified_utils.compare(self.certified, other.certified) and \
-               platform_utils.compare(self.platform, other.platform)
+            rarity_utils.compare(self.rarity, other.rarity) and self.blueprint == other.blueprint and \
+            color_utils.compare(self.color, other.color) and serie_utils.compare(self.serie, other.serie) and \
+            certified_utils.compare(self.certified, other.certified) and \
+            platform_utils.compare(self.platform, other.platform)
 
     def is_non_crate(self):
         return serie_utils.is_exactly(NON_CRATE, self.serie)
@@ -531,15 +653,15 @@ class BaseItemWithPrice(BaseItem, HasPrice, HasCraftingCost):
 
 
 class Item(BaseItem):
-    __slots__ = "name", "slot", "rarity", "_quantity", "blueprint", "serie", "can_trade", "platform", "favorite", \
-                "archived", "color", "certified"
+    __slots__ = "name", "slot", "rarity", "_quantity", "blueprint", "serie", "trade_lock", "platform", "favorite", \
+        "archived", "color", "certified"
 
-    def __init__(self, name: str, slot: str, rarity: str, quantity: int, blueprint: bool, serie: str, can_trade: bool,
+    def __init__(self, name: str, slot: str, rarity: str, quantity: int, blueprint: bool, serie: str, trade_lock: bool,
                  platform: str, acquired: datetime.datetime, favorite: bool = False, archived: bool = False,
                  color: str = DEFAULT, certified: str = NONE):
         self.archived = archived
         self.quantity = quantity
-        self.can_trade = can_trade
+        self.trade_lock = trade_lock
         self.favorite = favorite
         self.acquired = acquired
         super().__init__(name, slot, rarity, blueprint, serie, platform, certified, color)
@@ -557,9 +679,9 @@ class Item(BaseItem):
 
 class ItemWithPrice(Item, HasPrice):
     def __init__(self, name: str, slot: str, rarity: str, quantity: int, blueprint: bool, platform: str,
-                 price: tuple[int, int], serie: str, can_trade: bool, acquired: datetime.datetime,
+                 price: typing.Tuple[int, int], serie: str, trade_lock: bool, acquired: datetime.datetime,
                  favorite: bool = False, archived: bool = False, color: str = DEFAULT, certified: str = NONE):
-        super().__init__(name, slot, rarity, quantity, blueprint, serie, can_trade, platform, acquired, favorite,
+        super().__init__(name, slot, rarity, quantity, blueprint, serie, trade_lock, platform, acquired, favorite,
                          archived, color, certified)
         HasPrice.__init__(self, price)
 
@@ -657,7 +779,7 @@ class ItemDatabase:
         quantity MEDIUMINT NOT NULL,
         blueprint BOOL NOT NULL,
         serie TINYTEXT NOT NULL,
-        can_trade BOOL NOT NULL,
+        trade_lock BOOL NOT NULL,
         platform TINYTEXT NOT NULL,
         acquired timestamp NOT NULL,
         favorite BOOL NOT NULL DEFAULT false,
@@ -670,15 +792,15 @@ class ItemDatabase:
 
     def add_item(self, item: Item) -> int:
         self.cursor.execute("""
-        INSERT INTO inventory (name, slot, rarity, quantity, blueprint, serie, can_trade, platform, acquired, favorite, 
+        INSERT INTO inventory (name, slot, rarity, quantity, blueprint, serie, trade_lock, platform, acquired, favorite, 
         archived, color, certified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """, (item.name, item.slot, item.rarity, item.quantity, item.blueprint, item.serie, item.can_trade,
+        """, (item.name, item.slot, item.rarity, item.quantity, item.blueprint, item.serie, item.trade_lock,
               item.platform, item.acquired, item.favorite, item.archived, item.color, item.certified))
         self.connection.commit()
         return self.cursor.lastrowid
 
     def delete_item(self, id_: int):
-        self.cursor.execute("DELETE FROM inventory WHERE id = ?;", (id_, ))
+        self.cursor.execute("DELETE FROM inventory WHERE id = ?;", (id_,))
         self.connection.commit()
 
     def get_items(self) -> dict[int, Item]:

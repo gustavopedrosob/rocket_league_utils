@@ -1,5 +1,5 @@
 from json import load
-import rocket_league_utils as rl_utils
+import rocket_league_utils.main as rl_utils
 
 with open("sample-gameflip-data.json", "r") as file:
     json = load(file)
