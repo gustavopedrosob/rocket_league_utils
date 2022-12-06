@@ -1,11 +1,11 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="rocket-league-utils",
-    version="0.0.2",
+    version="0.0.3",
     author="TheVicio",
     author_email="thevicio27@gmail.com",
     description="An easy way to interact with Rocket League data.",
@@ -20,6 +20,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    packages=find_packages(where="src"),
+    packages=["Unidecode"],
     python_requires=">=3.6"
 )

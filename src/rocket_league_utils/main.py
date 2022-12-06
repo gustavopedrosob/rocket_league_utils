@@ -478,49 +478,34 @@ class IdentityItem:
             slot_utils.compare(self.slot, other.slot)
 
 
+Prices = typing.Tuple[typing.Tuple[int, int], int]
+PriceTableArgument = typing.Dict[str, typing.Dict[str, Prices]]
+
+
 class PriceTable:
     PLATFORMS = ("pc", "xbox", "switch", "ps4")
     COLORS = ("black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
               "yellow", "sb", "tw", "gold")
 
-    def __init__(self,
-                 price_table: typing.Dict[
-                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
-                         typing.Literal[
-                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
-                             "yellow", "sb", "tw", "gold"],
-                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
-                     ]]):
+    def __init__(self, price_table: PriceTableArgument):
         self.price_table = price_table
 
-    def get_price(self, platform: str, color: str) -> typing.Mapping[
-            typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]:
-        return self.price_table[self.get_respective_platform(platform)][self.get_respective_color(color)]
+    def get_prices(self, platform: str, color: str) -> Prices:
+        return self.price_table[self.get_compact_platform(platform)][self.get_compact_color(color)]
 
     @classmethod
-    def get_respective_platform(cls, platform: str) -> typing.Optional[typing.Literal["pc", "xbox", "switch", "ps4"]]:
+    def get_compact_platform(cls, platform: str) -> typing.Optional[str]:
         return platform_utils.get_respective_from_iterable(cls.PLATFORMS, platform)
 
     @classmethod
-    def get_respective_color(cls, color: str) -> typing.Optional[
-        typing.Literal[
-            "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
-            "yellow", "sb", "tw", "gold"]]:
+    def get_compact_color(cls, color: str) -> typing.Optional[str]:
         return color_utils.get_respective_from_iterable(cls.COLORS, color)
 
 
 class ItemWithPriceTable(IdentityItem, PriceTable):
     __slots__ = "name", "rarity", "slot", "price_table"
 
-    def __init__(self, name: str, rarity: str, slot: str,
-                 price_table: typing.Dict[
-                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
-                         typing.Literal[
-                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
-                             "yellow", "sb", "tw", "gold"],
-                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
-                     ]]
-                 ):
+    def __init__(self, name: str, rarity: str, slot: str, price_table: PriceTableArgument):
         super().__init__(name, rarity, slot)
         PriceTable.__init__(self, price_table)
 
@@ -549,33 +534,36 @@ class DataItem(IdentityItem):
         if self.certificates is not None:
             certified_utils.match(self.certificates, item.certified)
 
-    def to_item(self, *args, **kwargs):
+    def to_item(self, *args, **kwargs) -> Item:
         return Item(self.name, self.slot, self.rarity, *args, **kwargs)
 
 
 class DataItemWithPriceTable(DataItem, PriceTable):
     __slots__ = "name", "slot", "rarity", "colors", "certificates", "platforms", "series", "price_table"
 
-    def __init__(self, name: str, slot: str, rarity: str,
-                 price_table: typing.Dict[
-                     typing.Literal["pc", "xbox", "switch", "ps4"], typing.Dict[
-                         typing.Literal[
-                             "black", "bs", "blue", "red", "none", "fg", "grey", "lime", "orange", "pink", "purple",
-                             "yellow", "sb", "tw", "gold"],
-                         typing.Mapping[typing.Literal["k"], typing.Tuple[int, int], typing.Literal["b"], int]
-                     ]],
+    def __init__(self, name: str, slot: str, rarity: str, price_table: PriceTableArgument,
                  colors: typing.Optional[typing.Iterable[str]] = None,
                  certificates: typing.Optional[typing.Iterable[str]] = None,
                  platforms: typing.Optional[typing.Iterable[str]] = None,
-                 series: typing.Optional[typing.Iterable[str]] = None,
-                 ):
+                 series: typing.Optional[typing.Iterable[str]] = None):
         super().__init__(name, rarity, slot, colors, certificates, platforms, series)
         PriceTable.__init__(self, price_table)
 
+    def to_item_with_price(self, quantity: int, blueprint: bool, platform: str, serie: str, trade_lock: bool,
+                           acquired: datetime.datetime, favorite: bool = False, archived: bool = False,
+                           color: str = DEFAULT, certified: str = NONE) -> ItemWithPrice:
+
+        prices = self.get_prices(platform, color)
+        item_with_price = ItemWithPrice(self.name, self.slot, self.rarity, quantity, blueprint, platform, prices[0],
+                                        prices[1], serie, trade_lock, acquired, favorite, archived, color, certified)
+        self.match(item_with_price)
+        return item_with_price
+
 
 class HasPrice:
-    def __init__(self, price: typing.Tuple[int, int]):
+    def __init__(self, price: typing.Tuple[int, int], crafting_cost: int):
         self.price = price
+        self.crafting_cost = crafting_cost
 
     @property
     def price(self) -> typing.Tuple[int, int]:
@@ -588,16 +576,6 @@ class HasPrice:
         validate_credits(max_price)
         self._price = price
 
-    def get_price_formatted(self, round_: bool = True) -> str:
-        if round_ and self.price[0] > 1000 and self.price[1] > 1000:
-            return f"{round(self.price[0] / 1000, 2)} - {round(self.price[1] / 1000, 2)} k"
-        return f"{self.price[0]} - {self.price[1]}"
-
-
-class HasCraftingCost:
-    def __init__(self, crafting_cost: int):
-        self.crafting_cost = crafting_cost
-
     @property
     def crafting_cost(self) -> int:
         return self._crafting_cost
@@ -606,6 +584,11 @@ class HasCraftingCost:
     def crafting_cost(self, crafting_cost: int):
         validate_credits(crafting_cost)
         self._crafting_cost = crafting_cost
+
+    def get_price_formatted(self, round_: bool = True) -> str:
+        if round_ and self.price[0] > 1000 and self.price[1] > 1000:
+            return f"{round(self.price[0] / 1000, 2)} - {round(self.price[1] / 1000, 2)} k"
+        return f"{self.price[0]} - {self.price[1]}"
 
 
 class ReprItem:
@@ -642,14 +625,13 @@ class BaseItem(IdentityItem, ReprItem):
         return serie_utils.is_exactly(NON_CRATE, self.serie)
 
 
-class BaseItemWithPrice(BaseItem, HasPrice, HasCraftingCost):
+class BaseItemWithPrice(BaseItem, HasPrice):
     __slots__ = "name", "slot", "rarity", "blueprint", "price", "crafting_cost", "color"
 
     def __init__(self, name: str, slot: str, rarity: str, blueprint: bool, price: tuple[int, int], crafting_cost: int,
                  color: str = None):
         super().__init__(name, slot, rarity, blueprint, color)
-        HasPrice.__init__(self, price)
-        HasCraftingCost.__init__(self, crafting_cost)
+        HasPrice.__init__(self, price, crafting_cost)
 
 
 class Item(BaseItem):
@@ -679,11 +661,12 @@ class Item(BaseItem):
 
 class ItemWithPrice(Item, HasPrice):
     def __init__(self, name: str, slot: str, rarity: str, quantity: int, blueprint: bool, platform: str,
-                 price: typing.Tuple[int, int], serie: str, trade_lock: bool, acquired: datetime.datetime,
-                 favorite: bool = False, archived: bool = False, color: str = DEFAULT, certified: str = NONE):
+                 price: typing.Tuple[int, int], crafting_cost: int, serie: str, trade_lock: bool,
+                 acquired: datetime.datetime, favorite: bool = False, archived: bool = False, color: str = DEFAULT,
+                 certified: str = NONE):
         super().__init__(name, slot, rarity, quantity, blueprint, serie, trade_lock, platform, acquired, favorite,
                          archived, color, certified)
-        HasPrice.__init__(self, price)
+        HasPrice.__init__(self, price, crafting_cost)
 
 
 HEX_TABLE = {
