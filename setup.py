@@ -20,6 +20,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     package_dir={"": "src"},
-    packages=["Unidecode"],
+    packages=["rocket_league_utils"],
     python_requires=">=3.6"
 )
