@@ -485,10 +485,11 @@ class Account:
         self.platform = platform
 
 
-def get_price(price_table: typing.Iterable[BaseItemWithPrice], base_item: BaseItem) -> typing.Optional[tuple[int, int]]:
+def get_price(price_table: typing.Iterable[DataItemWithPriceTable], item: IdentityItem, platform: str,
+              color: str) -> typing.Optional[tuple[int, int], int]:
     for base_item_with_price in price_table:
-        if base_item_with_price.compare_base_item(base_item):
-            return base_item_with_price.price
+        if base_item_with_price.compare_identity(item):
+            return base_item_with_price.get_prices(platform, color)
 
 
 class Propose:
