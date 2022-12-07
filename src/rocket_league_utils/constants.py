@@ -1,0 +1,221 @@
+import typing
+
+# Certificates
+AVIATOR = "Aviator"
+ACROBAT = "Acrobat"
+GOALKEEPER = "Goalkeeper"
+GUARDIAN = "Guardian"
+JUGGLER = "Juggler"
+NONE = "None"
+PARAGON = "Paragon"
+PLAYMAKER = "Playmaker"
+SCORER = "Scorer"
+SHOW_OFF = "Show-off"
+SNIPER = "Sniper"
+STRIKER = "Striker"
+SWEEPER = "Sweeper"
+TACTICIAN = "Tactician"
+TURTLE = "Turtle"
+VICTOR = "Victor"
+# Colors
+BLACK = "Black"
+BURNT_SIENNA = "Burnt Sienna"
+SIENNA = "Sienna"
+BS = "BS"
+COBALT = "Cobalt"
+BLUE = "Blue"
+CRIMSON = "Crimson"
+RED = "Red"
+CARMESIM = "Carmesim"
+DEFAULT = "Default"
+NORMAL = "Normal"
+REGULAR = "Regular"
+FOREST_GREEN = "Forest Green"
+GREEN = "Green"
+FG = "FG"
+GREY = "Grey"
+LIME = "Lime"
+ORANGE = "Orange"
+PINK = "Pink"
+PURPLE = "Purple"
+SAFFRON = "Saffron"
+YELLOW = "Yellow"
+SKY_BLUE = "Sky Blue"
+SB = "SB"
+TITANIUM_WHITE = "Titanium White"
+WHITE = "White"
+TW = "TW"
+GOLD = "Gold"
+GOLDEN = "Golden"
+# Platforms
+PC = "Pc"
+COMPUTER = "Computer"
+STEAM = "Steam"
+EPIC_GAMES = "Epic Games"
+EPIC = "Epic"
+PS4 = "Ps4"
+PLAY_4 = "Play 4"
+PLAYSTATION_4 = "Playstation 4"
+SWITCH = "Switch"
+XBOX = "Xbox"
+# Rarities
+BLACK_MARKET = "Black market"
+BM = "BM"
+COMMON = "Common"
+EXOTIC = "Exotic"
+IMPORT = "Import"
+IMPORTED = "Imported"
+LEGACY = "Legacy"
+LIMITED = "Limited"
+PREMIUM = "Premium"
+RARE = "Rare"
+UNCOMMON = "Uncommon"
+VERY_RARE = "Very rare"
+VR = "VR"
+# Series
+ACCELERATOR = "Accelerator"
+ACCOLADE_1 = "Accolade 1"
+ACCOLADE_2 = "Accolade 2"
+AURIGA = "Auriga"
+BEACH_BLAST = "Beach Blast"
+BONUS_GIFT = "Bonus Gift"
+CHAMPIONS_1 = "Champions 1"
+CHAMPIONS_2 = "Champions 2"
+CHAMPIONS_3 = "Champions 3"
+CHAMPIONS_4 = "Champions 4"
+DORADO = "Dorado"
+ELEVATION = "Elevation"
+FEROCITY = "Ferocity"
+FORNAX = "Fornax"
+GOLDEN_EGG_2022 = "Golden Egg 2022"
+GOLDEN_EGG_2020 = "Golden Egg 2020"
+GOLDEN_EGG_2019 = "Golden Egg 2019"
+GOLDEN_EGG_2018 = "Golden Egg 2018"
+GOLDEN_GIFT_2021 = "Golden Gift 2021"
+GOLDEN_GIFT_2020 = "Golden Gift 2020"
+GOLDEN_GIFT_2019 = "Golden Gift 2019"
+GOLDEN_GIFT_2018 = "Golden Gift 2018"
+GOLDEN_GIFT_BASKET_2022 = "Golden Gift Basket 2022"
+GOLDEN_LANTERN_2021 = "Golden Lantern 2021"
+GOLDEN_LANTERN_2020 = "Golden Lantern 2020"
+GOLDEN_LANTERN_2019 = "Golden Lantern 2019"
+GOLDEN_MOON = "Golden Moon"
+GOLDEN_PUMPKIN_2022 = "Golden Pumpkin 2022"
+GOLDEN_PUMPKIN_2020 = "Golden Pumpkin 2020"
+GOLDEN_PUMPKIN_2019 = "Golden Pumpkin 2019"
+GOLDEN_PUMPKIN_2018 = "Golden Pumpkin 2018"
+HAUNTED_HALLOWS = "Haunted Hallows"
+IGNITION = "Ignition"
+IMPACT = "Impact"
+MOMENTUM = "Momentum"
+NITRO = "Nitro"
+NON_CRATE = "Non Crate"
+OVERDRIVE = "Overdrive"
+POST_GAME = "Post Game"
+PLAYERS_CHOICE = "Player\'s Choice"
+RLCS_REWARD = "RLCS Reward"
+REVIVAL = "Revival"
+ROCKETPASS_1 = "Rocketpass 1"
+ROCKETPASS_2 = "Rocketpass 2"
+ROCKETPASS_3 = "Rocketpass 3"
+ROCKETPASS_4 = "Rocketpass 4"
+ROCKETPASS_5 = "Rocketpass 5"
+ROCKETPASS_6 = "Rocketpass 6"
+ROCKETPASS_7 = "Rocketpass 7"
+ROCKETPASS_8 = "Rocketpass 8"
+ROCKETPASS_9 = "Rocketpass 9"
+ROCKETPASS_10 = "Rocketpass 10"
+ROCKETPASS_11 = "Rocketpass 11"
+ROCKETPASS_12 = "Rocketpass 12"
+ROCKETPASS_13 = "Rocketpass 13"
+ROCKETPASS_14 = "Rocketpass 14"
+SELECT_FAVORITES_ITEM = "Select Favorites Item"
+SELECT_FAVORITES_2 = "Select Favorites 2"
+SEASON_1 = "Season 1"
+SEASON_2 = "Season 2"
+SECRET_SANTA = "Secret Santa"
+SPRING_FEVER = "Spring Fever"
+TOTALLY_AWESOME = "Totally Awesome"
+TRIUMPH = "Triumph"
+TURBO = "Turbo"
+VELOCITY = "Velocity"
+VICTORY = "Victory"
+VINDICATOR = "Vindicator"
+ZEPHYR = "Zephyr"
+WWE_PROMO_CODE = "WWE Promo Code"
+# Slots
+ANTENNA = "Antenna"
+AVATAR_BORDER = "Avatar Border"
+BORDER = "Border"
+CAR = "Car"
+BODY = "Body"
+BLUEPRINTS = "Blueprints"
+DECAL = "Decal"
+ANIMATED_DECAL = "Animated Decal"
+ENGINE_AUDIO = "Engine Audio"
+GOAL_EXPLOSION = "Goal Explosion"
+GIFT_PACK = "Gift Pack"
+PAINT_FINISH = "Paint Finish"
+ANTHEM = "Anthem"
+PLAYER_ANTHEM = "Player Anthem"
+BANNER = "Banner"
+PLAYER_BANNER = "Player Banner"
+BOOST = "Boost"
+ROCKET_BOOST = "Rocket Boost"
+TOPPER = "Topper"
+HAT = "Hat"
+TRAIL = "Trail"
+WHEEL = "Wheel"
+TITLE = "Title"
+PLAYER_TITLE = "Player Title"
+
+CERTIFICATES = (AVIATOR, ACROBAT, GOALKEEPER, GUARDIAN, JUGGLER, NONE, PARAGON, PLAYMAKER, SCORER,
+                SHOW_OFF, SNIPER, STRIKER, SWEEPER, TACTICIAN, TURTLE, VICTOR)
+COLORS = (BLACK, BURNT_SIENNA, COBALT, CRIMSON, DEFAULT, FOREST_GREEN, GREY, LIME, ORANGE, PINK,
+          PURPLE, SAFFRON, SKY_BLUE, TITANIUM_WHITE, GOLD)
+PLATFORMS = (PC, PS4, SWITCH, XBOX)
+RARITIES = (BLACK_MARKET, COMMON, EXOTIC, IMPORT, LIMITED, PREMIUM, RARE, UNCOMMON, VERY_RARE, LEGACY)
+SERIES = (
+    ACCELERATOR, ACCOLADE_1, ACCOLADE_2, AURIGA, BEACH_BLAST, BONUS_GIFT, CHAMPIONS_1, CHAMPIONS_2, CHAMPIONS_3,
+    CHAMPIONS_4, DORADO, ELEVATION, FEROCITY, FORNAX, GOLDEN_EGG_2018, GOLDEN_EGG_2019, GOLDEN_EGG_2020,
+    GOLDEN_EGG_2022, GOLDEN_GIFT_2018, GOLDEN_GIFT_2019, GOLDEN_GIFT_2020, GOLDEN_GIFT_2021, GOLDEN_GIFT_BASKET_2022,
+    GOLDEN_LANTERN_2019, GOLDEN_LANTERN_2020, GOLDEN_LANTERN_2021, GOLDEN_MOON, GOLDEN_PUMPKIN_2018,
+    GOLDEN_PUMPKIN_2019, GOLDEN_PUMPKIN_2020, GOLDEN_PUMPKIN_2022, HAUNTED_HALLOWS, IGNITION, IMPACT, MOMENTUM, NITRO,
+    NON_CRATE, OVERDRIVE, PLAYERS_CHOICE, RLCS_REWARD, REVIVAL, ROCKETPASS_1, ROCKETPASS_2, ROCKETPASS_3, ROCKETPASS_4,
+    ROCKETPASS_5, ROCKETPASS_6, ROCKETPASS_7, ROCKETPASS_8, ROCKETPASS_9, ROCKETPASS_10, ROCKETPASS_11, ROCKETPASS_12,
+    ROCKETPASS_13, ROCKETPASS_14, SELECT_FAVORITES_ITEM, SELECT_FAVORITES_2, SEASON_1, SEASON_2, SECRET_SANTA,
+    SPRING_FEVER, TOTALLY_AWESOME, TRIUMPH, TURBO, VELOCITY, VICTORY, VINDICATOR, ZEPHYR, WWE_PROMO_CODE)
+SLOTS = (ANTENNA, BORDER, CAR, DECAL, ENGINE_AUDIO, GOAL_EXPLOSION, PAINT_FINISH, ANTHEM, BANNER,
+         BOOST, TOPPER, TRAIL, WHEEL)
+COMPACTED_COLORS = (BLACK, BS, BLUE, RED, NONE, FG, GREY, LIME, ORANGE, PINK, PURPLE, YELLOW, SB, TW, GOLD)
+COMPACTED_PLATFORMS = (PC, XBOX, SWITCH, PS4)
+
+HEX_TABLE = {
+    CRIMSON: "#ff4d4d",
+    SKY_BLUE: "#69fff",
+    PINK: "#ff8dce",
+    ORANGE: "#da9a00",
+    COBALT: "#8c9eff",
+    BURNT_SIENNA: "#995e4d",
+    TITANIUM_WHITE: "#fff",
+    GREY: "#c4c4c4",
+    SAFFRON: "#ff8",
+    LIME: "#ccff4d",
+    FOREST_GREEN: "#329536",
+    BLACK: "#000",
+    PURPLE: "#e974fd",
+    GOLD: "#F4B900",
+}
+
+RGB_TABLE = {
+    RARE: (116, 151, 235),
+    VERY_RARE: (158, 124, 252),
+    IMPORT: (227, 90, 82),
+    EXOTIC: (236, 219, 108),
+    BLACK_MARKET: (255, 0, 255),
+    PREMIUM: (107, 241, 174),
+    LIMITED: (247, 121, 57)
+}
+
+ITEM_FOR_ITEM: typing.Literal["item_for_item"] = "item_for_item"
+ITEM_FOR_CREDIT: typing.Literal["item_for_credit"] = "item_for_credit"

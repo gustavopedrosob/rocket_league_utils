@@ -1,6 +1,6 @@
 # from json import load
 #
-# import rl_utils as rl_utils
+# import rocket_league_utils as rl_utils
 #
 #
 # def get_price_database(platform="pc"):

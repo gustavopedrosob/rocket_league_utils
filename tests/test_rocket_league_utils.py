@@ -1,8 +1,8 @@
 import pytest
 import datetime
 
-from rocket_league_utils.main import certified_utils, color_utils, platform_utils, rarity_utils, serie_utils, slot_utils
-import rocket_league_utils.main as rl_utils
+from rocket_league_utils import certified_utils, color_utils, platform_utils, rarity_utils, serie_utils, slot_utils
+import rocket_league_utils as rl_utils
 
 
 def test_compare_identity():
