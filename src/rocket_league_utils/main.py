@@ -356,7 +356,7 @@ class DataItemWithPriceTable(DataItem, PriceTable):
                  certificates: typing.Optional[typing.Iterable[str]] = None,
                  platforms: typing.Optional[typing.Iterable[str]] = None,
                  series: typing.Optional[typing.Iterable[str]] = None):
-        super().__init__(name, rarity, slot, colors, certificates, platforms, series)
+        super().__init__(name, slot, rarity, colors, certificates, platforms, series)
         PriceTable.__init__(self, price_table)
 
     def to_item_with_price(self, quantity: int, blueprint: bool, platform: str, serie: str, trade_lock: bool,
