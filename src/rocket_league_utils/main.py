@@ -487,7 +487,7 @@ class Account:
 
 
 def get_price(price_table: typing.Iterable[DataItemWithPriceTable], item: IdentityItem, platform: str,
-              color: str) -> typing.Optional[tuple[int, int], int]:
+              color: str = constants.DEFAULT) -> typing.Optional[tuple[int, int], int]:
     for base_item_with_price in price_table:
         if base_item_with_price.compare_identity(item):
             return base_item_with_price.get_prices(platform, color)
