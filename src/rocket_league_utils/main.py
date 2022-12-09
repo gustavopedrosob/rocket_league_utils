@@ -5,6 +5,7 @@ import functools
 import sqlite3
 import typing
 import re
+import numpy
 import unidecode
 from rocket_league_utils import constants
 
@@ -58,19 +59,19 @@ RARITY_REGEX_TABLE = {
     constants.UNCOMMON: re.compile(r"uncommons?", re.I),
     constants.VERY_RARE: re.compile(r"very[_\- ]?rares?|vrs?", re.I)}
 SERIE_REGEX_TABLE = {
-    constants.ACCELERATOR: re.compile(r"accelerator(:?[_\- ]?series)?", re.I),
+    constants.ACCELERATOR: re.compile(r"accelerator(:?[_\- ]?(:?series|crate))?", re.I),
     constants.ACCOLADE_1: re.compile(r"accolade[_\- ]?[1I](:?[_\- ]?series)?", re.I),
     constants.ACCOLADE_2: re.compile(r"accolade[_\- ]?(2|II)(:?[_\- ]?series)?", re.I),
     constants.AURIGA: re.compile(r"auriga(:?[_\- ]?series)?", re.I),
     constants.BEACH_BLAST: re.compile(r"beach[_\- ]?blast(:?[_\- ]?series)?", re.I),
     constants.BONUS_GIFT: re.compile(r"bonus[_\- ]?gift", re.I),
-    constants.CHAMPIONS_1: re.compile(r"champions[_\- ]?1(:?[_\- ]?series)?", re.I),
-    constants.CHAMPIONS_2: re.compile(r"champions[_\- ]?2(:?[_\- ]?series)?", re.I),
-    constants.CHAMPIONS_3: re.compile(r"champions[_\- ]?3(:?[_\- ]?series)?", re.I),
-    constants.CHAMPIONS_4: re.compile(r"champions[_\- ]?4(:?[_\- ]?series)?", re.I),
+    constants.CHAMPIONS_1: re.compile(r"champions[_\- ]?1(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.CHAMPIONS_2: re.compile(r"champions[_\- ]?2(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.CHAMPIONS_3: re.compile(r"champions[_\- ]?3(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.CHAMPIONS_4: re.compile(r"champions[_\- ]?4(:?[_\- ]?(:?series|crate))?", re.I),
     constants.DORADO: re.compile(r"dorado(:?[_\- ]?series)?", re.I),
-    constants.ELEVATION: re.compile(r"elevation(:?[_\- ]?series)?", re.I),
-    constants.FEROCITY: re.compile(r"ferocity(:?[_\- ]?series)?", re.I),
+    constants.ELEVATION: re.compile(r"elevation(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.FEROCITY: re.compile(r"ferocity(:?[_\- ]?(:?series|crate))?", re.I),
     constants.FORNAX: re.compile(r"fornax(:?[_\- ]?series)?", re.I),
     constants.GOLDEN_EGG_2022: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'22|2022)", re.I),
     constants.GOLDEN_EGG_2020: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'20|2020)", re.I),
@@ -91,27 +92,27 @@ SERIE_REGEX_TABLE = {
     constants.GOLDEN_PUMPKIN_2018: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'18|2018)", re.I),
     constants.HAUNTED_HALLOWS: re.compile(r"haunted[_\- ]?hallows(:?[_\- ]?series)?", re.I),
     constants.IGNITION: re.compile(r"ignition(:?[_\- ]?series)?", re.I),
-    constants.IMPACT: re.compile(r"impact(:?[_\- ]?series)?", re.I),
+    constants.IMPACT: re.compile(r"impact(:?[_\- ]?(:?series|crate))?", re.I),
     constants.MOMENTUM: re.compile(r"momentum(:?[_\- ]?series)?", re.I),
-    constants.NITRO: re.compile(r"nitro(:?[_\- ]?series)?", re.I),
+    constants.NITRO: re.compile(r"nitro(:?[_\- ]?(:?series|crate))?", re.I),
     constants.NON_CRATE: re.compile(r"non[_\- ]?crate|post[_\- ]?game", re.I),
-    constants.OVERDRIVE: re.compile(r"overdrive(:?[_\- ]?series)?", re.I),
+    constants.OVERDRIVE: re.compile(r"overdrive(:?[_\- ]?(:?series|crate))?", re.I),
     constants.PLAYERS_CHOICE: re.compile(r"player'?s?[_\- ]?choice(:?[_\- ]?series)?", re.I),
     constants.REVIVAL: re.compile(r"revival([_\- ]?series)?", re.I),
-    constants.ROCKETPASS_1: re.compile(r"rocketpass[_\- ]?1", re.I),
-    constants.ROCKETPASS_2: re.compile(r"rocketpass[_\- ]?2", re.I),
-    constants.ROCKETPASS_3: re.compile(r"rocketpass[_\- ]?3", re.I),
-    constants.ROCKETPASS_4: re.compile(r"rocketpass[_\- ]?4", re.I),
-    constants.ROCKETPASS_5: re.compile(r"rocketpass[_\- ]?5", re.I),
-    constants.ROCKETPASS_6: re.compile(r"rocketpass[_\- ]?6", re.I),
-    constants.ROCKETPASS_7: re.compile(r"rocketpass[_\- ]?7", re.I),
-    constants.ROCKETPASS_8: re.compile(r"rocketpass[_\- ]?8", re.I),
-    constants.ROCKETPASS_9: re.compile(r"rocketpass[_\- ]?9", re.I),
-    constants.ROCKETPASS_10: re.compile(r"rocketpass[_\- ]?10", re.I),
-    constants.ROCKETPASS_11: re.compile(r"rocketpass[_\- ]?11", re.I),
-    constants.ROCKETPASS_12: re.compile(r"rocketpass[_\- ]?12", re.I),
-    constants.ROCKETPASS_13: re.compile(r"rocketpass[_\- ]?13", re.I),
-    constants.ROCKETPASS_14: re.compile(r"rocketpass[_\- ]?14", re.I),
+    constants.ROCKETPASS_1: re.compile(r"rocketpass[_\- ]?[1I]", re.I),
+    constants.ROCKETPASS_2: re.compile(r"rocketpass[_\- ]?(:?2|II)", re.I),
+    constants.ROCKETPASS_3: re.compile(r"rocketpass[_\- ]?(:?3|III)", re.I),
+    constants.ROCKETPASS_4: re.compile(r"rocketpass[_\- ]?(:?4|IV)", re.I),
+    constants.ROCKETPASS_5: re.compile(r"rocketpass[_\- ]?(:?5|V)", re.I),
+    constants.ROCKETPASS_6: re.compile(r"rocketpass[_\- ]?(:?6|VI)", re.I),
+    constants.ROCKETPASS_7: re.compile(r"rocketpass[_\- ]?(:?7|VII)", re.I),
+    constants.ROCKETPASS_8: re.compile(r"rocketpass[_\- ]?(:?8|VIII)", re.I),
+    constants.ROCKETPASS_9: re.compile(r"rocketpass[_\- ]?(:?9|IX)", re.I),
+    constants.ROCKETPASS_10: re.compile(r"rocketpass[_\- ]?(:?10|X)", re.I),
+    constants.ROCKETPASS_11: re.compile(r"rocketpass[_\- ]?(:?11|XI)", re.I),
+    constants.ROCKETPASS_12: re.compile(r"rocketpass[_\- ]?(:?12|XII)", re.I),
+    constants.ROCKETPASS_13: re.compile(r"rocketpass[_\- ]?(:?13|XIII)", re.I),
+    constants.ROCKETPASS_14: re.compile(r"rocketpass[_\- ]?(:?14|XIV)", re.I),
     constants.RLCS_REWARD: re.compile(r"rlcs[_\- ]?reward", re.I),
     constants.SELECT_FAVORITES_ITEM: re.compile(r"select[_\- ]?favorites[_\- ]?item(:?[_\- ]?series)?", re.I),
     constants.SELECT_FAVORITES_2: re.compile(r"select[_\- ]?favorites(:?[_\- ]?series)?[_\- ]?2", re.I),
@@ -120,12 +121,12 @@ SERIE_REGEX_TABLE = {
     constants.SECRET_SANTA: re.compile(r"secret[_\- ]?santa(:?[_\- ]?series)?", re.I),
     constants.SPRING_FEVER: re.compile(r"spring[_\- ]?fever(:?[_\- ]?series)?", re.I),
     constants.TOTALLY_AWESOME: re.compile(r"totally[_\- ]?awesome(:?[_\- ]?series)?", re.I),
-    constants.TRIUMPH: re.compile(r"triumph(:?[_\- ]?series)?", re.I),
-    constants.TURBO: re.compile(r"turbo(:?[_\- ]?series)?", re.I),
-    constants.VELOCITY: re.compile(r"velocity(:?[_\- ]?series)?", re.I),
-    constants.VICTORY: re.compile(r"victory(:?[_\- ]?series)?", re.I),
-    constants.VINDICATOR: re.compile(r"vindicator(:?[_\- ]?series)?", re.I),
-    constants.ZEPHYR: re.compile(r"zephyr(:?[_\- ]?series)?", re.I),
+    constants.TRIUMPH: re.compile(r"triumph(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.TURBO: re.compile(r"turbo(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.VELOCITY: re.compile(r"velocity(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.VICTORY: re.compile(r"victory(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.VINDICATOR: re.compile(r"vindicator(:?[_\- ]?(:?series|crate))?", re.I),
+    constants.ZEPHYR: re.compile(r"zephyr(:?[_\- ]?(:?series|crate))?", re.I),
     constants.WWE_PROMO_CODE: re.compile(r"wwe[_\- ]?promo[_\- ]?code", re.I)}
 SLOT_REGEX_TABLE = {
     constants.ANTENNA: re.compile(r"antennas?", re.I),
@@ -495,7 +496,7 @@ def get_price(price_table: typing.Iterable[DataItemWithPriceTable], item: Identi
 class Propose:
     __slots__ = "account", "_credits", "items"
 
-    def __init__(self, credits_: int, items: typing.Sized[Item], account: Account):
+    def __init__(self, credits_: int, items: typing.Tuple[Item, ...], account: Account):
         self.account = account
         self.credits = credits_
         self.items = items
@@ -509,24 +510,37 @@ class Propose:
         validate_credits(credits_)
         self._credits = credits_
 
+    def get_total_price(self):
+        items_with_price = filter(lambda item: isinstance(item, ItemWithPrice), self.items)
+        min_price = sum(map(lambda item: item.price[0], items_with_price))
+        max_price = sum(map(lambda item: item.price[1], items_with_price))
+        return min_price + self.credits, max_price + self.credits
+
 
 class Trade:
-    __slots__ = "propose_1", "propose_2", "date"
+    __slots__ = "proposes", "date"
 
-    def __init__(self, propose_1: Propose, propose_2: Propose, date: datetime.datetime):
-        self.propose_1 = propose_1
-        self.propose_2 = propose_2
+    def __init__(self, proposes: typing.Tuple[Propose, Propose], date: datetime.datetime):
+        self.proposes = proposes
         self.date = date
 
     def get_kind(self) -> typing.Optional[typing.Literal["item_for_item", "item_for_credit"]]:
-        if len(self.propose_1.items) > 0 and len(self.propose_2.items) > 0:
+        if len(self.proposes[0].items) > 0 and len(self.proposes[1].items) > 0:
             return constants.ITEM_FOR_ITEM
-        elif self.propose_1.credits and not self.propose_2.credits:
+        elif self.proposes[0].credits and not self.proposes[1].credits:
             return constants.ITEM_FOR_CREDIT
-        elif self.propose_2.credits and not self.propose_1.credits:
+        elif self.proposes[1].credits and not self.proposes[0].credits:
             return constants.ITEM_FOR_CREDIT
         else:
             return None
+
+    def get_best_propose(self) -> typing.Literal[0, 1]:
+        average_1 = numpy.mean(self.proposes[0].get_total_price())
+        average_2 = numpy.mean(self.proposes[1].get_total_price())
+        if average_1 > average_2:
+            return 1
+        else:
+            return 0
 
 
 class ItemDatabase:
