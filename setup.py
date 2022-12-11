@@ -21,5 +21,6 @@ setup(
     ],
     package_dir={"": "src"},
     packages=["rocket_league_utils"],
+    install_requires=["Unidecode", "numpy"],
     python_requires=">=3.6"
 )
