@@ -9,7 +9,7 @@ o nosso pacote voce consegue facilmente compará-las:
 
 ```py
 
-from rocket_league_utils.main import color_utils
+from rocket_league_utils import color_utils
 
 color_utils.compare("tw", "white")  # -> True
 ```
@@ -22,7 +22,7 @@ pip install rocket-league-utils
 ```
 ou
 ```
-pip install git+https://github.com/TheVicio/Rocket-League-Utils
+pip install git+https://github.com/gustavopedrosob/rocket_league_utils
 ```
 ## Implementações futuras:
 
