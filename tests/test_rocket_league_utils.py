@@ -425,11 +425,11 @@ def test_compare_name():
 
 @pytest.mark.parametrize("decal_name, car_name", (("Dragon [Dominus]", "Dominus"), ("Dragon (Octane)", "Octane")))
 def test_get_car(decal_name: str, car_name: str):
-    assert rl_utils.Name(decal_name).car == car_name
+    assert rl_utils.identify_name(decal_name).complement == car_name
 
 
 def test_get_kind():
-    assert rl_utils.Name("Bravado: Infinite").kind == "Infinite"
+    assert rl_utils.identify_name("Bravado: Infinite").complement == "Infinite"
 
 
 @pytest.mark.parametrize("platform_1,platform_2",
