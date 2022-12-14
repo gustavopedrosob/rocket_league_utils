@@ -179,24 +179,7 @@ def price_from_text(text: str) -> typing.Tuple[int, int]:
 
 class Name:
     def __init__(self, name: str):
-        kind_search = re.search(r": (\w+)", name, re.I)
-        if kind_search:
-            self.name = name.replace(kind_search.group(0), "")
-            self.kind = kind_search.group(1)
-            self.car = None
-            return
-        car_search = re.search(r" \(([\w\s]+)\)| \[([\w\s]+)]", name, re.I)
-        if car_search:
-            car = car_search.group(1)
-            if car is None:
-                car = car_search.group(2)
-            self.name = name.replace(car_search.group(0), "")
-            self.car = car
-            self.kind = None
-            return
         self.name = name
-        self.car = None
-        self.kind = None
 
     @staticmethod
     def compare_names(name_1: str, name_2: str) -> bool:
@@ -205,17 +188,43 @@ class Name:
         return set(string_1) == set(string_2)
 
     def compare(self, other: Name) -> bool:
-        if self.kind is not None:
-            return self.compare_names(self.name, other.name) and self.compare_names(self.kind, other.kind)
-        elif self.car is not None:
-            return self.compare_names(self.name, other.name) and self.compare_names(self.car, other.car)
-        else:
-            return self.compare_names(self.name, other.name)
+        return self.compare_names(self.name, other.name)
+
+
+class NameWithComplement(Name):
+    def __init__(self, name: str, complement: str):
+        super().__init__(name)
+        self.complement = complement
+
+    def compare(self, other: Name) -> bool:
+        return isinstance(other, self.__class__) and self.compare_names(self.name, other.name) and \
+            self.compare_names(self.complement, self.complement)
+
+
+class DecalName(NameWithComplement):
+    pass
+
+
+class NameWithKind(NameWithComplement):
+    pass
+
+
+def identify_name(name: str) -> typing.Union[Name, DecalName, NameWithKind]:
+    kind_search = re.search(r": (\w+)", name, re.I)
+    if kind_search:
+        return NameWithKind(name.replace(kind_search.group(0), ""), kind_search.group(1))
+    car_search = re.search(r" \(([\w\s]+)\)| \[([\w\s]+)]", name, re.I)
+    if car_search:
+        car = car_search.group(1)
+        if car is None:
+            car = car_search.group(2)
+        return DecalName(name.replace(car_search.group(0), ""), car)
+    return Name(name)
 
 
 def compare_names(name_1: str, name_2: str) -> bool:
-    name_1 = Name(name_1)
-    name_2 = Name(name_2)
+    name_1 = identify_name(name_1)
+    name_2 = identify_name(name_2)
     return name_1.compare(name_2)
 
 
@@ -257,6 +266,9 @@ class RegexBasedModule:
     def match(self, attributes: typing.Iterable[str], attribute: str):
         if not self.has(attributes, attribute):
             raise NoMatch()
+
+    def is_valid(self, attribute: str):
+        return any(pattern.fullmatch(attribute) for pattern in self.regex_table.values())
 
 
 color_utils = RegexBasedModule(COLOR_REGEX_TABLE)
