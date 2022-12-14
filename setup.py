@@ -6,13 +6,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="rocket-league-utils",
     version="0.0.4",
-    author="TheVicio",
+    author="gustavopedrosob",
     author_email="thevicio27@gmail.com",
     description="An easy way to interact with Rocket League data.",
     long_description=long_description,
-    url="https://github.com/TheVicio/Rocket-League-Utils",
+    url="https://github.com/gustavopedrosob/rocket_league_utils",
     project_urls={
-        "Bug Tracker": "https://github.com/TheVicio/Rocket-League-Utils/issues",
+        "Bug Tracker": "https://github.com/gustavopedrosob/rocket_league_utils/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
