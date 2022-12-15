@@ -183,9 +183,11 @@ class Name:
 
     @staticmethod
     def compare_names(name_1: str, name_2: str) -> bool:
-        string_1 = re.sub(r"\W", "", unidecode.unidecode(name_1.lower()))
-        string_2 = re.sub(r"\W", "", unidecode.unidecode(name_2.lower()))
-        return set(string_1) == set(string_2)
+        name_1 = unidecode.unidecode(name_1)
+        name_2 = unidecode.unidecode(name_2)
+        regex = re.sub(r"[_\- ]", r"[_\- ]?", name_1)
+        pattern = re.fullmatch(regex, name_2, re.I)
+        return bool(pattern.group(0))
 
     def compare(self, other: Name) -> bool:
         return self.compare_names(self.name, other.name)
