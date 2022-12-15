@@ -192,7 +192,7 @@ COMPACTED_PLATFORMS = (PC, XBOX, SWITCH, PS4)
 
 HEX_TABLE = {
     CRIMSON: "#ff4d4d",
-    SKY_BLUE: "#69fff",
+    SKY_BLUE: "#63ffff",
     PINK: "#ff8dce",
     ORANGE: "#da9a00",
     COBALT: "#8c9eff",
@@ -204,7 +204,7 @@ HEX_TABLE = {
     FOREST_GREEN: "#329536",
     BLACK: "#000",
     PURPLE: "#e974fd",
-    GOLD: "#F4B900",
+    GOLD: "#f4b900",
 }
 
 RGB_TABLE = {
