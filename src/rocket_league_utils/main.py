@@ -186,8 +186,8 @@ class Name:
         name_1 = unidecode.unidecode(name_1)
         name_2 = unidecode.unidecode(name_2)
         regex = re.sub(r"[_\- ]", r"[_\- ]?", name_1)
-        pattern = re.fullmatch(regex, name_2, re.I)
-        return bool(pattern.group(0))
+        match = re.fullmatch(regex, name_2, re.I)
+        return bool(match)
 
     def compare(self, other: Name) -> bool:
         return self.compare_names(self.name, other.name)
