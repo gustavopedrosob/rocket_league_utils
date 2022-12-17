@@ -9,141 +9,142 @@ import numpy
 import unidecode
 from rocket_league_utils import constants
 
-COLOR_REGEX_TABLE = {
-    constants.BLACK: re.compile(r"black", re.I),
-    constants.BURNT_SIENNA: re.compile(r"burnt[_\- ]?sienna|bs|sienna", re.I),
-    constants.COBALT: re.compile(r"cobalt|blue", re.I),
-    constants.CRIMSON: re.compile(r"crimson|carmesim|red", re.I),
-    constants.DEFAULT: re.compile(r"default|regular|none", re.I),
-    constants.FOREST_GREEN: re.compile(r"forest[_\- ]green|fg|green", re.I),
-    constants.GREY: re.compile(r"grey", re.I),
-    constants.LIME: re.compile(r"lime", re.I),
-    constants.ORANGE: re.compile(r"orange", re.I),
-    constants.PINK: re.compile(r"pink", re.I),
-    constants.PURPLE: re.compile(r"purple", re.I),
-    constants.SAFFRON: re.compile(r"saffron|yellow", re.I),
-    constants.SKY_BLUE: re.compile(r"sky[_\- ]?blue|sb", re.I),
-    constants.TITANIUM_WHITE: re.compile(r"titanium[_\- ]white|white|tw", re.I),
-    constants.GOLD: re.compile(r"gold(:?en)?", re.I)}
-CERTIFIED_REGEX_TABLE = {
-    constants.ACROBAT: re.compile(r"acrobat", re.I),
-    constants.AVIATOR: re.compile(r"aviator", re.I),
-    constants.GOALKEEPER: re.compile(r"goalkeeper", re.I),
-    constants.GUARDIAN: re.compile(r"guardian", re.I),
-    constants.JUGGLER: re.compile(r"juggler", re.I),
-    constants.NONE: re.compile(r"default|regular|none", re.I),
-    constants.PARAGON: re.compile(r"paragon", re.I),
-    constants.PLAYMAKER: re.compile(r"playmaker", re.I),
-    constants.SCORER: re.compile(r"scorer", re.I),
-    constants.SHOW_OFF: re.compile(r"show[_\- ]?off", re.I),
-    constants.SNIPER: re.compile(r"sniper", re.I),
-    constants.STRIKER: re.compile(r"striker", re.I),
-    constants.SWEEPER: re.compile(r"sweeper", re.I),
-    constants.TACTICIAN: re.compile(r"tactician", re.I),
-    constants.TURTLE: re.compile(r"turtle", re.I),
-    constants.VICTOR: re.compile(r"victor", re.I)}
-PLATFORM_REGEX_TABLE = {
-    constants.PC: re.compile(r"pc|computer|epic([_\- ]games)?|steam", re.I),
-    constants.XBOX: re.compile(r"xbox", re.I),
-    constants.PS4: re.compile(r"(:?ps|play(:?station)?)[_\- ]?4?", re.I),
-    constants.SWITCH: re.compile(r"switch", re.I)}
-RARITY_REGEX_TABLE = {
-    constants.BLACK_MARKET: re.compile(r"black[_\- ]?markets?|bms?", re.I),
-    constants.COMMON: re.compile(r"commons?", re.I),
-    constants.EXOTIC: re.compile(r"exotics?", re.I),
-    constants.IMPORT: re.compile(r"imports?", re.I),
-    constants.LEGACY: re.compile(r"legac(y|ies)", re.I),
-    constants.LIMITED: re.compile(r"limiteds?", re.I),
-    constants.PREMIUM: re.compile(r"premiums?", re.I),
-    constants.RARE: re.compile(r"rares?", re.I),
-    constants.UNCOMMON: re.compile(r"uncommons?", re.I),
-    constants.VERY_RARE: re.compile(r"very[_\- ]?rares?|vrs?", re.I)}
-SERIE_REGEX_TABLE = {
-    constants.ACCELERATOR: re.compile(r"accelerator(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.ACCOLADE_1: re.compile(r"accolade[_\- ]?[1I](:?[_\- ]?series)?", re.I),
-    constants.ACCOLADE_2: re.compile(r"accolade[_\- ]?(2|II)(:?[_\- ]?series)?", re.I),
-    constants.AURIGA: re.compile(r"auriga(:?[_\- ]?series)?", re.I),
-    constants.BEACH_BLAST: re.compile(r"beach[_\- ]?blast(:?[_\- ]?series)?", re.I),
-    constants.BONUS_GIFT: re.compile(r"bonus[_\- ]?gift", re.I),
-    constants.CHAMPIONS_1: re.compile(r"champions[_\- ]?1(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.CHAMPIONS_2: re.compile(r"champions[_\- ]?2(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.CHAMPIONS_3: re.compile(r"champions[_\- ]?3(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.CHAMPIONS_4: re.compile(r"champions[_\- ]?4(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.DORADO: re.compile(r"dorado(:?[_\- ]?series)?", re.I),
-    constants.ELEVATION: re.compile(r"elevation(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.FEROCITY: re.compile(r"ferocity(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.FORNAX: re.compile(r"fornax(:?[_\- ]?series)?", re.I),
-    constants.GOLDEN_EGG_2022: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'22|2022)", re.I),
-    constants.GOLDEN_EGG_2020: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'20|2020)", re.I),
-    constants.GOLDEN_EGG_2019: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'19|2019)", re.I),
-    constants.GOLDEN_EGG_2018: re.compile(r"golden[_\- ]?egg[_\- ]?(:?'18|2018)", re.I),
-    constants.GOLDEN_GIFT_2021: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'21|2021)", re.I),
-    constants.GOLDEN_GIFT_2020: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'20|2020)", re.I),
-    constants.GOLDEN_GIFT_2019: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'19|2019)", re.I),
-    constants.GOLDEN_GIFT_2018: re.compile(r"golden[_\- ]?gift[_\- ]?(:?'18|2018)", re.I),
-    constants.GOLDEN_GIFT_BASKET_2022: re.compile(r"golden[_\- ]?gift[_\- ]?basket[_\- ]?(:?'22|2022)", re.I),
-    constants.GOLDEN_LANTERN_2021: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'21|2021)", re.I),
-    constants.GOLDEN_LANTERN_2020: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'20|2020)", re.I),
-    constants.GOLDEN_LANTERN_2019: re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'19|2019)", re.I),
-    constants.GOLDEN_MOON: re.compile(r"golden[_\- ]?moon", re.I),
-    constants.GOLDEN_PUMPKIN_2022: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'22|2022)", re.I),
-    constants.GOLDEN_PUMPKIN_2020: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'20|2020)", re.I),
-    constants.GOLDEN_PUMPKIN_2019: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'19|2019)", re.I),
-    constants.GOLDEN_PUMPKIN_2018: re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'18|2018)", re.I),
-    constants.HAUNTED_HALLOWS: re.compile(r"haunted[_\- ]?hallows(:?[_\- ]?series)?", re.I),
-    constants.IGNITION: re.compile(r"ignition(:?[_\- ]?series)?", re.I),
-    constants.IMPACT: re.compile(r"impact(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.MOMENTUM: re.compile(r"momentum(:?[_\- ]?series)?", re.I),
-    constants.NITRO: re.compile(r"nitro(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.NON_CRATE: re.compile(r"non[_\- ]?crate|post[_\- ]?game", re.I),
-    constants.OVERDRIVE: re.compile(r"overdrive(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.PLAYERS_CHOICE: re.compile(r"player'?s?[_\- ]?choice(:?[_\- ]?series)?", re.I),
-    constants.REVIVAL: re.compile(r"revival([_\- ]?series)?", re.I),
-    constants.ROCKETPASS_1: re.compile(r"rocketpass[_\- ]?[1I]", re.I),
-    constants.ROCKETPASS_2: re.compile(r"rocketpass[_\- ]?(:?2|II)", re.I),
-    constants.ROCKETPASS_3: re.compile(r"rocketpass[_\- ]?(:?3|III)", re.I),
-    constants.ROCKETPASS_4: re.compile(r"rocketpass[_\- ]?(:?4|IV)", re.I),
-    constants.ROCKETPASS_5: re.compile(r"rocketpass[_\- ]?(:?5|V)", re.I),
-    constants.ROCKETPASS_6: re.compile(r"rocketpass[_\- ]?(:?6|VI)", re.I),
-    constants.ROCKETPASS_7: re.compile(r"rocketpass[_\- ]?(:?7|VII)", re.I),
-    constants.ROCKETPASS_8: re.compile(r"rocketpass[_\- ]?(:?8|VIII)", re.I),
-    constants.ROCKETPASS_9: re.compile(r"rocketpass[_\- ]?(:?9|IX)", re.I),
-    constants.ROCKETPASS_10: re.compile(r"rocketpass[_\- ]?(:?10|X)", re.I),
-    constants.ROCKETPASS_11: re.compile(r"rocketpass[_\- ]?(:?11|XI)", re.I),
-    constants.ROCKETPASS_12: re.compile(r"rocketpass[_\- ]?(:?12|XII)", re.I),
-    constants.ROCKETPASS_13: re.compile(r"rocketpass[_\- ]?(:?13|XIII)", re.I),
-    constants.ROCKETPASS_14: re.compile(r"rocketpass[_\- ]?(:?14|XIV)", re.I),
-    constants.RLCS_REWARD: re.compile(r"rlcs[_\- ]?reward", re.I),
-    constants.SELECT_FAVORITES_ITEM: re.compile(r"select[_\- ]?favorites[_\- ]?item(:?[_\- ]?series)?", re.I),
-    constants.SELECT_FAVORITES_2: re.compile(r"select[_\- ]?favorites(:?[_\- ]?series)?[_\- ]?2", re.I),
-    constants.SEASON_1: re.compile(r"season[_\- ]?[1I]", re.I),
-    constants.SEASON_2: re.compile(r"season[_\- ]?(:?2|II)", re.I),
-    constants.SECRET_SANTA: re.compile(r"secret[_\- ]?santa(:?[_\- ]?series)?", re.I),
-    constants.SPRING_FEVER: re.compile(r"spring[_\- ]?fever(:?[_\- ]?series)?", re.I),
-    constants.TOTALLY_AWESOME: re.compile(r"totally[_\- ]?awesome(:?[_\- ]?series)?", re.I),
-    constants.TRIUMPH: re.compile(r"triumph(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.TURBO: re.compile(r"turbo(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.VELOCITY: re.compile(r"velocity(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.VICTORY: re.compile(r"victory(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.VINDICATOR: re.compile(r"vindicator(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.ZEPHYR: re.compile(r"zephyr(:?[_\- ]?(:?series|crate))?", re.I),
-    constants.WWE_PROMO_CODE: re.compile(r"wwe[_\- ]?promo[_\- ]?code", re.I)}
-SLOT_REGEX_TABLE = {
-    constants.ANTENNA: re.compile(r"antennas?", re.I),
-    constants.BORDER: re.compile(r"avatar[_\- ]?borders?", re.I),
-    constants.BANNER: re.compile(r"(player)?[_\- ]?banners?", re.I),
-    constants.BOOST: re.compile(r"(rocket)?[_\- ]?boosts?", re.I),
-    constants.CAR: re.compile(r"cars?|bod(y|ies)", re.I),
-    constants.DECAL: re.compile(r"(animated[_\- ])?decals?", re.I),
-    constants.ENGINE_AUDIO: re.compile(r"engine[_\- ]?audios?", re.I),
-    constants.GIFT_PACK: re.compile(r"gift[_\- ]?packs?", re.I),
-    constants.GOAL_EXPLOSION: re.compile(r"goal[_\- ]?explosions?", re.I),
-    constants.PAINT_FINISH: re.compile(r"paint[_\- ]?finish(es)?", re.I),
-    constants.ANTHEM: re.compile(r"(player[_\- ])?anthems?", re.I),
-    constants.TITLE: re.compile(r"(player[_\- ])?titles?", re.I),
-    constants.TOPPER: re.compile(r"toppers?|hats?", re.I),
-    constants.TRAIL: re.compile(r"trails?", re.I),
-    constants.WHEEL: re.compile(r"wheels?", re.I)}
+COLOR_REGEX_TABLE = (
+    ((constants.BLACK,), re.compile(r"black", re.I)),
+    ((constants.BURNT_SIENNA, constants.SIENNA, constants.BS), re.compile(r"burnt[_\- ]?sienna|bs|sienna", re.I)),
+    ((constants.COBALT, constants.BLUE), re.compile(r"cobalt|blue", re.I)),
+    ((constants.CRIMSON, constants.CARMESIM, constants.RED), re.compile(r"crimson|carmesim|red", re.I)),
+    ((constants.DEFAULT, constants.REGULAR, constants.NONE), re.compile(r"default|regular|none", re.I)),
+    ((constants.FOREST_GREEN, constants.GREEN, constants.FG), re.compile(r"forest[_\- ]green|fg|green", re.I)),
+    ((constants.GREY, ), re.compile(r"grey", re.I)),
+    ((constants.LIME, ), re.compile(r"lime", re.I)),
+    ((constants.ORANGE, ), re.compile(r"orange", re.I)),
+    ((constants.PINK, ), re.compile(r"pink", re.I)),
+    ((constants.PURPLE, ), re.compile(r"purple", re.I)),
+    ((constants.SAFFRON, constants.YELLOW), re.compile(r"saffron|yellow", re.I)),
+    ((constants.SKY_BLUE, constants.SB), re.compile(r"sky[_\- ]?blue|sb", re.I)),
+    ((constants.TITANIUM_WHITE, constants.WHITE, constants.TW), re.compile(r"titanium[_\- ]white|white|tw", re.I)),
+    ((constants.GOLDEN, constants.GOLD), re.compile(r"gold(:?en)?", re.I)))
+CERTIFIED_REGEX_TABLE = (
+    ((constants.ACROBAT, ), re.compile(r"acrobat", re.I)),
+    ((constants.AVIATOR, ), re.compile(r"aviator", re.I)),
+    ((constants.GOALKEEPER, ), re.compile(r"goalkeeper", re.I)),
+    ((constants.GUARDIAN, ), re.compile(r"guardian", re.I)),
+    ((constants.JUGGLER, ), re.compile(r"juggler", re.I)),
+    ((constants.NONE, ), re.compile(r"default|regular|none", re.I)),
+    ((constants.PARAGON, ), re.compile(r"paragon", re.I)),
+    ((constants.PLAYMAKER, ), re.compile(r"playmaker", re.I)),
+    ((constants.SCORER, ), re.compile(r"scorer", re.I)),
+    ((constants.SHOW_OFF, ), re.compile(r"show[_\- ]?off", re.I)),
+    ((constants.SNIPER, ), re.compile(r"sniper", re.I)),
+    ((constants.STRIKER, ), re.compile(r"striker", re.I)),
+    ((constants.SWEEPER, ), re.compile(r"sweeper", re.I)),
+    ((constants.TACTICIAN, ), re.compile(r"tactician", re.I)),
+    ((constants.TURTLE, ), re.compile(r"turtle", re.I)),
+    ((constants.VICTOR, ), re.compile(r"victor", re.I)))
+PLATFORM_REGEX_TABLE = (
+    ((constants.PC, constants.COMPUTER, constants.EPIC, constants.EPIC_GAMES, constants.STEAM),
+        re.compile(r"pc|computer|epic([_\- ]games)?|steam", re.I)),
+    ((constants.XBOX, ), re.compile(r"xbox", re.I)),
+    ((constants.PLAYSTATION_4, constants.PLAY_4, constants.PS4), re.compile(r"(:?ps|play(:?station)?)[_\- ]?4?", re.I)),
+    ((constants.SWITCH, ), re.compile(r"switch", re.I)))
+RARITY_REGEX_TABLE = (
+    ((constants.BLACK_MARKET, constants.BM), re.compile(r"black[_\- ]?markets?|bms?", re.I)),
+    ((constants.COMMON, ), re.compile(r"commons?", re.I)),
+    ((constants.EXOTIC, ), re.compile(r"exotics?", re.I)),
+    ((constants.IMPORT, ), re.compile(r"imports?", re.I)),
+    ((constants.LEGACY, ), re.compile(r"legac(y|ies)", re.I)),
+    ((constants.LIMITED, ), re.compile(r"limiteds?", re.I)),
+    ((constants.PREMIUM, ), re.compile(r"premiums?", re.I)),
+    ((constants.RARE, ), re.compile(r"rares?", re.I)),
+    ((constants.UNCOMMON, ), re.compile(r"uncommons?", re.I)),
+    ((constants.VERY_RARE, constants.VR), re.compile(r"very[_\- ]?rares?|vrs?", re.I)))
+SERIE_REGEX_TABLE = (
+    ((constants.ACCELERATOR, ), re.compile(r"accelerator(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.ACCOLADE_1, ), re.compile(r"accolade[_\- ]?[1I](:?[_\- ]?series)?", re.I)),
+    ((constants.ACCOLADE_2, ), re.compile(r"accolade[_\- ]?(2|II)(:?[_\- ]?series)?", re.I)),
+    ((constants.AURIGA, ), re.compile(r"auriga(:?[_\- ]?series)?", re.I)),
+    ((constants.BEACH_BLAST, ), re.compile(r"beach[_\- ]?blast(:?[_\- ]?series)?", re.I)),
+    ((constants.BONUS_GIFT, ), re.compile(r"bonus[_\- ]?gift", re.I)),
+    ((constants.CHAMPIONS_1, ), re.compile(r"champions[_\- ]?1(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.CHAMPIONS_2, ), re.compile(r"champions[_\- ]?2(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.CHAMPIONS_3, ), re.compile(r"champions[_\- ]?3(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.CHAMPIONS_4, ), re.compile(r"champions[_\- ]?4(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.DORADO, ), re.compile(r"dorado(:?[_\- ]?series)?", re.I)),
+    ((constants.ELEVATION, ), re.compile(r"elevation(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.FEROCITY, ), re.compile(r"ferocity(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.FORNAX, ), re.compile(r"fornax(:?[_\- ]?series)?", re.I)),
+    ((constants.GOLDEN_EGG_2022, ), re.compile(r"golden[_\- ]?egg[_\- ]?(:?'22|2022)", re.I)),
+    ((constants.GOLDEN_EGG_2020, ), re.compile(r"golden[_\- ]?egg[_\- ]?(:?'20|2020)", re.I)),
+    ((constants.GOLDEN_EGG_2019, ), re.compile(r"golden[_\- ]?egg[_\- ]?(:?'19|2019)", re.I)),
+    ((constants.GOLDEN_EGG_2018, ), re.compile(r"golden[_\- ]?egg[_\- ]?(:?'18|2018)", re.I)),
+    ((constants.GOLDEN_GIFT_2021, ), re.compile(r"golden[_\- ]?gift[_\- ]?(:?'21|2021)", re.I)),
+    ((constants.GOLDEN_GIFT_2020, ), re.compile(r"golden[_\- ]?gift[_\- ]?(:?'20|2020)", re.I)),
+    ((constants.GOLDEN_GIFT_2019, ), re.compile(r"golden[_\- ]?gift[_\- ]?(:?'19|2019)", re.I)),
+    ((constants.GOLDEN_GIFT_2018, ), re.compile(r"golden[_\- ]?gift[_\- ]?(:?'18|2018)", re.I)),
+    ((constants.GOLDEN_GIFT_BASKET_2022, ), re.compile(r"golden[_\- ]?gift[_\- ]?basket[_\- ]?(:?'22|2022)", re.I)),
+    ((constants.GOLDEN_LANTERN_2021, ), re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'21|2021)", re.I)),
+    ((constants.GOLDEN_LANTERN_2020, ), re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'20|2020)", re.I)),
+    ((constants.GOLDEN_LANTERN_2019, ), re.compile(r"golden[_\- ]?lantern[_\- ]?(:?'19|2019)", re.I)),
+    ((constants.GOLDEN_MOON, ), re.compile(r"golden[_\- ]?moon", re.I)),
+    ((constants.GOLDEN_PUMPKIN_2022, ), re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'22|2022)", re.I)),
+    ((constants.GOLDEN_PUMPKIN_2020, ), re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'20|2020)", re.I)),
+    ((constants.GOLDEN_PUMPKIN_2019, ), re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'19|2019)", re.I)),
+    ((constants.GOLDEN_PUMPKIN_2018, ), re.compile(r"golden[_\- ]?pumpkin[_\- ]?(:?'18|2018)", re.I)),
+    ((constants.HAUNTED_HALLOWS, ), re.compile(r"haunted[_\- ]?hallows(:?[_\- ]?series)?", re.I)),
+    ((constants.IGNITION, ), re.compile(r"ignition(:?[_\- ]?series)?", re.I)),
+    ((constants.IMPACT, ), re.compile(r"impact(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.MOMENTUM, ), re.compile(r"momentum(:?[_\- ]?series)?", re.I)),
+    ((constants.NITRO, ), re.compile(r"nitro(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.NON_CRATE, ), re.compile(r"non[_\- ]?crate|post[_\- ]?game", re.I)),
+    ((constants.OVERDRIVE, ), re.compile(r"overdrive(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.PLAYERS_CHOICE, ), re.compile(r"player'?s?[_\- ]?choice(:?[_\- ]?series)?", re.I)),
+    ((constants.REVIVAL, ), re.compile(r"revival([_\- ]?series)?", re.I)),
+    ((constants.ROCKETPASS_1, ), re.compile(r"rocketpass[_\- ]?[1I]", re.I)),
+    ((constants.ROCKETPASS_2, ), re.compile(r"rocketpass[_\- ]?(:?2|II)", re.I)),
+    ((constants.ROCKETPASS_3, ), re.compile(r"rocketpass[_\- ]?(:?3|III)", re.I)),
+    ((constants.ROCKETPASS_4, ), re.compile(r"rocketpass[_\- ]?(:?4|IV)", re.I)),
+    ((constants.ROCKETPASS_5, ), re.compile(r"rocketpass[_\- ]?(:?5|V)", re.I)),
+    ((constants.ROCKETPASS_6, ), re.compile(r"rocketpass[_\- ]?(:?6|VI)", re.I)),
+    ((constants.ROCKETPASS_7, ), re.compile(r"rocketpass[_\- ]?(:?7|VII)", re.I)),
+    ((constants.ROCKETPASS_8, ), re.compile(r"rocketpass[_\- ]?(:?8|VIII)", re.I)),
+    ((constants.ROCKETPASS_9, ), re.compile(r"rocketpass[_\- ]?(:?9|IX)", re.I)),
+    ((constants.ROCKETPASS_10, ), re.compile(r"rocketpass[_\- ]?(:?10|X)", re.I)),
+    ((constants.ROCKETPASS_11, ), re.compile(r"rocketpass[_\- ]?(:?11|XI)", re.I)),
+    ((constants.ROCKETPASS_12, ), re.compile(r"rocketpass[_\- ]?(:?12|XII)", re.I)),
+    ((constants.ROCKETPASS_13, ), re.compile(r"rocketpass[_\- ]?(:?13|XIII)", re.I)),
+    ((constants.ROCKETPASS_14, ), re.compile(r"rocketpass[_\- ]?(:?14|XIV)", re.I)),
+    ((constants.RLCS_REWARD, ), re.compile(r"rlcs[_\- ]?reward", re.I)),
+    ((constants.SELECT_FAVORITES_ITEM, ), re.compile(r"select[_\- ]?favorites[_\- ]?item(:?[_\- ]?series)?", re.I)),
+    ((constants.SELECT_FAVORITES_2, ), re.compile(r"select[_\- ]?favorites(:?[_\- ]?series)?[_\- ]?2", re.I)),
+    ((constants.SEASON_1, ), re.compile(r"season[_\- ]?[1I]", re.I)),
+    ((constants.SEASON_2, ), re.compile(r"season[_\- ]?(:?2|II)", re.I)),
+    ((constants.SECRET_SANTA, ), re.compile(r"secret[_\- ]?santa(:?[_\- ]?series)?", re.I)),
+    ((constants.SPRING_FEVER, ), re.compile(r"spring[_\- ]?fever(:?[_\- ]?series)?", re.I)),
+    ((constants.TOTALLY_AWESOME, ), re.compile(r"totally[_\- ]?awesome(:?[_\- ]?series)?", re.I)),
+    ((constants.TRIUMPH, ), re.compile(r"triumph(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.TURBO, ), re.compile(r"turbo(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.VELOCITY, ), re.compile(r"velocity(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.VICTORY, ), re.compile(r"victory(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.VINDICATOR, ), re.compile(r"vindicator(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.ZEPHYR, ), re.compile(r"zephyr(:?[_\- ]?(:?series|crate))?", re.I)),
+    ((constants.WWE_PROMO_CODE, ), re.compile(r"wwe[_\- ]?promo[_\- ]?code", re.I)))
+SLOT_REGEX_TABLE = (
+    ((constants.ANTENNA, ), re.compile(r"antennas?", re.I)),
+    ((constants.AVATAR_BORDER, constants.BORDER), re.compile(r"(:?avatar[_\- ])?borders?", re.I)),
+    ((constants.PLAYER_BANNER, constants.BANNER), re.compile(r"(:?player[_\- ])?banners?", re.I)),
+    ((constants.ROCKET_BOOST, constants.BOOST), re.compile(r"(:?rocket[_\- ])?boosts?", re.I)),
+    ((constants.BODY, constants.CAR), re.compile(r"cars?|bod(y|ies)", re.I)),
+    ((constants.ANIMATED_DECAL, constants.DECAL), re.compile(r"(:?animated[_\- ])?decals?", re.I)),
+    ((constants.ENGINE_AUDIO, constants.AUDIO), re.compile(r"(:?engine[_\- ])?audios?", re.I)),
+    ((constants.GIFT_PACK, ), re.compile(r"gift[_\- ]?packs?", re.I)),
+    ((constants.GOAL_EXPLOSION, constants.EXPLOSION), re.compile(r"(:?goal[_\- ])?explosions?", re.I)),
+    ((constants.PAINT_FINISH, ), re.compile(r"paint[_\- ]?finish(es)?", re.I)),
+    ((constants.PLAYER_ANTHEM, constants.ANTHEM, ), re.compile(r"(:?player[_\- ])?anthems?", re.I)),
+    ((constants.PLAYER_TITLE, constants.TITLE, ), re.compile(r"(:?player[_\- ])?titles?", re.I)),
+    ((constants.TOPPER, constants.HAT), re.compile(r"toppers?|hats?", re.I)),
+    ((constants.TRAIL, ), re.compile(r"trails?", re.I)),
+    ((constants.WHEEL, ), re.compile(r"wheels?", re.I)))
 
 
 class RocketLeagueException(Exception):
@@ -231,28 +232,29 @@ def compare_names(name_1: str, name_2: str) -> bool:
 
 
 class RegexBasedModule:
-    def __init__(self, regex_table: typing.Dict[str, typing.Pattern]):
+    def __init__(self, regex_table):
         self.regex_table = regex_table
 
     @functools.lru_cache
     def compare(self, attribute_1: str, attribute_2: str) -> bool:
-        for pattern in self.regex_table.values():
-            if pattern.fullmatch(attribute_1) and pattern.fullmatch(attribute_2):
-                return True
-        return False
+        attribute_1 = self.get_repr(attribute_1, -1)
+        return attribute_1 is not None and attribute_1 == self.get_repr(attribute_2, -1)
 
     @functools.lru_cache
-    def get_repr(self, attribute: str) -> typing.Optional[str]:
-        for attribute_, pattern in self.regex_table.items():
-            if pattern.fullmatch(attribute_) and pattern.fullmatch(attribute):
-                return attribute_
+    def get_repr(self, attribute: str, index: int = 0) -> typing.Optional[str]:
+        for alias, pattern in self.regex_table:
+            if pattern.fullmatch(attribute):
+                return alias[index]
 
     @functools.lru_cache
     def is_exactly(self, key: str, attribute: str) -> bool:
-        return bool(self.regex_table[key].fullmatch(attribute))
+        for alias, pattern in self.regex_table:
+            if key in alias:
+                return bool(pattern.fullmatch(attribute))
+        return False
 
     def from_text(self, text: str) -> typing.Optional[str]:
-        for pattern in self.regex_table.values():
+        for _, pattern in self.regex_table:
             search = pattern.search(text)
             if search:
                 return search.group(0)
@@ -260,7 +262,7 @@ class RegexBasedModule:
     def has(self, attributes: typing.Iterable[str], attribute: str) -> bool:
         return any(self.compare(attribute, attribute_) for attribute_ in attributes)
 
-    def get_respective_from_iterable(self, attributes: typing.Iterable[str], attribute: str) -> typing.Optional[str]:
+    def get_repr_from_iterable(self, attributes: typing.Iterable[str], attribute: str) -> typing.Optional[str]:
         for attribute_ in attributes:
             if self.compare(attribute, attribute_):
                 return attribute_
@@ -270,7 +272,7 @@ class RegexBasedModule:
             raise NoMatch()
 
     def is_valid(self, attribute: str):
-        return any(pattern.fullmatch(attribute) for pattern in self.regex_table.values())
+        return bool(self.get_repr(attribute))
 
 
 color_utils = RegexBasedModule(COLOR_REGEX_TABLE)
@@ -320,11 +322,11 @@ class PriceTable:
 
     @staticmethod
     def get_compact_platform(platform: str) -> typing.Optional[str]:
-        return platform_utils.get_respective_from_iterable(constants.COMPACTED_PLATFORMS, platform)
+        return platform_utils.get_repr_from_iterable(constants.COMPACTED_PLATFORMS, platform)
 
     @staticmethod
     def get_compact_color(color: str) -> typing.Optional[str]:
-        return color_utils.get_respective_from_iterable(constants.COMPACTED_COLORS, color)
+        return color_utils.get_repr_from_iterable(constants.COMPACTED_COLORS, color)
 
 
 class ItemWithPriceTable(IdentityItem, PriceTable):
@@ -377,7 +379,6 @@ class DataItemWithPriceTable(DataItem, PriceTable):
     def to_item_with_price(self, quantity: int, blueprint: bool, platform: str, serie: str, trade_lock: bool,
                            acquired: datetime.datetime, favorite: bool = False, archived: bool = False,
                            color: str = constants.DEFAULT, certified: str = constants.NONE) -> ItemWithPrice:
-
         prices = self.get_prices(platform, color)
         item_with_price = ItemWithPrice(self.name, self.slot, self.rarity, quantity, blueprint, platform, prices[0],
                                         prices[1], serie, trade_lock, acquired, favorite, archived, color, certified)
