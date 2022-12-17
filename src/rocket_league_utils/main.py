@@ -163,6 +163,10 @@ class InvalidQuantity(RocketLeagueException):
     pass
 
 
+class ItemNotFound(RocketLeagueException):
+    pass
+
+
 def validate_credits(credits_: int):
     if credits_ % 10 or credits_ < 0:
         raise InvalidCredits()
@@ -351,18 +355,24 @@ class DataItem(IdentityItem):
         self.colors = colors
         super().__init__(name, rarity, slot)
 
-    def match(self, item: Item):
-        if self.colors is not None:
+    def match(self, item: typing.Union[ReprItem, BaseItem]):
+        if isinstance(item, BaseItem):
+            if self.platforms is not None:
+                platform_utils.match(self.platforms, item.platform)
+            if self.series is not None:
+                serie_utils.match(self.series, item.serie)
+            if self.certificates is not None:
+                certified_utils.match(self.certificates, item.certified)
+        if isinstance(item, ReprItem) and self.colors is not None:
             color_utils.match(self.colors, item.color)
-        if self.platforms is not None:
-            platform_utils.match(self.platforms, item.platform)
-        if self.series is not None:
-            serie_utils.match(self.series, item.serie)
-        if self.certificates is not None:
-            certified_utils.match(self.certificates, item.certified)
 
-    def to_item(self, *args, **kwargs) -> Item:
-        return Item(self.name, self.slot, self.rarity, *args, **kwargs)
+    def can_match(self, item: typing.Union[ReprItem, BaseItem]) -> bool:
+        try:
+            self.match(item)
+        except NoMatch:
+            return False
+        else:
+            return True
 
 
 class DataItemWithPriceTable(DataItem, PriceTable):
