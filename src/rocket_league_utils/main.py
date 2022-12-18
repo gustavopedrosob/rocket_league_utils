@@ -234,12 +234,14 @@ def identify_name(name: str) -> typing.Union[Name, DecalName, NameWithKind]:
     return Name(name)
 
 
+@functools.lru_cache
 def compare_names(name_1: str, name_2: str) -> bool:
     name_1 = identify_name(name_1)
     name_2 = identify_name(name_2)
     return name_1.compare(name_2)
 
 
+@functools.lru_cache
 def contains_name(shorter_name: str, longer_name: str) -> bool:
     return Name.compare_names_with_regex(shorter_name, longer_name, re.match)
 
