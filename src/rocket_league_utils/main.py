@@ -187,12 +187,20 @@ class Name:
         self.name = name
 
     @staticmethod
-    def compare_names(name_1: str, name_2: str) -> bool:
+    def compare_names_with_regex(name_1: str, name_2: str,
+                                 method: typing.Callable[[str, str, re.RegexFlag], re.Match]) -> bool:
         name_1 = unidecode.unidecode(name_1)
         name_2 = unidecode.unidecode(name_2)
         regex = re.sub(r"[_\- ]", r"[_\- ]?", name_1)
-        match = re.fullmatch(regex, name_2, re.I)
-        return bool(match)
+        return bool(method(regex, name_2, re.I))
+
+    @staticmethod
+    def compare_names(name_1: str, name_2: str) -> bool:
+        return Name.compare_names_with_regex(name_1, name_2, re.fullmatch)
+
+    @staticmethod
+    def contains_name(name_1: str, name_2: str) -> bool:
+        return Name.compare_names_with_regex(name_1, name_2, re.match)
 
     def compare(self, other: Name) -> bool:
         return self.compare_names(self.name, other.name)
