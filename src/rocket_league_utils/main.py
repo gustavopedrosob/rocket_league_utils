@@ -198,10 +198,6 @@ class Name:
     def compare_names(name_1: str, name_2: str) -> bool:
         return Name.compare_names_with_regex(name_1, name_2, re.fullmatch)
 
-    @staticmethod
-    def contains_name(name_1: str, name_2: str) -> bool:
-        return Name.compare_names_with_regex(name_1, name_2, re.match)
-
     def compare(self, other: Name) -> bool:
         return self.compare_names(self.name, other.name)
 
@@ -241,6 +237,10 @@ def compare_names(name_1: str, name_2: str) -> bool:
     name_1 = identify_name(name_1)
     name_2 = identify_name(name_2)
     return name_1.compare(name_2)
+
+
+def contains_name(shorter_name: str, longer_name: str) -> bool:
+    return Name.compare_names_with_regex(shorter_name, longer_name, re.match)
 
 
 class RegexBasedModule:
