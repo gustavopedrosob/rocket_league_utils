@@ -221,15 +221,16 @@ class NameWithKind(NameWithComplement):
 
 
 def identify_name(name: str) -> typing.Union[Name, DecalName, NameWithKind]:
-    kind_search = re.search(r": (\w+)", name, re.I)
-    if kind_search:
-        return NameWithKind(name.replace(kind_search.group(0), ""), kind_search.group(1))
-    car_search = re.search(r" \(([\w\s]+)\)| \[([\w\s]+)]", name, re.I)
-    if car_search:
-        car = car_search.group(1)
-        if car is None:
-            car = car_search.group(2)
-        return DecalName(name.replace(car_search.group(0), ""), car)
+    double_dots_in_name = ":" in name
+    if double_dots_in_name:
+        kind_search = re.search(f": ({'|'.join(constants.KINDS)})", name, re.I)
+        if kind_search:
+            return NameWithKind(name.replace(kind_search.group(0), ""), kind_search.group(1))
+    if double_dots_in_name or "[" in name or "(" in name:
+        car_search = re.search(r" \(([\w\s]+)\)| \[([\w\s]+)]|([\w\s]+): ", name, re.I)
+        if car_search:
+            car_name = [car_name for car_name in car_search.groups() if car_name is not None][0]
+            return DecalName(name.replace(car_search.group(0), ""), car_name)
     return Name(name)
 
 
